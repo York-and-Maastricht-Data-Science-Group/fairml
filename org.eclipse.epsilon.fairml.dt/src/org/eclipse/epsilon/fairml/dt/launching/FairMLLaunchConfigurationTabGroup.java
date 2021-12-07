@@ -11,20 +11,20 @@ package org.eclipse.epsilon.fairml.dt.launching;
 
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.eclipse.epsilon.common.dt.launching.tabs.EpsilonLaunchConfigurationTabGroup;
-import org.eclipse.epsilon.fairml.dt.launching.tabs.PinsetAdvancedConfigurationTab;
-import org.eclipse.epsilon.fairml.dt.launching.tabs.PinsetSourceConfigurationTab;
+import org.eclipse.epsilon.fairml.dt.launching.tabs.FairMLAdvancedConfigurationTab;
+import org.eclipse.epsilon.fairml.dt.launching.tabs.FairMLSourceConfigurationTab;
 
 /**
- * PinsetLaunchConfigurationTabGroup.
+ * FairMLLaunchConfigurationTabGroup.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetLaunchConfigurationTabGroup extends EpsilonLaunchConfigurationTabGroup {
+public class FairMLLaunchConfigurationTabGroup extends EpsilonLaunchConfigurationTabGroup {
 
 	@Override
 	public ILaunchConfigurationTab getSourceConfigurationTab() {
-		return new PinsetSourceConfigurationTab();
+		return new FairMLSourceConfigurationTab();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PinsetLaunchConfigurationTabGroup extends EpsilonLaunchConfiguratio
 
 	@Override
 	public ILaunchConfigurationTab getAdvancedConfigurationTab() {
-		return new PinsetAdvancedConfigurationTab();
+		return new FairMLAdvancedConfigurationTab();
 	}
 
 }

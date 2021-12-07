@@ -34,12 +34,12 @@ import org.eclipse.epsilon.fairml.parse.PinsetLexer;
 import org.eclipse.epsilon.fairml.parse.PinsetParser;
 
 /**
- * PinsetModule.
+ * FairMLModule.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetModule extends ErlModule {
+public class FairMLModule extends ErlModule {
 
 	public static final String SILENT_ANNOTATION = "silent";
 	public static final String NORMALIZE_ANNOTATION = "normalize";
@@ -102,7 +102,7 @@ public class PinsetModule extends ErlModule {
 	@Override
 	public HashMap<String, Class<?>> getImportConfiguration() {
 		HashMap<String, Class<?>> importConfiguration = super.getImportConfiguration();
-		importConfiguration.put("pinset", PinsetModule.class);
+		importConfiguration.put("pinset", FairMLModule.class);
 		return importConfiguration;
 	}
 

@@ -16,19 +16,19 @@ import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentProvider;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleElementLabelProvider;
 import org.eclipse.epsilon.common.module.IModule;
 import org.eclipse.epsilon.eol.dt.editor.EolEditor;
-import org.eclipse.epsilon.fairml.PinsetModule;
-import org.eclipse.epsilon.fairml.dt.editor.outline.PinsetModuleContentProvider;
-import org.eclipse.epsilon.fairml.dt.editor.outline.PinsetModuleElementLabelProvider;
+import org.eclipse.epsilon.fairml.FairMLModule;
+import org.eclipse.epsilon.fairml.dt.editor.outline.FairMLModuleContentProvider;
+import org.eclipse.epsilon.fairml.dt.editor.outline.FairMLModuleElementLabelProvider;
 
 /**
- * PinsetEditor.
+ * FairMLEditor.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetEditor extends EolEditor {
+public class FairMLEditor extends EolEditor {
 
-	public PinsetEditor() {
+	public FairMLEditor() {
 	}
 
 	@Override
@@ -54,17 +54,17 @@ public class PinsetEditor extends EolEditor {
 
 	@Override
 	public ModuleElementLabelProvider createModuleElementLabelProvider() {
-		return new PinsetModuleElementLabelProvider();
+		return new FairMLModuleElementLabelProvider();
 	}
 
 	@Override
 	protected ModuleContentProvider createModuleContentProvider() {
-		return new PinsetModuleContentProvider();
+		return new FairMLModuleContentProvider();
 	}
 
 	@Override
 	public IModule createModule() {
-		return new PinsetModule();
+		return new FairMLModule();
 	}
 
 }

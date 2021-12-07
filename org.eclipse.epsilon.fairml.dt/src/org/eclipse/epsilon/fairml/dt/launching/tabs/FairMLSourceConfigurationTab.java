@@ -14,7 +14,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.epsilon.common.dt.EpsilonPlugin;
 import org.eclipse.epsilon.common.dt.launching.tabs.AbstractSourceConfigurationTab;
-import org.eclipse.epsilon.fairml.dt.PinsetPlugin;
+import org.eclipse.epsilon.fairml.dt.FairMLPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -26,12 +26,12 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * PinsetSourceConfigurationTab.
+ * FairMLSourceConfigurationTab.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetSourceConfigurationTab extends AbstractSourceConfigurationTab implements SelectionListener {
+public class FairMLSourceConfigurationTab extends AbstractSourceConfigurationTab implements SelectionListener {
 
 	public static final String OUTPUT_FOLDER = "outputFolder";
 
@@ -47,7 +47,7 @@ public class PinsetSourceConfigurationTab extends AbstractSourceConfigurationTab
 
 	@Override
 	public EpsilonPlugin getPlugin() {
-		return PinsetPlugin.getDefault();
+		return FairMLPlugin.getDefault();
 	}
 
 	@Override

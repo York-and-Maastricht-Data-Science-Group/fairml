@@ -7,31 +7,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  *********************************************************************/
-package org.eclipse.epsilon.fairml.dt.wizards;
+package org.eclipse.epsilon.fairml.dt;
 
-import org.eclipse.epsilon.common.dt.wizards.AbstractNewFileWizard2;
+import org.eclipse.epsilon.common.dt.AbstractEpsilonUIPlugin;
 
 /**
- * NewPinsetFileWizard.
+ * FairMLPlugin.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class NewPinsetFileWizard extends AbstractNewFileWizard2 {
+public class FairMLPlugin extends AbstractEpsilonUIPlugin {
 
-	@Override
-	public String getTitle() {
-		return "New Pinset file";
-	}
-
-	@Override
-	public String getExtension() {
-		return "pinset";
-	}
-
-	@Override
-	public String getDescription() {
-		return "This wizard creates a new Pinset file with *.pinset extension.";
+	public static FairMLPlugin getDefault() {
+		return (FairMLPlugin) plugins.get(FairMLPlugin.class);
 	}
 
 }

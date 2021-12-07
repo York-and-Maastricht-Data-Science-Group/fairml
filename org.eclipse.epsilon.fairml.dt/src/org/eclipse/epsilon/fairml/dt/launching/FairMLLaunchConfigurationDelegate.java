@@ -9,7 +9,7 @@
  *********************************************************************/
 package org.eclipse.epsilon.fairml.dt.launching;
 
-import static org.eclipse.epsilon.fairml.dt.launching.tabs.PinsetSourceConfigurationTab.*;
+import static org.eclipse.epsilon.fairml.dt.launching.tabs.FairMLSourceConfigurationTab.*;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -18,20 +18,20 @@ import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.eol.IEolModule;
 import org.eclipse.epsilon.eol.dt.debug.EolDebugger;
 import org.eclipse.epsilon.eol.dt.launching.EpsilonLaunchConfigurationDelegate;
-import org.eclipse.epsilon.fairml.PinsetModule;
+import org.eclipse.epsilon.fairml.FairMLModule;
 
 
 /**
- * PinsetLaunchConfigurationDelegate.
+ * FairMLLaunchConfigurationDelegate.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetLaunchConfigurationDelegate extends EpsilonLaunchConfigurationDelegate {
+public class FairMLLaunchConfigurationDelegate extends EpsilonLaunchConfigurationDelegate {
 
 	@Override
 	public IEolModule createModule() {
-		PinsetModule module = new PinsetModule();
+		FairMLModule module = new FairMLModule();
 		if (configuration != null) {
 			try {
 				if (configuration.getAttribute(GENERATE_TO, GENERATE_TO_DEFAULT_FOLDER) == GENERATE_TO_CUSTOM_FOLDER) {
@@ -48,7 +48,7 @@ public class PinsetLaunchConfigurationDelegate extends EpsilonLaunchConfiguratio
 
 	@Override
 	protected EolDebugger createDebugger() {
-		return new PinsetDebugger();
+		return new FairMLDebugger();
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class PinsetLaunchConfigurationDelegate extends EpsilonLaunchConfiguratio
 	}
 
 	@Override
-	public PinsetModule getDefaultModule(ILaunchConfiguration configuration) {
+	public FairMLModule getDefaultModule(ILaunchConfiguration configuration) {
 		try {
 			return ModuleImplementationExtension.defaultImplementation(getLanguage()).createModule();
 		}

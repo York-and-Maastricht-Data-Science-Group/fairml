@@ -20,7 +20,7 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.context.FrameStack;
 import org.eclipse.epsilon.eol.execute.context.FrameType;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
-import org.eclipse.epsilon.fairml.PinsetModule;
+import org.eclipse.epsilon.fairml.FairMLModule;
 import org.eclipse.epsilon.fairml.ReturnValueParser;
 
 /**
@@ -53,7 +53,7 @@ public class Column extends AnnotatableModuleElement implements ColumnGenerator 
 		super.build(cst, module);
 		name = cst.getFirstChild().getText();
 		block = (IExecutableModuleElement) module.createAst(cst.getSecondChild(), this);
-		isSilent = this.hasAnnotation(PinsetModule.SILENT_ANNOTATION);
+		isSilent = this.hasAnnotation(FairMLModule.SILENT_ANNOTATION);
 	}
 
 	@Override

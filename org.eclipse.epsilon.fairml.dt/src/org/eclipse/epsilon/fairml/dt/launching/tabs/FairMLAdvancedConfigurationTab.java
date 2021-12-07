@@ -13,15 +13,15 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.epsilon.common.dt.EpsilonPlugin;
 import org.eclipse.epsilon.common.dt.launching.tabs.AbstractAdvancedConfigurationTab;
-import org.eclipse.epsilon.fairml.dt.PinsetPlugin;
+import org.eclipse.epsilon.fairml.dt.FairMLPlugin;
 
 /**
- * PinsetAdvancedConfigurationTab.
+ * FairMLAdvancedConfigurationTab.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetAdvancedConfigurationTab extends AbstractAdvancedConfigurationTab {
+public class FairMLAdvancedConfigurationTab extends AbstractAdvancedConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
@@ -29,7 +29,7 @@ public class PinsetAdvancedConfigurationTab extends AbstractAdvancedConfiguratio
 
 	@Override
 	public EpsilonPlugin getPlugin() {
-		return PinsetPlugin.getDefault();
+		return FairMLPlugin.getDefault();
 	}
 
 	@Override

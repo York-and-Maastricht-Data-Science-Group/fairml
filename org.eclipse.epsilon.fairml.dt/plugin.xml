@@ -4,18 +4,18 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.eclipse.epsilon.fairml.dt.editor.PinsetEditor"
+            class="org.eclipse.epsilon.fairml.dt.editor.FairMLEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="true"
             extensions="pinset"
             icon="icons/edl.png"
-            id="org.eclipse.epsilon.fairml.dt.editor.PinsetEditor"
+            id="org.eclipse.epsilon.fairml.dt.editor.FairMLEditor"
             name="Pinset Language Editor"/>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
-            configTypeID="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationDelegate"
+            configTypeID="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
             icon="icons/edl.png"
             id="Pinset File"/>
    </extension>
@@ -23,34 +23,34 @@
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationDelegate"
-            id="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationDelegate"
+            delegate="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
+            id="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
             modes="run, debug"
             name="Pinset File"/>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationTabGroup"
+            class="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationTabGroup"
             description="Create a configuration to launch a Pinset File"
-            id="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationTabGroup"
-            type="org.eclipse.epsilon.fairml.dt.launching.PinsetLaunchConfigurationDelegate"/>
+            id="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationTabGroup"
+            type="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"/>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <wizard
             category="org.eclipse.epsilon.dt"
-            class="org.eclipse.epsilon.fairml.dt.wizards.NewPinsetFileWizard"
+            class="org.eclipse.epsilon.fairml.dt.wizards.NewFairMLFileWizard"
             icon="icons/edl.png"
-            id="org.eclipse.epsilon.fairml.dt.wizards.NewPinsetFileWizard"
+            id="org.eclipse.epsilon.fairml.dt.wizards.NewFairMLFileWizard"
             name="Pinset File"/>
    </extension>
    <extension
          point="org.eclipse.epsilon.common.dt.moduleImplementation">
       <implementation
-            class="org.eclipse.epsilon.fairml.PinsetModule"
+            class="org.eclipse.epsilon.fairml.FairMLModule"
             default="false"
-            dialog="org.eclipse.epsilon.fairml.dt.launching.PinsetModuleConfiguration"
+            dialog="org.eclipse.epsilon.fairml.dt.launching.FairMLModuleConfiguration"
             language="Pinset"
             name="Pinset">
       </implementation>

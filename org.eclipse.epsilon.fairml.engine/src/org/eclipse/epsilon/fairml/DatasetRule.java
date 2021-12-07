@@ -63,8 +63,8 @@ public class DatasetRule extends AnnotatableModuleElement {
 		if (fromAST != null) {
 			fromBlock = (IExecutableModuleElement) module.createAst(fromAST.getFirstChild(), this);
 		}
-		boolean isSilent = ((PinsetModule) module).isSilent() ||
-				this.hasAnnotation(PinsetModule.SILENT_ANNOTATION);
+		boolean isSilent = ((FairMLModule) module).isSilent() ||
+				this.hasAnnotation(FairMLModule.SILENT_ANNOTATION);
 		// loop over children looking for column generators
 		for (AST child : cst.getChildren()) {
 			if (isColumnGenerator(child)) {
@@ -159,9 +159,9 @@ public class DatasetRule extends AnnotatableModuleElement {
 			if (colGen instanceof Column || colGen instanceof Grid) {
 				AnnotatableModuleElement colGenElement =
 						((AnnotatableModuleElement) colGen);
-				if (colGenElement.hasAnnotation(PinsetModule.NORMALIZE_ANNOTATION)) {
+				if (colGenElement.hasAnnotation(FairMLModule.NORMALIZE_ANNOTATION)) {
 					Object value = colGenElement
-							.getAnnotationsValues(PinsetModule.NORMALIZE_ANNOTATION,
+							.getAnnotationsValues(FairMLModule.NORMALIZE_ANNOTATION,
 									context)
 							.get(0);
 					if (value instanceof String) {
@@ -179,16 +179,16 @@ public class DatasetRule extends AnnotatableModuleElement {
 								(Number) value);
 					}
 				}
-				if (colGenElement.hasAnnotation(PinsetModule.FILL_NULLS_ANNOTATION)) {
+				if (colGenElement.hasAnnotation(FairMLModule.FILL_NULLS_ANNOTATION)) {
 					String value = (String) colGenElement
-							.getAnnotationsValues(PinsetModule.FILL_NULLS_ANNOTATION,
+							.getAnnotationsValues(FairMLModule.FILL_NULLS_ANNOTATION,
 									context)
 							.get(0);
 					PostProcessing.FillType fType = PostProcessing.FillType.VALUE;
-					if (value != null && value.equals(PinsetModule.FILL_NULLS_MODE)) {
+					if (value != null && value.equals(FairMLModule.FILL_NULLS_MODE)) {
 						fType = PostProcessing.FillType.MODE;
 					}
-					else if (value != null && value.equals(PinsetModule.FILL_NULLS_MEAN)) {
+					else if (value != null && value.equals(FairMLModule.FILL_NULLS_MEAN)) {
 						fType = PostProcessing.FillType.MEAN;
 					}
 					for (String colName : colGen.getNames()) {

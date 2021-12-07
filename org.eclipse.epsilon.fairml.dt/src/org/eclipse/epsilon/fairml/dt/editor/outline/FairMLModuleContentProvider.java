@@ -15,15 +15,15 @@ import java.util.List;
 import org.eclipse.epsilon.common.module.ModuleElement;
 import org.eclipse.epsilon.eol.dt.editor.outline.EolModuleContentProvider;
 import org.eclipse.epsilon.fairml.DatasetRule;
-import org.eclipse.epsilon.fairml.PinsetModule;
+import org.eclipse.epsilon.fairml.FairMLModule;
 
 /**
- * PinsetModuleContentProvider.
+ * FairMLModuleContentProvider.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetModuleContentProvider extends EolModuleContentProvider {
+public class FairMLModuleContentProvider extends EolModuleContentProvider {
 
 	@Override
 	public ModuleElement getFocusedModuleElement(ModuleElement moduleElement) {
@@ -38,8 +38,8 @@ public class PinsetModuleContentProvider extends EolModuleContentProvider {
 	@Override
 	public List<ModuleElement> getVisibleChildren(ModuleElement moduleElement) {
 		
-		if (moduleElement.getClass() == PinsetModule.class) {
-			PinsetModule module = (PinsetModule) moduleElement;
+		if (moduleElement.getClass() == FairMLModule.class) {
+			FairMLModule module = (FairMLModule) moduleElement;
 			List<ModuleElement> visible = new ArrayList<>();
 			visible.addAll(module.getImports());
 			visible.addAll(module.getDeclaredModelDeclarations());

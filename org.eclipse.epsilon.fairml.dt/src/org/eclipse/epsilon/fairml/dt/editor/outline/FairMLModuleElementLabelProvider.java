@@ -11,21 +11,21 @@ package org.eclipse.epsilon.fairml.dt.editor.outline;
 
 import org.eclipse.epsilon.eol.dt.editor.outline.EolModuleElementLabelProvider;
 import org.eclipse.epsilon.fairml.DatasetRule;
-import org.eclipse.epsilon.fairml.dt.PinsetPlugin;
+import org.eclipse.epsilon.fairml.dt.FairMLPlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * PinsetModuleElementLabelProvider.
+ * FairMLModuleElementLabelProvider.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetModuleElementLabelProvider extends EolModuleElementLabelProvider {
+public class FairMLModuleElementLabelProvider extends EolModuleElementLabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
 		if (element instanceof DatasetRule) {
-			return PinsetPlugin.getDefault().createImage("icons/process-rule.png");
+			return FairMLPlugin.getDefault().createImage("icons/process-rule.png");
 		}
 		else {
 			return super.getImage(element);

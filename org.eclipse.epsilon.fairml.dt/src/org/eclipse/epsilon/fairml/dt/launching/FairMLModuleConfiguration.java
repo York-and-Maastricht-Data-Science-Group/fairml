@@ -9,25 +9,14 @@
  *********************************************************************/
 package org.eclipse.epsilon.fairml.dt.launching;
 
-import org.eclipse.epsilon.common.module.ModuleElement;
-import org.eclipse.epsilon.eol.dt.debug.EolDebugger;
-import org.eclipse.epsilon.fairml.DatasetRule;
+import org.eclipse.epsilon.common.dt.launching.tabs.AbstractModuleConfiguration;
 
 /**
- * PinsetDebugger.
+ * FairMLModuleConfiguration.
  *
  * @author Alfonso de la Vega
  * @since 2.1
  */
-public class PinsetDebugger extends EolDebugger {
-
-	public PinsetDebugger() {
-		super();
-	}
-
-	@Override
-	protected boolean isStructuralBlock(ModuleElement ast) {
-		return super.isStructuralBlock(ast) || ast instanceof DatasetRule;
-	}
+public class FairMLModuleConfiguration extends AbstractModuleConfiguration {
 
 }
