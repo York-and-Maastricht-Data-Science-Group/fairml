@@ -1,8 +1,14 @@
 package org.eclipse.epsilon.fairml.parse;
 
-// $ANTLR 3.1b1 ErlParserRules.g 2020-06-29 12:42:03
+// $ANTLR 3.1b1 ErlParserRules.g 2021-12-08 11:44:31
 
 import org.antlr.runtime.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+
 import org.antlr.runtime.tree.*;
 
 /*******************************************************************************
@@ -42,7 +48,7 @@ import org.antlr.runtime.tree.*;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.EpsilonParser {
+public class FairML_ErlParserRules extends org.eclipse.epsilon.common.parse.EpsilonParser {
     public static final int T__144=144;
     public static final int T__143=143;
     public static final int T__146=146;
@@ -89,7 +95,6 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int MAP=80;
     public static final int T__128=128;
     public static final int T__127=127;
-    public static final int PINSETMODULE=99;
     public static final int T__166=166;
     public static final int T__165=165;
     public static final int T__168=168;
@@ -147,11 +152,15 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int ALIAS=75;
     public static final int DRIVER=76;
     public static final int COLUMN=91;
+    public static final int T__180=180;
     public static final int DATASET=87;
+    public static final int T__182=182;
+    public static final int T__181=181;
     public static final int FROM=97;
     public static final int KEYVAL=81;
     public static final int POINT_POINT=10;
     public static final int GUARD=86;
+    public static final int FAIRMLMODULE=99;
     public static final int HELPERMETHOD=32;
     public static final int StatementBlock=33;
     public static final int GRIDKEYS=94;
@@ -223,55 +232,50 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     // delegates
     // delegators
-    public PinsetParser gPinset;
+    public FairMLParser gFairML;
 
 
-        public Pinset_ErlParserRules(TokenStream input, PinsetParser gPinset) {
-            this(input, new RecognizerSharedState(), gPinset);
+        public FairML_ErlParserRules(TokenStream input, FairMLParser gFairML) {
+            this(input, new RecognizerSharedState(), gFairML);
         }
-        public Pinset_ErlParserRules(TokenStream input, RecognizerSharedState state, PinsetParser gPinset) {
+        public FairML_ErlParserRules(TokenStream input, RecognizerSharedState state, FairMLParser gFairML) {
             super(input, state);
-            this.gPinset = gPinset;
+            this.gFairML = gFairML;
         }
         
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
-    @Override
-	public void setTreeAdaptor(TreeAdaptor adaptor) {
+    public void setTreeAdaptor(TreeAdaptor adaptor) {
         this.adaptor = adaptor;
     }
-    @Override
-	public TreeAdaptor getTreeAdaptor() {
+    public TreeAdaptor getTreeAdaptor() {
         return adaptor;
     }
 
-    @Override
-	public String[] getTokenNames() { return PinsetParser.tokenNames; }
-    @Override
-	public String getGrammarFileName() { return "ErlParserRules.g"; }
+    public String[] getTokenNames() { return FairMLParser.tokenNames; }
+    public String getGrammarFileName() { return "ErlParserRules.g"; }
 
 
     public static class erlModuleContent_return extends ParserRuleReturnScope {
         org.eclipse.epsilon.common.parse.AST tree;
-        @Override
-		public Object getTree() { return tree; }
+        public Object getTree() { return tree; }
     };
 
     // $ANTLR start erlModuleContent
     // ErlParserRules.g:48:1: erlModuleContent : ( pre | annotationBlock | operationDeclaration | post );
-    public final Pinset_ErlParserRules.erlModuleContent_return erlModuleContent() throws RecognitionException {
-        Pinset_ErlParserRules.erlModuleContent_return retval = new Pinset_ErlParserRules.erlModuleContent_return();
+    public final FairML_ErlParserRules.erlModuleContent_return erlModuleContent() throws RecognitionException {
+        FairML_ErlParserRules.erlModuleContent_return retval = new FairML_ErlParserRules.erlModuleContent_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
 
-        Pinset_ErlParserRules.pre_return pre1 = null;
+        FairML_ErlParserRules.pre_return pre1 = null;
 
-        Pinset_EolParserRules.annotationBlock_return annotationBlock2 = null;
+        FairML_EolParserRules.annotationBlock_return annotationBlock2 = null;
 
-        Pinset_EolParserRules.operationDeclaration_return operationDeclaration3 = null;
+        FairML_EolParserRules.operationDeclaration_return operationDeclaration3 = null;
 
-        Pinset_ErlParserRules.post_return post4 = null;
+        FairML_ErlParserRules.post_return post4 = null;
 
 
 
@@ -279,7 +283,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             // ErlParserRules.g:49:2: ( pre | annotationBlock | operationDeclaration | post )
             int alt1=4;
             switch ( input.LA(1) ) {
-            case 165:
+            case 168:
                 {
                 alt1=1;
                 }
@@ -296,7 +300,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 alt1=3;
                 }
                 break;
-            case 166:
+            case 169:
                 {
                 alt1=4;
                 }
@@ -330,7 +334,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
                     pushFollow(FOLLOW_annotationBlock_in_erlModuleContent52);
-                    annotationBlock2=gPinset.annotationBlock();
+                    annotationBlock2=gFairML.annotationBlock();
 
                     state._fsp--;
                     if (state.failed) return retval;
@@ -344,7 +348,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
                     pushFollow(FOLLOW_operationDeclaration_in_erlModuleContent56);
-                    operationDeclaration3=gPinset.operationDeclaration();
+                    operationDeclaration3=gFairML.operationDeclaration();
 
                     state._fsp--;
                     if (state.failed) return retval;
@@ -390,21 +394,20 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     public static class pre_return extends ParserRuleReturnScope {
         org.eclipse.epsilon.common.parse.AST tree;
-        @Override
-		public Object getTree() { return tree; }
+        public Object getTree() { return tree; }
     };
 
     // $ANTLR start pre
     // ErlParserRules.g:52:1: pre : p= 'pre' ( NAME )? statementBlock ;
-    public final Pinset_ErlParserRules.pre_return pre() throws RecognitionException {
-        Pinset_ErlParserRules.pre_return retval = new Pinset_ErlParserRules.pre_return();
+    public final FairML_ErlParserRules.pre_return pre() throws RecognitionException {
+        FairML_ErlParserRules.pre_return retval = new FairML_ErlParserRules.pre_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
 
         Token p=null;
         Token NAME5=null;
-        Pinset_EolParserRules.statementBlock_return statementBlock6 = null;
+        FairML_EolParserRules.statementBlock_return statementBlock6 = null;
 
 
         org.eclipse.epsilon.common.parse.AST p_tree=null;
@@ -416,7 +419,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            p=(Token)match(input,165,FOLLOW_165_in_pre73); if (state.failed) return retval;
+            p=(Token)match(input,168,FOLLOW_168_in_pre73); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             p_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(p);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(p_tree, root_0);
@@ -444,7 +447,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             }
 
             pushFollow(FOLLOW_statementBlock_in_pre79);
-            statementBlock6=gPinset.statementBlock();
+            statementBlock6=gFairML.statementBlock();
 
             state._fsp--;
             if (state.failed) return retval;
@@ -477,21 +480,20 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     public static class post_return extends ParserRuleReturnScope {
         org.eclipse.epsilon.common.parse.AST tree;
-        @Override
-		public Object getTree() { return tree; }
+        public Object getTree() { return tree; }
     };
 
     // $ANTLR start post
     // ErlParserRules.g:57:1: post : p= 'post' ( NAME )? statementBlock ;
-    public final Pinset_ErlParserRules.post_return post() throws RecognitionException {
-        Pinset_ErlParserRules.post_return retval = new Pinset_ErlParserRules.post_return();
+    public final FairML_ErlParserRules.post_return post() throws RecognitionException {
+        FairML_ErlParserRules.post_return retval = new FairML_ErlParserRules.post_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
 
         Token p=null;
         Token NAME7=null;
-        Pinset_EolParserRules.statementBlock_return statementBlock8 = null;
+        FairML_EolParserRules.statementBlock_return statementBlock8 = null;
 
 
         org.eclipse.epsilon.common.parse.AST p_tree=null;
@@ -503,7 +505,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            p=(Token)match(input,166,FOLLOW_166_in_post95); if (state.failed) return retval;
+            p=(Token)match(input,169,FOLLOW_169_in_post95); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             p_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(p);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(p_tree, root_0);
@@ -531,7 +533,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             }
 
             pushFollow(FOLLOW_statementBlock_in_post101);
-            statementBlock8=gPinset.statementBlock();
+            statementBlock8=gFairML.statementBlock();
 
             state._fsp--;
             if (state.failed) return retval;
@@ -564,20 +566,19 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     public static class guard_return extends ParserRuleReturnScope {
         org.eclipse.epsilon.common.parse.AST tree;
-        @Override
-		public Object getTree() { return tree; }
+        public Object getTree() { return tree; }
     };
 
     // $ANTLR start guard
     // ErlParserRules.g:62:1: guard : g= 'guard' expressionOrStatementBlock ;
-    public final Pinset_ErlParserRules.guard_return guard() throws RecognitionException {
-        Pinset_ErlParserRules.guard_return retval = new Pinset_ErlParserRules.guard_return();
+    public final FairML_ErlParserRules.guard_return guard() throws RecognitionException {
+        FairML_ErlParserRules.guard_return retval = new FairML_ErlParserRules.guard_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
 
         Token g=null;
-        Pinset_EolParserRules.expressionOrStatementBlock_return expressionOrStatementBlock9 = null;
+        FairML_EolParserRules.expressionOrStatementBlock_return expressionOrStatementBlock9 = null;
 
 
         org.eclipse.epsilon.common.parse.AST g_tree=null;
@@ -588,13 +589,13 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            g=(Token)match(input,167,FOLLOW_167_in_guard117); if (state.failed) return retval;
+            g=(Token)match(input,170,FOLLOW_170_in_guard117); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             g_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(g);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(g_tree, root_0);
             }
             pushFollow(FOLLOW_expressionOrStatementBlock_in_guard120);
-            expressionOrStatementBlock9=gPinset.expressionOrStatementBlock();
+            expressionOrStatementBlock9=gFairML.expressionOrStatementBlock();
 
             state._fsp--;
             if (state.failed) return retval;
@@ -627,14 +628,13 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     public static class extendz_return extends ParserRuleReturnScope {
         org.eclipse.epsilon.common.parse.AST tree;
-        @Override
-		public Object getTree() { return tree; }
+        public Object getTree() { return tree; }
     };
 
     // $ANTLR start extendz
     // ErlParserRules.g:67:1: extendz : e= 'extends' NAME ( ',' NAME )* ;
-    public final Pinset_ErlParserRules.extendz_return extendz() throws RecognitionException {
-        Pinset_ErlParserRules.extendz_return retval = new Pinset_ErlParserRules.extendz_return();
+    public final FairML_ErlParserRules.extendz_return extendz() throws RecognitionException {
+        FairML_ErlParserRules.extendz_return retval = new FairML_ErlParserRules.extendz_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
@@ -655,7 +655,7 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            e=(Token)match(input,168,FOLLOW_168_in_extendz136); if (state.failed) return retval;
+            e=(Token)match(input,171,FOLLOW_171_in_extendz136); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             e_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(e);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(e_tree, root_0);
@@ -730,15 +730,15 @@ public class Pinset_ErlParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final BitSet FOLLOW_annotationBlock_in_erlModuleContent52 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_operationDeclaration_in_erlModuleContent56 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_post_in_erlModuleContent60 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_165_in_pre73 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_168_in_pre73 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
     public static final BitSet FOLLOW_NAME_in_pre76 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
     public static final BitSet FOLLOW_statementBlock_in_pre79 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_166_in_post95 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_169_in_post95 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
     public static final BitSet FOLLOW_NAME_in_post98 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L});
     public static final BitSet FOLLOW_statementBlock_in_post101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_167_in_guard117 = new BitSet(new long[]{0x0000000000800000L,0x0001020000000000L});
+    public static final BitSet FOLLOW_170_in_guard117 = new BitSet(new long[]{0x0000000000800000L,0x0001020000000000L});
     public static final BitSet FOLLOW_expressionOrStatementBlock_in_guard120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_168_in_extendz136 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_171_in_extendz136 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_NAME_in_extendz139 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
     public static final BitSet FOLLOW_103_in_extendz142 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_NAME_in_extendz145 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});

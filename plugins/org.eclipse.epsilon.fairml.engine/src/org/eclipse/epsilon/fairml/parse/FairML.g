@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 The University of York.
+ * Copyright (c) 2021 The University of York.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -11,6 +11,7 @@
  *     Dimitrios Kolovos - initial API and EDL demo implementation
  *     Pablo Sanchez - API and language discussion
  *     Alfonso de la Vega - initial API and implementation
+ *     Alfa Yohannis - initial API and implementation
  * -----------------------------------------------------------------------------
  * ANTLR 3 License
  * [The "BSD licence"]
@@ -39,14 +40,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-grammar Pinset;
+grammar FairML;
 
 options {backtrack=true; output=AST; ASTLabelType='org.eclipse.epsilon.common.parse.AST'; superClass='org.eclipse.epsilon.common.parse.EpsilonParser';}
 
-import EolLexerRules, EolParserRules, ErlParserRules, PinsetParserRules;
+import EolLexerRules, EolParserRules, ErlParserRules, FairMLParserRules;
 
 tokens {
-  PINSETMODULE;
+  FAIRMLMODULE;
 }
 
 @header {
@@ -67,6 +68,7 @@ package org.eclipse.epsilon.fairml.parse;
  *     Dimitrios Kolovos - initial API and EDL demo implementation
  *     Pablo Sanchez - API and language discussion
  *     Alfonso de la Vega - initial API and implementation
+ *     Alfa Yohannis - initial API and implementation
  * -----------------------------------------------------------------------------
  * ANTLR 3 License
  * [The "BSD licence"]
@@ -98,11 +100,11 @@ package org.eclipse.epsilon.fairml.parse;
 package org.eclipse.epsilon.fairml.parse;
 }
 
-pinsetModule
-  :	importStatement* (pinsetModuleContent)* EOF
-  -> ^(PINSETMODULE importStatement* pinsetModuleContent*)
+fairmlModule
+  :	importStatement* (fairmlModuleContent)* EOF
+  -> ^(FAIRMLMODULE importStatement* fairmlModuleContent*)
   ;
 
-pinsetModuleContent
+fairmlModuleContent
   :	pre | post | datasetRule | annotationBlock | operationDeclaration
   ;

@@ -34,7 +34,7 @@ import org.eclipse.epsilon.fairml.columnGenerators.Grid;
 import org.eclipse.epsilon.fairml.columnGenerators.NestedFrom;
 import org.eclipse.epsilon.fairml.columnGenerators.Properties;
 import org.eclipse.epsilon.fairml.columnGenerators.Reference;
-import org.eclipse.epsilon.fairml.parse.PinsetParser;
+import org.eclipse.epsilon.fairml.parse.FairMLParser;
 
 /**
  * DatasetRule.
@@ -58,8 +58,8 @@ public class DatasetRule extends AnnotatableModuleElement {
 		name = cst.getFirstChild().getText();
 		parameter = (Parameter) module.createAst(cst.getSecondChild(), this);
 		guardBlock = (ExecutableBlock<Boolean>) module.createAst(
-				AstUtil.getChild(cst, PinsetParser.GUARD), this);
-		AST fromAST = AstUtil.getChild(cst, PinsetParser.FROM);
+				AstUtil.getChild(cst, FairMLParser.GUARD), this);
+		AST fromAST = AstUtil.getChild(cst, FairMLParser.FROM);
 		if (fromAST != null) {
 			fromBlock = (IExecutableModuleElement) module.createAst(fromAST.getFirstChild(), this);
 		}
@@ -89,11 +89,11 @@ public class DatasetRule extends AnnotatableModuleElement {
 
 	public static boolean isColumnGenerator(AST child) {
 		switch (child.getType()) {
-		case PinsetParser.PROPERTIES:
-		case PinsetParser.REFERENCE:
-		case PinsetParser.COLUMN:
-		case PinsetParser.GRID:
-		case PinsetParser.NESTEDFROM:
+		case FairMLParser.PROPERTIES:
+		case FairMLParser.REFERENCE:
+		case FairMLParser.COLUMN:
+		case FairMLParser.GRID:
+		case FairMLParser.NESTEDFROM:
 			return true;
 		default:
 			return false;

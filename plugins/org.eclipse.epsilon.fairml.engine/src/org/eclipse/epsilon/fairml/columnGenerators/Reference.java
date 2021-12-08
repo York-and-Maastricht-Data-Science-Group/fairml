@@ -20,7 +20,7 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.fairml.ReturnValueParser;
-import org.eclipse.epsilon.fairml.parse.PinsetParser;
+import org.eclipse.epsilon.fairml.parse.FairMLParser;
 
 /**
  * Reference.
@@ -41,7 +41,7 @@ public class Reference extends AnnotatableModuleElement implements ColumnGenerat
 		super.build(cst, module);
 		name = cst.getFirstChild().getText();
 		List<AST> aliasedNames =
-				AstUtil.getChild(cst, PinsetParser.NAMESLIST).getChildren();
+				AstUtil.getChild(cst, FairMLParser.NAMESLIST).getChildren();
 		for (AST aliasedName : aliasedNames) {
 			// fill column names: if an alias is defined, use it
 			if (aliasedName.getNumberOfChildren() > 0) {

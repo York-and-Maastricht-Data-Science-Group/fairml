@@ -30,8 +30,8 @@ import org.eclipse.epsilon.fairml.columnGenerators.Grid;
 import org.eclipse.epsilon.fairml.columnGenerators.NestedFrom;
 import org.eclipse.epsilon.fairml.columnGenerators.Properties;
 import org.eclipse.epsilon.fairml.columnGenerators.Reference;
-import org.eclipse.epsilon.fairml.parse.PinsetLexer;
-import org.eclipse.epsilon.fairml.parse.PinsetParser;
+import org.eclipse.epsilon.fairml.parse.FairMLLexer;
+import org.eclipse.epsilon.fairml.parse.FairMLParser;
 
 /**
  * FairMLModule.
@@ -57,19 +57,19 @@ public class FairMLModule extends ErlModule {
 	@Override
 	public ModuleElement adapt(AST cst, ModuleElement parentAst) {
 		switch (cst.getType()) {
-			case PinsetParser.DATASET:
+			case FairMLParser.DATASET:
 				return new DatasetRule();
-			case PinsetParser.GUARD:
+			case FairMLParser.GUARD:
 				return new ExecutableBlock<>(Boolean.class);
-			case PinsetParser.COLUMN:
+			case FairMLParser.COLUMN:
 				return new Column();
-			case PinsetParser.PROPERTIES:
+			case FairMLParser.PROPERTIES:
 				return new Properties();
-			case PinsetParser.REFERENCE:
+			case FairMLParser.REFERENCE:
 				return new Reference();
-			case PinsetParser.GRID:
+			case FairMLParser.GRID:
 				return new Grid();
-			case PinsetParser.NESTEDFROM:
+			case FairMLParser.NESTEDFROM:
 				return new NestedFrom();
 		}
 		return super.adapt(cst, parentAst);
@@ -79,19 +79,19 @@ public class FairMLModule extends ErlModule {
 	public void build(AST cst, IModule module) {
 		super.build(cst, module);
 
-		for (AST processRuleAst : AstUtil.getChildren(cst, PinsetParser.DATASET)) {
+		for (AST processRuleAst : AstUtil.getChildren(cst, FairMLParser.DATASET)) {
 			datasetRules.add((DatasetRule) module.createAst(processRuleAst, this));
 		}
 	}
 
 	@Override
 	public Lexer createLexer(ANTLRInputStream inputStream) {
-		return new PinsetLexer(inputStream);
+		return new FairMLLexer(inputStream);
 	}
 
 	@Override
 	public EpsilonParser createParser(TokenStream tokenStream) {
-		return new PinsetParser(tokenStream);
+		return new FairMLParser(tokenStream);
 	}
 
 	@Override

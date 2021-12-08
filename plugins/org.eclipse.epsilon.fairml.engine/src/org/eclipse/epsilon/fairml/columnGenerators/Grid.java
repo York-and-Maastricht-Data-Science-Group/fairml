@@ -25,7 +25,7 @@ import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.fairml.FairMLModule;
 import org.eclipse.epsilon.fairml.ReturnValueParser;
-import org.eclipse.epsilon.fairml.parse.PinsetParser;
+import org.eclipse.epsilon.fairml.parse.FairMLParser;
 
 /**
  * Grid.
@@ -50,11 +50,11 @@ public class Grid extends AnnotatableModuleElement implements ColumnGenerator {
 	@Override
 	public void build(AST cst, IModule module) {
 		super.build(cst, module);
-		AST keysAST = AstUtil.getChild(cst, PinsetParser.GRIDKEYS);
+		AST keysAST = AstUtil.getChild(cst, FairMLParser.GRIDKEYS);
 		keysBlock = (IExecutableModuleElement) module.createAst(keysAST.getFirstChild(), this);
-		AST headerAST = AstUtil.getChild(cst, PinsetParser.GRIDHEADER);
+		AST headerAST = AstUtil.getChild(cst, FairMLParser.GRIDHEADER);
 		headerBlock = (IExecutableModuleElement) module.createAst(headerAST.getFirstChild(), this);
-		AST bodyAST = AstUtil.getChild(cst, PinsetParser.GRIDBODY);
+		AST bodyAST = AstUtil.getChild(cst, FairMLParser.GRIDBODY);
 		bodyBlock = (IExecutableModuleElement) module.createAst(bodyAST.getFirstChild(), this);
 		isSilent = this.hasAnnotation(FairMLModule.SILENT_ANNOTATION);
 	}

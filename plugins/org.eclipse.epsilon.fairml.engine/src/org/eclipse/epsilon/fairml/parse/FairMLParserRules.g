@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 The University of York.
+ * Copyright (c) 2021 The University of York.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -11,6 +11,7 @@
  *     Dimitrios Kolovos - initial API and EDL demo implementation
  *     Pablo Sanchez - API and language discussion
  *     Alfonso de la Vega - initial API and implementation
+ *     Alfa Yohannis - initial API and implementation
  * -----------------------------------------------------------------------------
  * ANTLR 3 License
  * [The "BSD licence"]
@@ -39,7 +40,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ******************************************************************************/
-parser grammar PinsetParserRules;
+parser grammar FairMLParserRules;
 
 options {backtrack=true; output=AST;}
 
