@@ -53,7 +53,7 @@ public class FairMLLaunchConfigurationDelegate extends EpsilonLaunchConfiguratio
 
 	@Override
 	public String getLanguage() {
-		return "Pinset";
+		return "FairML";
 	}
 
 	@Override

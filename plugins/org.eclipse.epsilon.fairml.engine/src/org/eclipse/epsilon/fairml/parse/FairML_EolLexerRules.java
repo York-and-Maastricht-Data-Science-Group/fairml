@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.fairml.parse;
 
-// $ANTLR 3.1b1 EolLexerRules.g 2021-12-08 11:44:32
+// $ANTLR 3.1b1 EolLexerRules.g 2021-12-08 14:48:19
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -59,7 +59,6 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int T__141=141;
     public static final int THROW=58;
     public static final int SpecialTypeName=19;
-    public static final int ALIASEDNAME=89;
     public static final int PARAMLIST=29;
     public static final int EXPRLIST=59;
     public static final int EXPRRANGE=60;
@@ -73,7 +72,7 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int TYPE=70;
     public static final int T__139=139;
     public static final int T__138=138;
-    public static final int Tokens=183;
+    public static final int Tokens=174;
     public static final int T__133=133;
     public static final int T__132=132;
     public static final int T__135=135;
@@ -84,10 +83,11 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int CASE=40;
     public static final int Letter=20;
     public static final int LINE_COMMENT=26;
+    public static final int SOURCE=88;
+    public static final int MITIGATION=93;
     public static final int T__129=129;
     public static final int T__126=126;
     public static final int JavaIDDigit=22;
-    public static final int GRIDHEADER=95;
     public static final int T__125=125;
     public static final int LAMBDAEXPR=69;
     public static final int MAP=80;
@@ -103,7 +103,6 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int MODELDECLARATION=73;
     public static final int T__163=163;
     public static final int EXPRESSIONINBRACKETS=64;
-    public static final int GRIDBODY=96;
     public static final int T__160=160;
     public static final int TERNARY=37;
     public static final int TRANSACTION=46;
@@ -126,17 +125,16 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int T__150=150;
     public static final int T__153=153;
     public static final int T__152=152;
-    public static final int GRID=93;
     public static final int Annotation=27;
     public static final int CONTINUE=45;
     public static final int ENUMERATION_VALUE=71;
     public static final int OPERATOR=63;
+    public static final int PREDICT=90;
     public static final int EXPONENT=6;
     public static final int STRING=15;
     public static final int T__148=148;
     public static final int T__147=147;
     public static final int T__149=149;
-    public static final int NAMESLIST=88;
     public static final int T__100=100;
     public static final int NAMESPACE=74;
     public static final int COLLECTION=47;
@@ -145,33 +143,25 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int T__102=102;
     public static final int PRE=83;
     public static final int T__101=101;
-    public static final int PROPERTIES=90;
     public static final int POST=84;
     public static final int ALIAS=75;
     public static final int DRIVER=76;
-    public static final int COLUMN=91;
-    public static final int T__180=180;
-    public static final int DATASET=87;
-    public static final int T__182=182;
-    public static final int T__181=181;
-    public static final int FROM=97;
     public static final int KEYVAL=81;
     public static final int POINT_POINT=10;
     public static final int GUARD=86;
-    public static final int FAIRMLMODULE=99;
+    public static final int T__99=99;
+    public static final int CHECKING=92;
+    public static final int FAIRMLMODULE=94;
+    public static final int T__95=95;
     public static final int HELPERMETHOD=32;
+    public static final int T__96=96;
+    public static final int T__97=97;
     public static final int StatementBlock=33;
-    public static final int GRIDKEYS=94;
-    public static final int T__177=177;
-    public static final int T__176=176;
-    public static final int T__179=179;
-    public static final int T__178=178;
+    public static final int T__98=98;
     public static final int ABORT=48;
     public static final int T__173=173;
     public static final int StrangeNameLiteral=16;
     public static final int T__172=172;
-    public static final int T__175=175;
-    public static final int T__174=174;
     public static final int FOR=34;
     public static final int BLOCK=67;
     public static final int T__171=171;
@@ -189,8 +179,10 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int FLOAT=4;
     public static final int T__123=123;
     public static final int T__120=120;
+    public static final int ALGORITHM=91;
     public static final int NativeType=61;
     public static final int INT=8;
+    public static final int PROTECT=89;
     public static final int ANNOTATIONBLOCK=55;
     public static final int RETURN=42;
     public static final int KEYVALLIST=82;
@@ -198,11 +190,9 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int CollectionType=49;
     public static final int T__119=119;
     public static final int ASSIGNMENT=30;
-    public static final int REFERENCE=92;
     public static final int T__118=118;
     public static final int T__115=115;
     public static final int WS=24;
-    public static final int NESTEDFROM=98;
     public static final int EOF=-1;
     public static final int T__114=114;
     public static final int T__117=117;
@@ -213,6 +203,7 @@ public class FairML_EolLexerRules extends Lexer {
     public static final int T__112=112;
     public static final int EscapeSequence=14;
     public static final int EOLMODULE=66;
+    public static final int FAIRML=87;
     public static final int CollectionTypeName=17;
     public static final int DIGIT=5;
     public static final int EXECUTABLEANNOTATION=56;

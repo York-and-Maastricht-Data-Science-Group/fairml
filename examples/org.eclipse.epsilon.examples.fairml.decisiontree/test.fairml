@@ -1,0 +1,8 @@
+fairml decisionTree {
+	source : Sequence{"compas-recidivism.csv"} 
+	protect : Sequence{"race", "sex", "age"}
+	predict : Sequence{"income", "credit-approval"}
+	algorithm : Sequence{ "DecisionTree" }
+	checking :  Sequence{ "MethodA", "MethodB" }
+	mitigation : Sequence{ "Method01", "Method02" }
+}

@@ -23,8 +23,7 @@ import org.eclipse.epsilon.fairml.dt.editor.outline.FairMLModuleElementLabelProv
 /**
  * FairMLEditor.
  *
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfa Yohannis
  */
 public class FairMLEditor extends EolEditor {
 
@@ -36,18 +35,15 @@ public class FairMLEditor extends EolEditor {
 		List<String> keywords = new ArrayList<>();
 		keywords.add("pre");
 		keywords.add("post");
-		keywords.add("dataset");
-		keywords.add("over");
-		keywords.add("from");
+		keywords.add("fairml");
 		keywords.add("guard");
-		keywords.add("properties");
-		keywords.add("reference");
-		keywords.add("column");
-		keywords.add("grid");
-		keywords.add("keys");
-		keywords.add("header");
-		keywords.add("body");
-		keywords.add("as");
+		keywords.add("source");
+		keywords.add("protect");
+		keywords.add("predict");
+		keywords.add("algorithm");
+		keywords.add("checking");
+		keywords.add("mitigation");
+		
 		keywords.addAll(super.getKeywords());
 		return keywords;
 	}

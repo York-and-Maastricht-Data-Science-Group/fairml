@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<FairML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="fairml" xmi:id="_07MWMFmzEeyWUtuQiqp9OA" name="Decision Tree" description="Testing Decision Tree for FairML">
+  <datasets xmi:id="_07MWMVmzEeyWUtuQiqp9OA" name="Recidivism" path="recidivism.csv">
+    <protectedAttributes>race</protectedAttributes>
+    <protectedAttributes>age</protectedAttributes>
+    <protectedAttributes>sex</protectedAttributes>
+  </datasets>
+  <biasChecks xmi:id="_07MWMlmzEeyWUtuQiqp9OA" name="Race Bias Checking" dataset="_07MWMVmzEeyWUtuQiqp9OA" protectedAttribute="age" priviledgedGroup="1" checkingClass="BinaryLabelDatasetMetric" checkingMethod="mean_difference"/>
+  <biasMitigations xmi:id="_07MWM1mzEeyWUtuQiqp9OA" name="Race Bias Mitigation" biasChecking="_07MWMlmzEeyWUtuQiqp9OA" mitigationMethod="Reweighing"/>
+</FairML>

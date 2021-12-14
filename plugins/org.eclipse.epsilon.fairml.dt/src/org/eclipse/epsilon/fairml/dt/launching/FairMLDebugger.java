@@ -11,13 +11,12 @@ package org.eclipse.epsilon.fairml.dt.launching;
 
 import org.eclipse.epsilon.common.module.ModuleElement;
 import org.eclipse.epsilon.eol.dt.debug.EolDebugger;
-import org.eclipse.epsilon.fairml.DatasetRule;
+import org.eclipse.epsilon.fairml.FairMLRule;
 
 /**
  * FairMLDebugger.
  *
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfa Yohannis
  */
 public class FairMLDebugger extends EolDebugger {
 
@@ -27,7 +26,7 @@ public class FairMLDebugger extends EolDebugger {
 
 	@Override
 	protected boolean isStructuralBlock(ModuleElement ast) {
-		return super.isStructuralBlock(ast) || ast instanceof DatasetRule;
+		return super.isStructuralBlock(ast) || ast instanceof FairMLRule;
 	}
 
 }

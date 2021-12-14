@@ -38,6 +38,6 @@ public class FairMLAdvancedConfigurationTab extends AbstractAdvancedConfiguratio
 	}
 
 	public String getLanguage() {
-		return "Pinset";
+		return "FairML";
 	}
 }

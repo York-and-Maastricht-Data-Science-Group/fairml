@@ -106,5 +106,5 @@ fairmlModule
   ;
 
 fairmlModuleContent
-  :	pre | post | datasetRule | annotationBlock | operationDeclaration
+  :	fairmlRule | erlModuleContent
   ;

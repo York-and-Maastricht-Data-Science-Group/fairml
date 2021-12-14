@@ -45,107 +45,58 @@ parser grammar FairMLParserRules;
 options {backtrack=true; output=AST;}
 
 tokens {
-  DATASET;
-  NAMESLIST;
-  ALIASEDNAME;
-  PROPERTIES;
-  COLUMN;
-  GUARD;
-  REFERENCE;
-  GRID;
-  GRIDKEYS;
-  GRIDHEADER;
-  GRIDBODY;
-  FROM;
-  NESTEDFROM;
+  FAIRML;
+  SOURCE; 
+  PROTECT;
+  PREDICT;
+  ALGORITHM;
+  CHECKING;
+  MITIGATION;  
 }
 
-datasetRule
+/***
+	FairML: Domain-specific Language for Fair Machine Learning
+***/
+
+fairmlRule
   @after {
     $tree.getExtraTokens().add($ob);
     $tree.getExtraTokens().add($cb);
   }
-  : r='dataset'^ NAME 'over'! formalParameter from? ob='{'!
-    guard?
-    properties?
-    columnGenerator*
-  cb='}'!
-  {$r.setType(DATASET);}
+  : r='fairml'^ NAME ob='{'! generationRuleConstructs cb='}'!
+  {$r.setType(FAIRML);}
   ;
 
-columnGenerator
-  : reference |
-    annotationBlock? column |
-    annotationBlock? grid |
-    nestedFrom
-  ;
+source
+	:	g='source'^ expressionOrStatementBlock
+	{$g.setType(SOURCE);}
+	;
+	
+protect
+	:	g='protect'^ expressionOrStatementBlock
+	{$g.setType(PROTECT);}
+	;
 
-nestedFrom
-  : nf='from'^ NAME expressionOrStatementBlock '{'!
-    properties?
-    columnGenerator*
-  '}'!
-  {$nf.setType(NESTEDFROM);}
-  ;
+predict
+	:	g='predict'^ expressionOrStatementBlock
+	{$g.setType(PREDICT);}
+	;
+	
+algorithm
+	:	g='algorithm'^ expressionOrStatementBlock
+	{$g.setType(ALGORITHM);}
+	;
 
-nameslist
-   @after {
-    $tree.getExtraTokens().add($cb);
-  }
- : nl='['^ aliasedName (','! aliasedName)* cb=']'!
-   {$nl.setType(NAMESLIST);}
- ;
-
-aliasedName
- : an=NAME^ ('as'! NAME)?
-   {$an.setType(ALIASEDNAME);}
- ;
-
-properties
-  :
-  sf='properties'^ nameslist
-  {$sf.setType(PROPERTIES);}
-  ;
-
-reference
-  : r='reference'^ NAME nameslist
-  {$r.setType(REFERENCE);}
-  ;
-
-column
-  : cd='column'^ NAME expressionOrStatementBlock
-  {$cd.setType(COLUMN);}
-  ;
-
-grid
-  @after {
-    $tree.getExtraTokens().add($ob);
-    $tree.getExtraTokens().add($cb);
-  }
-  : cd='grid'^ ob='{'
-    gkeys
-    header
-    gbody
-  cb='}'
-  {$cd.setType(GRID);}
-  ;
-
-gkeys
-  : gk='keys'^ expressionOrStatementBlock
-  {$gk.setType(GRIDKEYS);}
-  ;
-
-header
-  : gh='header'^ expressionOrStatementBlock
-  {$gh.setType(GRIDHEADER);}
-  ;
-
-gbody
-  : gb='body'^ expressionOrStatementBlock
-  {$gb.setType(GRIDBODY);}
-  ;
-
-from
-  : ff='from'^ expressionOrStatementBlock
-  {$ff.setType(FROM);}
-  ;
+checking
+	:	g='checking'^ expressionOrStatementBlock
+	{$g.setType(CHECKING);}
+	;
+	
+mitigation
+	:	g='mitigation'^ expressionOrStatementBlock
+	{$g.setType(MITIGATION);}
+	;
+	
+generationRuleConstructs
+	:	(source | protect| predict| algorithm | checking | mitigation )*
+	;

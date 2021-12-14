@@ -57,21 +57,21 @@ public class FairMLSourceConfigurationTab extends AbstractSourceConfigurationTab
 
 	@Override
 	public String getFileExtension() {
-		return "pinset";
+		return "fairml";
 	}
 
 	@Override
 	public String getSelectionTitle() {
-		return "Select a Pinset file";
+		return "Select a FairML file";
 	}
 
 	@Override
 	public String getSelectionSubtitle() {
-		return "Pinset files in Workspace";
+		return "FairML files in Workspace";
 	}
 
 	public String getLaunchConfigurationKey() {
-		return "SOURCE.Pinset";
+		return "SOURCE.FairML";
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class FairMLSourceConfigurationTab extends AbstractSourceConfigurationTab
 		outputFolderGroup = createGroup(control, "Datasets should be generated in:", 1);
 
 		generateToDefaultFolder = new Button(outputFolderGroup, SWT.RADIO);
-		generateToDefaultFolder.setText("The current folder (where the Pinset file is)");
+		generateToDefaultFolder.setText("The current folder (where the FairML file is)");
 		generateToDefaultFolder.addSelectionListener(this);
 
 		generateToCustomFolder = new Button(outputFolderGroup, SWT.RADIO);
@@ -182,7 +182,7 @@ public class FairMLSourceConfigurationTab extends AbstractSourceConfigurationTab
 
 	@Override
 	public String getTitle() {
-		return "Pinset";
+		return "FairML";
 	}
 
 }

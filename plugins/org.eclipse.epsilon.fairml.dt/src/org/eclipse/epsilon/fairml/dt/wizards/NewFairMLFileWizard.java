@@ -1,5 +1,5 @@
 /*********************************************************************
- * Copyright (c) 2020 The University of York.
+ * Copyright (c) 2021 The University of York.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -14,24 +14,23 @@ import org.eclipse.epsilon.common.dt.wizards.AbstractNewFileWizard2;
 /**
  * NewFairMLFileWizard.
  *
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfa Yohannis
  */
 public class NewFairMLFileWizard extends AbstractNewFileWizard2 {
 
 	@Override
 	public String getTitle() {
-		return "New Pinset file";
+		return "New FairML file";
 	}
 
 	@Override
 	public String getExtension() {
-		return "pinset";
+		return "fairml";
 	}
 
 	@Override
 	public String getDescription() {
-		return "This wizard creates a new Pinset file with *.pinset extension.";
+		return "This wizard creates a new FairML file with *.fairml extension.";
 	}
 
 }

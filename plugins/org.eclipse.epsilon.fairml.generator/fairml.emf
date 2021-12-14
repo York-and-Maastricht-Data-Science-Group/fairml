@@ -1,0 +1,47 @@
+@namespace(uri="fairml", prefix="")
+package fairml;
+
+class FairML {
+	attr String name;
+	attr String description;
+	val Dataset[*] datasets;
+	val BiasChecking[*] biasChecks;
+	val BiasMitigation[*] biasMitigations;
+}
+
+class Dataset {
+	attr String name;
+	attr String path;
+	attr String[*] protectedAttributes;
+}
+
+class BiasChecking {
+	attr String name;
+	ref Dataset dataset;
+
+	attr int[0..2] trainTestSplit;
+	
+	attr String protectedAttribute;
+	attr int priviledgedGroup;
+	attr int unpriviledgedGroup;
+	
+	attr String predictedAttribute;
+	
+	attr String checkingClass;
+	attr String checkingMethod;
+	
+	attr String algorithm;
+	attr String[*] algorithmParameters;
+}
+
+class BiasMitigation {
+	attr String name;
+	ref BiasChecking biasChecking;		 
+
+	attr String mitigationMethod;
+	attr String[*] mitigationParameters;
+		
+}
+
+
+

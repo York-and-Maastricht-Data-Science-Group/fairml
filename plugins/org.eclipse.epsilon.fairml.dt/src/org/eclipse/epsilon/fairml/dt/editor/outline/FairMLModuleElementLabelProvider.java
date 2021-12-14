@@ -10,21 +10,20 @@
 package org.eclipse.epsilon.fairml.dt.editor.outline;
 
 import org.eclipse.epsilon.eol.dt.editor.outline.EolModuleElementLabelProvider;
-import org.eclipse.epsilon.fairml.DatasetRule;
+import org.eclipse.epsilon.fairml.FairMLRule;
 import org.eclipse.epsilon.fairml.dt.FairMLPlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**
  * FairMLModuleElementLabelProvider.
  *
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfas Yohannis
  */
 public class FairMLModuleElementLabelProvider extends EolModuleElementLabelProvider {
 
 	@Override
 	public Image getImage(Object element) {
-		if (element instanceof DatasetRule) {
+		if (element instanceof FairMLRule) {
 			return FairMLPlugin.getDefault().createImage("icons/process-rule.png");
 		}
 		else {
@@ -34,10 +33,9 @@ public class FairMLModuleElementLabelProvider extends EolModuleElementLabelProvi
 
 	@Override
 	public String getText(Object element) {
-		if (element instanceof DatasetRule) {
-			DatasetRule processRule = (DatasetRule) element;
-			return processRule.getParameter().getName() + " : " +
-					processRule.getParameter().getTypeName();
+		if (element instanceof FairMLRule) {
+			FairMLRule processRule = (FairMLRule) element;
+			return processRule.getName();
 		}
 		return super.getText(element);
 	}

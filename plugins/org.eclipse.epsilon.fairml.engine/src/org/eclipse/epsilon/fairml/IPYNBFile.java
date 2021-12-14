@@ -1,5 +1,5 @@
 /*********************************************************************
- * Copyright (c) 2020 The University of York.
+ * Copyright (c) 2021 The University of York.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -9,25 +9,17 @@
  *********************************************************************/
 package org.eclipse.epsilon.fairml;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Persists a dataset to a CSV file
- * 
- * Adapted from org.apache.commons.text.translate.CsvTranslators
- * https://commons.apache.org/proper/commons-text/jacoco/org.apache.commons.text.translate/CsvTranslators.java.html
- * 
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfa Yohannis
  */
-public class CSVFile {
+public class IPYNBFile {
 
 	public static final String CSV_DELIMITER = ",";
 	private static final char CSV_QUOTE = '"';
@@ -48,35 +40,24 @@ public class CSVFile {
 	}
 
 	protected String path;
-	protected Dataset dataset;
+	protected FairML fairML;
 	protected PrintWriter pw;
 
-	public CSVFile(String path, Dataset dataset) {
+	public IPYNBFile(String path, FairML fairML) {
 		this.path = path;
-		this.dataset = dataset;
+		this.fairML = fairML;
 	}
 
 	public void save() throws FileNotFoundException {
-		File file = new File(path);
-		file.getParentFile().mkdirs();
-		pw = new PrintWriter(file);
-		headerRecord(dataset.getColumnNames());
-		for (List<ValueWrapper> wrappers : dataset.getRows()) {
-			rowRecord(wrappers);
-		}
-		pw.close();
-	}
-
-	protected void headerRecord(List<String> columnNames) {
-		addRecord(columnNames);
-	}
-
-	protected void rowRecord(List<ValueWrapper> wrappers) {
-		List<String> records = new ArrayList<>(wrappers.size());
-		for (ValueWrapper wrapper : wrappers) {
-			records.add(escapeCSV(wrapper.toString()));
-		}
-		addRecord(records);
+		System.out.println("Exporting to IPYNB file ... finished!");
+//		File file = new File(path);
+//		file.getParentFile().mkdirs();
+//		pw = new PrintWriter(file);
+//		headerRecord(fairML.getColumnNames());
+//		for (List<ValueWrapper> wrappers : fairML.getRows()) {
+//			rowRecord(wrappers);
+//		}
+//		pw.close();
 	}
 
 	protected void addRecord(List<String> cellValues) {

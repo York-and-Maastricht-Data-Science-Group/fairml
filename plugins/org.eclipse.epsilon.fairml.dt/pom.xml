@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.epsilon.fairml.dt</groupId>
   <artifactId>org.eclipse.epsilon.fairml.dt</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0.qualifier</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

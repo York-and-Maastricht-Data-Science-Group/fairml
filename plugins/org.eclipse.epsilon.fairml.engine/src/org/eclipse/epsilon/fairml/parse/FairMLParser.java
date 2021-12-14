@@ -1,4 +1,4 @@
-// $ANTLR 3.1b1 FairML.g 2021-12-08 11:44:31
+// $ANTLR 3.1b1 FairML.g 2021-12-08 14:48:17
 
 package org.eclipse.epsilon.fairml.parse;
 
@@ -56,7 +56,7 @@ import org.antlr.runtime.tree.*;
  ******************************************************************************/
 public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "FLOAT", "DIGIT", "EXPONENT", "FLOAT_TYPE_SUFFIX", "INT", "POINT", "POINT_POINT", "ARROW", "NAVIGATION", "BOOLEAN", "EscapeSequence", "STRING", "StrangeNameLiteral", "CollectionTypeName", "MapTypeName", "SpecialTypeName", "Letter", "SpecialNameChar", "JavaIDDigit", "NAME", "WS", "COMMENT", "LINE_COMMENT", "Annotation", "FORMAL", "PARAMLIST", "ASSIGNMENT", "SPECIAL_ASSIGNMENT", "HELPERMETHOD", "StatementBlock", "FOR", "IF", "ELSE", "TERNARY", "WHILE", "SWITCH", "CASE", "DEFAULT", "RETURN", "BREAK", "BREAKALL", "CONTINUE", "TRANSACTION", "COLLECTION", "ABORT", "CollectionType", "ModelElementType", "PARAMETERS", "NewExpression", "VAR", "NEW", "ANNOTATIONBLOCK", "EXECUTABLEANNOTATION", "DELETE", "THROW", "EXPRLIST", "EXPRRANGE", "NativeType", "MultiplicativeExpression", "OPERATOR", "EXPRESSIONINBRACKETS", "FeatureCall", "EOLMODULE", "BLOCK", "FEATURECALL", "LAMBDAEXPR", "TYPE", "ENUMERATION_VALUE", "IMPORT", "MODELDECLARATION", "NAMESPACE", "ALIAS", "DRIVER", "MODELDECLARATIONPARAMETERS", "MODELDECLARATIONPARAMETER", "ITEMSELECTOR", "MAP", "KEYVAL", "KEYVALLIST", "PRE", "POST", "EXTENDS", "GUARD", "DATASET", "NAMESLIST", "ALIASEDNAME", "PROPERTIES", "COLUMN", "REFERENCE", "GRID", "GRIDKEYS", "GRIDHEADER", "GRIDBODY", "FROM", "NESTEDFROM", "FAIRMLMODULE", "'model'", "';'", "'alias'", "','", "'driver'", "'{'", "'}'", "'='", "'operation'", "'function'", "'('", "')'", "':'", "'import'", "'$'", "'!'", "'#'", "'::'", "'<'", "'>'", "'if'", "'else'", "'switch'", "'case'", "'default'", "'for'", "'in'", "'while'", "'return'", "'throw'", "'delete'", "'break'", "'breakAll'", "'continue'", "'abort'", "'transaction'", "':='", "'+='", "'-='", "'*='", "'/='", "'?='", "'::='", "'or'", "'and'", "'xor'", "'implies'", "'?'", "'=='", "'!='", "'?:'", "'>='", "'<='", "'<>'", "'+'", "'-'", "'*'", "'/'", "'not'", "'++'", "'--'", "'['", "']'", "'|'", "'=>'", "'new'", "'var'", "'ext'", "'pre'", "'post'", "'guard'", "'extends'", "'dataset'", "'over'", "'from'", "'as'", "'properties'", "'reference'", "'column'", "'grid'", "'keys'", "'header'", "'body'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "FLOAT", "DIGIT", "EXPONENT", "FLOAT_TYPE_SUFFIX", "INT", "POINT", "POINT_POINT", "ARROW", "NAVIGATION", "BOOLEAN", "EscapeSequence", "STRING", "StrangeNameLiteral", "CollectionTypeName", "MapTypeName", "SpecialTypeName", "Letter", "SpecialNameChar", "JavaIDDigit", "NAME", "WS", "COMMENT", "LINE_COMMENT", "Annotation", "FORMAL", "PARAMLIST", "ASSIGNMENT", "SPECIAL_ASSIGNMENT", "HELPERMETHOD", "StatementBlock", "FOR", "IF", "ELSE", "TERNARY", "WHILE", "SWITCH", "CASE", "DEFAULT", "RETURN", "BREAK", "BREAKALL", "CONTINUE", "TRANSACTION", "COLLECTION", "ABORT", "CollectionType", "ModelElementType", "PARAMETERS", "NewExpression", "VAR", "NEW", "ANNOTATIONBLOCK", "EXECUTABLEANNOTATION", "DELETE", "THROW", "EXPRLIST", "EXPRRANGE", "NativeType", "MultiplicativeExpression", "OPERATOR", "EXPRESSIONINBRACKETS", "FeatureCall", "EOLMODULE", "BLOCK", "FEATURECALL", "LAMBDAEXPR", "TYPE", "ENUMERATION_VALUE", "IMPORT", "MODELDECLARATION", "NAMESPACE", "ALIAS", "DRIVER", "MODELDECLARATIONPARAMETERS", "MODELDECLARATIONPARAMETER", "ITEMSELECTOR", "MAP", "KEYVAL", "KEYVALLIST", "PRE", "POST", "EXTENDS", "GUARD", "FAIRML", "SOURCE", "PROTECT", "PREDICT", "ALGORITHM", "CHECKING", "MITIGATION", "FAIRMLMODULE", "'model'", "';'", "'alias'", "','", "'driver'", "'{'", "'}'", "'='", "'operation'", "'function'", "'('", "')'", "':'", "'import'", "'$'", "'!'", "'#'", "'::'", "'<'", "'>'", "'if'", "'else'", "'switch'", "'case'", "'default'", "'for'", "'in'", "'while'", "'return'", "'throw'", "'delete'", "'break'", "'breakAll'", "'continue'", "'abort'", "'transaction'", "':='", "'+='", "'-='", "'*='", "'/='", "'?='", "'::='", "'or'", "'and'", "'xor'", "'implies'", "'?'", "'=='", "'!='", "'?:'", "'>='", "'<='", "'<>'", "'+'", "'-'", "'*'", "'/'", "'not'", "'++'", "'--'", "'['", "']'", "'|'", "'=>'", "'new'", "'var'", "'ext'", "'pre'", "'post'", "'guard'", "'extends'", "'fairml'", "'source'", "'protect'", "'predict'", "'algorithm'", "'checking'", "'mitigation'"
     };
     public static final int T__144=144;
     public static final int T__143=143;
@@ -71,7 +71,6 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int T__141=141;
     public static final int THROW=58;
     public static final int SpecialTypeName=19;
-    public static final int ALIASEDNAME=89;
     public static final int PARAMLIST=29;
     public static final int EXPRLIST=59;
     public static final int EXPRRANGE=60;
@@ -95,10 +94,11 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int CASE=40;
     public static final int Letter=20;
     public static final int LINE_COMMENT=26;
+    public static final int SOURCE=88;
+    public static final int MITIGATION=93;
     public static final int T__129=129;
     public static final int T__126=126;
     public static final int JavaIDDigit=22;
-    public static final int GRIDHEADER=95;
     public static final int T__125=125;
     public static final int LAMBDAEXPR=69;
     public static final int MAP=80;
@@ -114,7 +114,6 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int MODELDECLARATION=73;
     public static final int T__163=163;
     public static final int EXPRESSIONINBRACKETS=64;
-    public static final int GRIDBODY=96;
     public static final int T__160=160;
     public static final int TERNARY=37;
     public static final int TRANSACTION=46;
@@ -137,17 +136,16 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int T__150=150;
     public static final int T__153=153;
     public static final int T__152=152;
-    public static final int GRID=93;
     public static final int Annotation=27;
     public static final int CONTINUE=45;
     public static final int ENUMERATION_VALUE=71;
     public static final int OPERATOR=63;
+    public static final int PREDICT=90;
     public static final int EXPONENT=6;
     public static final int STRING=15;
     public static final int T__148=148;
     public static final int T__147=147;
     public static final int T__149=149;
-    public static final int NAMESLIST=88;
     public static final int T__100=100;
     public static final int NAMESPACE=74;
     public static final int COLLECTION=47;
@@ -156,33 +154,25 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int T__102=102;
     public static final int PRE=83;
     public static final int T__101=101;
-    public static final int PROPERTIES=90;
     public static final int POST=84;
     public static final int ALIAS=75;
     public static final int DRIVER=76;
-    public static final int COLUMN=91;
-    public static final int T__180=180;
-    public static final int DATASET=87;
-    public static final int T__182=182;
-    public static final int T__181=181;
-    public static final int FROM=97;
     public static final int KEYVAL=81;
     public static final int POINT_POINT=10;
     public static final int GUARD=86;
-    public static final int FAIRMLMODULE=99;
+    public static final int T__99=99;
+    public static final int CHECKING=92;
+    public static final int FAIRMLMODULE=94;
+    public static final int T__95=95;
     public static final int HELPERMETHOD=32;
+    public static final int T__96=96;
+    public static final int T__97=97;
     public static final int StatementBlock=33;
-    public static final int GRIDKEYS=94;
-    public static final int T__177=177;
-    public static final int T__176=176;
-    public static final int T__179=179;
-    public static final int T__178=178;
+    public static final int T__98=98;
     public static final int ABORT=48;
     public static final int T__173=173;
     public static final int StrangeNameLiteral=16;
     public static final int T__172=172;
-    public static final int T__175=175;
-    public static final int T__174=174;
     public static final int FOR=34;
     public static final int BLOCK=67;
     public static final int T__171=171;
@@ -200,8 +190,10 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int FLOAT=4;
     public static final int T__123=123;
     public static final int T__120=120;
+    public static final int ALGORITHM=91;
     public static final int NativeType=61;
     public static final int INT=8;
+    public static final int PROTECT=89;
     public static final int ANNOTATIONBLOCK=55;
     public static final int RETURN=42;
     public static final int KEYVALLIST=82;
@@ -209,11 +201,9 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int CollectionType=49;
     public static final int T__119=119;
     public static final int ASSIGNMENT=30;
-    public static final int REFERENCE=92;
     public static final int T__118=118;
     public static final int T__115=115;
     public static final int WS=24;
-    public static final int NESTEDFROM=98;
     public static final int EOF=-1;
     public static final int T__114=114;
     public static final int T__117=117;
@@ -224,6 +214,7 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     public static final int T__112=112;
     public static final int EscapeSequence=14;
     public static final int EOLMODULE=66;
+    public static final int FAIRML=87;
     public static final int CollectionTypeName=17;
     public static final int DIGIT=5;
     public static final int EXECUTABLEANNOTATION=56;
@@ -302,7 +293,7 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
                 int alt1=2;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==113) ) {
+                if ( (LA1_0==108) ) {
                     alt1=1;
                 }
 
@@ -332,7 +323,7 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==Annotation||(LA2_0>=108 && LA2_0<=109)||LA2_0==114||(LA2_0>=168 && LA2_0<=169)||LA2_0==172) ) {
+                if ( (LA2_0==Annotation||(LA2_0>=103 && LA2_0<=104)||LA2_0==109||(LA2_0>=163 && LA2_0<=164)||LA2_0==167) ) {
                     alt2=1;
                 }
 
@@ -426,132 +417,63 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     };
 
     // $ANTLR start fairmlModuleContent
-    // FairML.g:108:1: fairmlModuleContent : ( pre | post | datasetRule | annotationBlock | operationDeclaration );
+    // FairML.g:108:1: fairmlModuleContent : ( fairmlRule | erlModuleContent );
     public final FairMLParser.fairmlModuleContent_return fairmlModuleContent() throws RecognitionException {
         FairMLParser.fairmlModuleContent_return retval = new FairMLParser.fairmlModuleContent_return();
         retval.start = input.LT(1);
 
         org.eclipse.epsilon.common.parse.AST root_0 = null;
 
-        FairML_ErlParserRules.pre_return pre4 = null;
+        FairML_FairMLParserRules.fairmlRule_return fairmlRule4 = null;
 
-        FairML_ErlParserRules.post_return post5 = null;
-
-        FairML_FairMLParserRules.datasetRule_return datasetRule6 = null;
-
-        FairML_EolParserRules.annotationBlock_return annotationBlock7 = null;
-
-        FairML_EolParserRules.operationDeclaration_return operationDeclaration8 = null;
+        FairML_ErlParserRules.erlModuleContent_return erlModuleContent5 = null;
 
 
 
         try {
-            // FairML.g:109:3: ( pre | post | datasetRule | annotationBlock | operationDeclaration )
-            int alt3=5;
-            switch ( input.LA(1) ) {
-            case 168:
-                {
+            // FairML.g:109:3: ( fairmlRule | erlModuleContent )
+            int alt3=2;
+            int LA3_0 = input.LA(1);
+
+            if ( (LA3_0==167) ) {
                 alt3=1;
-                }
-                break;
-            case 169:
-                {
+            }
+            else if ( (LA3_0==Annotation||(LA3_0>=103 && LA3_0<=104)||LA3_0==109||(LA3_0>=163 && LA3_0<=164)) ) {
                 alt3=2;
-                }
-                break;
-            case 172:
-                {
-                alt3=3;
-                }
-                break;
-            case Annotation:
-            case 114:
-                {
-                alt3=4;
-                }
-                break;
-            case 108:
-            case 109:
-                {
-                alt3=5;
-                }
-                break;
-            default:
+            }
+            else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
             }
-
             switch (alt3) {
                 case 1 :
-                    // FairML.g:109:5: pre
+                    // FairML.g:109:5: fairmlRule
                     {
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-                    pushFollow(FOLLOW_pre_in_fairmlModuleContent112);
-                    pre4=pre();
+                    pushFollow(FOLLOW_fairmlRule_in_fairmlModuleContent112);
+                    fairmlRule4=fairmlRule();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, pre4.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, fairmlRule4.getTree());
 
                     }
                     break;
                 case 2 :
-                    // FairML.g:109:11: post
+                    // FairML.g:109:18: erlModuleContent
                     {
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-                    pushFollow(FOLLOW_post_in_fairmlModuleContent116);
-                    post5=post();
+                    pushFollow(FOLLOW_erlModuleContent_in_fairmlModuleContent116);
+                    erlModuleContent5=erlModuleContent();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, post5.getTree());
-
-                    }
-                    break;
-                case 3 :
-                    // FairML.g:109:18: datasetRule
-                    {
-                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
-
-                    pushFollow(FOLLOW_datasetRule_in_fairmlModuleContent120);
-                    datasetRule6=datasetRule();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, datasetRule6.getTree());
-
-                    }
-                    break;
-                case 4 :
-                    // FairML.g:109:32: annotationBlock
-                    {
-                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
-
-                    pushFollow(FOLLOW_annotationBlock_in_fairmlModuleContent124);
-                    annotationBlock7=annotationBlock();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, annotationBlock7.getTree());
-
-                    }
-                    break;
-                case 5 :
-                    // FairML.g:109:50: operationDeclaration
-                    {
-                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
-
-                    pushFollow(FOLLOW_operationDeclaration_in_fairmlModuleContent128);
-                    operationDeclaration8=operationDeclaration();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, operationDeclaration8.getTree());
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, erlModuleContent5.getTree());
 
                     }
                     break;
@@ -578,103 +500,95 @@ public class FairMLParser extends org.eclipse.epsilon.common.parse.EpsilonParser
     // $ANTLR end fairmlModuleContent
 
     // Delegated rules
-    public FairML_EolParserRules.packagedType_return packagedType() throws RecognitionException { return gEolParserRules.packagedType(); }
-    public FairML_EolParserRules.typeName_return typeName() throws RecognitionException { return gEolParserRules.typeName(); }
-    public FairML_EolParserRules.pathName_return pathName() throws RecognitionException { return gEolParserRules.pathName(); }
-    public FairML_FairMLParserRules.properties_return properties() throws RecognitionException { return gFairMLParserRules.properties(); }
-    public FairML_EolParserRules.primitiveExpression_return primitiveExpression() throws RecognitionException { return gEolParserRules.primitiveExpression(); }
-    public FairML_EolParserRules.keyvalExpressionList_return keyvalExpressionList() throws RecognitionException { return gEolParserRules.keyvalExpressionList(); }
-    public FairML_EolParserRules.parameterList_return parameterList() throws RecognitionException { return gEolParserRules.parameterList(); }
-    public FairML_EolParserRules.ifStatement_return ifStatement() throws RecognitionException { return gEolParserRules.ifStatement(); }
-    public FairML_EolParserRules.logicalExpression_return logicalExpression() throws RecognitionException { return gEolParserRules.logicalExpression(); }
+    public FairML_EolParserRules.expressionList_return expressionList() throws RecognitionException { return gEolParserRules.expressionList(); }
+    public FairML_EolParserRules.modelAlias_return modelAlias() throws RecognitionException { return gEolParserRules.modelAlias(); }
+    public FairML_EolParserRules.executableAnnotation_return executableAnnotation() throws RecognitionException { return gEolParserRules.executableAnnotation(); }
     public FairML_ErlParserRules.erlModuleContent_return erlModuleContent() throws RecognitionException { return gErlParserRules.erlModuleContent(); }
-    public FairML_FairMLParserRules.nameslist_return nameslist() throws RecognitionException { return gFairMLParserRules.nameslist(); }
+    public FairML_EolParserRules.modelDeclarationParameters_return modelDeclarationParameters() throws RecognitionException { return gEolParserRules.modelDeclarationParameters(); }
+    public FairML_EolParserRules.continueStatement_return continueStatement() throws RecognitionException { return gEolParserRules.continueStatement(); }
+    public FairML_EolParserRules.typeName_return typeName() throws RecognitionException { return gEolParserRules.typeName(); }
+    public FairML_FairMLParserRules.mitigation_return mitigation() throws RecognitionException { return gFairMLParserRules.mitigation(); }
+    public FairML_FairMLParserRules.checking_return checking() throws RecognitionException { return gFairMLParserRules.checking(); }
+    public FairML_EolParserRules.complexFeatureCall_return complexFeatureCall() throws RecognitionException { return gEolParserRules.complexFeatureCall(); }
     public FairML_EolParserRules.lambdaExpressionInBrackets_return lambdaExpressionInBrackets() throws RecognitionException { return gEolParserRules.lambdaExpressionInBrackets(); }
-    public FairML_EolParserRules.unaryExpression_return unaryExpression() throws RecognitionException { return gEolParserRules.unaryExpression(); }
-    public FairML_EolParserRules.operationDeclaration_return operationDeclaration() throws RecognitionException { return gEolParserRules.operationDeclaration(); }
-    public FairML_FairMLParserRules.datasetRule_return datasetRule() throws RecognitionException { return gFairMLParserRules.datasetRule(); }
+    public FairML_EolParserRules.featureCall_return featureCall() throws RecognitionException { return gEolParserRules.featureCall(); }
+    public FairML_EolParserRules.caseStatement_return caseStatement() throws RecognitionException { return gEolParserRules.caseStatement(); }
+    public FairML_EolParserRules.throwStatement_return throwStatement() throws RecognitionException { return gEolParserRules.throwStatement(); }
+    public FairML_EolParserRules.statement_return statement() throws RecognitionException { return gEolParserRules.statement(); }
+    public FairML_EolParserRules.specialType_return specialType() throws RecognitionException { return gEolParserRules.specialType(); }
+    public FairML_EolParserRules.modelDeclarationParameter_return modelDeclarationParameter() throws RecognitionException { return gEolParserRules.modelDeclarationParameter(); }
     public FairML_EolParserRules.newExpression_return newExpression() throws RecognitionException { return gEolParserRules.newExpression(); }
+    public FairML_EolParserRules.logicalExpression_return logicalExpression() throws RecognitionException { return gEolParserRules.logicalExpression(); }
+    public FairML_EolParserRules.primitiveExpression_return primitiveExpression() throws RecognitionException { return gEolParserRules.primitiveExpression(); }
+    public FairML_FairMLParserRules.algorithm_return algorithm() throws RecognitionException { return gFairMLParserRules.algorithm(); }
+    public FairML_EolParserRules.operationDeclarationOrAnnotationBlock_return operationDeclarationOrAnnotationBlock() throws RecognitionException { return gEolParserRules.operationDeclarationOrAnnotationBlock(); }
+    public FairML_EolParserRules.unaryExpression_return unaryExpression() throws RecognitionException { return gEolParserRules.unaryExpression(); }
+    public FairML_EolParserRules.literal_return literal() throws RecognitionException { return gEolParserRules.literal(); }
+    public FairML_FairMLParserRules.generationRuleConstructs_return generationRuleConstructs() throws RecognitionException { return gFairMLParserRules.generationRuleConstructs(); }
+    public FairML_EolParserRules.formalParameter_return formalParameter() throws RecognitionException { return gEolParserRules.formalParameter(); }
+    public FairML_EolParserRules.whileStatement_return whileStatement() throws RecognitionException { return gEolParserRules.whileStatement(); }
+    public FairML_EolParserRules.multiplicativeExpression_return multiplicativeExpression() throws RecognitionException { return gEolParserRules.multiplicativeExpression(); }
+    public FairML_EolParserRules.annotationBlock_return annotationBlock() throws RecognitionException { return gEolParserRules.annotationBlock(); }
+    public FairML_EolParserRules.formalParameterList_return formalParameterList() throws RecognitionException { return gEolParserRules.formalParameterList(); }
+    public FairML_EolParserRules.transactionStatement_return transactionStatement() throws RecognitionException { return gEolParserRules.transactionStatement(); }
+    public FairML_EolParserRules.itemSelectorExpression_return itemSelectorExpression() throws RecognitionException { return gEolParserRules.itemSelectorExpression(); }
+    public FairML_EolParserRules.logicalExpressionInBrackets_return logicalExpressionInBrackets() throws RecognitionException { return gEolParserRules.logicalExpressionInBrackets(); }
     public FairML_EolParserRules.abortStatement_return abortStatement() throws RecognitionException { return gEolParserRules.abortStatement(); }
     public FairML_EolParserRules.shortcutOperatorExpression_return shortcutOperatorExpression() throws RecognitionException { return gEolParserRules.shortcutOperatorExpression(); }
-    public FairML_EolParserRules.whileStatement_return whileStatement() throws RecognitionException { return gEolParserRules.whileStatement(); }
-    public FairML_EolParserRules.postfixExpression_return postfixExpression() throws RecognitionException { return gEolParserRules.postfixExpression(); }
-    public FairML_EolParserRules.formalParameter_return formalParameter() throws RecognitionException { return gEolParserRules.formalParameter(); }
-    public FairML_EolParserRules.collectionType_return collectionType() throws RecognitionException { return gEolParserRules.collectionType(); }
-    public FairML_EolParserRules.statementOrStatementBlock_return statementOrStatementBlock() throws RecognitionException { return gEolParserRules.statementOrStatementBlock(); }
-    public FairML_EolParserRules.literalMapCollection_return literalMapCollection() throws RecognitionException { return gEolParserRules.literalMapCollection(); }
-    public FairML_EolParserRules.statementBlock_return statementBlock() throws RecognitionException { return gEolParserRules.statementBlock(); }
-    public FairML_FairMLParserRules.nestedFrom_return nestedFrom() throws RecognitionException { return gFairMLParserRules.nestedFrom(); }
-    public FairML_FairMLParserRules.reference_return reference() throws RecognitionException { return gFairMLParserRules.reference(); }
-    public FairML_EolParserRules.transactionStatement_return transactionStatement() throws RecognitionException { return gEolParserRules.transactionStatement(); }
-    public FairML_EolParserRules.returnStatement_return returnStatement() throws RecognitionException { return gEolParserRules.returnStatement(); }
-    public FairML_EolParserRules.switchStatement_return switchStatement() throws RecognitionException { return gEolParserRules.switchStatement(); }
-    public FairML_EolParserRules.specialType_return specialType() throws RecognitionException { return gEolParserRules.specialType(); }
-    public FairML_EolParserRules.modelAlias_return modelAlias() throws RecognitionException { return gEolParserRules.modelAlias(); }
-    public FairML_EolParserRules.relationalExpression_return relationalExpression() throws RecognitionException { return gEolParserRules.relationalExpression(); }
-    public FairML_FairMLParserRules.grid_return grid() throws RecognitionException { return gFairMLParserRules.grid(); }
-    public FairML_EolParserRules.operationDeclarationOrAnnotationBlock_return operationDeclarationOrAnnotationBlock() throws RecognitionException { return gEolParserRules.operationDeclarationOrAnnotationBlock(); }
-    public FairML_EolParserRules.complexFeatureCall_return complexFeatureCall() throws RecognitionException { return gEolParserRules.complexFeatureCall(); }
-    public FairML_EolParserRules.deleteStatement_return deleteStatement() throws RecognitionException { return gEolParserRules.deleteStatement(); }
-    public FairML_EolParserRules.keyvalExpression_return keyvalExpression() throws RecognitionException { return gEolParserRules.keyvalExpression(); }
-    public FairML_EolParserRules.continueStatement_return continueStatement() throws RecognitionException { return gEolParserRules.continueStatement(); }
-    public FairML_EolParserRules.literalSequentialCollection_return literalSequentialCollection() throws RecognitionException { return gEolParserRules.literalSequentialCollection(); }
-    public FairML_EolParserRules.expressionList_return expressionList() throws RecognitionException { return gEolParserRules.expressionList(); }
-    public FairML_EolParserRules.additiveExpression_return additiveExpression() throws RecognitionException { return gEolParserRules.additiveExpression(); }
-    public FairML_EolParserRules.expressionStatement_return expressionStatement() throws RecognitionException { return gEolParserRules.expressionStatement(); }
     public FairML_EolParserRules.modelDeclaration_return modelDeclaration() throws RecognitionException { return gEolParserRules.modelDeclaration(); }
-    public FairML_EolParserRules.annotationBlock_return annotationBlock() throws RecognitionException { return gEolParserRules.annotationBlock(); }
-    public FairML_EolParserRules.modelDriver_return modelDriver() throws RecognitionException { return gEolParserRules.modelDriver(); }
-    public FairML_FairMLParserRules.gbody_return gbody() throws RecognitionException { return gFairMLParserRules.gbody(); }
-    public FairML_EolParserRules.modelDeclarationParameters_return modelDeclarationParameters() throws RecognitionException { return gEolParserRules.modelDeclarationParameters(); }
-    public FairML_EolParserRules.featureCall_return featureCall() throws RecognitionException { return gEolParserRules.featureCall(); }
-    public FairML_ErlParserRules.pre_return pre() throws RecognitionException { return gErlParserRules.pre(); }
-    public FairML_EolParserRules.breakStatement_return breakStatement() throws RecognitionException { return gEolParserRules.breakStatement(); }
-    public FairML_EolParserRules.forStatement_return forStatement() throws RecognitionException { return gEolParserRules.forStatement(); }
-    public FairML_EolParserRules.breakAllStatement_return breakAllStatement() throws RecognitionException { return gEolParserRules.breakAllStatement(); }
-    public FairML_FairMLParserRules.gkeys_return gkeys() throws RecognitionException { return gFairMLParserRules.gkeys(); }
-    public FairML_EolParserRules.expressionListOrRange_return expressionListOrRange() throws RecognitionException { return gEolParserRules.expressionListOrRange(); }
-    public FairML_FairMLParserRules.header_return header() throws RecognitionException { return gFairMLParserRules.header(); }
-    public FairML_EolParserRules.assignmentStatement_return assignmentStatement() throws RecognitionException { return gEolParserRules.assignmentStatement(); }
-    public FairML_ErlParserRules.extendz_return extendz() throws RecognitionException { return gErlParserRules.extendz(); }
-    public FairML_EolParserRules.modelDeclarationParameter_return modelDeclarationParameter() throws RecognitionException { return gEolParserRules.modelDeclarationParameter(); }
-    public FairML_EolParserRules.statementB_return statementB() throws RecognitionException { return gEolParserRules.statementB(); }
-    public FairML_FairMLParserRules.aliasedName_return aliasedName() throws RecognitionException { return gFairMLParserRules.aliasedName(); }
-    public FairML_EolParserRules.simpleFeatureCall_return simpleFeatureCall() throws RecognitionException { return gEolParserRules.simpleFeatureCall(); }
-    public FairML_EolParserRules.lambdaExpression_return lambdaExpression() throws RecognitionException { return gEolParserRules.lambdaExpression(); }
-    public FairML_EolParserRules.executableAnnotation_return executableAnnotation() throws RecognitionException { return gEolParserRules.executableAnnotation(); }
-    public FairML_EolParserRules.elseStatement_return elseStatement() throws RecognitionException { return gEolParserRules.elseStatement(); }
-    public FairML_EolParserRules.caseStatement_return caseStatement() throws RecognitionException { return gEolParserRules.caseStatement(); }
-    public FairML_EolParserRules.itemSelectorExpression_return itemSelectorExpression() throws RecognitionException { return gEolParserRules.itemSelectorExpression(); }
-    public FairML_EolParserRules.throwStatement_return throwStatement() throws RecognitionException { return gEolParserRules.throwStatement(); }
-    public FairML_FairMLParserRules.from_return from() throws RecognitionException { return gFairMLParserRules.from(); }
-    public FairML_EolParserRules.literal_return literal() throws RecognitionException { return gEolParserRules.literal(); }
-    public FairML_ErlParserRules.post_return post() throws RecognitionException { return gErlParserRules.post(); }
-    public FairML_FairMLParserRules.columnGenerator_return columnGenerator() throws RecognitionException { return gFairMLParserRules.columnGenerator(); }
-    public FairML_EolParserRules.logicalExpressionInBrackets_return logicalExpressionInBrackets() throws RecognitionException { return gEolParserRules.logicalExpressionInBrackets(); }
-    public FairML_EolParserRules.importStatement_return importStatement() throws RecognitionException { return gEolParserRules.importStatement(); }
-    public FairML_EolParserRules.statement_return statement() throws RecognitionException { return gEolParserRules.statement(); }
-    public FairML_EolParserRules.formalParameterList_return formalParameterList() throws RecognitionException { return gEolParserRules.formalParameterList(); }
-    public FairML_EolParserRules.annotation_return annotation() throws RecognitionException { return gEolParserRules.annotation(); }
-    public FairML_EolParserRules.defaultStatement_return defaultStatement() throws RecognitionException { return gEolParserRules.defaultStatement(); }
-    public FairML_EolParserRules.variableDeclarationExpression_return variableDeclarationExpression() throws RecognitionException { return gEolParserRules.variableDeclarationExpression(); }
-    public FairML_EolParserRules.statementA_return statementA() throws RecognitionException { return gEolParserRules.statementA(); }
-    public FairML_EolParserRules.expressionRange_return expressionRange() throws RecognitionException { return gEolParserRules.expressionRange(); }
-    public FairML_EolParserRules.block_return block() throws RecognitionException { return gEolParserRules.block(); }
+    public FairML_EolParserRules.parameterList_return parameterList() throws RecognitionException { return gEolParserRules.parameterList(); }
+    public FairML_EolParserRules.keyvalExpressionList_return keyvalExpressionList() throws RecognitionException { return gEolParserRules.keyvalExpressionList(); }
     public FairML_EolParserRules.expressionOrStatementBlock_return expressionOrStatementBlock() throws RecognitionException { return gEolParserRules.expressionOrStatementBlock(); }
-    public FairML_EolParserRules.multiplicativeExpression_return multiplicativeExpression() throws RecognitionException { return gEolParserRules.multiplicativeExpression(); }
-    public FairML_FairMLParserRules.column_return column() throws RecognitionException { return gFairMLParserRules.column(); }
+    public FairML_FairMLParserRules.predict_return predict() throws RecognitionException { return gFairMLParserRules.predict(); }
+    public FairML_EolParserRules.simpleFeatureCall_return simpleFeatureCall() throws RecognitionException { return gEolParserRules.simpleFeatureCall(); }
+    public FairML_EolParserRules.assignmentStatement_return assignmentStatement() throws RecognitionException { return gEolParserRules.assignmentStatement(); }
+    public FairML_EolParserRules.literalSequentialCollection_return literalSequentialCollection() throws RecognitionException { return gEolParserRules.literalSequentialCollection(); }
+    public FairML_EolParserRules.modelDriver_return modelDriver() throws RecognitionException { return gEolParserRules.modelDriver(); }
+    public FairML_EolParserRules.variableDeclarationExpression_return variableDeclarationExpression() throws RecognitionException { return gEolParserRules.variableDeclarationExpression(); }
+    public FairML_EolParserRules.expressionStatement_return expressionStatement() throws RecognitionException { return gEolParserRules.expressionStatement(); }
+    public FairML_EolParserRules.pathName_return pathName() throws RecognitionException { return gEolParserRules.pathName(); }
+    public FairML_EolParserRules.relationalExpression_return relationalExpression() throws RecognitionException { return gEolParserRules.relationalExpression(); }
+    public FairML_EolParserRules.statementOrStatementBlock_return statementOrStatementBlock() throws RecognitionException { return gEolParserRules.statementOrStatementBlock(); }
+    public FairML_EolParserRules.deleteStatement_return deleteStatement() throws RecognitionException { return gEolParserRules.deleteStatement(); }
+    public FairML_EolParserRules.breakAllStatement_return breakAllStatement() throws RecognitionException { return gEolParserRules.breakAllStatement(); }
+    public FairML_EolParserRules.expressionListOrRange_return expressionListOrRange() throws RecognitionException { return gEolParserRules.expressionListOrRange(); }
+    public FairML_EolParserRules.collectionType_return collectionType() throws RecognitionException { return gEolParserRules.collectionType(); }
+    public FairML_EolParserRules.importStatement_return importStatement() throws RecognitionException { return gEolParserRules.importStatement(); }
+    public FairML_EolParserRules.defaultStatement_return defaultStatement() throws RecognitionException { return gEolParserRules.defaultStatement(); }
+    public FairML_EolParserRules.expressionRange_return expressionRange() throws RecognitionException { return gEolParserRules.expressionRange(); }
+    public FairML_EolParserRules.annotation_return annotation() throws RecognitionException { return gEolParserRules.annotation(); }
+    public FairML_EolParserRules.switchStatement_return switchStatement() throws RecognitionException { return gEolParserRules.switchStatement(); }
+    public FairML_FairMLParserRules.protect_return protect() throws RecognitionException { return gFairMLParserRules.protect(); }
+    public FairML_EolParserRules.postfixExpression_return postfixExpression() throws RecognitionException { return gEolParserRules.postfixExpression(); }
+    public FairML_EolParserRules.statementA_return statementA() throws RecognitionException { return gEolParserRules.statementA(); }
+    public FairML_FairMLParserRules.fairmlRule_return fairmlRule() throws RecognitionException { return gFairMLParserRules.fairmlRule(); }
+    public FairML_EolParserRules.packagedType_return packagedType() throws RecognitionException { return gEolParserRules.packagedType(); }
+    public FairML_EolParserRules.additiveExpression_return additiveExpression() throws RecognitionException { return gEolParserRules.additiveExpression(); }
+    public FairML_EolParserRules.literalMapCollection_return literalMapCollection() throws RecognitionException { return gEolParserRules.literalMapCollection(); }
+    public FairML_EolParserRules.ifStatement_return ifStatement() throws RecognitionException { return gEolParserRules.ifStatement(); }
+    public FairML_EolParserRules.statementB_return statementB() throws RecognitionException { return gEolParserRules.statementB(); }
+    public FairML_EolParserRules.elseStatement_return elseStatement() throws RecognitionException { return gEolParserRules.elseStatement(); }
+    public FairML_EolParserRules.keyvalExpression_return keyvalExpression() throws RecognitionException { return gEolParserRules.keyvalExpression(); }
     public FairML_ErlParserRules.guard_return guard() throws RecognitionException { return gErlParserRules.guard(); }
+    public FairML_EolParserRules.forStatement_return forStatement() throws RecognitionException { return gEolParserRules.forStatement(); }
+    public FairML_EolParserRules.lambdaExpression_return lambdaExpression() throws RecognitionException { return gEolParserRules.lambdaExpression(); }
+    public FairML_EolParserRules.breakStatement_return breakStatement() throws RecognitionException { return gEolParserRules.breakStatement(); }
+    public FairML_ErlParserRules.extendz_return extendz() throws RecognitionException { return gErlParserRules.extendz(); }
+    public FairML_EolParserRules.block_return block() throws RecognitionException { return gEolParserRules.block(); }
+    public FairML_ErlParserRules.post_return post() throws RecognitionException { return gErlParserRules.post(); }
+    public FairML_EolParserRules.statementBlock_return statementBlock() throws RecognitionException { return gEolParserRules.statementBlock(); }
+    public FairML_EolParserRules.operationDeclaration_return operationDeclaration() throws RecognitionException { return gEolParserRules.operationDeclaration(); }
+    public FairML_ErlParserRules.pre_return pre() throws RecognitionException { return gErlParserRules.pre(); }
+    public FairML_FairMLParserRules.source_return source() throws RecognitionException { return gFairMLParserRules.source(); }
+    public FairML_EolParserRules.returnStatement_return returnStatement() throws RecognitionException { return gEolParserRules.returnStatement(); }
 
 
  
 
-    public static final BitSet FOLLOW_importStatement_in_fairmlModule77 = new BitSet(new long[]{0x0000000008000000L,0x0006300000000000L,0x0000130000000000L});
-    public static final BitSet FOLLOW_fairmlModuleContent_in_fairmlModule81 = new BitSet(new long[]{0x0000000008000000L,0x0004300000000000L,0x0000130000000000L});
+    public static final BitSet FOLLOW_importStatement_in_fairmlModule77 = new BitSet(new long[]{0x0000000008000000L,0x0000318000000000L,0x0000009800000000L});
+    public static final BitSet FOLLOW_fairmlModuleContent_in_fairmlModule81 = new BitSet(new long[]{0x0000000008000000L,0x0000218000000000L,0x0000009800000000L});
     public static final BitSet FOLLOW_EOF_in_fairmlModule85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pre_in_fairmlModuleContent112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_post_in_fairmlModuleContent116 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_datasetRule_in_fairmlModuleContent120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_annotationBlock_in_fairmlModuleContent124 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_operationDeclaration_in_fairmlModuleContent128 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fairmlRule_in_fairmlModuleContent112 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_erlModuleContent_in_fairmlModuleContent116 = new BitSet(new long[]{0x0000000000000002L});
 
 }

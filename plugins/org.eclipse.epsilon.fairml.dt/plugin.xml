@@ -7,17 +7,17 @@
             class="org.eclipse.epsilon.fairml.dt.editor.FairMLEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             default="true"
-            extensions="pinset"
+            extensions="fairml"
             icon="icons/edl.png"
             id="org.eclipse.epsilon.fairml.dt.editor.FairMLEditor"
-            name="Pinset Language Editor"/>
+            name="FairML Language Editor"/>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTypeImages">
       <launchConfigurationTypeImage
             configTypeID="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
             icon="icons/edl.png"
-            id="Pinset File"/>
+            id="FairML File"/>
    </extension>
   
    <extension
@@ -26,13 +26,13 @@
             delegate="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
             id="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"
             modes="run, debug"
-            name="Pinset File"/>
+            name="FairML File"/>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationTabGroup"
-            description="Create a configuration to launch a Pinset File"
+            description="Create a configuration to launch a FairML File"
             id="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationTabGroup"
             type="org.eclipse.epsilon.fairml.dt.launching.FairMLLaunchConfigurationDelegate"/>
    </extension>
@@ -43,7 +43,7 @@
             class="org.eclipse.epsilon.fairml.dt.wizards.NewFairMLFileWizard"
             icon="icons/edl.png"
             id="org.eclipse.epsilon.fairml.dt.wizards.NewFairMLFileWizard"
-            name="Pinset File"/>
+            name="FairML File"/>
    </extension>
    <extension
          point="org.eclipse.epsilon.common.dt.moduleImplementation">
@@ -51,8 +51,8 @@
             class="org.eclipse.epsilon.fairml.FairMLModule"
             default="false"
             dialog="org.eclipse.epsilon.fairml.dt.launching.FairMLModuleConfiguration"
-            language="Pinset"
-            name="Pinset">
+            language="FairML"
+            name="FairML">
       </implementation>
    </extension>
 

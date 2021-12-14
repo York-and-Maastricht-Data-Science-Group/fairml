@@ -1,0 +1,35 @@
+?nsuri: fairml
+fairml:
+- name: Decision Tree
+- description: Testing Decision Tree for FairML
+
+# set the dataset
+- dataset:
+  - name: Recidivism
+  - path: recidivism.csv
+  - protectedAttributes: race, age, sex
+
+# configure the bias checking
+- biasChecking:
+  - name: Race Bias Checking
+  - dataset: Recidivism 
+  - protectedAttribute: age
+  - priviledgedGroup: 1
+  - unpriviledgedGroup: 0
+  - algorithm: DecisionTreeClassifier
+  - checkingClass: BinaryLabelDatasetMetric
+  - checkingMethod: mean_difference
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Race Bias Mitigation
+  - biasChecking: Race Bias Checking
+  - mitigationMethod: Reweighing
+  
+ 
+  
+  
+  
+ 
+  
+

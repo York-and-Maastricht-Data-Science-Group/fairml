@@ -14,22 +14,22 @@ import java.util.List;
 
 import org.eclipse.epsilon.common.module.ModuleElement;
 import org.eclipse.epsilon.eol.dt.editor.outline.EolModuleContentProvider;
-import org.eclipse.epsilon.fairml.DatasetRule;
 import org.eclipse.epsilon.fairml.FairMLModule;
+import org.eclipse.epsilon.fairml.FairMLRule;
 
 /**
  * FairMLModuleContentProvider.
  *
- * @author Alfonso de la Vega
- * @since 2.1
+ * @author Alfa Yohannis
  */
 public class FairMLModuleContentProvider extends EolModuleContentProvider {
 
 	@Override
 	public ModuleElement getFocusedModuleElement(ModuleElement moduleElement) {
 
-		if (moduleElement instanceof DatasetRule) {
-			return ((DatasetRule) moduleElement).getParameter();
+		if (moduleElement instanceof FairMLRule) {
+//			return ((FairMLRule) moduleElement).getParameter();
+			return moduleElement;
 		}
 
 		return super.getFocusedModuleElement(moduleElement);

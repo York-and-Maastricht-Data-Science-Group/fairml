@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.fairml.parse;
 
-// $ANTLR 3.1b1 EolParserRules.g 2021-12-08 11:44:31
+// $ANTLR 3.1b1 EolParserRules.g 2021-12-08 14:48:18
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -62,7 +62,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int T__141=141;
     public static final int THROW=58;
     public static final int SpecialTypeName=19;
-    public static final int ALIASEDNAME=89;
     public static final int PARAMLIST=29;
     public static final int EXPRLIST=59;
     public static final int EXPRRANGE=60;
@@ -86,10 +85,11 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int CASE=40;
     public static final int Letter=20;
     public static final int LINE_COMMENT=26;
+    public static final int SOURCE=88;
+    public static final int MITIGATION=93;
     public static final int T__129=129;
     public static final int T__126=126;
     public static final int JavaIDDigit=22;
-    public static final int GRIDHEADER=95;
     public static final int T__125=125;
     public static final int LAMBDAEXPR=69;
     public static final int MAP=80;
@@ -105,7 +105,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int MODELDECLARATION=73;
     public static final int T__163=163;
     public static final int EXPRESSIONINBRACKETS=64;
-    public static final int GRIDBODY=96;
     public static final int T__160=160;
     public static final int TERNARY=37;
     public static final int TRANSACTION=46;
@@ -128,17 +127,16 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int T__150=150;
     public static final int T__153=153;
     public static final int T__152=152;
-    public static final int GRID=93;
     public static final int Annotation=27;
     public static final int CONTINUE=45;
     public static final int ENUMERATION_VALUE=71;
     public static final int OPERATOR=63;
+    public static final int PREDICT=90;
     public static final int EXPONENT=6;
     public static final int STRING=15;
     public static final int T__148=148;
     public static final int T__147=147;
     public static final int T__149=149;
-    public static final int NAMESLIST=88;
     public static final int T__100=100;
     public static final int NAMESPACE=74;
     public static final int COLLECTION=47;
@@ -147,33 +145,25 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int T__102=102;
     public static final int PRE=83;
     public static final int T__101=101;
-    public static final int PROPERTIES=90;
     public static final int POST=84;
     public static final int ALIAS=75;
     public static final int DRIVER=76;
-    public static final int COLUMN=91;
-    public static final int T__180=180;
-    public static final int DATASET=87;
-    public static final int T__182=182;
-    public static final int T__181=181;
-    public static final int FROM=97;
     public static final int KEYVAL=81;
     public static final int POINT_POINT=10;
     public static final int GUARD=86;
-    public static final int FAIRMLMODULE=99;
+    public static final int T__99=99;
+    public static final int CHECKING=92;
+    public static final int FAIRMLMODULE=94;
+    public static final int T__95=95;
     public static final int HELPERMETHOD=32;
+    public static final int T__96=96;
+    public static final int T__97=97;
     public static final int StatementBlock=33;
-    public static final int GRIDKEYS=94;
-    public static final int T__177=177;
-    public static final int T__176=176;
-    public static final int T__179=179;
-    public static final int T__178=178;
+    public static final int T__98=98;
     public static final int ABORT=48;
     public static final int T__173=173;
     public static final int StrangeNameLiteral=16;
     public static final int T__172=172;
-    public static final int T__175=175;
-    public static final int T__174=174;
     public static final int FOR=34;
     public static final int BLOCK=67;
     public static final int T__171=171;
@@ -191,8 +181,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int FLOAT=4;
     public static final int T__123=123;
     public static final int T__120=120;
+    public static final int ALGORITHM=91;
     public static final int NativeType=61;
     public static final int INT=8;
+    public static final int PROTECT=89;
     public static final int ANNOTATIONBLOCK=55;
     public static final int RETURN=42;
     public static final int KEYVALLIST=82;
@@ -200,11 +192,9 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int CollectionType=49;
     public static final int T__119=119;
     public static final int ASSIGNMENT=30;
-    public static final int REFERENCE=92;
     public static final int T__118=118;
     public static final int T__115=115;
     public static final int WS=24;
-    public static final int NESTEDFROM=98;
     public static final int EOF=-1;
     public static final int T__114=114;
     public static final int T__117=117;
@@ -215,6 +205,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final int T__112=112;
     public static final int EscapeSequence=14;
     public static final int EOLMODULE=66;
+    public static final int FAIRML=87;
     public static final int CollectionTypeName=17;
     public static final int DIGIT=5;
     public static final int EXECUTABLEANNOTATION=56;
@@ -287,10 +278,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt1=2;
             int LA1_0 = input.LA(1);
 
-            if ( ((LA1_0>=108 && LA1_0<=109)) ) {
+            if ( ((LA1_0>=103 && LA1_0<=104)) ) {
                 alt1=1;
             }
-            else if ( (LA1_0==Annotation||LA1_0==114) ) {
+            else if ( (LA1_0==Annotation||LA1_0==109) ) {
                 alt1=2;
             }
             else {
@@ -384,7 +375,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            m=(Token)match(input,100,FOLLOW_100_in_modelDeclaration286); if (state.failed) return retval;
+            m=(Token)match(input,95,FOLLOW_95_in_modelDeclaration286); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             m_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(m);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(m_tree, root_0);
@@ -398,7 +389,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt2=2;
             int LA2_0 = input.LA(1);
 
-            if ( (LA2_0==102) ) {
+            if ( (LA2_0==97) ) {
                 alt2=1;
             }
             switch (alt2) {
@@ -421,7 +412,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt3=2;
             int LA3_0 = input.LA(1);
 
-            if ( (LA3_0==104) ) {
+            if ( (LA3_0==99) ) {
                 alt3=1;
             }
             switch (alt3) {
@@ -444,7 +435,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==105) ) {
+            if ( (LA4_0==100) ) {
                 alt4=1;
             }
             switch (alt4) {
@@ -463,7 +454,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            sem=(Token)match(input,101,FOLLOW_101_in_modelDeclaration302); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_modelDeclaration302); if (state.failed) return retval;
 
             }
 
@@ -522,7 +513,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            a=(Token)match(input,102,FOLLOW_102_in_modelAlias317); if (state.failed) return retval;
+            a=(Token)match(input,97,FOLLOW_97_in_modelAlias317); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             a_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(a);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(a_tree, root_0);
@@ -538,7 +529,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( (LA5_0==103) ) {
+                if ( (LA5_0==98) ) {
                     alt5=1;
                 }
 
@@ -547,7 +538,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:120:22: ',' NAME
             	    {
-            	    char_literal8=(Token)match(input,103,FOLLOW_103_in_modelAlias323); if (state.failed) return retval;
+            	    char_literal8=(Token)match(input,98,FOLLOW_98_in_modelAlias323); if (state.failed) return retval;
             	    NAME9=(Token)match(input,NAME,FOLLOW_NAME_in_modelAlias326); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    NAME9_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(NAME9);
@@ -613,7 +604,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            d=(Token)match(input,104,FOLLOW_104_in_modelDriver345); if (state.failed) return retval;
+            d=(Token)match(input,99,FOLLOW_99_in_modelDriver345); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             d_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(d);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(d_tree, root_0);
@@ -680,7 +671,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            s=(Token)match(input,105,FOLLOW_105_in_modelDeclarationParameters370); if (state.failed) return retval;
+            s=(Token)match(input,100,FOLLOW_100_in_modelDeclarationParameters370); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             s_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(s);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(s_tree, root_0);
@@ -714,7 +705,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt7=2;
                 int LA7_0 = input.LA(1);
 
-                if ( (LA7_0==103) ) {
+                if ( (LA7_0==98) ) {
                     alt7=1;
                 }
 
@@ -723,7 +714,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:134:39: ',' modelDeclarationParameter
             	    {
-            	    char_literal12=(Token)match(input,103,FOLLOW_103_in_modelDeclarationParameters377); if (state.failed) return retval;
+            	    char_literal12=(Token)match(input,98,FOLLOW_98_in_modelDeclarationParameters377); if (state.failed) return retval;
             	    pushFollow(FOLLOW_modelDeclarationParameter_in_modelDeclarationParameters380);
             	    modelDeclarationParameter13=modelDeclarationParameter();
 
@@ -739,7 +730,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 }
             } while (true);
 
-            cb=(Token)match(input,106,FOLLOW_106_in_modelDeclarationParameters386); if (state.failed) return retval;
+            cb=(Token)match(input,101,FOLLOW_101_in_modelDeclarationParameters386); if (state.failed) return retval;
 
             }
 
@@ -801,7 +792,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             NAME14_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(NAME14);
             adaptor.addChild(root_0, NAME14_tree);
             }
-            e=(Token)match(input,107,FOLLOW_107_in_modelDeclarationParameter403); if (state.failed) return retval;
+            e=(Token)match(input,102,FOLLOW_102_in_modelDeclarationParameter403); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             e_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(e);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(e_tree, root_0);
@@ -878,7 +869,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             set16=(Token)input.LT(1);
             set16=(Token)input.LT(1);
-            if ( (input.LA(1)>=108 && input.LA(1)<=109) ) {
+            if ( (input.LA(1)>=103 && input.LA(1)<=104) ) {
                 input.consume();
                 if ( state.backtracking==0 ) root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot((org.eclipse.epsilon.common.parse.AST)adaptor.create(set16), root_0);
                 state.errorRecovery=false;state.failed=false;
@@ -896,7 +887,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             if ( (LA8_0==NAME) ) {
                 int LA8_1 = input.LA(2);
 
-                if ( (LA8_1==NAME||(LA8_1>=115 && LA8_1<=117)) ) {
+                if ( (LA8_1==NAME||(LA8_1>=110 && LA8_1<=112)) ) {
                     alt8=1;
                 }
             }
@@ -927,7 +918,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             operationName_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(operationName);
             adaptor.addChild(root_0, operationName_tree);
             }
-            op=(Token)match(input,110,FOLLOW_110_in_operationDeclaration451); if (state.failed) return retval;
+            op=(Token)match(input,105,FOLLOW_105_in_operationDeclaration451); if (state.failed) return retval;
             // EolParserRules.g:148:30: ( formalParameterList )?
             int alt9=2;
             int LA9_0 = input.LA(1);
@@ -951,19 +942,19 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            cp=(Token)match(input,111,FOLLOW_111_in_operationDeclaration459); if (state.failed) return retval;
+            cp=(Token)match(input,106,FOLLOW_106_in_operationDeclaration459); if (state.failed) return retval;
             // EolParserRules.g:149:3: ( ':' returnType= typeName )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==112) ) {
+            if ( (LA10_0==107) ) {
                 alt10=1;
             }
             switch (alt10) {
                 case 1 :
                     // EolParserRules.g:149:4: ':' returnType= typeName
                     {
-                    char_literal18=(Token)match(input,112,FOLLOW_112_in_operationDeclaration465); if (state.failed) return retval;
+                    char_literal18=(Token)match(input,107,FOLLOW_107_in_operationDeclaration465); if (state.failed) return retval;
                     pushFollow(FOLLOW_typeName_in_operationDeclaration470);
                     returnType=typeName();
 
@@ -1041,7 +1032,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            i=(Token)match(input,113,FOLLOW_113_in_importStatement496); if (state.failed) return retval;
+            i=(Token)match(input,108,FOLLOW_108_in_importStatement496); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             i_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(i);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(i_tree, root_0);
@@ -1051,7 +1042,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             STRING20_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(STRING20);
             adaptor.addChild(root_0, STRING20_tree);
             }
-            sem=(Token)match(input,101,FOLLOW_101_in_importStatement503); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_importStatement503); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               i.setType(IMPORT);
             }
@@ -1110,7 +1101,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==FLOAT||LA11_0==INT||LA11_0==BOOLEAN||LA11_0==STRING||(LA11_0>=CollectionTypeName && LA11_0<=SpecialTypeName)||LA11_0==NAME||LA11_0==110||LA11_0==120||LA11_0==122||LA11_0==125||(LA11_0>=127 && LA11_0<=135)||LA11_0==155||LA11_0==158||(LA11_0>=165 && LA11_0<=167)) ) {
+                if ( (LA11_0==FLOAT||LA11_0==INT||LA11_0==BOOLEAN||LA11_0==STRING||(LA11_0>=CollectionTypeName && LA11_0<=SpecialTypeName)||LA11_0==NAME||LA11_0==105||LA11_0==115||LA11_0==117||LA11_0==120||(LA11_0>=122 && LA11_0<=130)||LA11_0==150||LA11_0==153||(LA11_0>=160 && LA11_0<=162)) ) {
                     alt11=1;
                 }
 
@@ -1221,14 +1212,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            s=(Token)match(input,105,FOLLOW_105_in_statementBlock554); if (state.failed) return retval;
+            s=(Token)match(input,100,FOLLOW_100_in_statementBlock554); if (state.failed) return retval;
             pushFollow(FOLLOW_block_in_statementBlock557);
             block22=block();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, block22.getTree());
-            e=(Token)match(input,106,FOLLOW_106_in_statementBlock561); if (state.failed) return retval;
+            e=(Token)match(input,101,FOLLOW_101_in_statementBlock561); if (state.failed) return retval;
 
             }
 
@@ -1278,7 +1269,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
         org.eclipse.epsilon.common.parse.AST NAME23_tree=null;
         org.eclipse.epsilon.common.parse.AST char_literal24_tree=null;
-        RewriteRuleTokenStream stream_112=new RewriteRuleTokenStream(adaptor,"token 112");
+        RewriteRuleTokenStream stream_107=new RewriteRuleTokenStream(adaptor,"token 107");
         RewriteRuleTokenStream stream_NAME=new RewriteRuleTokenStream(adaptor,"token NAME");
         RewriteRuleSubtreeStream stream_typeName=new RewriteRuleSubtreeStream(adaptor,"rule typeName");
         try {
@@ -1292,15 +1283,15 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt12=2;
             int LA12_0 = input.LA(1);
 
-            if ( (LA12_0==112) ) {
+            if ( (LA12_0==107) ) {
                 alt12=1;
             }
             switch (alt12) {
                 case 1 :
                     // EolParserRules.g:180:10: ':' pt= typeName
                     {
-                    char_literal24=(Token)match(input,112,FOLLOW_112_in_formalParameter582); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_112.add(char_literal24);
+                    char_literal24=(Token)match(input,107,FOLLOW_107_in_formalParameter582); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_107.add(char_literal24);
 
                     pushFollow(FOLLOW_typeName_in_formalParameter586);
                     pt=typeName();
@@ -1398,7 +1389,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
 
         org.eclipse.epsilon.common.parse.AST char_literal26_tree=null;
-        RewriteRuleTokenStream stream_103=new RewriteRuleTokenStream(adaptor,"token 103");
+        RewriteRuleTokenStream stream_98=new RewriteRuleTokenStream(adaptor,"token 98");
         RewriteRuleSubtreeStream stream_formalParameter=new RewriteRuleSubtreeStream(adaptor,"rule formalParameter");
         try {
             // EolParserRules.g:188:2: ( formalParameter ( ',' formalParameter )* -> ^( PARAMLIST ( formalParameter )* ) )
@@ -1416,7 +1407,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt13=2;
                 int LA13_0 = input.LA(1);
 
-                if ( (LA13_0==103) ) {
+                if ( (LA13_0==98) ) {
                     alt13=1;
                 }
 
@@ -1425,8 +1416,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:188:21: ',' formalParameter
             	    {
-            	    char_literal26=(Token)match(input,103,FOLLOW_103_in_formalParameterList623); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_103.add(char_literal26);
+            	    char_literal26=(Token)match(input,98,FOLLOW_98_in_formalParameterList623); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_98.add(char_literal26);
 
             	    pushFollow(FOLLOW_formalParameter_in_formalParameterList625);
             	    formalParameter27=formalParameter();
@@ -1530,7 +1521,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            d=(Token)match(input,114,FOLLOW_114_in_executableAnnotation650); if (state.failed) return retval;
+            d=(Token)match(input,109,FOLLOW_109_in_executableAnnotation650); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             d_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(d);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(d_tree, root_0);
@@ -1600,7 +1591,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             if ( (LA14_0==Annotation) ) {
                 alt14=1;
             }
-            else if ( (LA14_0==114) ) {
+            else if ( (LA14_0==109) ) {
                 alt14=2;
             }
             else {
@@ -1688,23 +1679,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt15=2;
                 int LA15_0 = input.LA(1);
 
-                if ( (LA15_0==Annotation) ) {
-                    int LA15_2 = input.LA(2);
-
-                    if ( (synpred16_EolParserRules()) ) {
-                        alt15=1;
-                    }
-
-
-                }
-                else if ( (LA15_0==114) ) {
-                    int LA15_3 = input.LA(2);
-
-                    if ( (synpred16_EolParserRules()) ) {
-                        alt15=1;
-                    }
-
-
+                if ( (LA15_0==Annotation||LA15_0==109) ) {
+                    alt15=1;
                 }
 
 
@@ -1947,13 +1923,13 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             SpecialTypeName35_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(SpecialTypeName35);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(SpecialTypeName35_tree, root_0);
             }
-            s=(Token)match(input,110,FOLLOW_110_in_specialType751); if (state.failed) return retval;
+            s=(Token)match(input,105,FOLLOW_105_in_specialType751); if (state.failed) return retval;
             STRING36=(Token)match(input,STRING,FOLLOW_STRING_in_specialType754); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             STRING36_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(STRING36);
             adaptor.addChild(root_0, STRING36_tree);
             }
-            e=(Token)match(input,111,FOLLOW_111_in_specialType758); if (state.failed) return retval;
+            e=(Token)match(input,106,FOLLOW_106_in_specialType758); if (state.failed) return retval;
 
             }
 
@@ -2022,7 +1998,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             if ( (LA17_0==NAME) ) {
                 int LA17_1 = input.LA(2);
 
-                if ( (LA17_1==115) ) {
+                if ( (LA17_1==110) ) {
                     alt17=1;
                 }
             }
@@ -2035,7 +2011,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     metamodel_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(metamodel);
                     adaptor.addChild(root_0, metamodel_tree);
                     }
-                    char_literal37=(Token)match(input,115,FOLLOW_115_in_pathName775); if (state.failed) return retval;
+                    char_literal37=(Token)match(input,110,FOLLOW_110_in_pathName775); if (state.failed) return retval;
 
                     }
                     break;
@@ -2052,14 +2028,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt18=2;
             int LA18_0 = input.LA(1);
 
-            if ( (LA18_0==116) ) {
+            if ( (LA18_0==111) ) {
                 alt18=1;
             }
             switch (alt18) {
                 case 1 :
                     // EolParserRules.g:228:4: '#' label= NAME
                     {
-                    char_literal38=(Token)match(input,116,FOLLOW_116_in_pathName790); if (state.failed) return retval;
+                    char_literal38=(Token)match(input,111,FOLLOW_111_in_pathName790); if (state.failed) return retval;
                     label=(Token)match(input,NAME,FOLLOW_NAME_in_pathName795); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     label_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(label);
@@ -2144,7 +2120,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt19=2;
                 int LA19_0 = input.LA(1);
 
-                if ( (LA19_0==117) ) {
+                if ( (LA19_0==112) ) {
                     alt19=1;
                 }
 
@@ -2153,7 +2129,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:243:15: '::' field= NAME
             	    {
-            	    string_literal39=(Token)match(input,117,FOLLOW_117_in_packagedType819); if (state.failed) return retval;
+            	    string_literal39=(Token)match(input,112,FOLLOW_112_in_packagedType819); if (state.failed) return retval;
             	    field=(Token)match(input,NAME,FOLLOW_NAME_in_packagedType824); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	       
@@ -2249,7 +2225,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     // EolParserRules.g:258:4: (op= '(' tn= typeName ( ',' tn= typeName )* cp= ')' )
                     // EolParserRules.g:258:5: op= '(' tn= typeName ( ',' tn= typeName )* cp= ')'
                     {
-                    op=(Token)match(input,110,FOLLOW_110_in_collectionType869); if (state.failed) return retval;
+                    op=(Token)match(input,105,FOLLOW_105_in_collectionType869); if (state.failed) return retval;
                     pushFollow(FOLLOW_typeName_in_collectionType874);
                     tn=typeName();
 
@@ -2265,7 +2241,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int alt20=2;
                         int LA20_0 = input.LA(1);
 
-                        if ( (LA20_0==103) ) {
+                        if ( (LA20_0==98) ) {
                             alt20=1;
                         }
 
@@ -2274,7 +2250,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     	case 1 :
                     	    // EolParserRules.g:258:51: ',' tn= typeName
                     	    {
-                    	    char_literal41=(Token)match(input,103,FOLLOW_103_in_collectionType879); if (state.failed) return retval;
+                    	    char_literal41=(Token)match(input,98,FOLLOW_98_in_collectionType879); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
                     	    char_literal41_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(char_literal41);
                     	    adaptor.addChild(root_0, char_literal41_tree);
@@ -2297,7 +2273,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         }
                     } while (true);
 
-                    cp=(Token)match(input,111,FOLLOW_111_in_collectionType891); if (state.failed) return retval;
+                    cp=(Token)match(input,106,FOLLOW_106_in_collectionType891); if (state.failed) return retval;
 
                     }
 
@@ -2310,7 +2286,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     // EolParserRules.g:259:4: (op= '<' tn= typeName ( ',' tn= typeName )* cp= '>' )
                     // EolParserRules.g:259:5: op= '<' tn= typeName ( ',' tn= typeName )* cp= '>'
                     {
-                    op=(Token)match(input,118,FOLLOW_118_in_collectionType903); if (state.failed) return retval;
+                    op=(Token)match(input,113,FOLLOW_113_in_collectionType903); if (state.failed) return retval;
                     pushFollow(FOLLOW_typeName_in_collectionType908);
                     tn=typeName();
 
@@ -2326,7 +2302,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int alt21=2;
                         int LA21_0 = input.LA(1);
 
-                        if ( (LA21_0==103) ) {
+                        if ( (LA21_0==98) ) {
                             alt21=1;
                         }
 
@@ -2335,7 +2311,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     	case 1 :
                     	    // EolParserRules.g:259:51: ',' tn= typeName
                     	    {
-                    	    char_literal42=(Token)match(input,103,FOLLOW_103_in_collectionType913); if (state.failed) return retval;
+                    	    char_literal42=(Token)match(input,98,FOLLOW_98_in_collectionType913); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
                     	    char_literal42_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(char_literal42);
                     	    adaptor.addChild(root_0, char_literal42_tree);
@@ -2358,7 +2334,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         }
                     } while (true);
 
-                    cp=(Token)match(input,119,FOLLOW_119_in_collectionType925); if (state.failed) return retval;
+                    cp=(Token)match(input,114,FOLLOW_114_in_collectionType925); if (state.failed) return retval;
 
                     }
 
@@ -2675,37 +2651,37 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             // EolParserRules.g:273:2: ( breakAllStatement | returnStatement | transactionStatement | abortStatement | continueStatement | throwStatement | deleteStatement )
             int alt25=7;
             switch ( input.LA(1) ) {
-            case 132:
+            case 127:
                 {
                 alt25=1;
                 }
                 break;
-            case 128:
+            case 123:
                 {
                 alt25=2;
                 }
                 break;
-            case 135:
+            case 130:
                 {
                 alt25=3;
                 }
                 break;
-            case 134:
+            case 129:
                 {
                 alt25=4;
                 }
                 break;
-            case 133:
+            case 128:
                 {
                 alt25=5;
                 }
                 break;
-            case 129:
+            case 124:
                 {
                 alt25=6;
                 }
                 break;
-            case 130:
+            case 125:
                 {
                 alt25=7;
                 }
@@ -2863,10 +2839,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt26=2;
             int LA26_0 = input.LA(1);
 
-            if ( (LA26_0==FLOAT||LA26_0==INT||LA26_0==BOOLEAN||LA26_0==STRING||(LA26_0>=CollectionTypeName && LA26_0<=SpecialTypeName)||LA26_0==NAME||LA26_0==110||LA26_0==120||LA26_0==122||LA26_0==125||(LA26_0>=127 && LA26_0<=135)||LA26_0==155||LA26_0==158||(LA26_0>=165 && LA26_0<=167)) ) {
+            if ( (LA26_0==FLOAT||LA26_0==INT||LA26_0==BOOLEAN||LA26_0==STRING||(LA26_0>=CollectionTypeName && LA26_0<=SpecialTypeName)||LA26_0==NAME||LA26_0==105||LA26_0==115||LA26_0==117||LA26_0==120||(LA26_0>=122 && LA26_0<=130)||LA26_0==150||LA26_0==153||(LA26_0>=160 && LA26_0<=162)) ) {
                 alt26=1;
             }
-            else if ( (LA26_0==105) ) {
+            else if ( (LA26_0==100) ) {
                 alt26=2;
             }
             else {
@@ -2953,10 +2929,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt27=2;
             int LA27_0 = input.LA(1);
 
-            if ( (LA27_0==112) ) {
+            if ( (LA27_0==107) ) {
                 alt27=1;
             }
-            else if ( (LA27_0==105) ) {
+            else if ( (LA27_0==100) ) {
                 alt27=2;
             }
             else {
@@ -2972,7 +2948,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     {
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-                    char_literal62=(Token)match(input,112,FOLLOW_112_in_expressionOrStatementBlock1053); if (state.failed) return retval;
+                    char_literal62=(Token)match(input,107,FOLLOW_107_in_expressionOrStatementBlock1053); if (state.failed) return retval;
                     pushFollow(FOLLOW_logicalExpression_in_expressionOrStatementBlock1056);
                     logicalExpression63=logicalExpression();
 
@@ -3051,19 +3027,19 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            i=(Token)match(input,120,FOLLOW_120_in_ifStatement1073); if (state.failed) return retval;
+            i=(Token)match(input,115,FOLLOW_115_in_ifStatement1073); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             i_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(i);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(i_tree, root_0);
             }
-            char_literal65=(Token)match(input,110,FOLLOW_110_in_ifStatement1076); if (state.failed) return retval;
+            char_literal65=(Token)match(input,105,FOLLOW_105_in_ifStatement1076); if (state.failed) return retval;
             pushFollow(FOLLOW_logicalExpression_in_ifStatement1079);
             logicalExpression66=logicalExpression();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression66.getTree());
-            char_literal67=(Token)match(input,111,FOLLOW_111_in_ifStatement1081); if (state.failed) return retval;
+            char_literal67=(Token)match(input,106,FOLLOW_106_in_ifStatement1081); if (state.failed) return retval;
             pushFollow(FOLLOW_statementOrStatementBlock_in_ifStatement1084);
             statementOrStatementBlock68=statementOrStatementBlock();
 
@@ -3074,7 +3050,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt28=2;
             int LA28_0 = input.LA(1);
 
-            if ( (LA28_0==121) ) {
+            if ( (LA28_0==116) ) {
                 int LA28_1 = input.LA(2);
 
                 if ( (synpred43_EolParserRules()) ) {
@@ -3148,7 +3124,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            e=(Token)match(input,121,FOLLOW_121_in_elseStatement1109); if (state.failed) return retval;
+            e=(Token)match(input,116,FOLLOW_116_in_elseStatement1109); if (state.failed) return retval;
             pushFollow(FOLLOW_statementOrStatementBlock_in_elseStatement1112);
             statementOrStatementBlock70=statementOrStatementBlock();
 
@@ -3220,27 +3196,27 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            s=(Token)match(input,122,FOLLOW_122_in_switchStatement1126); if (state.failed) return retval;
+            s=(Token)match(input,117,FOLLOW_117_in_switchStatement1126); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             s_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(s);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(s_tree, root_0);
             }
-            char_literal71=(Token)match(input,110,FOLLOW_110_in_switchStatement1129); if (state.failed) return retval;
+            char_literal71=(Token)match(input,105,FOLLOW_105_in_switchStatement1129); if (state.failed) return retval;
             pushFollow(FOLLOW_logicalExpression_in_switchStatement1132);
             logicalExpression72=logicalExpression();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression72.getTree());
-            char_literal73=(Token)match(input,111,FOLLOW_111_in_switchStatement1134); if (state.failed) return retval;
-            char_literal74=(Token)match(input,105,FOLLOW_105_in_switchStatement1137); if (state.failed) return retval;
+            char_literal73=(Token)match(input,106,FOLLOW_106_in_switchStatement1134); if (state.failed) return retval;
+            char_literal74=(Token)match(input,100,FOLLOW_100_in_switchStatement1137); if (state.failed) return retval;
             // EolParserRules.g:298:49: ( caseStatement )*
             loop29:
             do {
                 int alt29=2;
                 int LA29_0 = input.LA(1);
 
-                if ( (LA29_0==123) ) {
+                if ( (LA29_0==118) ) {
                     alt29=1;
                 }
 
@@ -3268,7 +3244,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt30=2;
             int LA30_0 = input.LA(1);
 
-            if ( (LA30_0==124) ) {
+            if ( (LA30_0==119) ) {
                 alt30=1;
             }
             switch (alt30) {
@@ -3287,7 +3263,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            char_literal77=(Token)match(input,106,FOLLOW_106_in_switchStatement1146); if (state.failed) return retval;
+            char_literal77=(Token)match(input,101,FOLLOW_101_in_switchStatement1146); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               s.setType(SWITCH);
             }
@@ -3345,7 +3321,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            c=(Token)match(input,123,FOLLOW_123_in_caseStatement1165); if (state.failed) return retval;
+            c=(Token)match(input,118,FOLLOW_118_in_caseStatement1165); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             c_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(c);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(c_tree, root_0);
@@ -3356,15 +3332,15 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression78.getTree());
-            char_literal79=(Token)match(input,112,FOLLOW_112_in_caseStatement1170); if (state.failed) return retval;
+            char_literal79=(Token)match(input,107,FOLLOW_107_in_caseStatement1170); if (state.failed) return retval;
             // EolParserRules.g:303:37: ( block | statementBlock )
             int alt31=2;
             int LA31_0 = input.LA(1);
 
-            if ( (LA31_0==EOF||LA31_0==FLOAT||LA31_0==INT||LA31_0==BOOLEAN||LA31_0==STRING||(LA31_0>=CollectionTypeName && LA31_0<=SpecialTypeName)||LA31_0==NAME||LA31_0==106||LA31_0==110||LA31_0==120||(LA31_0>=122 && LA31_0<=125)||(LA31_0>=127 && LA31_0<=135)||LA31_0==155||LA31_0==158||(LA31_0>=165 && LA31_0<=167)) ) {
+            if ( (LA31_0==EOF||LA31_0==FLOAT||LA31_0==INT||LA31_0==BOOLEAN||LA31_0==STRING||(LA31_0>=CollectionTypeName && LA31_0<=SpecialTypeName)||LA31_0==NAME||LA31_0==101||LA31_0==105||LA31_0==115||(LA31_0>=117 && LA31_0<=120)||(LA31_0>=122 && LA31_0<=130)||LA31_0==150||LA31_0==153||(LA31_0>=160 && LA31_0<=162)) ) {
                 alt31=1;
             }
-            else if ( (LA31_0==105) ) {
+            else if ( (LA31_0==100) ) {
                 alt31=2;
             }
             else {
@@ -3457,20 +3433,20 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            d=(Token)match(input,124,FOLLOW_124_in_defaultStatement1197); if (state.failed) return retval;
+            d=(Token)match(input,119,FOLLOW_119_in_defaultStatement1197); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             d_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(d);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(d_tree, root_0);
             }
-            char_literal82=(Token)match(input,112,FOLLOW_112_in_defaultStatement1200); if (state.failed) return retval;
+            char_literal82=(Token)match(input,107,FOLLOW_107_in_defaultStatement1200); if (state.failed) return retval;
             // EolParserRules.g:308:22: ( block | statementBlock )
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==EOF||LA32_0==FLOAT||LA32_0==INT||LA32_0==BOOLEAN||LA32_0==STRING||(LA32_0>=CollectionTypeName && LA32_0<=SpecialTypeName)||LA32_0==NAME||LA32_0==106||LA32_0==110||LA32_0==120||(LA32_0>=122 && LA32_0<=125)||(LA32_0>=127 && LA32_0<=135)||LA32_0==155||LA32_0==158||(LA32_0>=165 && LA32_0<=167)) ) {
+            if ( (LA32_0==EOF||LA32_0==FLOAT||LA32_0==INT||LA32_0==BOOLEAN||LA32_0==STRING||(LA32_0>=CollectionTypeName && LA32_0<=SpecialTypeName)||LA32_0==NAME||LA32_0==101||LA32_0==105||LA32_0==115||(LA32_0>=117 && LA32_0<=120)||(LA32_0>=122 && LA32_0<=130)||LA32_0==150||LA32_0==153||(LA32_0>=160 && LA32_0<=162)) ) {
                 alt32=1;
             }
-            else if ( (LA32_0==105) ) {
+            else if ( (LA32_0==100) ) {
                 alt32=2;
             }
             else {
@@ -3569,26 +3545,26 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            f=(Token)match(input,125,FOLLOW_125_in_forStatement1226); if (state.failed) return retval;
+            f=(Token)match(input,120,FOLLOW_120_in_forStatement1226); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             f_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(f);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(f_tree, root_0);
             }
-            char_literal85=(Token)match(input,110,FOLLOW_110_in_forStatement1229); if (state.failed) return retval;
+            char_literal85=(Token)match(input,105,FOLLOW_105_in_forStatement1229); if (state.failed) return retval;
             pushFollow(FOLLOW_formalParameter_in_forStatement1232);
             formalParameter86=formalParameter();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, formalParameter86.getTree());
-            string_literal87=(Token)match(input,126,FOLLOW_126_in_forStatement1234); if (state.failed) return retval;
+            string_literal87=(Token)match(input,121,FOLLOW_121_in_forStatement1234); if (state.failed) return retval;
             pushFollow(FOLLOW_logicalExpression_in_forStatement1237);
             logicalExpression88=logicalExpression();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression88.getTree());
-            char_literal89=(Token)match(input,111,FOLLOW_111_in_forStatement1239); if (state.failed) return retval;
+            char_literal89=(Token)match(input,106,FOLLOW_106_in_forStatement1239); if (state.failed) return retval;
             pushFollow(FOLLOW_statementOrStatementBlock_in_forStatement1242);
             statementOrStatementBlock90=statementOrStatementBlock();
 
@@ -3652,19 +3628,19 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            w=(Token)match(input,127,FOLLOW_127_in_whileStatement1258); if (state.failed) return retval;
+            w=(Token)match(input,122,FOLLOW_122_in_whileStatement1258); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             w_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(w);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(w_tree, root_0);
             }
-            char_literal91=(Token)match(input,110,FOLLOW_110_in_whileStatement1261); if (state.failed) return retval;
+            char_literal91=(Token)match(input,105,FOLLOW_105_in_whileStatement1261); if (state.failed) return retval;
             pushFollow(FOLLOW_logicalExpression_in_whileStatement1264);
             logicalExpression92=logicalExpression();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression92.getTree());
-            char_literal93=(Token)match(input,111,FOLLOW_111_in_whileStatement1266); if (state.failed) return retval;
+            char_literal93=(Token)match(input,106,FOLLOW_106_in_whileStatement1266); if (state.failed) return retval;
             pushFollow(FOLLOW_statementOrStatementBlock_in_whileStatement1269);
             statementOrStatementBlock94=statementOrStatementBlock();
 
@@ -3724,7 +3700,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            r=(Token)match(input,128,FOLLOW_128_in_returnStatement1291); if (state.failed) return retval;
+            r=(Token)match(input,123,FOLLOW_123_in_returnStatement1291); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             r_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(r);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(r_tree, root_0);
@@ -3733,7 +3709,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==FLOAT||LA33_0==INT||LA33_0==BOOLEAN||LA33_0==STRING||(LA33_0>=CollectionTypeName && LA33_0<=SpecialTypeName)||LA33_0==NAME||LA33_0==110||LA33_0==155||LA33_0==158||(LA33_0>=165 && LA33_0<=167)) ) {
+            if ( (LA33_0==FLOAT||LA33_0==INT||LA33_0==BOOLEAN||LA33_0==STRING||(LA33_0>=CollectionTypeName && LA33_0<=SpecialTypeName)||LA33_0==NAME||LA33_0==105||LA33_0==150||LA33_0==153||(LA33_0>=160 && LA33_0<=162)) ) {
                 alt33=1;
             }
             switch (alt33) {
@@ -3752,7 +3728,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            sem=(Token)match(input,101,FOLLOW_101_in_returnStatement1299); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_returnStatement1299); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               r.setType(RETURN);
             }
@@ -3811,7 +3787,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            t=(Token)match(input,129,FOLLOW_129_in_throwStatement1322); if (state.failed) return retval;
+            t=(Token)match(input,124,FOLLOW_124_in_throwStatement1322); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             t_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(t);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(t_tree, root_0);
@@ -3820,7 +3796,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt34=2;
             int LA34_0 = input.LA(1);
 
-            if ( (LA34_0==FLOAT||LA34_0==INT||LA34_0==BOOLEAN||LA34_0==STRING||(LA34_0>=CollectionTypeName && LA34_0<=SpecialTypeName)||LA34_0==NAME||LA34_0==110||LA34_0==155||LA34_0==158||(LA34_0>=165 && LA34_0<=167)) ) {
+            if ( (LA34_0==FLOAT||LA34_0==INT||LA34_0==BOOLEAN||LA34_0==STRING||(LA34_0>=CollectionTypeName && LA34_0<=SpecialTypeName)||LA34_0==NAME||LA34_0==105||LA34_0==150||LA34_0==153||(LA34_0>=160 && LA34_0<=162)) ) {
                 alt34=1;
             }
             switch (alt34) {
@@ -3839,7 +3815,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            sem=(Token)match(input,101,FOLLOW_101_in_throwStatement1330); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_throwStatement1330); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               t.setType(THROW);
             }
@@ -3898,7 +3874,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            d=(Token)match(input,130,FOLLOW_130_in_deleteStatement1353); if (state.failed) return retval;
+            d=(Token)match(input,125,FOLLOW_125_in_deleteStatement1353); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             d_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(d);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(d_tree, root_0);
@@ -3907,7 +3883,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt35=2;
             int LA35_0 = input.LA(1);
 
-            if ( (LA35_0==FLOAT||LA35_0==INT||LA35_0==BOOLEAN||LA35_0==STRING||(LA35_0>=CollectionTypeName && LA35_0<=SpecialTypeName)||LA35_0==NAME||LA35_0==110||LA35_0==155||LA35_0==158||(LA35_0>=165 && LA35_0<=167)) ) {
+            if ( (LA35_0==FLOAT||LA35_0==INT||LA35_0==BOOLEAN||LA35_0==STRING||(LA35_0>=CollectionTypeName && LA35_0<=SpecialTypeName)||LA35_0==NAME||LA35_0==105||LA35_0==150||LA35_0==153||(LA35_0>=160 && LA35_0<=162)) ) {
                 alt35=1;
             }
             switch (alt35) {
@@ -3926,7 +3902,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            sem=(Token)match(input,101,FOLLOW_101_in_deleteStatement1361); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_deleteStatement1361); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               d.setType(DELETE);
             }
@@ -3983,12 +3959,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            b=(Token)match(input,131,FOLLOW_131_in_breakStatement1387); if (state.failed) return retval;
+            b=(Token)match(input,126,FOLLOW_126_in_breakStatement1387); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             b_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(b);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(b_tree, root_0);
             }
-            sem=(Token)match(input,101,FOLLOW_101_in_breakStatement1392); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_breakStatement1392); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               b.setType(BREAK);
             }
@@ -4045,12 +4021,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            b=(Token)match(input,132,FOLLOW_132_in_breakAllStatement1415); if (state.failed) return retval;
+            b=(Token)match(input,127,FOLLOW_127_in_breakAllStatement1415); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             b_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(b);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(b_tree, root_0);
             }
-            sem=(Token)match(input,101,FOLLOW_101_in_breakAllStatement1420); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_breakAllStatement1420); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               b.setType(BREAKALL);
             }
@@ -4107,12 +4083,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            c=(Token)match(input,133,FOLLOW_133_in_continueStatement1443); if (state.failed) return retval;
+            c=(Token)match(input,128,FOLLOW_128_in_continueStatement1443); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             c_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(c);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(c_tree, root_0);
             }
-            sem=(Token)match(input,101,FOLLOW_101_in_continueStatement1448); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_continueStatement1448); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               c.setType(CONTINUE);
             }
@@ -4169,12 +4145,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            a=(Token)match(input,134,FOLLOW_134_in_abortStatement1471); if (state.failed) return retval;
+            a=(Token)match(input,129,FOLLOW_129_in_abortStatement1471); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             a_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(a);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(a_tree, root_0);
             }
-            sem=(Token)match(input,101,FOLLOW_101_in_abortStatement1476); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_abortStatement1476); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               a.setType(ABORT);
             }
@@ -4237,7 +4213,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            t=(Token)match(input,135,FOLLOW_135_in_transactionStatement1493); if (state.failed) return retval;
+            t=(Token)match(input,130,FOLLOW_130_in_transactionStatement1493); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             t_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(t);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(t_tree, root_0);
@@ -4260,7 +4236,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int alt36=2;
                         int LA36_0 = input.LA(1);
 
-                        if ( (LA36_0==103) ) {
+                        if ( (LA36_0==98) ) {
                             alt36=1;
                         }
 
@@ -4269,7 +4245,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     	case 1 :
                     	    // EolParserRules.g:379:28: ',' NAME
                     	    {
-                    	    char_literal99=(Token)match(input,103,FOLLOW_103_in_transactionStatement1500); if (state.failed) return retval;
+                    	    char_literal99=(Token)match(input,98,FOLLOW_98_in_transactionStatement1500); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
                     	    char_literal99_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(char_literal99);
                     	    adaptor.addChild(root_0, char_literal99_tree);
@@ -4367,10 +4343,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt39=2;
             int LA39_0 = input.LA(1);
 
-            if ( ((LA39_0>=136 && LA39_0<=141)) ) {
+            if ( ((LA39_0>=131 && LA39_0<=136)) ) {
                 alt39=1;
             }
-            else if ( (LA39_0==142) ) {
+            else if ( (LA39_0==137) ) {
                 alt39=2;
             }
             else {
@@ -4387,32 +4363,32 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     // EolParserRules.g:387:23: (normal= ':=' | normal= '+=' | normal= '-=' | normal= '*=' | normal= '/=' | normal= '?=' )
                     int alt38=6;
                     switch ( input.LA(1) ) {
-                    case 136:
+                    case 131:
                         {
                         alt38=1;
                         }
                         break;
-                    case 137:
+                    case 132:
                         {
                         alt38=2;
                         }
                         break;
-                    case 138:
+                    case 133:
                         {
                         alt38=3;
                         }
                         break;
-                    case 139:
+                    case 134:
                         {
                         alt38=4;
                         }
                         break;
-                    case 140:
+                    case 135:
                         {
                         alt38=5;
                         }
                         break;
-                    case 141:
+                    case 136:
                         {
                         alt38=6;
                         }
@@ -4429,7 +4405,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 1 :
                             // EolParserRules.g:387:24: normal= ':='
                             {
-                            normal=(Token)match(input,136,FOLLOW_136_in_assignmentStatement1534); if (state.failed) return retval;
+                            normal=(Token)match(input,131,FOLLOW_131_in_assignmentStatement1534); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4440,7 +4416,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 2 :
                             // EolParserRules.g:387:37: normal= '+='
                             {
-                            normal=(Token)match(input,137,FOLLOW_137_in_assignmentStatement1539); if (state.failed) return retval;
+                            normal=(Token)match(input,132,FOLLOW_132_in_assignmentStatement1539); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4451,7 +4427,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 3 :
                             // EolParserRules.g:387:50: normal= '-='
                             {
-                            normal=(Token)match(input,138,FOLLOW_138_in_assignmentStatement1544); if (state.failed) return retval;
+                            normal=(Token)match(input,133,FOLLOW_133_in_assignmentStatement1544); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4462,7 +4438,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 4 :
                             // EolParserRules.g:387:63: normal= '*='
                             {
-                            normal=(Token)match(input,139,FOLLOW_139_in_assignmentStatement1549); if (state.failed) return retval;
+                            normal=(Token)match(input,134,FOLLOW_134_in_assignmentStatement1549); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4473,7 +4449,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 5 :
                             // EolParserRules.g:387:76: normal= '/='
                             {
-                            normal=(Token)match(input,140,FOLLOW_140_in_assignmentStatement1554); if (state.failed) return retval;
+                            normal=(Token)match(input,135,FOLLOW_135_in_assignmentStatement1554); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4484,7 +4460,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 6 :
                             // EolParserRules.g:387:89: normal= '?='
                             {
-                            normal=(Token)match(input,141,FOLLOW_141_in_assignmentStatement1559); if (state.failed) return retval;
+                            normal=(Token)match(input,136,FOLLOW_136_in_assignmentStatement1559); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             normal_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(normal);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(normal_tree, root_0);
@@ -4504,7 +4480,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 case 2 :
                     // EolParserRules.g:388:35: special= '::='
                     {
-                    special=(Token)match(input,142,FOLLOW_142_in_assignmentStatement1571); if (state.failed) return retval;
+                    special=(Token)match(input,137,FOLLOW_137_in_assignmentStatement1571); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     special_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(special);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(special_tree, root_0);
@@ -4524,7 +4500,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression103.getTree());
-            sem=(Token)match(input,101,FOLLOW_101_in_assignmentStatement1583); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_assignmentStatement1583); if (state.failed) return retval;
 
             }
 
@@ -4600,7 +4576,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, postfixExpression104.getTree());
-                    op=(Token)match(input,107,FOLLOW_107_in_expressionStatement1607); if (state.failed) return retval;
+                    op=(Token)match(input,102,FOLLOW_102_in_expressionStatement1607); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4635,7 +4611,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            sem=(Token)match(input,101,FOLLOW_101_in_expressionStatement1622); if (state.failed) return retval;
+            sem=(Token)match(input,96,FOLLOW_96_in_expressionStatement1622); if (state.failed) return retval;
 
             }
 
@@ -4707,7 +4683,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt43=2;
                 int LA43_0 = input.LA(1);
 
-                if ( ((LA43_0>=143 && LA43_0<=147)) ) {
+                if ( ((LA43_0>=138 && LA43_0<=142)) ) {
                     alt43=1;
                 }
 
@@ -4720,10 +4696,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    int alt42=2;
             	    int LA42_0 = input.LA(1);
 
-            	    if ( ((LA42_0>=143 && LA42_0<=146)) ) {
+            	    if ( ((LA42_0>=138 && LA42_0<=141)) ) {
             	        alt42=1;
             	    }
-            	    else if ( (LA42_0==147) ) {
+            	    else if ( (LA42_0==142) ) {
             	        alt42=2;
             	    }
             	    else {
@@ -4740,22 +4716,22 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            // EolParserRules.g:401:5: (op= 'or' | op= 'and' | op= 'xor' | op= 'implies' )
             	            int alt41=4;
             	            switch ( input.LA(1) ) {
-            	            case 143:
+            	            case 138:
             	                {
             	                alt41=1;
             	                }
             	                break;
-            	            case 144:
+            	            case 139:
             	                {
             	                alt41=2;
             	                }
             	                break;
-            	            case 145:
+            	            case 140:
             	                {
             	                alt41=3;
             	                }
             	                break;
-            	            case 146:
+            	            case 141:
             	                {
             	                alt41=4;
             	                }
@@ -4772,7 +4748,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 1 :
             	                    // EolParserRules.g:401:6: op= 'or'
             	                    {
-            	                    op=(Token)match(input,143,FOLLOW_143_in_logicalExpression1645); if (state.failed) return retval;
+            	                    op=(Token)match(input,138,FOLLOW_138_in_logicalExpression1645); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4783,7 +4759,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 2 :
             	                    // EolParserRules.g:401:15: op= 'and'
             	                    {
-            	                    op=(Token)match(input,144,FOLLOW_144_in_logicalExpression1650); if (state.failed) return retval;
+            	                    op=(Token)match(input,139,FOLLOW_139_in_logicalExpression1650); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4794,7 +4770,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 3 :
             	                    // EolParserRules.g:401:25: op= 'xor'
             	                    {
-            	                    op=(Token)match(input,145,FOLLOW_145_in_logicalExpression1655); if (state.failed) return retval;
+            	                    op=(Token)match(input,140,FOLLOW_140_in_logicalExpression1655); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4805,7 +4781,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 4 :
             	                    // EolParserRules.g:401:35: op= 'implies'
             	                    {
-            	                    op=(Token)match(input,146,FOLLOW_146_in_logicalExpression1660); if (state.failed) return retval;
+            	                    op=(Token)match(input,141,FOLLOW_141_in_logicalExpression1660); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4828,7 +4804,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            // EolParserRules.g:402:4: (op= '?' relationalExpression ( 'else' | ':' ) )
             	            // EolParserRules.g:402:5: op= '?' relationalExpression ( 'else' | ':' )
             	            {
-            	            op=(Token)match(input,147,FOLLOW_147_in_logicalExpression1674); if (state.failed) return retval;
+            	            op=(Token)match(input,142,FOLLOW_142_in_logicalExpression1674); if (state.failed) return retval;
             	            if ( state.backtracking==0 ) {
             	            op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	            root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -4840,7 +4816,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            if (state.failed) return retval;
             	            if ( state.backtracking==0 ) adaptor.addChild(root_0, relationalExpression108.getTree());
             	            set109=(Token)input.LT(1);
-            	            if ( input.LA(1)==112||input.LA(1)==121 ) {
+            	            if ( input.LA(1)==107||input.LA(1)==116 ) {
             	                input.consume();
             	                if ( state.backtracking==0 ) adaptor.addChild(root_0, (org.eclipse.epsilon.common.parse.AST)adaptor.create(set109));
             	                state.errorRecovery=false;state.failed=false;
@@ -4949,10 +4925,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    int alt46=2;
             	    int LA46_0 = input.LA(1);
 
-            	    if ( (LA46_0==107||(LA46_0>=148 && LA46_0<=150)) ) {
+            	    if ( (LA46_0==102||(LA46_0>=143 && LA46_0<=145)) ) {
             	        alt46=1;
             	    }
-            	    else if ( ((LA46_0>=118 && LA46_0<=119)||(LA46_0>=151 && LA46_0<=153)) ) {
+            	    else if ( ((LA46_0>=113 && LA46_0<=114)||(LA46_0>=146 && LA46_0<=148)) ) {
             	        alt46=2;
             	    }
             	    else {
@@ -4969,22 +4945,22 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            // EolParserRules.g:408:25: (op= '==' | op= '=' | op= '!=' | op= '?:' )
             	            int alt44=4;
             	            switch ( input.LA(1) ) {
-            	            case 148:
+            	            case 143:
             	                {
             	                alt44=1;
             	                }
             	                break;
-            	            case 107:
+            	            case 102:
             	                {
             	                alt44=2;
             	                }
             	                break;
-            	            case 149:
+            	            case 144:
             	                {
             	                alt44=3;
             	                }
             	                break;
-            	            case 150:
+            	            case 145:
             	                {
             	                alt44=4;
             	                }
@@ -5001,7 +4977,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 1 :
             	                    // EolParserRules.g:408:26: op= '=='
             	                    {
-            	                    op=(Token)match(input,148,FOLLOW_148_in_relationalExpression1718); if (state.failed) return retval;
+            	                    op=(Token)match(input,143,FOLLOW_143_in_relationalExpression1718); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5012,7 +4988,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 2 :
             	                    // EolParserRules.g:408:35: op= '='
             	                    {
-            	                    op=(Token)match(input,107,FOLLOW_107_in_relationalExpression1723); if (state.failed) return retval;
+            	                    op=(Token)match(input,102,FOLLOW_102_in_relationalExpression1723); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5023,7 +4999,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 3 :
             	                    // EolParserRules.g:408:43: op= '!='
             	                    {
-            	                    op=(Token)match(input,149,FOLLOW_149_in_relationalExpression1728); if (state.failed) return retval;
+            	                    op=(Token)match(input,144,FOLLOW_144_in_relationalExpression1728); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5034,7 +5010,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 4 :
             	                    // EolParserRules.g:408:52: op= '?:'
             	                    {
-            	                    op=(Token)match(input,150,FOLLOW_150_in_relationalExpression1733); if (state.failed) return retval;
+            	                    op=(Token)match(input,145,FOLLOW_145_in_relationalExpression1733); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5060,27 +5036,27 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            // EolParserRules.g:409:24: (op= '>' | op= '<' | op= '>=' | op= '<=' | op= '<>' )
             	            int alt45=5;
             	            switch ( input.LA(1) ) {
-            	            case 119:
+            	            case 114:
             	                {
             	                alt45=1;
             	                }
             	                break;
-            	            case 118:
+            	            case 113:
             	                {
             	                alt45=2;
             	                }
             	                break;
-            	            case 151:
+            	            case 146:
             	                {
             	                alt45=3;
             	                }
             	                break;
-            	            case 152:
+            	            case 147:
             	                {
             	                alt45=4;
             	                }
             	                break;
-            	            case 153:
+            	            case 148:
             	                {
             	                alt45=5;
             	                }
@@ -5097,7 +5073,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 1 :
             	                    // EolParserRules.g:409:25: op= '>'
             	                    {
-            	                    op=(Token)match(input,119,FOLLOW_119_in_relationalExpression1767); if (state.failed) return retval;
+            	                    op=(Token)match(input,114,FOLLOW_114_in_relationalExpression1767); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5108,7 +5084,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 2 :
             	                    // EolParserRules.g:409:33: op= '<'
             	                    {
-            	                    op=(Token)match(input,118,FOLLOW_118_in_relationalExpression1772); if (state.failed) return retval;
+            	                    op=(Token)match(input,113,FOLLOW_113_in_relationalExpression1772); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5119,7 +5095,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 3 :
             	                    // EolParserRules.g:409:41: op= '>='
             	                    {
-            	                    op=(Token)match(input,151,FOLLOW_151_in_relationalExpression1777); if (state.failed) return retval;
+            	                    op=(Token)match(input,146,FOLLOW_146_in_relationalExpression1777); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5130,7 +5106,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 4 :
             	                    // EolParserRules.g:409:50: op= '<='
             	                    {
-            	                    op=(Token)match(input,152,FOLLOW_152_in_relationalExpression1782); if (state.failed) return retval;
+            	                    op=(Token)match(input,147,FOLLOW_147_in_relationalExpression1782); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5141,7 +5117,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	                case 5 :
             	                    // EolParserRules.g:409:59: op= '<>'
             	                    {
-            	                    op=(Token)match(input,153,FOLLOW_153_in_relationalExpression1787); if (state.failed) return retval;
+            	                    op=(Token)match(input,148,FOLLOW_148_in_relationalExpression1787); if (state.failed) return retval;
             	                    if ( state.backtracking==0 ) {
             	                    op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	                    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5238,7 +5214,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt49=2;
                 int LA49_0 = input.LA(1);
 
-                if ( ((LA49_0>=154 && LA49_0<=155)) ) {
+                if ( ((LA49_0>=149 && LA49_0<=150)) ) {
                     alt49=1;
                 }
 
@@ -5251,10 +5227,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    int alt48=2;
             	    int LA48_0 = input.LA(1);
 
-            	    if ( (LA48_0==154) ) {
+            	    if ( (LA48_0==149) ) {
             	        alt48=1;
             	    }
-            	    else if ( (LA48_0==155) ) {
+            	    else if ( (LA48_0==150) ) {
             	        alt48=2;
             	    }
             	    else {
@@ -5268,7 +5244,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        case 1 :
             	            // EolParserRules.g:414:31: op= '+'
             	            {
-            	            op=(Token)match(input,154,FOLLOW_154_in_additiveExpression1815); if (state.failed) return retval;
+            	            op=(Token)match(input,149,FOLLOW_149_in_additiveExpression1815); if (state.failed) return retval;
             	            if ( state.backtracking==0 ) {
             	            op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	            root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5279,7 +5255,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        case 2 :
             	            // EolParserRules.g:414:39: op= '-'
             	            {
-            	            op=(Token)match(input,155,FOLLOW_155_in_additiveExpression1820); if (state.failed) return retval;
+            	            op=(Token)match(input,150,FOLLOW_150_in_additiveExpression1820); if (state.failed) return retval;
             	            if ( state.backtracking==0 ) {
             	            op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	            root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5370,7 +5346,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt51=2;
                 int LA51_0 = input.LA(1);
 
-                if ( ((LA51_0>=156 && LA51_0<=157)) ) {
+                if ( ((LA51_0>=151 && LA51_0<=152)) ) {
                     alt51=1;
                 }
 
@@ -5383,10 +5359,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    int alt50=2;
             	    int LA50_0 = input.LA(1);
 
-            	    if ( (LA50_0==156) ) {
+            	    if ( (LA50_0==151) ) {
             	        alt50=1;
             	    }
-            	    else if ( (LA50_0==157) ) {
+            	    else if ( (LA50_0==152) ) {
             	        alt50=2;
             	    }
             	    else {
@@ -5400,7 +5376,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        case 1 :
             	            // EolParserRules.g:419:22: op= '*'
             	            {
-            	            op=(Token)match(input,156,FOLLOW_156_in_multiplicativeExpression1848); if (state.failed) return retval;
+            	            op=(Token)match(input,151,FOLLOW_151_in_multiplicativeExpression1848); if (state.failed) return retval;
             	            if ( state.backtracking==0 ) {
             	            op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	            root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5411,7 +5387,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        case 2 :
             	            // EolParserRules.g:419:30: op= '/'
             	            {
-            	            op=(Token)match(input,157,FOLLOW_157_in_multiplicativeExpression1853); if (state.failed) return retval;
+            	            op=(Token)match(input,152,FOLLOW_152_in_multiplicativeExpression1853); if (state.failed) return retval;
             	            if ( state.backtracking==0 ) {
             	            op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
             	            root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5492,7 +5468,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt53=2;
             int LA53_0 = input.LA(1);
 
-            if ( (LA53_0==155||LA53_0==158) ) {
+            if ( (LA53_0==150||LA53_0==153) ) {
                 alt53=1;
             }
             switch (alt53) {
@@ -5503,10 +5479,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     int alt52=2;
                     int LA52_0 = input.LA(1);
 
-                    if ( (LA52_0==158) ) {
+                    if ( (LA52_0==153) ) {
                         alt52=1;
                     }
-                    else if ( (LA52_0==155) ) {
+                    else if ( (LA52_0==150) ) {
                         alt52=2;
                     }
                     else {
@@ -5520,7 +5496,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 1 :
                             // EolParserRules.g:424:6: op= 'not'
                             {
-                            op=(Token)match(input,158,FOLLOW_158_in_unaryExpression1878); if (state.failed) return retval;
+                            op=(Token)match(input,153,FOLLOW_153_in_unaryExpression1878); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5531,7 +5507,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 2 :
                             // EolParserRules.g:424:16: op= '-'
                             {
-                            op=(Token)match(input,155,FOLLOW_155_in_unaryExpression1883); if (state.failed) return retval;
+                            op=(Token)match(input,150,FOLLOW_150_in_unaryExpression1883); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5615,7 +5591,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt55=2;
             int LA55_0 = input.LA(1);
 
-            if ( ((LA55_0>=159 && LA55_0<=160)) ) {
+            if ( ((LA55_0>=154 && LA55_0<=155)) ) {
                 alt55=1;
             }
             switch (alt55) {
@@ -5626,10 +5602,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     int alt54=2;
                     int LA54_0 = input.LA(1);
 
-                    if ( (LA54_0==159) ) {
+                    if ( (LA54_0==154) ) {
                         alt54=1;
                     }
-                    else if ( (LA54_0==160) ) {
+                    else if ( (LA54_0==155) ) {
                         alt54=2;
                     }
                     else {
@@ -5643,7 +5619,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 1 :
                             // EolParserRules.g:428:24: op= '++'
                             {
-                            op=(Token)match(input,159,FOLLOW_159_in_shortcutOperatorExpression1909); if (state.failed) return retval;
+                            op=(Token)match(input,154,FOLLOW_154_in_shortcutOperatorExpression1909); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5654,7 +5630,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         case 2 :
                             // EolParserRules.g:428:35: op= '--'
                             {
-                            op=(Token)match(input,160,FOLLOW_160_in_shortcutOperatorExpression1916); if (state.failed) return retval;
+                            op=(Token)match(input,155,FOLLOW_155_in_shortcutOperatorExpression1916); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             op_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(op);
                             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(op_tree, root_0);
@@ -5779,7 +5755,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        int alt56=2;
             	        int LA56_0 = input.LA(1);
 
-            	        if ( (LA56_0==161) ) {
+            	        if ( (LA56_0==156) ) {
             	            alt56=1;
             	        }
 
@@ -5788,7 +5764,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    	case 1 :
             	    	    // EolParserRules.g:433:36: is= '[' logicalExpression ']'
             	    	    {
-            	    	    is=(Token)match(input,161,FOLLOW_161_in_postfixExpression1957); if (state.failed) return retval;
+            	    	    is=(Token)match(input,156,FOLLOW_156_in_postfixExpression1957); if (state.failed) return retval;
             	    	    if ( state.backtracking==0 ) {
             	    	    is_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(is);
             	    	    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(is_tree, root_0);
@@ -5799,7 +5775,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    	    state._fsp--;
             	    	    if (state.failed) return retval;
             	    	    if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression122.getTree());
-            	    	    char_literal123=(Token)match(input,162,FOLLOW_162_in_postfixExpression1962); if (state.failed) return retval;
+            	    	    char_literal123=(Token)match(input,157,FOLLOW_157_in_postfixExpression1962); if (state.failed) return retval;
             	    	    if ( state.backtracking==0 ) {
             	    	      is.setType(ITEMSELECTOR);
             	    	    }
@@ -5885,7 +5861,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt58=2;
                 int LA58_0 = input.LA(1);
 
-                if ( (LA58_0==161) ) {
+                if ( (LA58_0==156) ) {
                     alt58=1;
                 }
 
@@ -5894,7 +5870,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:438:25: is= '[' primitiveExpression ']'
             	    {
-            	    is=(Token)match(input,161,FOLLOW_161_in_itemSelectorExpression1989); if (state.failed) return retval;
+            	    is=(Token)match(input,156,FOLLOW_156_in_itemSelectorExpression1989); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    is_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(is);
             	    root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(is_tree, root_0);
@@ -5905,7 +5881,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) adaptor.addChild(root_0, primitiveExpression125.getTree());
-            	    char_literal126=(Token)match(input,162,FOLLOW_162_in_itemSelectorExpression1994); if (state.failed) return retval;
+            	    char_literal126=(Token)match(input,157,FOLLOW_157_in_itemSelectorExpression1994); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	      is.setType(ITEMSELECTOR);
             	    }
@@ -6049,7 +6025,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt60=2;
             int LA60_0 = input.LA(1);
 
-            if ( (LA60_0==110) ) {
+            if ( (LA60_0==105) ) {
                 alt60=1;
             }
             switch (alt60) {
@@ -6118,22 +6094,22 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         org.eclipse.epsilon.common.parse.AST op_tree=null;
         org.eclipse.epsilon.common.parse.AST cp_tree=null;
         org.eclipse.epsilon.common.parse.AST char_literal131_tree=null;
-        RewriteRuleTokenStream stream_110=new RewriteRuleTokenStream(adaptor,"token 110");
-        RewriteRuleTokenStream stream_111=new RewriteRuleTokenStream(adaptor,"token 111");
-        RewriteRuleTokenStream stream_103=new RewriteRuleTokenStream(adaptor,"token 103");
+        RewriteRuleTokenStream stream_105=new RewriteRuleTokenStream(adaptor,"token 105");
+        RewriteRuleTokenStream stream_106=new RewriteRuleTokenStream(adaptor,"token 106");
+        RewriteRuleTokenStream stream_98=new RewriteRuleTokenStream(adaptor,"token 98");
         RewriteRuleSubtreeStream stream_logicalExpression=new RewriteRuleSubtreeStream(adaptor,"rule logicalExpression");
         try {
             // EolParserRules.g:457:2: (op= '(' ( logicalExpression ( ',' logicalExpression )* )? cp= ')' -> ^( PARAMETERS ( logicalExpression )* ) )
             // EolParserRules.g:457:4: op= '(' ( logicalExpression ( ',' logicalExpression )* )? cp= ')'
             {
-            op=(Token)match(input,110,FOLLOW_110_in_parameterList2056); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_110.add(op);
+            op=(Token)match(input,105,FOLLOW_105_in_parameterList2056); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_105.add(op);
 
             // EolParserRules.g:457:11: ( logicalExpression ( ',' logicalExpression )* )?
             int alt62=2;
             int LA62_0 = input.LA(1);
 
-            if ( (LA62_0==FLOAT||LA62_0==INT||LA62_0==BOOLEAN||LA62_0==STRING||(LA62_0>=CollectionTypeName && LA62_0<=SpecialTypeName)||LA62_0==NAME||LA62_0==110||LA62_0==155||LA62_0==158||(LA62_0>=165 && LA62_0<=167)) ) {
+            if ( (LA62_0==FLOAT||LA62_0==INT||LA62_0==BOOLEAN||LA62_0==STRING||(LA62_0>=CollectionTypeName && LA62_0<=SpecialTypeName)||LA62_0==NAME||LA62_0==105||LA62_0==150||LA62_0==153||(LA62_0>=160 && LA62_0<=162)) ) {
                 alt62=1;
             }
             switch (alt62) {
@@ -6152,7 +6128,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int alt61=2;
                         int LA61_0 = input.LA(1);
 
-                        if ( (LA61_0==103) ) {
+                        if ( (LA61_0==98) ) {
                             alt61=1;
                         }
 
@@ -6161,8 +6137,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     	case 1 :
                     	    // EolParserRules.g:457:31: ',' logicalExpression
                     	    {
-                    	    char_literal131=(Token)match(input,103,FOLLOW_103_in_parameterList2062); if (state.failed) return retval; 
-                    	    if ( state.backtracking==0 ) stream_103.add(char_literal131);
+                    	    char_literal131=(Token)match(input,98,FOLLOW_98_in_parameterList2062); if (state.failed) return retval; 
+                    	    if ( state.backtracking==0 ) stream_98.add(char_literal131);
 
                     	    pushFollow(FOLLOW_logicalExpression_in_parameterList2064);
                     	    logicalExpression132=logicalExpression();
@@ -6185,8 +6161,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            cp=(Token)match(input,111,FOLLOW_111_in_parameterList2072); if (state.failed) return retval; 
-            if ( state.backtracking==0 ) stream_111.add(cp);
+            cp=(Token)match(input,106,FOLLOW_106_in_parameterList2072); if (state.failed) return retval; 
+            if ( state.backtracking==0 ) stream_106.add(cp);
 
 
 
@@ -6292,15 +6268,15 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             NAME133_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(NAME133);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(NAME133_tree, root_0);
             }
-            op=(Token)match(input,110,FOLLOW_110_in_complexFeatureCall2105); if (state.failed) return retval;
+            op=(Token)match(input,105,FOLLOW_105_in_complexFeatureCall2105); if (state.failed) return retval;
             // EolParserRules.g:466:18: ( lambdaExpression | lambdaExpressionInBrackets )
             int alt63=2;
             int LA63_0 = input.LA(1);
 
-            if ( (LA63_0==NAME||(LA63_0>=163 && LA63_0<=164)) ) {
+            if ( (LA63_0==NAME||(LA63_0>=158 && LA63_0<=159)) ) {
                 alt63=1;
             }
-            else if ( (LA63_0==110||LA63_0==161) ) {
+            else if ( (LA63_0==105||LA63_0==156) ) {
                 alt63=2;
             }
             else {
@@ -6344,7 +6320,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt65=2;
                 int LA65_0 = input.LA(1);
 
-                if ( (LA65_0==103) ) {
+                if ( (LA65_0==98) ) {
                     alt65=1;
                 }
 
@@ -6353,7 +6329,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:467:4: ',' ( logicalExpression | lambdaExpressionInBrackets )
             	    {
-            	    char_literal136=(Token)match(input,103,FOLLOW_103_in_complexFeatureCall2119); if (state.failed) return retval;
+            	    char_literal136=(Token)match(input,98,FOLLOW_98_in_complexFeatureCall2119); if (state.failed) return retval;
             	    // EolParserRules.g:467:9: ( logicalExpression | lambdaExpressionInBrackets )
             	    int alt64=2;
             	    switch ( input.LA(1) ) {
@@ -6365,26 +6341,26 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	    case MapTypeName:
             	    case SpecialTypeName:
             	    case NAME:
-            	    case 155:
-            	    case 158:
-            	    case 165:
-            	    case 166:
-            	    case 167:
+            	    case 150:
+            	    case 153:
+            	    case 160:
+            	    case 161:
+            	    case 162:
             	        {
             	        alt64=1;
             	        }
             	        break;
-            	    case 110:
+            	    case 105:
             	        {
             	        switch ( input.LA(2) ) {
             	        case NAME:
             	            {
             	            int LA64_4 = input.LA(3);
 
-            	            if ( (LA64_4==POINT||(LA64_4>=ARROW && LA64_4<=NAVIGATION)||LA64_4==107||(LA64_4>=110 && LA64_4<=111)||(LA64_4>=115 && LA64_4<=119)||(LA64_4>=143 && LA64_4<=157)||(LA64_4>=159 && LA64_4<=161)) ) {
+            	            if ( (LA64_4==POINT||(LA64_4>=ARROW && LA64_4<=NAVIGATION)||LA64_4==102||(LA64_4>=105 && LA64_4<=106)||(LA64_4>=110 && LA64_4<=114)||(LA64_4>=138 && LA64_4<=152)||(LA64_4>=154 && LA64_4<=156)) ) {
             	                alt64=1;
             	            }
-            	            else if ( (LA64_4==103||LA64_4==112||(LA64_4>=163 && LA64_4<=164)) ) {
+            	            else if ( (LA64_4==98||LA64_4==107||(LA64_4>=158 && LA64_4<=159)) ) {
             	                alt64=2;
             	            }
             	            else {
@@ -6396,8 +6372,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	            }
             	            }
             	            break;
-            	        case 163:
-            	        case 164:
+            	        case 158:
+            	        case 159:
             	            {
             	            alt64=2;
             	            }
@@ -6409,12 +6385,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	        case CollectionTypeName:
             	        case MapTypeName:
             	        case SpecialTypeName:
-            	        case 110:
-            	        case 155:
-            	        case 158:
-            	        case 165:
-            	        case 166:
-            	        case 167:
+            	        case 105:
+            	        case 150:
+            	        case 153:
+            	        case 160:
+            	        case 161:
+            	        case 162:
             	            {
             	            alt64=1;
             	            }
@@ -6429,7 +6405,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             	        }
             	        break;
-            	    case 161:
+            	    case 156:
             	        {
             	        alt64=2;
             	        }
@@ -6479,7 +6455,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 }
             } while (true);
 
-            cp=(Token)match(input,111,FOLLOW_111_in_complexFeatureCall2134); if (state.failed) return retval;
+            cp=(Token)match(input,106,FOLLOW_106_in_complexFeatureCall2134); if (state.failed) return retval;
 
             }
 
@@ -6537,10 +6513,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt66=2;
             int LA66_0 = input.LA(1);
 
-            if ( (LA66_0==110) ) {
+            if ( (LA66_0==105) ) {
                 alt66=1;
             }
-            else if ( (LA66_0==161) ) {
+            else if ( (LA66_0==156) ) {
                 alt66=2;
             }
             else {
@@ -6559,7 +6535,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     // EolParserRules.g:476:4: (lop= '(' lambdaExpression lcp= ')' )
                     // EolParserRules.g:476:5: lop= '(' lambdaExpression lcp= ')'
                     {
-                    lop=(Token)match(input,110,FOLLOW_110_in_lambdaExpressionInBrackets2155); if (state.failed) return retval;
+                    lop=(Token)match(input,105,FOLLOW_105_in_lambdaExpressionInBrackets2155); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     lop_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(lop);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(lop_tree, root_0);
@@ -6570,7 +6546,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, lambdaExpression139.getTree());
-                    lcp=(Token)match(input,111,FOLLOW_111_in_lambdaExpressionInBrackets2162); if (state.failed) return retval;
+                    lcp=(Token)match(input,106,FOLLOW_106_in_lambdaExpressionInBrackets2162); if (state.failed) return retval;
 
                     }
 
@@ -6585,7 +6561,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     // EolParserRules.g:477:3: (lop= '[' lambdaExpression lcp= ']' )
                     // EolParserRules.g:477:4: lop= '[' lambdaExpression lcp= ']'
                     {
-                    lop=(Token)match(input,161,FOLLOW_161_in_lambdaExpressionInBrackets2173); if (state.failed) return retval;
+                    lop=(Token)match(input,156,FOLLOW_156_in_lambdaExpressionInBrackets2173); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     lop_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(lop);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(lop_tree, root_0);
@@ -6596,7 +6572,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, lambdaExpression140.getTree());
-                    lcp=(Token)match(input,162,FOLLOW_162_in_lambdaExpressionInBrackets2180); if (state.failed) return retval;
+                    lcp=(Token)match(input,157,FOLLOW_157_in_lambdaExpressionInBrackets2180); if (state.failed) return retval;
 
                     }
 
@@ -6686,10 +6662,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt68=2;
             int LA68_0 = input.LA(1);
 
-            if ( (LA68_0==163) ) {
+            if ( (LA68_0==158) ) {
                 alt68=1;
             }
-            else if ( (LA68_0==164) ) {
+            else if ( (LA68_0==159) ) {
                 alt68=2;
             }
             else {
@@ -6703,14 +6679,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 case 1 :
                     // EolParserRules.g:484:26: lt= '|'
                     {
-                    lt=(Token)match(input,163,FOLLOW_163_in_lambdaExpression2205); if (state.failed) return retval;
+                    lt=(Token)match(input,158,FOLLOW_158_in_lambdaExpression2205); if (state.failed) return retval;
 
                     }
                     break;
                 case 2 :
                     // EolParserRules.g:484:36: lt= '=>'
                     {
-                    lt=(Token)match(input,164,FOLLOW_164_in_lambdaExpression2212); if (state.failed) return retval;
+                    lt=(Token)match(input,159,FOLLOW_159_in_lambdaExpression2212); if (state.failed) return retval;
 
                     }
                     break;
@@ -6778,7 +6754,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            n=(Token)match(input,165,FOLLOW_165_in_newExpression2229); if (state.failed) return retval;
+            n=(Token)match(input,160,FOLLOW_160_in_newExpression2229); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             n_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(n);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(n_tree, root_0);
@@ -6796,7 +6772,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt69=2;
             int LA69_0 = input.LA(1);
 
-            if ( (LA69_0==110) ) {
+            if ( (LA69_0==105) ) {
                 alt69=1;
             }
             switch (alt69) {
@@ -6878,10 +6854,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt70=2;
             int LA70_0 = input.LA(1);
 
-            if ( (LA70_0==166) ) {
+            if ( (LA70_0==161) ) {
                 alt70=1;
             }
-            else if ( (LA70_0==167) ) {
+            else if ( (LA70_0==162) ) {
                 alt70=2;
             }
             else {
@@ -6895,7 +6871,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 case 1 :
                     // EolParserRules.g:498:5: v= 'var'
                     {
-                    v=(Token)match(input,166,FOLLOW_166_in_variableDeclarationExpression2262); if (state.failed) return retval;
+                    v=(Token)match(input,161,FOLLOW_161_in_variableDeclarationExpression2262); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     v_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(v);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(v_tree, root_0);
@@ -6906,7 +6882,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 case 2 :
                     // EolParserRules.g:498:14: v= 'ext'
                     {
-                    v=(Token)match(input,167,FOLLOW_167_in_variableDeclarationExpression2267); if (state.failed) return retval;
+                    v=(Token)match(input,162,FOLLOW_162_in_variableDeclarationExpression2267); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     v_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(v);
                     root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(v_tree, root_0);
@@ -6929,19 +6905,19 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 case 1 :
                     // EolParserRules.g:498:30: ':' (n= 'new' )? t= typeName ( parameterList )?
                     {
-                    char_literal145=(Token)match(input,112,FOLLOW_112_in_variableDeclarationExpression2274); if (state.failed) return retval;
+                    char_literal145=(Token)match(input,107,FOLLOW_107_in_variableDeclarationExpression2274); if (state.failed) return retval;
                     // EolParserRules.g:498:36: (n= 'new' )?
                     int alt71=2;
                     int LA71_0 = input.LA(1);
 
-                    if ( (LA71_0==165) ) {
+                    if ( (LA71_0==160) ) {
                         alt71=1;
                     }
                     switch (alt71) {
                         case 1 :
                             // EolParserRules.g:0:0: n= 'new'
                             {
-                            n=(Token)match(input,165,FOLLOW_165_in_variableDeclarationExpression2279); if (state.failed) return retval;
+                            n=(Token)match(input,160,FOLLOW_160_in_variableDeclarationExpression2279); if (state.failed) return retval;
 
                             }
                             break;
@@ -6961,7 +6937,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                     int alt72=2;
                     int LA72_0 = input.LA(1);
 
-                    if ( (LA72_0==110) ) {
+                    if ( (LA72_0==105) ) {
                         alt72=1;
                     }
                     switch (alt72) {
@@ -7050,12 +7026,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             l_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(l);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(l_tree, root_0);
             }
-            ob=(Token)match(input,105,FOLLOW_105_in_literalSequentialCollection2319); if (state.failed) return retval;
+            ob=(Token)match(input,100,FOLLOW_100_in_literalSequentialCollection2319); if (state.failed) return retval;
             // EolParserRules.g:507:11: ( expressionListOrRange )?
             int alt74=2;
             int LA74_0 = input.LA(1);
 
-            if ( (LA74_0==FLOAT||LA74_0==INT||LA74_0==BOOLEAN||LA74_0==STRING||(LA74_0>=CollectionTypeName && LA74_0<=SpecialTypeName)||LA74_0==NAME||LA74_0==110||LA74_0==155||LA74_0==158||(LA74_0>=165 && LA74_0<=167)) ) {
+            if ( (LA74_0==FLOAT||LA74_0==INT||LA74_0==BOOLEAN||LA74_0==STRING||(LA74_0>=CollectionTypeName && LA74_0<=SpecialTypeName)||LA74_0==NAME||LA74_0==105||LA74_0==150||LA74_0==153||(LA74_0>=160 && LA74_0<=162)) ) {
                 alt74=1;
             }
             switch (alt74) {
@@ -7074,7 +7050,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            cb=(Token)match(input,106,FOLLOW_106_in_literalSequentialCollection2327); if (state.failed) return retval;
+            cb=(Token)match(input,101,FOLLOW_101_in_literalSequentialCollection2327); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               l.setType(COLLECTION);
             }
@@ -7197,7 +7173,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
 
         org.eclipse.epsilon.common.parse.AST char_literal151_tree=null;
-        RewriteRuleTokenStream stream_103=new RewriteRuleTokenStream(adaptor,"token 103");
+        RewriteRuleTokenStream stream_98=new RewriteRuleTokenStream(adaptor,"token 98");
         RewriteRuleSubtreeStream stream_logicalExpression=new RewriteRuleSubtreeStream(adaptor,"rule logicalExpression");
         try {
             // EolParserRules.g:520:2: ( logicalExpression ( ',' logicalExpression )* -> ^( EXPRLIST ( logicalExpression )+ ) )
@@ -7215,7 +7191,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt75=2;
                 int LA75_0 = input.LA(1);
 
-                if ( (LA75_0==103) ) {
+                if ( (LA75_0==98) ) {
                     alt75=1;
                 }
 
@@ -7224,8 +7200,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:520:23: ',' logicalExpression
             	    {
-            	    char_literal151=(Token)match(input,103,FOLLOW_103_in_expressionList2373); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_103.add(char_literal151);
+            	    char_literal151=(Token)match(input,98,FOLLOW_98_in_expressionList2373); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_98.add(char_literal151);
 
             	    pushFollow(FOLLOW_logicalExpression_in_expressionList2375);
             	    logicalExpression152=logicalExpression();
@@ -7412,12 +7388,12 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             m_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(m);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(m_tree, root_0);
             }
-            ob=(Token)match(input,105,FOLLOW_105_in_literalMapCollection2427); if (state.failed) return retval;
+            ob=(Token)match(input,100,FOLLOW_100_in_literalMapCollection2427); if (state.failed) return retval;
             // EolParserRules.g:533:27: ( keyvalExpressionList )?
             int alt77=2;
             int LA77_0 = input.LA(1);
 
-            if ( (LA77_0==FLOAT||LA77_0==INT||LA77_0==BOOLEAN||LA77_0==STRING||(LA77_0>=CollectionTypeName && LA77_0<=SpecialTypeName)||LA77_0==NAME||LA77_0==110||LA77_0==155||LA77_0==158||(LA77_0>=165 && LA77_0<=167)) ) {
+            if ( (LA77_0==FLOAT||LA77_0==INT||LA77_0==BOOLEAN||LA77_0==STRING||(LA77_0>=CollectionTypeName && LA77_0<=SpecialTypeName)||LA77_0==NAME||LA77_0==105||LA77_0==150||LA77_0==153||(LA77_0>=160 && LA77_0<=162)) ) {
                 alt77=1;
             }
             switch (alt77) {
@@ -7436,7 +7412,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
             }
 
-            cb=(Token)match(input,106,FOLLOW_106_in_literalMapCollection2435); if (state.failed) return retval;
+            cb=(Token)match(input,101,FOLLOW_101_in_literalMapCollection2435); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               m.setType(MAP);
             }
@@ -7489,7 +7465,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
 
         org.eclipse.epsilon.common.parse.AST char_literal157_tree=null;
-        RewriteRuleTokenStream stream_103=new RewriteRuleTokenStream(adaptor,"token 103");
+        RewriteRuleTokenStream stream_98=new RewriteRuleTokenStream(adaptor,"token 98");
         RewriteRuleSubtreeStream stream_keyvalExpression=new RewriteRuleSubtreeStream(adaptor,"rule keyvalExpression");
         try {
             // EolParserRules.g:541:2: ( keyvalExpression ( ',' keyvalExpression )* -> ^( KEYVALLIST ( keyvalExpression )+ ) )
@@ -7507,7 +7483,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                 int alt78=2;
                 int LA78_0 = input.LA(1);
 
-                if ( (LA78_0==103) ) {
+                if ( (LA78_0==98) ) {
                     alt78=1;
                 }
 
@@ -7516,8 +7492,8 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             	case 1 :
             	    // EolParserRules.g:541:22: ',' keyvalExpression
             	    {
-            	    char_literal157=(Token)match(input,103,FOLLOW_103_in_keyvalExpressionList2459); if (state.failed) return retval; 
-            	    if ( state.backtracking==0 ) stream_103.add(char_literal157);
+            	    char_literal157=(Token)match(input,98,FOLLOW_98_in_keyvalExpressionList2459); if (state.failed) return retval; 
+            	    if ( state.backtracking==0 ) stream_98.add(char_literal157);
 
             	    pushFollow(FOLLOW_keyvalExpression_in_keyvalExpressionList2461);
             	    keyvalExpression158=keyvalExpression();
@@ -7629,7 +7605,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, additiveExpression159.getTree());
-            eq=(Token)match(input,107,FOLLOW_107_in_keyvalExpression2490); if (state.failed) return retval;
+            eq=(Token)match(input,102,FOLLOW_102_in_keyvalExpression2490); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             eq_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(eq);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(eq_tree, root_0);
@@ -7895,7 +7871,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             {
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.nil();
 
-            ob=(Token)match(input,110,FOLLOW_110_in_logicalExpressionInBrackets2565); if (state.failed) return retval;
+            ob=(Token)match(input,105,FOLLOW_105_in_logicalExpressionInBrackets2565); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ob_tree = (org.eclipse.epsilon.common.parse.AST)adaptor.create(ob);
             root_0 = (org.eclipse.epsilon.common.parse.AST)adaptor.becomeRoot(ob_tree, root_0);
@@ -7906,7 +7882,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, logicalExpression171.getTree());
-            cb=(Token)match(input,111,FOLLOW_111_in_logicalExpressionInBrackets2572); if (state.failed) return retval;
+            cb=(Token)match(input,106,FOLLOW_106_in_logicalExpressionInBrackets2572); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
               ob.setType(EXPRESSIONINBRACKETS);
             }
@@ -7998,21 +7974,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     }
     // $ANTLR end literal
 
-    // $ANTLR start synpred16_EolParserRules
-    public final void synpred16_EolParserRules_fragment() throws RecognitionException {   
-        // EolParserRules.g:205:4: ( annotation )
-        // EolParserRules.g:205:4: annotation
-        {
-        pushFollow(FOLLOW_annotation_in_synpred16_EolParserRules692);
-        annotation();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred16_EolParserRules
-
     // $ANTLR start synpred24_EolParserRules
     public final void synpred24_EolParserRules_fragment() throws RecognitionException {   
         // EolParserRules.g:258:4: ( ( '(' typeName ( ',' typeName )* ')' ) )
@@ -8021,7 +7982,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         // EolParserRules.g:258:4: ( '(' typeName ( ',' typeName )* ')' )
         // EolParserRules.g:258:5: '(' typeName ( ',' typeName )* ')'
         {
-        match(input,110,FOLLOW_110_in_synpred24_EolParserRules869); if (state.failed) return ;
+        match(input,105,FOLLOW_105_in_synpred24_EolParserRules869); if (state.failed) return ;
         pushFollow(FOLLOW_typeName_in_synpred24_EolParserRules874);
         typeName();
 
@@ -8033,7 +7994,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt80=2;
             int LA80_0 = input.LA(1);
 
-            if ( (LA80_0==103) ) {
+            if ( (LA80_0==98) ) {
                 alt80=1;
             }
 
@@ -8042,7 +8003,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	case 1 :
         	    // EolParserRules.g:258:51: ',' typeName
         	    {
-        	    match(input,103,FOLLOW_103_in_synpred24_EolParserRules879); if (state.failed) return ;
+        	    match(input,98,FOLLOW_98_in_synpred24_EolParserRules879); if (state.failed) return ;
         	    pushFollow(FOLLOW_typeName_in_synpred24_EolParserRules883);
         	    typeName();
 
@@ -8057,7 +8018,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             }
         } while (true);
 
-        match(input,111,FOLLOW_111_in_synpred24_EolParserRules891); if (state.failed) return ;
+        match(input,106,FOLLOW_106_in_synpred24_EolParserRules891); if (state.failed) return ;
 
         }
 
@@ -8074,7 +8035,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         // EolParserRules.g:259:4: ( '<' typeName ( ',' typeName )* '>' )
         // EolParserRules.g:259:5: '<' typeName ( ',' typeName )* '>'
         {
-        match(input,118,FOLLOW_118_in_synpred26_EolParserRules903); if (state.failed) return ;
+        match(input,113,FOLLOW_113_in_synpred26_EolParserRules903); if (state.failed) return ;
         pushFollow(FOLLOW_typeName_in_synpred26_EolParserRules908);
         typeName();
 
@@ -8086,7 +8047,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt81=2;
             int LA81_0 = input.LA(1);
 
-            if ( (LA81_0==103) ) {
+            if ( (LA81_0==98) ) {
                 alt81=1;
             }
 
@@ -8095,7 +8056,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	case 1 :
         	    // EolParserRules.g:259:51: ',' typeName
         	    {
-        	    match(input,103,FOLLOW_103_in_synpred26_EolParserRules913); if (state.failed) return ;
+        	    match(input,98,FOLLOW_98_in_synpred26_EolParserRules913); if (state.failed) return ;
         	    pushFollow(FOLLOW_typeName_in_synpred26_EolParserRules917);
         	    typeName();
 
@@ -8110,7 +8071,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             }
         } while (true);
 
-        match(input,119,FOLLOW_119_in_synpred26_EolParserRules925); if (state.failed) return ;
+        match(input,114,FOLLOW_114_in_synpred26_EolParserRules925); if (state.failed) return ;
 
         }
 
@@ -8191,7 +8152,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             int alt82=2;
             int LA82_0 = input.LA(1);
 
-            if ( (LA82_0==103) ) {
+            if ( (LA82_0==98) ) {
                 alt82=1;
             }
 
@@ -8200,7 +8161,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	case 1 :
         	    // EolParserRules.g:379:28: ',' NAME
         	    {
-        	    match(input,103,FOLLOW_103_in_synpred52_EolParserRules1500); if (state.failed) return ;
+        	    match(input,98,FOLLOW_98_in_synpred52_EolParserRules1500); if (state.failed) return ;
         	    match(input,NAME,FOLLOW_NAME_in_synpred52_EolParserRules1502); if (state.failed) return ;
 
         	    }
@@ -8229,7 +8190,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
         state._fsp--;
         if (state.failed) return ;
-        match(input,107,FOLLOW_107_in_synpred59_EolParserRules1607); if (state.failed) return ;
+        match(input,102,FOLLOW_102_in_synpred59_EolParserRules1607); if (state.failed) return ;
         pushFollow(FOLLOW_logicalExpression_in_synpred59_EolParserRules1610);
         logicalExpression();
 
@@ -8252,10 +8213,10 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         int alt84=2;
         int LA84_0 = input.LA(1);
 
-        if ( (LA84_0==107||(LA84_0>=148 && LA84_0<=150)) ) {
+        if ( (LA84_0==102||(LA84_0>=143 && LA84_0<=145)) ) {
             alt84=1;
         }
-        else if ( ((LA84_0>=118 && LA84_0<=119)||(LA84_0>=151 && LA84_0<=153)) ) {
+        else if ( ((LA84_0>=113 && LA84_0<=114)||(LA84_0>=146 && LA84_0<=148)) ) {
             alt84=2;
         }
         else {
@@ -8269,7 +8230,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             case 1 :
                 // EolParserRules.g:408:25: ( '==' | '=' | '!=' | '?:' ) relationalExpression
                 {
-                if ( input.LA(1)==107||(input.LA(1)>=148 && input.LA(1)<=150) ) {
+                if ( input.LA(1)==102||(input.LA(1)>=143 && input.LA(1)<=145) ) {
                     input.consume();
                     state.errorRecovery=false;state.failed=false;
                 }
@@ -8290,7 +8251,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
             case 2 :
                 // EolParserRules.g:409:24: ( '>' | '<' | '>=' | '<=' | '<>' ) additiveExpression
                 {
-                if ( (input.LA(1)>=118 && input.LA(1)<=119)||(input.LA(1)>=151 && input.LA(1)<=153) ) {
+                if ( (input.LA(1)>=113 && input.LA(1)<=114)||(input.LA(1)>=146 && input.LA(1)<=148) ) {
                     input.consume();
                     state.errorRecovery=false;state.failed=false;
                 }
@@ -8321,19 +8282,19 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         // EolParserRules.g:498:30: ( ':' ( 'new' )? typeName ( parameterList )? )
         // EolParserRules.g:498:30: ':' ( 'new' )? typeName ( parameterList )?
         {
-        match(input,112,FOLLOW_112_in_synpred102_EolParserRules2274); if (state.failed) return ;
+        match(input,107,FOLLOW_107_in_synpred102_EolParserRules2274); if (state.failed) return ;
         // EolParserRules.g:498:36: ( 'new' )?
         int alt88=2;
         int LA88_0 = input.LA(1);
 
-        if ( (LA88_0==165) ) {
+        if ( (LA88_0==160) ) {
             alt88=1;
         }
         switch (alt88) {
             case 1 :
                 // EolParserRules.g:0:0: 'new'
                 {
-                match(input,165,FOLLOW_165_in_synpred102_EolParserRules2279); if (state.failed) return ;
+                match(input,160,FOLLOW_160_in_synpred102_EolParserRules2279); if (state.failed) return ;
 
                 }
                 break;
@@ -8349,7 +8310,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         int alt89=2;
         int LA89_0 = input.LA(1);
 
-        if ( (LA89_0==110) ) {
+        if ( (LA89_0==105) ) {
             alt89=1;
         }
         switch (alt89) {
@@ -8387,36 +8348,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     }
     // $ANTLR end synpred105_EolParserRules
 
-    // $ANTLR start synpred108_EolParserRules
-    public final void synpred108_EolParserRules_fragment() throws RecognitionException {   
-        // EolParserRules.g:552:4: ( literalSequentialCollection )
-        // EolParserRules.g:552:4: literalSequentialCollection
-        {
-        pushFollow(FOLLOW_literalSequentialCollection_in_synpred108_EolParserRules2508);
-        literalSequentialCollection();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred108_EolParserRules
-
-    // $ANTLR start synpred109_EolParserRules
-    public final void synpred109_EolParserRules_fragment() throws RecognitionException {   
-        // EolParserRules.g:552:34: ( literalMapCollection )
-        // EolParserRules.g:552:34: literalMapCollection
-        {
-        pushFollow(FOLLOW_literalMapCollection_in_synpred109_EolParserRules2512);
-        literalMapCollection();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred109_EolParserRules
-
     // $ANTLR start synpred111_EolParserRules
     public final void synpred111_EolParserRules_fragment() throws RecognitionException {   
         // EolParserRules.g:552:67: ( featureCall )
@@ -8431,21 +8362,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         }
     }
     // $ANTLR end synpred111_EolParserRules
-
-    // $ANTLR start synpred112_EolParserRules
-    public final void synpred112_EolParserRules_fragment() throws RecognitionException {   
-        // EolParserRules.g:552:81: ( collectionType )
-        // EolParserRules.g:552:81: collectionType
-        {
-        pushFollow(FOLLOW_collectionType_in_synpred112_EolParserRules2524);
-        collectionType();
-
-        state._fsp--;
-        if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred112_EolParserRules
 
     // $ANTLR start synpred113_EolParserRules
     public final void synpred113_EolParserRules_fragment() throws RecognitionException {   
@@ -8464,20 +8380,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     // Delegated rules
 
-    public final boolean synpred112_EolParserRules() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred112_EolParserRules_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred52_EolParserRules() {
         state.backtracking++;
         int start = input.mark();
@@ -8497,20 +8399,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         int start = input.mark();
         try {
             synpred59_EolParserRules_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred16_EolParserRules() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred16_EolParserRules_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -8553,20 +8441,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         int start = input.mark();
         try {
             synpred29_EolParserRules_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
-    public final boolean synpred108_EolParserRules() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred108_EolParserRules_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -8674,20 +8548,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         state.failed=false;
         return success;
     }
-    public final boolean synpred109_EolParserRules() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred109_EolParserRules_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred24_EolParserRules() {
         state.backtracking++;
         int start = input.mark();
@@ -8715,25 +8575,23 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     protected DFA76 dfa76 = new DFA76(this);
     protected DFA79 dfa79 = new DFA79(this);
     static final String DFA22_eotS =
-        "\74\uffff";
+        "\73\uffff";
     static final String DFA22_eofS =
-        "\1\3\73\uffff";
+        "\1\3\72\uffff";
     static final String DFA22_minS =
-        "\1\11\2\0\71\uffff";
+        "\1\11\2\0\70\uffff";
     static final String DFA22_maxS =
-        "\1\u00b6\2\0\71\uffff";
+        "\1\u00ad\2\0\70\uffff";
     static final String DFA22_acceptS =
-        "\3\uffff\1\3\66\uffff\1\1\1\2";
+        "\3\uffff\1\3\65\uffff\1\1\1\2";
     static final String DFA22_specialS =
-        "\1\uffff\1\0\1\1\71\uffff}>";
+        "\1\uffff\1\0\1\1\70\uffff}>";
     static final String[] DFA22_transitionS = {
-            "\4\3\12\uffff\1\3\3\uffff\1\3\111\uffff\1\3\1\uffff\1\3\1\uffff"+
+            "\4\3\12\uffff\1\3\3\uffff\1\3\104\uffff\1\3\1\uffff\1\3\1\uffff"+
             "\5\3\1\1\2\3\1\uffff\1\3\3\uffff\1\2\1\3\1\uffff\1\3\4\uffff"+
-            "\1\3\11\uffff\26\3\1\uffff\6\3\3\uffff\2\3\2\uffff\1\3\1\uffff"+
-            "\1\3\1\uffff\4\3\1\uffff\2\3",
+            "\1\3\11\uffff\26\3\1\uffff\6\3\3\uffff\2\3\2\uffff\7\3",
             "\1\uffff",
             "\1\uffff",
-            "",
             "",
             "",
             "",
@@ -8835,7 +8693,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int index22_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred24_EolParserRules()) ) {s = 58;}
+                        if ( (synpred24_EolParserRules()) ) {s = 57;}
 
                         else if ( (true) ) {s = 3;}
 
@@ -8850,7 +8708,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         int index22_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred26_EolParserRules()) ) {s = 59;}
+                        if ( (synpred26_EolParserRules()) ) {s = 58;}
 
                         else if ( (true) ) {s = 3;}
 
@@ -8873,14 +8731,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA23_minS =
         "\1\4\17\uffff\1\0\7\uffff";
     static final String DFA23_maxS =
-        "\1\u00a7\17\uffff\1\0\7\uffff";
+        "\1\u00a2\17\uffff\1\0\7\uffff";
     static final String DFA23_acceptS =
         "\1\uffff\1\1\20\uffff\1\2\5\uffff";
     static final String DFA23_specialS =
         "\20\uffff\1\0\7\uffff}>";
     static final String[] DFA23_transitionS = {
             "\1\1\3\uffff\1\1\4\uffff\1\1\1\uffff\1\1\1\uffff\3\1\3\uffff"+
-            "\1\1\126\uffff\1\1\11\uffff\1\1\1\uffff\1\1\2\uffff\1\1\1\uffff"+
+            "\1\1\121\uffff\1\1\11\uffff\1\1\1\uffff\1\1\2\uffff\1\1\1\uffff"+
             "\1\1\1\20\2\22\1\1\4\22\23\uffff\1\1\2\uffff\1\1\6\uffff\3\1",
             "",
             "",
@@ -8973,14 +8831,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA24_minS =
         "\1\4\13\0\10\uffff";
     static final String DFA24_maxS =
-        "\1\u00a7\13\0\10\uffff";
+        "\1\u00a2\13\0\10\uffff";
     static final String DFA24_acceptS =
         "\14\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\1\1\2";
     static final String DFA24_specialS =
         "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\10\uffff}>";
     static final String[] DFA24_transitionS = {
             "\1\5\3\uffff\1\5\4\uffff\1\5\1\uffff\1\5\1\uffff\1\3\1\4\1"+
-            "\7\3\uffff\1\6\126\uffff\1\10\11\uffff\1\15\1\uffff\1\17\2\uffff"+
+            "\7\3\uffff\1\6\121\uffff\1\10\11\uffff\1\15\1\uffff\1\17\2\uffff"+
             "\1\14\1\uffff\1\16\1\20\2\uffff\1\21\27\uffff\1\2\2\uffff\1"+
             "\1\6\uffff\1\11\1\12\1\13",
             "\1\uffff",
@@ -9220,14 +9078,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA37_minS =
         "\1\4\1\0\30\uffff";
     static final String DFA37_maxS =
-        "\1\u00a7\1\0\30\uffff";
+        "\1\u00a2\1\0\30\uffff";
     static final String DFA37_acceptS =
         "\2\uffff\1\2\26\uffff\1\1";
     static final String DFA37_specialS =
         "\1\uffff\1\0\30\uffff}>";
     static final String[] DFA37_transitionS = {
             "\1\2\3\uffff\1\2\4\uffff\1\2\1\uffff\1\2\1\uffff\3\2\3\uffff"+
-            "\1\1\121\uffff\1\2\4\uffff\1\2\11\uffff\1\2\1\uffff\1\2\2\uffff"+
+            "\1\1\114\uffff\1\2\4\uffff\1\2\11\uffff\1\2\1\uffff\1\2\2\uffff"+
             "\1\2\1\uffff\11\2\23\uffff\1\2\2\uffff\1\2\6\uffff\3\2",
             "\1\uffff",
             "",
@@ -9322,14 +9180,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA40_minS =
         "\1\4\11\0\3\uffff";
     static final String DFA40_maxS =
-        "\1\u00a7\11\0\3\uffff";
+        "\1\u00a2\11\0\3\uffff";
     static final String DFA40_acceptS =
         "\12\uffff\1\2\1\uffff\1\1";
     static final String DFA40_specialS =
         "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\3\uffff}>";
     static final String[] DFA40_transitionS = {
             "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\1\1\1\2\1"+
-            "\5\3\uffff\1\4\126\uffff\1\6\54\uffff\1\12\2\uffff\1\12\6\uffff"+
+            "\5\3\uffff\1\4\121\uffff\1\6\54\uffff\1\12\2\uffff\1\12\6\uffff"+
             "\1\7\1\10\1\11",
             "\1\uffff",
             "\1\uffff",
@@ -9531,16 +9389,16 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA47_minS =
         "\1\12\1\uffff\11\0\1\uffff";
     static final String DFA47_maxS =
-        "\1\u00b6\1\uffff\11\0\1\uffff";
+        "\1\u00ad\1\uffff\11\0\1\uffff";
     static final String DFA47_acceptS =
         "\1\uffff\1\2\11\uffff\1\1";
     static final String DFA47_specialS =
-        "\2\uffff\1\4\1\0\1\5\1\1\1\2\1\7\1\3\1\10\1\6\1\uffff}>";
+        "\2\uffff\1\5\1\1\1\6\1\4\1\2\1\7\1\3\1\10\1\0\1\uffff}>";
     static final String[] DFA47_transitionS = {
-            "\1\1\20\uffff\1\1\111\uffff\1\1\1\uffff\1\1\1\uffff\2\1\1\3"+
+            "\1\1\20\uffff\1\1\104\uffff\1\1\1\uffff\1\1\2\uffff\1\1\1\3"+
             "\2\1\1\uffff\2\1\1\uffff\1\1\3\uffff\1\7\1\6\1\uffff\1\1\16"+
             "\uffff\14\1\1\2\1\4\1\5\1\10\1\11\1\12\10\uffff\1\1\5\uffff"+
-            "\2\1\2\uffff\1\1\1\uffff\1\1\1\uffff\4\1\1\uffff\2\1",
+            "\2\1\2\uffff\7\1",
             "",
             "\1\uffff",
             "\1\uffff",
@@ -9591,6 +9449,21 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA47_10 = input.LA(1);
+
+                         
+                        int index47_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_EolParserRules()) ) {s = 11;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index47_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA47_3 = input.LA(1);
 
                          
@@ -9603,21 +9476,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
                          
                         input.seek(index47_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA47_5 = input.LA(1);
-
-                         
-                        int index47_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_EolParserRules()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index47_5);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
@@ -9651,6 +9509,21 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
+                        int LA47_5 = input.LA(1);
+
+                         
+                        int index47_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred74_EolParserRules()) ) {s = 11;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index47_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA47_2 = input.LA(1);
 
                          
@@ -9665,7 +9538,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         input.seek(index47_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 6 : 
                         int LA47_4 = input.LA(1);
 
                          
@@ -9678,21 +9551,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
                          
                         input.seek(index47_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA47_10 = input.LA(1);
-
-                         
-                        int index47_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred74_EolParserRules()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index47_10);
                         if ( s>=0 ) return s;
                         break;
                     case 7 : 
@@ -9738,34 +9596,34 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA59_eofS =
         "\1\uffff\1\3\10\uffff";
     static final String DFA59_minS =
-        "\1\27\1\11\1\4\1\uffff\1\11\1\uffff\2\4\2\11";
+        "\1\27\1\11\1\4\1\uffff\1\11\1\4\1\uffff\1\4\2\11";
     static final String DFA59_maxS =
-        "\1\27\1\u00b6\1\u00a7\1\uffff\1\u00a4\1\uffff\2\u00a7\2\u00a4";
+        "\1\27\1\u00ad\1\u00a2\1\uffff\1\u009f\1\u00a2\1\uffff\1\u00a2\2"+
+        "\u009f";
     static final String DFA59_acceptS =
-        "\3\uffff\1\1\1\uffff\1\2\4\uffff";
+        "\3\uffff\1\1\2\uffff\1\2\3\uffff";
     static final String DFA59_specialS =
         "\12\uffff}>";
     static final String[] DFA59_transitionS = {
             "\1\1",
-            "\4\3\16\uffff\1\3\111\uffff\1\3\1\uffff\1\3\1\uffff\5\3\1"+
+            "\4\3\16\uffff\1\3\104\uffff\1\3\1\uffff\1\3\2\uffff\4\3\1"+
             "\2\2\3\1\uffff\1\3\3\uffff\2\3\1\uffff\1\3\16\uffff\26\3\1\uffff"+
-            "\4\3\5\uffff\2\3\2\uffff\1\3\1\uffff\1\3\1\uffff\4\3\1\uffff"+
-            "\2\3",
+            "\4\3\5\uffff\2\3\2\uffff\7\3",
             "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\3\3\3\uffff"+
-            "\1\4\126\uffff\1\6\1\3\53\uffff\1\3\2\uffff\1\3\2\uffff\1\5"+
-            "\1\uffff\2\5\3\3",
+            "\1\4\121\uffff\1\5\1\3\53\uffff\1\3\2\uffff\1\3\2\uffff\1\6"+
+            "\1\uffff\2\6\3\3",
             "",
-            "\1\3\1\uffff\2\3\132\uffff\1\7\3\uffff\1\3\2\uffff\2\3\1\5"+
-            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\5",
+            "\1\3\1\uffff\2\3\125\uffff\1\7\3\uffff\1\3\2\uffff\2\3\1\6"+
+            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\6",
+            "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\3\3\3\uffff"+
+            "\1\10\121\uffff\1\3\54\uffff\1\3\2\uffff\1\3\4\uffff\2\6\3\3",
             "",
             "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\3\3\3\uffff"+
-            "\1\10\126\uffff\1\3\54\uffff\1\3\2\uffff\1\3\4\uffff\2\5\3\3",
-            "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\3\3\3\uffff"+
-            "\1\11\126\uffff\1\3\54\uffff\1\3\2\uffff\1\3\6\uffff\3\3",
-            "\1\3\1\uffff\2\3\132\uffff\1\5\3\uffff\1\3\2\uffff\2\3\1\5"+
-            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\5",
-            "\1\3\1\uffff\2\3\132\uffff\1\7\3\uffff\1\3\2\uffff\2\3\1\5"+
-            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\5"
+            "\1\11\121\uffff\1\3\54\uffff\1\3\2\uffff\1\3\6\uffff\3\3",
+            "\1\3\1\uffff\2\3\125\uffff\1\6\3\uffff\1\3\2\uffff\2\3\1\6"+
+            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\6",
+            "\1\3\1\uffff\2\3\125\uffff\1\7\3\uffff\1\3\2\uffff\2\3\1\6"+
+            "\2\uffff\5\3\27\uffff\17\3\1\uffff\3\3\1\uffff\2\6"
     };
 
     static final short[] DFA59_eot = DFA.unpackEncodedString(DFA59_eotS);
@@ -9806,22 +9664,21 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA73_eofS =
         "\2\2\20\uffff";
     static final String DFA73_minS =
-        "\1\11\1\4\1\uffff\1\21\2\0\1\156\3\0\1\156\1\uffff\2\17\2\157\2"+
+        "\1\11\1\4\1\uffff\1\21\2\0\1\151\3\0\1\151\1\uffff\2\17\2\152\2"+
         "\0";
     static final String DFA73_maxS =
-        "\1\u00b6\1\u00a7\1\uffff\1\27\2\0\1\156\3\0\1\156\1\uffff\2\17"+
-        "\2\157\2\0";
+        "\1\u00ad\1\u00a2\1\uffff\1\27\2\0\1\151\3\0\1\151\1\uffff\2\17"+
+        "\2\152\2\0";
     static final String DFA73_acceptS =
         "\2\uffff\1\2\10\uffff\1\1\6\uffff";
     static final String DFA73_specialS =
-        "\4\uffff\1\2\1\5\1\uffff\1\6\1\3\1\1\6\uffff\1\0\1\4}>";
+        "\4\uffff\1\2\1\3\1\uffff\1\4\1\0\1\6\6\uffff\1\1\1\5}>";
     static final String[] DFA73_transitionS = {
-            "\4\2\16\uffff\1\2\111\uffff\1\2\1\uffff\1\2\1\uffff\5\2\1\uffff"+
+            "\4\2\16\uffff\1\2\104\uffff\1\2\1\uffff\1\2\2\uffff\4\2\1\uffff"+
             "\1\2\1\1\1\uffff\1\2\3\uffff\2\2\1\uffff\1\2\16\uffff\26\2\1"+
-            "\uffff\4\2\5\uffff\2\2\2\uffff\1\2\1\uffff\1\2\1\uffff\4\2\1"+
-            "\uffff\2\2",
+            "\uffff\4\2\5\uffff\2\2\2\uffff\7\2",
             "\1\2\3\uffff\1\2\4\uffff\1\2\1\uffff\1\2\1\uffff\1\5\1\7\1"+
-            "\6\3\uffff\1\4\121\uffff\2\2\3\uffff\1\2\11\uffff\1\2\1\uffff"+
+            "\6\3\uffff\1\4\114\uffff\2\2\3\uffff\1\2\11\uffff\1\2\1\uffff"+
             "\4\2\1\uffff\11\2\23\uffff\1\2\2\uffff\1\2\6\uffff\1\3\2\2",
             "",
             "\2\11\1\12\3\uffff\1\10",
@@ -9878,6 +9735,21 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA73_8 = input.LA(1);
+
+                         
+                        int index73_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred102_EolParserRules()) ) {s = 11;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index73_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA73_16 = input.LA(1);
 
                          
@@ -9890,21 +9762,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
                          
                         input.seek(index73_16);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA73_9 = input.LA(1);
-
-                         
-                        int index73_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred102_EolParserRules()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index73_9);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
@@ -9923,36 +9780,6 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA73_8 = input.LA(1);
-
-                         
-                        int index73_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred102_EolParserRules()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index73_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA73_17 = input.LA(1);
-
-                         
-                        int index73_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred102_EolParserRules()) ) {s = 11;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index73_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
                         int LA73_5 = input.LA(1);
 
                          
@@ -9967,7 +9794,7 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
                         input.seek(index73_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
+                    case 4 : 
                         int LA73_7 = input.LA(1);
 
                          
@@ -9980,6 +9807,36 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
                          
                         input.seek(index73_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA73_17 = input.LA(1);
+
+                         
+                        int index73_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred102_EolParserRules()) ) {s = 11;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index73_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA73_9 = input.LA(1);
+
+                         
+                        int index73_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred102_EolParserRules()) ) {s = 11;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index73_9);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -9997,14 +9854,14 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     static final String DFA76_minS =
         "\1\4\13\0\2\uffff";
     static final String DFA76_maxS =
-        "\1\u00a7\13\0\2\uffff";
+        "\1\u00a2\13\0\2\uffff";
     static final String DFA76_acceptS =
         "\14\uffff\1\1\1\2";
     static final String DFA76_specialS =
         "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\2\uffff}>";
     static final String[] DFA76_transitionS = {
             "\1\5\3\uffff\1\5\4\uffff\1\5\1\uffff\1\5\1\uffff\1\3\1\4\1"+
-            "\7\3\uffff\1\6\126\uffff\1\10\54\uffff\1\2\2\uffff\1\1\6\uffff"+
+            "\7\3\uffff\1\6\121\uffff\1\10\54\uffff\1\2\2\uffff\1\1\6\uffff"+
             "\1\11\1\12\1\13",
             "\1\uffff",
             "\1\uffff",
@@ -10231,26 +10088,28 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         }
     }
     static final String DFA79_eotS =
-        "\17\uffff";
+        "\16\uffff";
     static final String DFA79_eofS =
-        "\17\uffff";
+        "\1\uffff\2\12\13\uffff";
     static final String DFA79_minS =
-        "\1\4\2\0\1\uffff\1\0\12\uffff";
+        "\1\4\2\11\1\uffff\1\0\11\uffff";
     static final String DFA79_maxS =
-        "\1\u00a7\2\0\1\uffff\1\0\12\uffff";
+        "\1\u00a2\2\u00ad\1\uffff\1\0\11\uffff";
     static final String DFA79_acceptS =
-        "\3\uffff\1\3\1\uffff\1\7\1\10\1\11\1\12\1\uffff\1\1\1\5\1\2\1\4"+
-        "\1\6";
+        "\3\uffff\1\3\1\uffff\1\7\1\10\1\11\1\12\1\1\1\5\1\2\1\4\1\6";
     static final String DFA79_specialS =
-        "\1\uffff\1\0\1\1\1\uffff\1\2\12\uffff}>";
+        "\4\uffff\1\0\11\uffff}>";
     static final String[] DFA79_transitionS = {
             "\1\3\3\uffff\1\3\4\uffff\1\3\1\uffff\1\3\1\uffff\1\1\1\2\1"+
-            "\5\3\uffff\1\4\126\uffff\1\6\66\uffff\1\7\2\10",
-            "\1\uffff",
-            "\1\uffff",
+            "\5\3\uffff\1\4\121\uffff\1\6\66\uffff\1\7\2\10",
+            "\4\12\16\uffff\1\12\104\uffff\1\12\1\uffff\1\12\1\uffff\1"+
+            "\11\7\12\1\uffff\1\12\3\uffff\2\12\1\uffff\1\12\16\uffff\26"+
+            "\12\1\uffff\4\12\5\uffff\2\12\2\uffff\7\12",
+            "\4\12\16\uffff\1\12\104\uffff\1\12\1\uffff\1\12\1\uffff\1"+
+            "\13\7\12\1\uffff\1\12\3\uffff\2\12\1\uffff\1\12\16\uffff\26"+
+            "\12\1\uffff\4\12\5\uffff\2\12\2\uffff\7\12",
             "",
             "\1\uffff",
-            "",
             "",
             "",
             "",
@@ -10299,45 +10158,15 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA79_1 = input.LA(1);
-
-                         
-                        int index79_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred108_EolParserRules()) ) {s = 10;}
-
-                        else if ( (synpred112_EolParserRules()) ) {s = 11;}
-
-                         
-                        input.seek(index79_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA79_2 = input.LA(1);
-
-                         
-                        int index79_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred109_EolParserRules()) ) {s = 12;}
-
-                        else if ( (synpred112_EolParserRules()) ) {s = 11;}
-
-                         
-                        input.seek(index79_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA79_4 = input.LA(1);
 
                          
                         int index79_4 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred111_EolParserRules()) ) {s = 13;}
+                        if ( (synpred111_EolParserRules()) ) {s = 12;}
 
-                        else if ( (synpred113_EolParserRules()) ) {s = 14;}
+                        else if ( (synpred113_EolParserRules()) ) {s = 13;}
 
                          
                         input.seek(index79_4);
@@ -10355,79 +10184,79 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
 
     public static final BitSet FOLLOW_operationDeclaration_in_operationDeclarationOrAnnotationBlock263 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_annotationBlock_in_operationDeclarationOrAnnotationBlock267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_100_in_modelDeclaration286 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_modelDeclaration289 = new BitSet(new long[]{0x0000000000000000L,0x0000036000000000L});
-    public static final BitSet FOLLOW_modelAlias_in_modelDeclaration291 = new BitSet(new long[]{0x0000000000000000L,0x0000032000000000L});
-    public static final BitSet FOLLOW_modelDriver_in_modelDeclaration294 = new BitSet(new long[]{0x0000000000000000L,0x0000022000000000L});
-    public static final BitSet FOLLOW_modelDeclarationParameters_in_modelDeclaration297 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_modelDeclaration302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_modelAlias317 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_modelAlias320 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_103_in_modelAlias323 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_modelAlias326 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_104_in_modelDriver345 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_95_in_modelDeclaration286 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_modelDeclaration289 = new BitSet(new long[]{0x0000000000000000L,0x0000001B00000000L});
+    public static final BitSet FOLLOW_modelAlias_in_modelDeclaration291 = new BitSet(new long[]{0x0000000000000000L,0x0000001900000000L});
+    public static final BitSet FOLLOW_modelDriver_in_modelDeclaration294 = new BitSet(new long[]{0x0000000000000000L,0x0000001100000000L});
+    public static final BitSet FOLLOW_modelDeclarationParameters_in_modelDeclaration297 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_modelDeclaration302 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_97_in_modelAlias317 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_modelAlias320 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_modelAlias323 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_modelAlias326 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_99_in_modelDriver345 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_NAME_in_modelDriver348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_105_in_modelDeclarationParameters370 = new BitSet(new long[]{0x0000000000800000L,0x0000048000000000L});
-    public static final BitSet FOLLOW_modelDeclarationParameter_in_modelDeclarationParameters373 = new BitSet(new long[]{0x0000000000000000L,0x0000048000000000L});
-    public static final BitSet FOLLOW_103_in_modelDeclarationParameters377 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_modelDeclarationParameter_in_modelDeclarationParameters380 = new BitSet(new long[]{0x0000000000000000L,0x0000048000000000L});
-    public static final BitSet FOLLOW_106_in_modelDeclarationParameters386 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_modelDeclarationParameter399 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
-    public static final BitSet FOLLOW_107_in_modelDeclarationParameter403 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_100_in_modelDeclarationParameters370 = new BitSet(new long[]{0x0000000000800000L,0x0000002400000000L});
+    public static final BitSet FOLLOW_modelDeclarationParameter_in_modelDeclarationParameters373 = new BitSet(new long[]{0x0000000000000000L,0x0000002400000000L});
+    public static final BitSet FOLLOW_98_in_modelDeclarationParameters377 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_modelDeclarationParameter_in_modelDeclarationParameters380 = new BitSet(new long[]{0x0000000000000000L,0x0000002400000000L});
+    public static final BitSet FOLLOW_101_in_modelDeclarationParameters386 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_modelDeclarationParameter399 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_102_in_modelDeclarationParameter403 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_STRING_in_modelDeclarationParameter406 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_operationDeclaration427 = new BitSet(new long[]{0x00000000008E0000L});
     public static final BitSet FOLLOW_typeName_in_operationDeclaration437 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_operationDeclaration447 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_operationDeclaration451 = new BitSet(new long[]{0x0000000000800000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_formalParameterList_in_operationDeclaration454 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_operationDeclaration459 = new BitSet(new long[]{0x0000000000000000L,0x0001020000000000L});
-    public static final BitSet FOLLOW_112_in_operationDeclaration465 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_operationDeclaration470 = new BitSet(new long[]{0x0000000000000000L,0x0001020000000000L});
+    public static final BitSet FOLLOW_NAME_in_operationDeclaration447 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_operationDeclaration451 = new BitSet(new long[]{0x0000000000800000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_formalParameterList_in_operationDeclaration454 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_operationDeclaration459 = new BitSet(new long[]{0x0000000000000000L,0x0000081000000000L});
+    public static final BitSet FOLLOW_107_in_operationDeclaration465 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_operationDeclaration470 = new BitSet(new long[]{0x0000000000000000L,0x0000081000000000L});
     public static final BitSet FOLLOW_statementBlock_in_operationDeclaration476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_113_in_importStatement496 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_STRING_in_importStatement499 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_importStatement503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_statement_in_block524 = new BitSet(new long[]{0x00000000008EA112L,0xA500400000000000L,0x000000E0480000FFL});
-    public static final BitSet FOLLOW_105_in_statementBlock554 = new BitSet(new long[]{0x00000000008EA110L,0xA500400000000000L,0x000000E0480000FFL});
-    public static final BitSet FOLLOW_block_in_statementBlock557 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_106_in_statementBlock561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_formalParameter579 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
-    public static final BitSet FOLLOW_112_in_formalParameter582 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_108_in_importStatement496 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_STRING_in_importStatement499 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_importStatement503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_statement_in_block524 = new BitSet(new long[]{0x00000000008EA112L,0xFD28020000000000L,0x0000000702400007L});
+    public static final BitSet FOLLOW_100_in_statementBlock554 = new BitSet(new long[]{0x00000000008EA110L,0xFD28020000000000L,0x0000000702400007L});
+    public static final BitSet FOLLOW_block_in_statementBlock557 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
+    public static final BitSet FOLLOW_101_in_statementBlock561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_formalParameter579 = new BitSet(new long[]{0x0000000000000002L,0x0000080000000000L});
+    public static final BitSet FOLLOW_107_in_formalParameter582 = new BitSet(new long[]{0x00000000008E0000L});
     public static final BitSet FOLLOW_typeName_in_formalParameter586 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_formalParameter_in_formalParameterList620 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_103_in_formalParameterList623 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_formalParameter_in_formalParameterList625 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_114_in_executableAnnotation650 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0x007FFFFFFFFFFFFFL});
+    public static final BitSet FOLLOW_formalParameter_in_formalParameterList620 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_formalParameterList623 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_formalParameter_in_formalParameterList625 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_109_in_executableAnnotation650 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0x00003FFFFFFFFFFFL});
     public static final BitSet FOLLOW_logicalExpression_in_executableAnnotation657 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Annotation_in_annotation671 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_executableAnnotation_in_annotation675 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_annotation_in_annotationBlock692 = new BitSet(new long[]{0x0000000008000002L,0x0004000000000000L});
+    public static final BitSet FOLLOW_annotation_in_annotationBlock692 = new BitSet(new long[]{0x0000000008000002L,0x0000200000000000L});
     public static final BitSet FOLLOW_pathName_in_typeName721 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_collectionType_in_typeName725 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_specialType_in_typeName729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SpecialTypeName_in_specialType746 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_specialType751 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_STRING_in_specialType754 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_specialType758 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_pathName773 = new BitSet(new long[]{0x0000000000000000L,0x0008000000000000L});
-    public static final BitSet FOLLOW_115_in_pathName775 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_packagedType_in_pathName784 = new BitSet(new long[]{0x0000000000000002L,0x0010000000000000L});
-    public static final BitSet FOLLOW_116_in_pathName790 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_SpecialTypeName_in_specialType746 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_specialType751 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_STRING_in_specialType754 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_specialType758 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_pathName773 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
+    public static final BitSet FOLLOW_110_in_pathName775 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_packagedType_in_pathName784 = new BitSet(new long[]{0x0000000000000002L,0x0000800000000000L});
+    public static final BitSet FOLLOW_111_in_pathName790 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_NAME_in_pathName795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_packagedType816 = new BitSet(new long[]{0x0000000000000002L,0x0020000000000000L});
-    public static final BitSet FOLLOW_117_in_packagedType819 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_packagedType824 = new BitSet(new long[]{0x0000000000000002L,0x0020000000000000L});
-    public static final BitSet FOLLOW_set_in_collectionType854 = new BitSet(new long[]{0x0000000000000002L,0x0040400000000000L});
-    public static final BitSet FOLLOW_110_in_collectionType869 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_collectionType874 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_103_in_collectionType879 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_collectionType883 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_111_in_collectionType891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_118_in_collectionType903 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_collectionType908 = new BitSet(new long[]{0x0000000000000000L,0x0080008000000000L});
-    public static final BitSet FOLLOW_103_in_collectionType913 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_collectionType917 = new BitSet(new long[]{0x0000000000000000L,0x0080008000000000L});
-    public static final BitSet FOLLOW_119_in_collectionType925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_packagedType816 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
+    public static final BitSet FOLLOW_112_in_packagedType819 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_packagedType824 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
+    public static final BitSet FOLLOW_set_in_collectionType854 = new BitSet(new long[]{0x0000000000000002L,0x0002020000000000L});
+    public static final BitSet FOLLOW_105_in_collectionType869 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_collectionType874 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_98_in_collectionType879 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_collectionType883 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_106_in_collectionType891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_113_in_collectionType903 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_collectionType908 = new BitSet(new long[]{0x0000000000000000L,0x0004000400000000L});
+    public static final BitSet FOLLOW_98_in_collectionType913 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_collectionType917 = new BitSet(new long[]{0x0000000000000000L,0x0004000400000000L});
+    public static final BitSet FOLLOW_114_in_collectionType925 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementA_in_statement944 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementB_in_statement948 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_assignmentStatement_in_statementA959 = new BitSet(new long[]{0x0000000000000002L});
@@ -10447,186 +10276,186 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final BitSet FOLLOW_deleteStatement_in_statementB1029 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statement_in_statementOrStatementBlock1040 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementBlock_in_statementOrStatementBlock1044 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_112_in_expressionOrStatementBlock1053 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_107_in_expressionOrStatementBlock1053 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_logicalExpression_in_expressionOrStatementBlock1056 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementBlock_in_expressionOrStatementBlock1060 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_120_in_ifStatement1073 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_ifStatement1076 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_ifStatement1079 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_ifStatement1081 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
-    public static final BitSet FOLLOW_statementOrStatementBlock_in_ifStatement1084 = new BitSet(new long[]{0x0000000000000002L,0x0200000000000000L});
+    public static final BitSet FOLLOW_115_in_ifStatement1073 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_ifStatement1076 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_ifStatement1079 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_ifStatement1081 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
+    public static final BitSet FOLLOW_statementOrStatementBlock_in_ifStatement1084 = new BitSet(new long[]{0x0000000000000002L,0x0010000000000000L});
     public static final BitSet FOLLOW_elseStatement_in_ifStatement1086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_121_in_elseStatement1109 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_116_in_elseStatement1109 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_statementOrStatementBlock_in_elseStatement1112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_122_in_switchStatement1126 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_switchStatement1129 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_switchStatement1132 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_switchStatement1134 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
-    public static final BitSet FOLLOW_105_in_switchStatement1137 = new BitSet(new long[]{0x0000000000000000L,0x1800040000000000L});
-    public static final BitSet FOLLOW_caseStatement_in_switchStatement1140 = new BitSet(new long[]{0x0000000000000000L,0x1800040000000000L});
-    public static final BitSet FOLLOW_defaultStatement_in_switchStatement1143 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_106_in_switchStatement1146 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_123_in_caseStatement1165 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_caseStatement1168 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_112_in_caseStatement1170 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_117_in_switchStatement1126 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_switchStatement1129 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_switchStatement1132 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_switchStatement1134 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+    public static final BitSet FOLLOW_100_in_switchStatement1137 = new BitSet(new long[]{0x0000000000000000L,0x00C0002000000000L});
+    public static final BitSet FOLLOW_caseStatement_in_switchStatement1140 = new BitSet(new long[]{0x0000000000000000L,0x00C0002000000000L});
+    public static final BitSet FOLLOW_defaultStatement_in_switchStatement1143 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
+    public static final BitSet FOLLOW_101_in_switchStatement1146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_118_in_caseStatement1165 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_caseStatement1168 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
+    public static final BitSet FOLLOW_107_in_caseStatement1170 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_block_in_caseStatement1174 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementBlock_in_caseStatement1178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_124_in_defaultStatement1197 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_112_in_defaultStatement1200 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_119_in_defaultStatement1197 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
+    public static final BitSet FOLLOW_107_in_defaultStatement1200 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_block_in_defaultStatement1204 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementBlock_in_defaultStatement1208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_125_in_forStatement1226 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_forStatement1229 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_formalParameter_in_forStatement1232 = new BitSet(new long[]{0x0000000000000000L,0x4000000000000000L});
-    public static final BitSet FOLLOW_126_in_forStatement1234 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_forStatement1237 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_forStatement1239 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_120_in_forStatement1226 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_forStatement1229 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_formalParameter_in_forStatement1232 = new BitSet(new long[]{0x0000000000000000L,0x0200000000000000L});
+    public static final BitSet FOLLOW_121_in_forStatement1234 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_forStatement1237 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_forStatement1239 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_statementOrStatementBlock_in_forStatement1242 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_127_in_whileStatement1258 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_whileStatement1261 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_whileStatement1264 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_whileStatement1266 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_122_in_whileStatement1258 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_whileStatement1261 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_whileStatement1264 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_whileStatement1266 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_statementOrStatementBlock_in_whileStatement1269 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_128_in_returnStatement1291 = new BitSet(new long[]{0x00000000008EA110L,0x0000402000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_returnStatement1294 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_returnStatement1299 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_129_in_throwStatement1322 = new BitSet(new long[]{0x00000000008EA110L,0x0000402000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_throwStatement1325 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_throwStatement1330 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_130_in_deleteStatement1353 = new BitSet(new long[]{0x00000000008EA110L,0x0000402000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_deleteStatement1356 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_deleteStatement1361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_131_in_breakStatement1387 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_breakStatement1392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_132_in_breakAllStatement1415 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_breakAllStatement1420 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_133_in_continueStatement1443 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_continueStatement1448 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_134_in_abortStatement1471 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_abortStatement1476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_135_in_transactionStatement1493 = new BitSet(new long[]{0x00000000008EA110L,0xA501420000000000L,0x000000E0480000FFL});
-    public static final BitSet FOLLOW_NAME_in_transactionStatement1497 = new BitSet(new long[]{0x00000000008EA110L,0xA501428000000000L,0x000000E0480000FFL});
-    public static final BitSet FOLLOW_103_in_transactionStatement1500 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_transactionStatement1502 = new BitSet(new long[]{0x00000000008EA110L,0xA501428000000000L,0x000000E0480000FFL});
+    public static final BitSet FOLLOW_123_in_returnStatement1291 = new BitSet(new long[]{0x00000000008EA110L,0x0000020100000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_returnStatement1294 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_returnStatement1299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_124_in_throwStatement1322 = new BitSet(new long[]{0x00000000008EA110L,0x0000020100000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_throwStatement1325 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_throwStatement1330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_125_in_deleteStatement1353 = new BitSet(new long[]{0x00000000008EA110L,0x0000020100000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_deleteStatement1356 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_deleteStatement1361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_126_in_breakStatement1387 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_breakStatement1392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_127_in_breakAllStatement1415 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_breakAllStatement1420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_128_in_continueStatement1443 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_continueStatement1448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_129_in_abortStatement1471 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_abortStatement1476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_130_in_transactionStatement1493 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1000000000L,0x0000000702400007L});
+    public static final BitSet FOLLOW_NAME_in_transactionStatement1497 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1400000000L,0x0000000702400007L});
+    public static final BitSet FOLLOW_98_in_transactionStatement1500 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_transactionStatement1502 = new BitSet(new long[]{0x00000000008EA110L,0xFD280A1400000000L,0x0000000702400007L});
     public static final BitSet FOLLOW_statementOrStatementBlock_in_transactionStatement1508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_logicalExpression_in_assignmentStatement1528 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000007F00L});
-    public static final BitSet FOLLOW_136_in_assignmentStatement1534 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_137_in_assignmentStatement1539 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_138_in_assignmentStatement1544 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_139_in_assignmentStatement1549 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_140_in_assignmentStatement1554 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_141_in_assignmentStatement1559 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_142_in_assignmentStatement1571 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_assignmentStatement1579 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_assignmentStatement1583 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_postfixExpression_in_expressionStatement1603 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
-    public static final BitSet FOLLOW_107_in_expressionStatement1607 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_expressionStatement1610 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_expressionStatement1617 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_101_in_expressionStatement1622 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1634 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x00000000000F8000L});
-    public static final BitSet FOLLOW_143_in_logicalExpression1645 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_144_in_logicalExpression1650 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_145_in_logicalExpression1655 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_146_in_logicalExpression1660 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_147_in_logicalExpression1674 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1677 = new BitSet(new long[]{0x0000000000000000L,0x0201000000000000L});
-    public static final BitSet FOLLOW_set_in_logicalExpression1679 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1695 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x00000000000F8000L});
-    public static final BitSet FOLLOW_additiveExpression_in_relationalExpression1711 = new BitSet(new long[]{0x0000000000000002L,0x00C0080000000000L,0x0000000003F00000L});
-    public static final BitSet FOLLOW_148_in_relationalExpression1718 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_107_in_relationalExpression1723 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_149_in_relationalExpression1728 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_150_in_relationalExpression1733 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_relationalExpression_in_relationalExpression1737 = new BitSet(new long[]{0x0000000000000002L,0x00C0080000000000L,0x0000000003F00000L});
-    public static final BitSet FOLLOW_119_in_relationalExpression1767 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_118_in_relationalExpression1772 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_151_in_relationalExpression1777 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_152_in_relationalExpression1782 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_153_in_relationalExpression1787 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_additiveExpression_in_relationalExpression1791 = new BitSet(new long[]{0x0000000000000002L,0x00C0080000000000L,0x0000000003F00000L});
-    public static final BitSet FOLLOW_multiplicativeExpression_in_additiveExpression1809 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x000000000C000000L});
-    public static final BitSet FOLLOW_154_in_additiveExpression1815 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_155_in_additiveExpression1820 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_multiplicativeExpression_in_additiveExpression1824 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x000000000C000000L});
-    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression1842 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000030000000L});
-    public static final BitSet FOLLOW_156_in_multiplicativeExpression1848 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_157_in_multiplicativeExpression1853 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression1857 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000030000000L});
-    public static final BitSet FOLLOW_158_in_unaryExpression1878 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_155_in_unaryExpression1883 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_logicalExpression_in_assignmentStatement1528 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x00000000000003F8L});
+    public static final BitSet FOLLOW_131_in_assignmentStatement1534 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_132_in_assignmentStatement1539 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_133_in_assignmentStatement1544 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_134_in_assignmentStatement1549 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_135_in_assignmentStatement1554 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_136_in_assignmentStatement1559 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_137_in_assignmentStatement1571 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_assignmentStatement1579 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_assignmentStatement1583 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_postfixExpression_in_expressionStatement1603 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_102_in_expressionStatement1607 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_expressionStatement1610 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_logicalExpression_in_expressionStatement1617 = new BitSet(new long[]{0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_96_in_expressionStatement1622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1634 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000007C00L});
+    public static final BitSet FOLLOW_138_in_logicalExpression1645 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_139_in_logicalExpression1650 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_140_in_logicalExpression1655 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_141_in_logicalExpression1660 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_142_in_logicalExpression1674 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1677 = new BitSet(new long[]{0x0000000000000000L,0x0010080000000000L});
+    public static final BitSet FOLLOW_set_in_logicalExpression1679 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_relationalExpression_in_logicalExpression1695 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000007C00L});
+    public static final BitSet FOLLOW_additiveExpression_in_relationalExpression1711 = new BitSet(new long[]{0x0000000000000002L,0x0006004000000000L,0x00000000001F8000L});
+    public static final BitSet FOLLOW_143_in_relationalExpression1718 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_102_in_relationalExpression1723 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_144_in_relationalExpression1728 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_145_in_relationalExpression1733 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_relationalExpression_in_relationalExpression1737 = new BitSet(new long[]{0x0000000000000002L,0x0006004000000000L,0x00000000001F8000L});
+    public static final BitSet FOLLOW_114_in_relationalExpression1767 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_113_in_relationalExpression1772 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_146_in_relationalExpression1777 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_147_in_relationalExpression1782 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_148_in_relationalExpression1787 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_additiveExpression_in_relationalExpression1791 = new BitSet(new long[]{0x0000000000000002L,0x0006004000000000L,0x00000000001F8000L});
+    public static final BitSet FOLLOW_multiplicativeExpression_in_additiveExpression1809 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000600000L});
+    public static final BitSet FOLLOW_149_in_additiveExpression1815 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_150_in_additiveExpression1820 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_multiplicativeExpression_in_additiveExpression1824 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000600000L});
+    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression1842 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000001800000L});
+    public static final BitSet FOLLOW_151_in_multiplicativeExpression1848 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_152_in_multiplicativeExpression1853 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_unaryExpression_in_multiplicativeExpression1857 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000001800000L});
+    public static final BitSet FOLLOW_153_in_unaryExpression1878 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_150_in_unaryExpression1883 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_shortcutOperatorExpression_in_unaryExpression1891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_postfixExpression_in_shortcutOperatorExpression1903 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000180000000L});
-    public static final BitSet FOLLOW_159_in_shortcutOperatorExpression1909 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_160_in_shortcutOperatorExpression1916 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_postfixExpression_in_shortcutOperatorExpression1903 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x000000000C000000L});
+    public static final BitSet FOLLOW_154_in_shortcutOperatorExpression1909 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_155_in_shortcutOperatorExpression1916 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_itemSelectorExpression_in_postfixExpression1934 = new BitSet(new long[]{0x0000000000001A02L});
     public static final BitSet FOLLOW_set_in_postfixExpression1937 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_featureCall_in_postfixExpression1948 = new BitSet(new long[]{0x0000000000001A02L,0x0000000000000000L,0x0000000200000000L});
-    public static final BitSet FOLLOW_161_in_postfixExpression1957 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_postfixExpression1960 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_162_in_postfixExpression1962 = new BitSet(new long[]{0x0000000000001A02L,0x0000000000000000L,0x0000000200000000L});
-    public static final BitSet FOLLOW_primitiveExpression_in_itemSelectorExpression1984 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000200000000L});
-    public static final BitSet FOLLOW_161_in_itemSelectorExpression1989 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_primitiveExpression_in_itemSelectorExpression1992 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_162_in_itemSelectorExpression1994 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000200000000L});
+    public static final BitSet FOLLOW_featureCall_in_postfixExpression1948 = new BitSet(new long[]{0x0000000000001A02L,0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_156_in_postfixExpression1957 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_postfixExpression1960 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000020000000L});
+    public static final BitSet FOLLOW_157_in_postfixExpression1962 = new BitSet(new long[]{0x0000000000001A02L,0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_primitiveExpression_in_itemSelectorExpression1984 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_156_in_itemSelectorExpression1989 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_primitiveExpression_in_itemSelectorExpression1992 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000020000000L});
+    public static final BitSet FOLLOW_157_in_itemSelectorExpression1994 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000010000000L});
     public static final BitSet FOLLOW_simpleFeatureCall_in_featureCall2012 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_complexFeatureCall_in_featureCall2016 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_simpleFeatureCall2030 = new BitSet(new long[]{0x0000000000000002L,0x0000400000000000L});
+    public static final BitSet FOLLOW_NAME_in_simpleFeatureCall2030 = new BitSet(new long[]{0x0000000000000002L,0x0000020000000000L});
     public static final BitSet FOLLOW_parameterList_in_simpleFeatureCall2033 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_110_in_parameterList2056 = new BitSet(new long[]{0x00000000008EA110L,0x0000C00000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_parameterList2059 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_103_in_parameterList2062 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_parameterList2064 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_111_in_parameterList2072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_complexFeatureCall2100 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_110_in_complexFeatureCall2105 = new BitSet(new long[]{0x0000000000800000L,0x0000400000000000L,0x0000001A00000000L});
-    public static final BitSet FOLLOW_lambdaExpression_in_complexFeatureCall2109 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_lambdaExpressionInBrackets_in_complexFeatureCall2113 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_103_in_complexFeatureCall2119 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000FA48000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_complexFeatureCall2123 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_lambdaExpressionInBrackets_in_complexFeatureCall2127 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_111_in_complexFeatureCall2134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_110_in_lambdaExpressionInBrackets2155 = new BitSet(new long[]{0x0000000000800000L,0x0000000000000000L,0x0000001800000000L});
-    public static final BitSet FOLLOW_lambdaExpression_in_lambdaExpressionInBrackets2158 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_lambdaExpressionInBrackets2162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_161_in_lambdaExpressionInBrackets2173 = new BitSet(new long[]{0x0000000000800000L,0x0000000000000000L,0x0000001800000000L});
-    public static final BitSet FOLLOW_lambdaExpression_in_lambdaExpressionInBrackets2176 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_162_in_lambdaExpressionInBrackets2180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_formalParameterList_in_lambdaExpression2199 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000001800000000L});
-    public static final BitSet FOLLOW_163_in_lambdaExpression2205 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_164_in_lambdaExpression2212 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_105_in_parameterList2056 = new BitSet(new long[]{0x00000000008EA110L,0x0000060000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_parameterList2059 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_98_in_parameterList2062 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_parameterList2064 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_106_in_parameterList2072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAME_in_complexFeatureCall2100 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_105_in_complexFeatureCall2105 = new BitSet(new long[]{0x0000000000800000L,0x0000020000000000L,0x00000000D0000000L});
+    public static final BitSet FOLLOW_lambdaExpression_in_complexFeatureCall2109 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_lambdaExpressionInBrackets_in_complexFeatureCall2113 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_98_in_complexFeatureCall2119 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x00000007D2400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_complexFeatureCall2123 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_lambdaExpressionInBrackets_in_complexFeatureCall2127 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_106_in_complexFeatureCall2134 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_lambdaExpressionInBrackets2155 = new BitSet(new long[]{0x0000000000800000L,0x0000000000000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_lambdaExpression_in_lambdaExpressionInBrackets2158 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_lambdaExpressionInBrackets2162 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_156_in_lambdaExpressionInBrackets2173 = new BitSet(new long[]{0x0000000000800000L,0x0000000000000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_lambdaExpression_in_lambdaExpressionInBrackets2176 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000020000000L});
+    public static final BitSet FOLLOW_157_in_lambdaExpressionInBrackets2180 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_formalParameterList_in_lambdaExpression2199 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x00000000C0000000L});
+    public static final BitSet FOLLOW_158_in_lambdaExpression2205 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_159_in_lambdaExpression2212 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_logicalExpression_in_lambdaExpression2216 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_165_in_newExpression2229 = new BitSet(new long[]{0x00000000008E0000L});
-    public static final BitSet FOLLOW_typeName_in_newExpression2234 = new BitSet(new long[]{0x0000000000000002L,0x0000400000000000L});
+    public static final BitSet FOLLOW_160_in_newExpression2229 = new BitSet(new long[]{0x00000000008E0000L});
+    public static final BitSet FOLLOW_typeName_in_newExpression2234 = new BitSet(new long[]{0x0000000000000002L,0x0000020000000000L});
     public static final BitSet FOLLOW_parameterList_in_newExpression2238 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_166_in_variableDeclarationExpression2262 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_167_in_variableDeclarationExpression2267 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_variableDeclarationExpression2271 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
-    public static final BitSet FOLLOW_112_in_variableDeclarationExpression2274 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_165_in_variableDeclarationExpression2279 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_variableDeclarationExpression2285 = new BitSet(new long[]{0x0000000000000002L,0x0000400000000000L});
+    public static final BitSet FOLLOW_161_in_variableDeclarationExpression2262 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_162_in_variableDeclarationExpression2267 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_variableDeclarationExpression2271 = new BitSet(new long[]{0x0000000000000002L,0x0000080000000000L});
+    public static final BitSet FOLLOW_107_in_variableDeclarationExpression2274 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_160_in_variableDeclarationExpression2279 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_variableDeclarationExpression2285 = new BitSet(new long[]{0x0000000000000002L,0x0000020000000000L});
     public static final BitSet FOLLOW_parameterList_in_variableDeclarationExpression2289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CollectionTypeName_in_literalSequentialCollection2312 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
-    public static final BitSet FOLLOW_105_in_literalSequentialCollection2319 = new BitSet(new long[]{0x00000000008EA110L,0x0000440000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_expressionListOrRange_in_literalSequentialCollection2322 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_106_in_literalSequentialCollection2327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CollectionTypeName_in_literalSequentialCollection2312 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+    public static final BitSet FOLLOW_100_in_literalSequentialCollection2319 = new BitSet(new long[]{0x00000000008EA110L,0x0000022000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_expressionListOrRange_in_literalSequentialCollection2322 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
+    public static final BitSet FOLLOW_101_in_literalSequentialCollection2327 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_logicalExpression_in_expressionRange2342 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_POINT_POINT_in_expressionRange2346 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_POINT_POINT_in_expressionRange2346 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_logicalExpression_in_expressionRange2349 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_logicalExpression_in_expressionList2370 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_103_in_expressionList2373 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_expressionList2375 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
+    public static final BitSet FOLLOW_logicalExpression_in_expressionList2370 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_expressionList2373 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_expressionList2375 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
     public static final BitSet FOLLOW_expressionRange_in_expressionListOrRange2399 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionList_in_expressionListOrRange2403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MapTypeName_in_literalMapCollection2422 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
-    public static final BitSet FOLLOW_105_in_literalMapCollection2427 = new BitSet(new long[]{0x00000000008EA110L,0x0000440000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_keyvalExpressionList_in_literalMapCollection2430 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
-    public static final BitSet FOLLOW_106_in_literalMapCollection2435 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_keyvalExpression_in_keyvalExpressionList2456 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_103_in_keyvalExpressionList2459 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_keyvalExpression_in_keyvalExpressionList2461 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_additiveExpression_in_keyvalExpression2486 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
-    public static final BitSet FOLLOW_107_in_keyvalExpression2490 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_MapTypeName_in_literalMapCollection2422 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
+    public static final BitSet FOLLOW_100_in_literalMapCollection2427 = new BitSet(new long[]{0x00000000008EA110L,0x0000022000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_keyvalExpressionList_in_literalMapCollection2430 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
+    public static final BitSet FOLLOW_101_in_literalMapCollection2435 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_keyvalExpression_in_keyvalExpressionList2456 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_keyvalExpressionList2459 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_keyvalExpression_in_keyvalExpressionList2461 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_additiveExpression_in_keyvalExpression2486 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_102_in_keyvalExpression2490 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_logicalExpression_in_keyvalExpression2493 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_literalSequentialCollection_in_primitiveExpression2508 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_literalMapCollection_in_primitiveExpression2512 = new BitSet(new long[]{0x0000000000000002L});
@@ -10638,44 +10467,40 @@ public class FairML_EolParserRules extends org.eclipse.epsilon.common.parse.Epsi
     public static final BitSet FOLLOW_logicalExpressionInBrackets_in_primitiveExpression2538 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_newExpression_in_primitiveExpression2542 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_variableDeclarationExpression_in_primitiveExpression2546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_110_in_logicalExpressionInBrackets2565 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
-    public static final BitSet FOLLOW_logicalExpression_in_logicalExpressionInBrackets2568 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_111_in_logicalExpressionInBrackets2572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_logicalExpressionInBrackets2565 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
+    public static final BitSet FOLLOW_logicalExpression_in_logicalExpressionInBrackets2568 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_106_in_logicalExpressionInBrackets2572 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_literal0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_annotation_in_synpred16_EolParserRules692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_110_in_synpred24_EolParserRules869 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_synpred24_EolParserRules874 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_103_in_synpred24_EolParserRules879 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_synpred24_EolParserRules883 = new BitSet(new long[]{0x0000000000000000L,0x0000808000000000L});
-    public static final BitSet FOLLOW_111_in_synpred24_EolParserRules891 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_118_in_synpred26_EolParserRules903 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_synpred26_EolParserRules908 = new BitSet(new long[]{0x0000000000000000L,0x0080008000000000L});
-    public static final BitSet FOLLOW_103_in_synpred26_EolParserRules913 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_synpred26_EolParserRules917 = new BitSet(new long[]{0x0000000000000000L,0x0080008000000000L});
-    public static final BitSet FOLLOW_119_in_synpred26_EolParserRules925 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_synpred24_EolParserRules869 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_synpred24_EolParserRules874 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_98_in_synpred24_EolParserRules879 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_synpred24_EolParserRules883 = new BitSet(new long[]{0x0000000000000000L,0x0000040400000000L});
+    public static final BitSet FOLLOW_106_in_synpred24_EolParserRules891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_113_in_synpred26_EolParserRules903 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_synpred26_EolParserRules908 = new BitSet(new long[]{0x0000000000000000L,0x0004000400000000L});
+    public static final BitSet FOLLOW_98_in_synpred26_EolParserRules913 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_synpred26_EolParserRules917 = new BitSet(new long[]{0x0000000000000000L,0x0004000400000000L});
+    public static final BitSet FOLLOW_114_in_synpred26_EolParserRules925 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_statementA_in_synpred27_EolParserRules944 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_assignmentStatement_in_synpred28_EolParserRules959 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionStatement_in_synpred29_EolParserRules963 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_elseStatement_in_synpred43_EolParserRules1086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAME_in_synpred52_EolParserRules1497 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_103_in_synpred52_EolParserRules1500 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_NAME_in_synpred52_EolParserRules1502 = new BitSet(new long[]{0x0000000000000002L,0x0000008000000000L});
-    public static final BitSet FOLLOW_postfixExpression_in_synpred59_EolParserRules1603 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
-    public static final BitSet FOLLOW_107_in_synpred59_EolParserRules1607 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_NAME_in_synpred52_EolParserRules1497 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_98_in_synpred52_EolParserRules1500 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_NAME_in_synpred52_EolParserRules1502 = new BitSet(new long[]{0x0000000000000002L,0x0000000400000000L});
+    public static final BitSet FOLLOW_postfixExpression_in_synpred59_EolParserRules1603 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_102_in_synpred59_EolParserRules1607 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_logicalExpression_in_synpred59_EolParserRules1610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred74_EolParserRules1715 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_set_in_synpred74_EolParserRules1715 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_relationalExpression_in_synpred74_EolParserRules1737 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_synpred74_EolParserRules1764 = new BitSet(new long[]{0x00000000008EA110L,0x0000400000000000L,0x000000E048000000L});
+    public static final BitSet FOLLOW_set_in_synpred74_EolParserRules1764 = new BitSet(new long[]{0x00000000008EA110L,0x0000020000000000L,0x0000000702400000L});
     public static final BitSet FOLLOW_additiveExpression_in_synpred74_EolParserRules1791 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_112_in_synpred102_EolParserRules2274 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_165_in_synpred102_EolParserRules2279 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_typeName_in_synpred102_EolParserRules2285 = new BitSet(new long[]{0x0000000000000002L,0x0000400000000000L});
+    public static final BitSet FOLLOW_107_in_synpred102_EolParserRules2274 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_160_in_synpred102_EolParserRules2279 = new BitSet(new long[]{0x00000000008E0000L,0x0000000000000000L,0x0000000100000000L});
+    public static final BitSet FOLLOW_typeName_in_synpred102_EolParserRules2285 = new BitSet(new long[]{0x0000000000000002L,0x0000020000000000L});
     public static final BitSet FOLLOW_parameterList_in_synpred102_EolParserRules2289 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_expressionRange_in_synpred105_EolParserRules2399 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literalSequentialCollection_in_synpred108_EolParserRules2508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literalMapCollection_in_synpred109_EolParserRules2512 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_featureCall_in_synpred111_EolParserRules2520 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_collectionType_in_synpred112_EolParserRules2524 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_pathName_in_synpred113_EolParserRules2530 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -11,6 +11,7 @@ package org.eclipse.epsilon.fairml;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,11 +26,6 @@ import org.eclipse.epsilon.common.util.AstUtil;
 import org.eclipse.epsilon.eol.dom.ExecutableBlock;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.erl.ErlModule;
-import org.eclipse.epsilon.fairml.columnGenerators.Column;
-import org.eclipse.epsilon.fairml.columnGenerators.Grid;
-import org.eclipse.epsilon.fairml.columnGenerators.NestedFrom;
-import org.eclipse.epsilon.fairml.columnGenerators.Properties;
-import org.eclipse.epsilon.fairml.columnGenerators.Reference;
 import org.eclipse.epsilon.fairml.parse.FairMLLexer;
 import org.eclipse.epsilon.fairml.parse.FairMLParser;
 
@@ -41,36 +37,25 @@ import org.eclipse.epsilon.fairml.parse.FairMLParser;
  */
 public class FairMLModule extends ErlModule {
 
-	public static final String SILENT_ANNOTATION = "silent";
-	public static final String NORMALIZE_ANNOTATION = "normalize";
-	public static final String FILL_NULLS_ANNOTATION = "fillNulls";
-	public static final String FILL_NULLS_MEAN = "mean";
-	public static final String FILL_NULLS_MODE = "mode";
-
-	protected List<DatasetRule> datasetRules = new ArrayList<>();
+	protected List<FairMLRule> fairMLRules = new ArrayList<>();
 	protected String outputFolder = "";
-	protected String extension = ".csv";
+	protected String extension = ".ipynb";
 	protected String prefix = "";
 	protected boolean silent = false;
-	protected boolean persistDatasets = true;
+	protected boolean persistNotebook = true;
 
 	@Override
 	public ModuleElement adapt(AST cst, ModuleElement parentAst) {
 		switch (cst.getType()) {
-			case FairMLParser.DATASET:
-				return new DatasetRule();
-			case FairMLParser.GUARD:
-				return new ExecutableBlock<>(Boolean.class);
-			case FairMLParser.COLUMN:
-				return new Column();
-			case FairMLParser.PROPERTIES:
-				return new Properties();
-			case FairMLParser.REFERENCE:
-				return new Reference();
-			case FairMLParser.GRID:
-				return new Grid();
-			case FairMLParser.NESTEDFROM:
-				return new NestedFrom();
+		case FairMLParser.FAIRML:
+			return new FairMLRule();
+		case FairMLParser.SOURCE:
+		case FairMLParser.PROTECT:
+		case FairMLParser.PREDICT:
+		case FairMLParser.ALGORITHM:
+		case FairMLParser.CHECKING:
+		case FairMLParser.MITIGATION:
+			return new ExecutableBlock<>(Collection.class);
 		}
 		return super.adapt(cst, parentAst);
 	}
@@ -78,9 +63,8 @@ public class FairMLModule extends ErlModule {
 	@Override
 	public void build(AST cst, IModule module) {
 		super.build(cst, module);
-
-		for (AST processRuleAst : AstUtil.getChildren(cst, FairMLParser.DATASET)) {
-			datasetRules.add((DatasetRule) module.createAst(processRuleAst, this));
+		for (AST processRuleAst : AstUtil.getChildren(cst, FairMLParser.FAIRML)) {
+			fairMLRules.add((FairMLRule) module.createAst(processRuleAst, this));
 		}
 	}
 
@@ -96,28 +80,28 @@ public class FairMLModule extends ErlModule {
 
 	@Override
 	public String getMainRule() {
-		return "pinsetModule";
+		return "fairmlModule";
 	}
 
 	@Override
 	public HashMap<String, Class<?>> getImportConfiguration() {
 		HashMap<String, Class<?>> importConfiguration = super.getImportConfiguration();
-		importConfiguration.put("pinset", FairMLModule.class);
+		importConfiguration.put("fairml", FairMLModule.class);
 		return importConfiguration;
 	}
 
 	@Override
 	protected Object processRules() throws EolRuntimeException {
-		for (DatasetRule datasetRule : datasetRules) {
-			datasetRule.execute(context);
-			if (persistDatasets) {
+		for (FairMLRule fairMLRule : fairMLRules) {
+			fairMLRule.execute(context);
+			if (persistNotebook) {
 				try {
-					new CSVFile(getFilePath(datasetRule), datasetRule.getDataset()).save();
+					new IPYNBFile(getFilePath(fairMLRule), fairMLRule.getFairML()).save();
 				}
 				catch (FileNotFoundException e) {
 					throw new EolRuntimeException(e);
 				}
-				datasetRule.dispose();
+				fairMLRule.dispose();
 			}
 		}
 		return null;
@@ -127,12 +111,12 @@ public class FairMLModule extends ErlModule {
 		execute(getPre(), getContext());
 	}
 
-	public List<DatasetRule> getDatasetRules() {
-		return datasetRules;
+	public List<FairMLRule> getDatasetRules() {
+		return fairMLRules;
 	}
 
-	public DatasetRule getDatasetRule(String ruleName) {
-		for (DatasetRule rule : datasetRules) {
+	public FairMLRule getDatasetRule(String ruleName) {
+		for (FairMLRule rule : fairMLRules) {
 			if (rule.getName().equalsIgnoreCase(ruleName)) {
 				return rule;
 			}
@@ -151,12 +135,12 @@ public class FairMLModule extends ErlModule {
 		return outputFolder;
 	}
 
-	public String getFilePath(DatasetRule rule) {
+	public String getFilePath(FairMLRule rule) {
 		return String.format("%s/%s",
 				getOutputFolder(), getFileName(rule));
 	}
 
-	public String getFileName(DatasetRule rule) {
+	public String getFileName(FairMLRule rule) {
 		return String.format("%s%s%s",
 				getPrefix(), rule.getName(), getExtension());
 	}
@@ -184,11 +168,12 @@ public class FairMLModule extends ErlModule {
 	public void setSilent(boolean silent) {
 		this.silent = silent;
 	}
+	
 
 	/**
-	 * Set whether the datasets must be persisted into output files or not
+	 * Set whether the notebooks must be persisted into output files or not
 	 */
-	public void persistDatasets(boolean persistDatasets) {
-		this.persistDatasets = persistDatasets;
+	public void persistNotebooks(boolean persistNotebooks) {
+		this.persistNotebook = persistNotebooks;
 	}
 }
