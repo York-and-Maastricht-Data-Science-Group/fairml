@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="ASCII"?>
-<FairML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="fairml" xmi:id="_07MWMFmzEeyWUtuQiqp9OA" name="Decision Tree" description="Testing Decision Tree for FairML">
-  <datasets xmi:id="_07MWMVmzEeyWUtuQiqp9OA" name="Recidivism" path="recidivism.csv">
-    <protectedAttributes>race</protectedAttributes>
-    <protectedAttributes>age</protectedAttributes>
-    <protectedAttributes>sex</protectedAttributes>
+<FairML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="fairml" xmi:id="_Zmv8MF2mEeyuLaNhglieWQ" name="Decision Tree" description="Testing Decision Tree for FairML">
+  <datasets xmi:id="_Zmv8MV2mEeyuLaNhglieWQ" name="Pima Indians Diabetes Database" path="data/diabetes.csv">
+    <protectedAttributes>young</protectedAttributes>
   </datasets>
-  <biasChecks xmi:id="_07MWMlmzEeyWUtuQiqp9OA" name="Race Bias Checking" dataset="_07MWMVmzEeyWUtuQiqp9OA" protectedAttribute="age" priviledgedGroup="1" checkingClass="BinaryLabelDatasetMetric" checkingMethod="mean_difference"/>
-  <biasMitigations xmi:id="_07MWM1mzEeyWUtuQiqp9OA" name="Race Bias Mitigation" biasChecking="_07MWMlmzEeyWUtuQiqp9OA" mitigationMethod="Reweighing"/>
+  <biasChecks xmi:id="_Zmv8Ml2mEeyuLaNhglieWQ" name="Age Bias Checking" dataset="_Zmv8MV2mEeyuLaNhglieWQ" protectedAttribute="young" priviledgedGroup="1" predictedAttribute="label">
+    <trainValidationTestSplit>7</trainValidationTestSplit>
+    <trainValidationTestSplit>0</trainValidationTestSplit>
+    <trainValidationTestSplit>3</trainValidationTestSplit>
+    <droppedAttributes>age</droppedAttributes>
+    <checkingMethods xmi:id="_Zmv8M12mEeyuLaNhglieWQ" name="BinaryLabelDatasetMetric">
+      <functions xmi:id="_Zmv8NF2mEeyuLaNhglieWQ" name="mean_difference">
+        <parameters>Parameter-A</parameters>
+      </functions>
+      <explainers xmi:id="_Zmv8NV2mEeyuLaNhglieWQ" name="MetricTextExplainer">
+        <functions xmi:id="_Zmv8Nl2mEeyuLaNhglieWQ" name="disparate_impact"/>
+      </explainers>
+    </checkingMethods>
+    <trainingMethods xmi:id="_Zmv8N12mEeyuLaNhglieWQ" name="DecisionTreeClassifier"/>
+    <trainingMethods xmi:id="_Zmv8OF2mEeyuLaNhglieWQ" name="DecisionTreeClassifier">
+      <parameters>criterion='gini'</parameters>
+      <parameters>max_depth=3</parameters>
+    </trainingMethods>
+  </biasChecks>
+  <biasMitigations xmi:id="_Zmv8OV2mEeyuLaNhglieWQ" name="Age Bias Mitigation" biasChecking="_Zmv8Ml2mEeyuLaNhglieWQ">
+    <mitigationMethod xmi:id="_Zmv8Ol2mEeyuLaNhglieWQ" name="Reweighing"/>
+  </biasMitigations>
 </FairML>

@@ -1,0 +1,179 @@
+[% import 'Util.eol'; %]
+# load machine learning libraries
+import pandas as pd
+from sklearn.tree import * 
+from sklearn.model_selection import * 
+from sklearn import *
+
+# load AI Fair 360 libraries
+from aif360.metrics import *
+from aif360.algorithms.preprocessing import *
+from aif360.datasets.standard_dataset import *
+from aif360.explainers import *
+
+# load FairML libraries
+from fairml import *
+
+# load IPython libraries
+from IPython.display import *
+
+print("========================")
+print("FairML: [%=fairml.name%]")
+print("========================")
+print("Description:")
+print("[%=fairml.description%]")
+
+[% for (biasMitigation in fairml.biasMitigations) { %]
+print("")
+print("========================")
+print("Bias Mitigation: [%=biasMitigation.name%]")
+print("------------------------")
+[% var biasChecking = biasMitigation.biasChecking; %]
+resource = "[%=biasChecking.dataset.path%]"
+protected_attributes = ['[%=biasChecking.protectedAttribute%]']
+predicted_attribute = '[%=biasChecking.predictedAttribute%]'
+dropped_attributes = [[%=biasChecking.droppedAttributes.listToLine()%]]
+test_size = [%=biasChecking.trainValidationTestSplit[0]%]
+validation_size = [%=biasChecking.trainValidationTestSplit[1]%]
+training_size = [%=biasChecking.trainValidationTestSplit[2]%]
+total_size = training_size + validation_size + test_size
+priviledgedGroup = [%=biasChecking.priviledgedGroup%] 
+unprivilegedGroup = [%=biasChecking.unpriviledgedGroup%]
+
+# load dataset
+data = pd.read_csv(resource, header=0)
+
+dataset_original = FairMLDataset(df=data, label_name=predicted_attribute, favorable_classes=[priviledgedGroup],
+                protected_attribute_names=protected_attributes,
+                privileged_classes=[[priviledgedGroup]],
+                instance_weights_name=None,
+                # categorical_features=feature_cols,
+                features_to_keep=[],
+                features_to_drop=[],
+                na_values=[], 
+                custom_preprocessing=None,
+                metadata=None)
+                
+dataset_original_train, dataset_original_test = dataset_original.split([training_size/total_size], shuffle=True)
+#
+privileged_groups = [{protected_attributes[0] : priviledgedGroup}]
+unprivileged_groups = [{protected_attributes[0] : unprivilegedGroup}]
+
+print("")
+print("Original Bias Checking: [%=biasChecking.name%]")
+print("-------------")
+print("Dataset: [%=biasChecking.dataset.name%]")
+	[% for (checkingMethod in biasChecking.checkingMethods) { %]
+metric_original_train = [%=checkingMethod.name%](dataset_original_train, 
+                                             unprivileged_groups=unprivileged_groups,
+                                             privileged_groups=privileged_groups)
+		[% for (explainer in checkingMethod.explainers) { %]
+explainer_train = [%=explainer.name%](metric_original_train)
+			[% for (func in explainer.functions) { %]
+			
+print("Original explainer: " + explainer_train.[%=func.name%]())
+			[% } %]
+		[% } %]
+		[% for (func in checkingMethod.functions) { %]
+print("Original [%=func.name%]: %f" % metric_original_train.[%=func.name%]())
+		[% } %]
+	[% } %]
+
+
+#split dataset in features and target variable
+attributes = list(data.columns)
+attributes.remove(predicted_attribute)
+for a in dropped_attributes:
+	attributes.remove(a)
+X = data[attributes] # Features
+y = data[predicted_attribute] # Target variable
+
+# Split dataset into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size / total_size, random_state=1) 
+
+	[% for (trainingMethod in biasChecking.trainingMethods) { %]
+print("")
+print("Original Training: [%=trainingMethod.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
+print("-------------")
+
+classifier = [%=trainingMethod.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
+classifier = classifier.fit(X_train,y_train)
+y_pred = classifier.predict(X_test)
+
+# Model Accuracy, how often is the classifier correct?
+original_accuracy = metrics.accuracy_score(y_test, y_pred)
+print("Original Accuracy:", original_accuracy)
+
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 5), dpi=500)
+tree.plot_tree(classifier,
+               feature_names=attributes,
+               class_names=["[%=biasChecking.unpriviledgedGroup%]", "[%=biasChecking.priviledgedGroup%]"],
+               filled=True,
+               rounded=True);
+plt.savefig('graphics/Original-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
+	[% } %]
+
+print("")
+print("Bias Mitigation")
+print("-------------")
+print("Method: [%=biasMitigation.mitigationMethod.name%]")
+mitigation_method = [%=biasMitigation.mitigationMethod.name%](unprivileged_groups=unprivileged_groups,
+                privileged_groups=privileged_groups)
+dataset_mitigated_train = mitigation_method.fit_transform(dataset_original_train)
+
+print("")
+print("After Mitigation Bias Checking: [%=biasChecking.name%]")
+print("-------------")
+print("Dataset: [%=biasChecking.dataset.name%]")
+	[% for (checkingMethod in biasChecking.checkingMethods) { %]
+metric_mitigated_train = [%=checkingMethod.name%](dataset_mitigated_train, 
+                                             unprivileged_groups=unprivileged_groups,
+                                             privileged_groups=privileged_groups)
+		[% for (explainer in checkingMethod.explainers) { %]
+explainer_train = [%=explainer.name%](metric_mitigated_train)
+			[% for (func in explainer.functions) { %]
+			
+print("After mitigation explainer: " + explainer_train.[%=func.name%]())
+			[% } %]
+		[% } %]
+		[% for (func in checkingMethod.functions) { %]
+print("After mitigation [%=func.name%]: %f" % metric_mitigated_train.[%=func.name%]())
+		[% } %]
+	[% } %]
+	
+#split dataset in features and target variable
+attributes = list(dataset_mitigated_train.df.columns)
+attributes.remove(predicted_attribute)
+for a in dropped_attributes:
+    attributes.remove(a)
+X = dataset_mitigated_train.df[attributes] # Features
+y = dataset_mitigated_train.df[predicted_attribute] # Target variable
+
+# Split dataset into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size / total_size, random_state=1)  
+	[% for (trainingMethod in biasChecking.trainingMethods) { %]
+
+print("")
+print("After Mitigation Training: [%=trainingMethod.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
+print("-------------")
+
+classifier = [%=trainingMethod.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
+classifier = classifier.fit(X_train,y_train)
+y_pred = classifier.predict(X_test)
+
+# Model Accuracy, how often is the classifier correct?
+after_mitigation_accuracy = metrics.accuracy_score(y_test, y_pred)
+print("After Mitigation Accuracy:", after_mitigation_accuracy)
+plt.figure(figsize=(12, 5), dpi=500)
+tree.plot_tree(classifier,
+               feature_names=attributes,
+               class_names=["[%=biasChecking.unpriviledgedGroup%]", "[%=biasChecking.priviledgedGroup%]"],
+               filled=True,
+               rounded=True);
+plt.savefig('graphics/Mitigated-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
+	[% } %]
+
+[% } %]

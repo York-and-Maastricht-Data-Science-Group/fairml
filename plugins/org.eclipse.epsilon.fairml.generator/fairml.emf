@@ -1,6 +1,13 @@
+/***
+A metamodel for FairML -- A model-based approach
+for Fair Machine Learning.
+*/
 @namespace(uri="fairml", prefix="")
 package fairml;
 
+/***
+ Root container
+*/
 class FairML {
 	attr String name;
 	attr String description;
@@ -9,38 +16,81 @@ class FairML {
 	val BiasMitigation[*] biasMitigations;
 }
 
+/***
+ Class for representing datasets
+*/
 class Dataset {
 	attr String name;
 	attr String path;
 	attr String[*] protectedAttributes;
 }
 
+/***
+ Abtract class for representing executable operations.
+ Basically it mimics the Python classes used for
+ training, bias detection and mitigation.
+ It has package name, class name, 
+ parameters as well as the class' 
+ functions/methods and their parameters
+*/
+abstract class Operation {
+	attr String packageName;
+	attr String name;
+	attr String[*] parameters;
+	val Function[*] functions;	
+}
+
+/***
+ Class for representing functions/methods 
+ of a class and their parameters	
+*/
+class Function {
+	attr String name;
+	attr String[*] parameters;	
+}
+
+/***
+  
+*/
+class TrainingMethod extends Operation {
+			
+}
+
+class MitigationMethod extends Operation {
+
+}
+
+class CheckingMethod extends Operation {
+	val ExplainerMethod[*] explainers;			
+}
+
+class ExplainerMethod extends Operation {
+			
+}
+
 class BiasChecking {
 	attr String name;
 	ref Dataset dataset;
 
-	attr int[0..2] trainTestSplit;
+	attr int[0..2] trainValidationTestSplit;
 	
 	attr String protectedAttribute;
 	attr int priviledgedGroup;
 	attr int unpriviledgedGroup;
 	
 	attr String predictedAttribute;
+	attr String[*] droppedAttributes;
 	
-	attr String checkingClass;
-	attr String checkingMethod;
+	val CheckingMethod[*] checkingMethods; 
 	
-	attr String algorithm;
-	attr String[*] algorithmParameters;
+	val TrainingMethod[*] trainingMethods;
 }
 
 class BiasMitigation {
 	attr String name;
 	ref BiasChecking biasChecking;		 
-
-	attr String mitigationMethod;
-	attr String[*] mitigationParameters;
-		
+	
+	val MitigationMethod mitigationMethod;		
 }
 
 

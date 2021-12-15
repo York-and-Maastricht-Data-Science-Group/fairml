@@ -1,0 +1,38 @@
+import 'Util.eol';
+
+pre {
+	var genPath = "./";	
+}
+
+/***
+ * To generate FairML File (*.py)
+***/
+rule FairMLFile transform fairml : FairML {
+	parameters : Map {     
+    	"fairml" = fairml
+    }
+  	template: "fairml.egl"
+  	target: "fairml.py"
+}
+
+/***
+ * To generate Python File (*.py)
+***/
+rule PythonFile transform fairml : FairML {
+	parameters : Map {     
+    	"fairml" = fairml
+    }
+  	template: "py.egl"
+  	target: fairml.name.replace(" ", "_").toLowerCase() + ".py"
+}
+
+/***
+ * To generate Python Notebook File (*.ipynb)
+***/
+rule NotebookFile transform fairml : FairML {
+	parameters : Map {     
+    	"fairml" = fairml
+    }
+  	template: "ipynb.egl"
+  	target: fairml.name.replace(" ", "_").toLowerCase() + ".ipynb"
+}

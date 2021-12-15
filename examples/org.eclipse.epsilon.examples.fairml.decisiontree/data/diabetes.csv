@@ -1,4 +1,4 @@
-Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome,Under30
+pregnant,glucose,bp,skin,insulin,bmi,pedigree,age,label,young
 1,89,66,23,94,28.1,0.167,21,0,1
 1,73,50,10,0,23,0.248,21,0,1
 2,84,0,0,0,0,0.304,21,0,1

@@ -1,1 +1,7 @@
 /bin/
+/backup/
+/graphics/
+/__pycache__/
+*.ipynb
+*.ipynb.checkpoints
+*.py
