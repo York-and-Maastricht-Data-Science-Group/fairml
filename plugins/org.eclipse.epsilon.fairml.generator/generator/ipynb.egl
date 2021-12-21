@@ -3,75 +3,83 @@
  "cells": [
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
-    "# FairML: [%=fairml.name%]\n",
-    "[%=fairml.description%]"
+   "# FairML: [%=fairml.name%]\n",
+   "[%=fairml.description%]"
    ]
   },
   {
    "cell_type": "code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
-    "import pandas as pd",
-	"from sklearn.tree import *\n", 
-	"from sklearn.model_selection import *\n", 
-	"from sklearn import *\n",
-	"from aif360.metrics import *\n",
-	"from aif360.algorithms.preprocessing import *\n",
-	"from aif360.datasets.standard_dataset import *\n",
-	"from aif360.explainers import *\n",
-	"from fairml import *\n",
-	"from IPython.display import *"
+    "import pandas as pd\n",
+    "from sklearn.tree import *\n",
+    "from sklearn.model_selection import *\n",
+    "from sklearn import *\n",
+    "from aif360.metrics import *\n",
+    "from aif360.algorithms.preprocessing import *\n",
+    "from aif360.datasets.standard_dataset import *\n",
+    "from aif360.explainers import *\n",
+    "from fairml import *\n",
+    "from IPython.display import *"
    ]
   },
 [% for (biasMitigation in fairml.biasMitigations) { %]
-  	[% var biasChecking = biasMitigation.biasChecking; %]
+      [% var biasChecking = biasMitigation.biasChecking; %]
   {
    "cell_type":"code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
     "# main parameters\n",
-	"resource = '[%=biasChecking.dataset.path%]'\n",
-	"protected_attributes = ['[%=biasChecking.protectedAttribute%]']\n",
-	"predicted_attribute = '[%=biasChecking.predictedAttribute%]'\n",
-	"dropped_attributes = [[%=biasChecking.droppedAttributes.listToLine()%]]\n",
-	"test_size = [%=biasChecking.trainValidationTestSplit[0]%]\n",
-	"validation_size = [%=biasChecking.trainValidationTestSplit[1]%]\n",
-	"training_size = [%=biasChecking.trainValidationTestSplit[2]%]\n",
-	"total_size = training_size + validation_size + test_size\n",
-	"priviledgedGroup = [%=biasChecking.priviledgedGroup%]\n",
-	"unprivilegedGroup = [%=biasChecking.unpriviledgedGroup%]"
+    "resource = '[%=biasChecking.dataset.path%]'\n",
+    "protected_attributes = ['[%=biasChecking.protectedAttribute%]']\n",
+    "predicted_attribute = '[%=biasChecking.predictedAttribute%]'\n",
+    "dropped_attributes = [[%=biasChecking.droppedAttributes.listToLine()%]]\n",
+    "test_size = [%=biasChecking.trainValidationTestSplit[0]%]\n",
+    "validation_size = [%=biasChecking.trainValidationTestSplit[1]%]\n",
+    "training_size = [%=biasChecking.trainValidationTestSplit[2]%]\n",
+    "total_size = training_size + validation_size + test_size\n",
+    "priviledgedGroup = [%=biasChecking.priviledgedGroup%]\n",
+    "unprivilegedGroup = [%=biasChecking.unpriviledgedGroup%]"
    ]
   },
   {
   "cell_type":"code",
-  "metadata": {},
   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+  "metadata": {},
+  "outputs": [],
   "source": [
-	"# load dataset\n",
-	"data = pd.read_csv(resource, header=0)\n",
-	"dataset_original = FairMLDataset(df=data, label_name=predicted_attribute, favorable_classes=[priviledgedGroup],\n",
-	"                protected_attribute_names=protected_attributes,\n",
-	"                privileged_classes=[[priviledgedGroup]],\n",
-	"                instance_weights_name=None,\n",
-	"               # categorical_features=feature_cols,\n",
-	"                features_to_keep=[],\n",
-	"                features_to_drop=[],\n",
-	"                na_values=[], \n",
-	"                custom_preprocessing=None, \n",
-	"                metadata=None)\n",
-	"dataset_original_train, dataset_original_test = dataset_original.split([training_size/total_size], shuffle=True)\n",
-	"privileged_groups = [{protected_attributes[0] : priviledgedGroup}]\n",
-	"unprivileged_groups = [{protected_attributes[0] : unprivilegedGroup}]"
+    "# load dataset\n",
+    "data = pd.read_csv(resource,header=0)\n",
+    "dataset_original = FairMLDataset(df=data,label_name=predicted_attribute,favorable_classes=[priviledgedGroup],\n",
+    "                protected_attribute_names=protected_attributes,\n",
+    "                privileged_classes=[[priviledgedGroup]],\n",
+    "                instance_weights_name=None,\n",
+    "               # categorical_features=feature_cols,\n",
+    "                features_to_keep=[],\n",
+    "                features_to_drop=[],\n",
+    "                na_values=[],\n",
+    "                custom_preprocessing=None,\n",
+    "                metadata=None)\n",
+    "dataset_original_train,dataset_original_test = dataset_original.split([training_size/total_size],shuffle=True)\n",
+    "privileged_groups = [{protected_attributes[0] : priviledgedGroup}]\n",
+    "unprivileged_groups = [{protected_attributes[0] : unprivilegedGroup}]"
    ] 
   },
   
   [% for (checkingMethod in biasChecking.checkingMethods) { %]
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
     "## Original Bias Checking: [%=biasChecking.name%]\n",
@@ -80,28 +88,33 @@
   },
   {
    "cell_type": "code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
-    "metric_original_train = [%=checkingMethod.name%](dataset_original_train, \n",
+    "metric_original_train = [%=checkingMethod.name%](dataset_original_train,\n",
     "                                         unprivileged_groups=unprivileged_groups,\n",
     "                                         privileged_groups=privileged_groups)\n",
-	[% for (explainer in checkingMethod.explainers) { %]
+    [% for (explainer in checkingMethod.explainers) { %]
     "explainer_train = [%=explainer.name%](metric_original_train)\n",
-			[% for (func in explainer.functions) { %]		
+            [% for (func in explainer.functions) { %]        
     "print('Original explainer: ' + explainer_train.[%=func.name%]())\n",
-			[% } %]
-		[% } %]
-		[% for (func in checkingMethod.functions) { %]
-    "print('Original [%=func.name%]: %f' % metric_original_train.[%=func.name%]())"
-		[% } %]
+            [% } %]
+        [% } %]
+        [% for (func in checkingMethod.functions) { %]
+    "print('Original [%=func.name%]: %f' % metric_original_train.[%=func.name%]())\n",
+        [% } %]
+    "print('')"
    ]
   },
   [% } %]
   {
    "cell_type": "code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
     "#split dataset in features and target variable\n",
     "attributes = list(data.columns)\n",
@@ -110,50 +123,58 @@
     "    attributes.remove(a)\n",
     "X = data[attributes]\n",
     "y = data[predicted_attribute]\n",
-    "",
+    "\n",
     "# Split dataset into training set and test set\n",
-    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size / total_size, random_state=1)"     
+    "X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=test_size / total_size,random_state=1)"     
    ]
   },
   [% for (trainingMethod in biasChecking.trainingMethods) { %]
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
-    "## Original Training: [%=trainingMethod.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
+    "## Original Training: [%=trainingMethod.name%],Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
    ]
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
+   "outputs": [],
    "source": [
     "classifier = [%=trainingMethod.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])\n",
     "classifier = classifier.fit(X_train,y_train)\n",
     "y_pred = classifier.predict(X_test)\n",
     "\n",
-    "# Model Accuracy, how often is the classifier correct?\n",
-    "original_accuracy = metrics.accuracy_score(y_test, y_pred)\n",
+    "# Model Accuracy,how often is the classifier correct?\n",
+    "original_accuracy = metrics.accuracy_score(y_test,y_pred)\n",
     "print('Original Accuracy: %f' % original_accuracy)"
    ]
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
+   "outputs": [],
    "source": [
     "from sklearn import tree\n",
     "import matplotlib.pyplot as plt\n",
-    "plt.figure(figsize=(12, 5), dpi=500)\n",
+    "plt.figure(figsize=(12,5),dpi=500)\n",
     "tree.plot_tree(classifier,\n",
     "           feature_names=attributes,\n",
-    "           class_names=['[%=biasChecking.unpriviledgedGroup%]', '[%=biasChecking.priviledgedGroup%]'],\n",
+    "           class_names=['[%=biasChecking.unpriviledgedGroup%]','[%=biasChecking.priviledgedGroup%]'],\n",
     "           filled=True,\n",
     "           rounded=True);\n",
-    "plt.savefig('graphics/Original-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace('\'', '').replace(',', '-').replace(' ', '')%].png')"
+    "plt.savefig('graphics/Original-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace('\'','').replace(',','-').replace(' ','')%].png')"
    ]
-  },   
+  },
   [% } %]
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
     "## Bias Mitigation: [%=biasMitigation.mitigationMethod.name%]"
@@ -161,7 +182,10 @@
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
+   "outputs": [],
    "source": [
     "mitigation_method = [%=biasMitigation.mitigationMethod.name%](unprivileged_groups=unprivileged_groups,\n",
     "            privileged_groups=privileged_groups)\n",
@@ -171,6 +195,7 @@
   [% for (checkingMethod in biasChecking.checkingMethods) { %]
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
     "## After-Mitigation Bias Checking: [%=biasChecking.name%]\n",
@@ -179,10 +204,12 @@
   },
   {
    "cell_type": "code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
-    "metric_mitigated_train = [%=checkingMethod.name%](dataset_mitigated_train, \n",
+    "metric_mitigated_train = [%=checkingMethod.name%](dataset_mitigated_train,\n",
     "                                         unprivileged_groups=unprivileged_groups,\n",
     "                                         privileged_groups=privileged_groups)\n",
     [% for (explainer in checkingMethod.explainers) { %]
@@ -192,16 +219,19 @@
             [% } %]
         [% } %]
         [% for (func in checkingMethod.functions) { %]
-    "print('After-mitigation [%=func.name%]: %f' % metric_mitigated_train.[%=func.name%]())"
+    "print('After-mitigation [%=func.name%]: %f' % metric_mitigated_train.[%=func.name%]())\n",
         [% } %]
+    "print('')"
    ]
   },
   [% } %]
   
   {
    "cell_type": "code",
-   "metadata": {},
    "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
+   "metadata": {},
+   "outputs": [],
    "source": [
     "#split the mitigated dataset in features and target variable\n",
     "attributes = list(dataset_mitigated_train.df.columns)\n",
@@ -210,49 +240,58 @@
     "    attributes.remove(a)\n",
     "X = dataset_mitigated_train.df[attributes]\n",
     "y = dataset_mitigated_train.df[predicted_attribute]\n",
-    "",
+    "\n",
     "# Split dataset into training set and test set\n",
-    "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size / total_size, random_state=1)"     
+    "X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=test_size / total_size,random_state=1)"     
    ]
   },
   [% for (trainingMethod in biasChecking.trainingMethods) { %]
   {
    "cell_type": "markdown",
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
    "source": [
-    "## After-mitigation Training: [%=trainingMethod.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
+    "## After-mitigation Training: [%=trainingMethod.name%],Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
    ]
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
+   "outputs": [],
    "source": [
     "classifier = [%=trainingMethod.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])\n",
     "classifier = classifier.fit(X_train,y_train)\n",
     "y_pred = classifier.predict(X_test)\n",
     "\n",
-    "# Model Accuracy, how often is the classifier correct?\n",
-    "mitigated_accuracy = metrics.accuracy_score(y_test, y_pred)\n",
+    "# Model Accuracy,how often is the classifier correct?\n",
+    "mitigated_accuracy = metrics.accuracy_score(y_test,y_pred)\n",
     "print('After-mitigation Accuracy: %f' % mitigated_accuracy)"
    ]
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "id": "[%=fairml.generateId()%]",
    "metadata": {},
+   "outputs": [],
    "source": [
     "from sklearn import tree\n",
     "import matplotlib.pyplot as plt\n",
-    "plt.figure(figsize=(12, 5), dpi=500)\n",
+    "plt.figure(figsize=(12,5),dpi=500)\n",
     "tree.plot_tree(classifier,\n",
     "           feature_names=attributes,\n",
-    "           class_names=['[%=biasChecking.unpriviledgedGroup%]', '[%=biasChecking.priviledgedGroup%]'],\n",
+    "           class_names=['[%=biasChecking.unpriviledgedGroup%]','[%=biasChecking.priviledgedGroup%]'],\n",
     "           filled=True,\n",
     "           rounded=True);\n",
-    "plt.savefig('graphics/Mitigated-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace('\'', '').replace(',', '-').replace(' ', '')%].png')"
+    "plt.savefig('graphics/Mitigated-[%=trainingMethod.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace('\'','').replace(',','-').replace(' ','')%].png')"
    ]
-  },   
+  }[% if (trainingMethod <> biasChecking.trainingMethods[biasChecking.trainingMethods.size() - 1]) { %],
+   [%} else { %]
+   
+   [%}%]
   [% } %]
-  {}
 [% } %]
  ],
  "metadata": {

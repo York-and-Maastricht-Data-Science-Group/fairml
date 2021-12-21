@@ -18,17 +18,28 @@ fairml:
   - unpriviledgedGroup: 0
   - predictedAttribute: label
   - droppedAttribute: age
-  - trainValidationTestSplit: 7, 0, 3
+  - trainValidationTestSplit: 6, 0, 4
+  
   - trainingMethod:
     - name: DecisionTreeClassifier 
+    
   - trainingMethod:
     - name: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=3 
+    - parameters: criterion='gini', max_depth=3
+    
+  - trainingMethod:
+    - name: DecisionTreeClassifier
+    - parameters: criterion='entropy', splitter='random', max_depth=4 
+    
   - checkingMethod:
     - name: BinaryLabelDatasetMetric
+    
+    - function: 
+      - name: statistical_parity_difference
+   
     - function: 
       - name: mean_difference
-      - parameter: Parameter-A
+    
     - explainer: 
       - name: MetricTextExplainer
       - function:
@@ -39,7 +50,7 @@ fairml:
   - name: Age Bias Mitigation
   - biasChecking: Age Bias Checking
   - mitigationMethod:
-    - name: Reweighing
+    - name: Reweighing  
 #    - function: 
 #      - name: fit_transform
 #      - parameter: Parameter-01

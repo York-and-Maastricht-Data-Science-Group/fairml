@@ -12,6 +12,14 @@ operation Collection listToLineWithoutQuote(): String {
 
 operation FairML inc(value: Integer): Integer {
 	value := value + 1;
-	return value;
-		
+	return value;		
+}
+
+operation FairML generateId(): String {
+    var chars = Sequence{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d" ,"e"};
+    var text = "";
+    for (i in Sequence{1..8}){
+        text = text + chars.random();
+    } 
+    return text;       
 }

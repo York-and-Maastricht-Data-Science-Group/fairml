@@ -50,16 +50,22 @@ class Function {
 }
 
 /***
-  
+  The class represents the training algorithm
 */
 class TrainingMethod extends Operation {
 			
 }
 
+/***
+  The class represents the bias mitigation method
+*/
 class MitigationMethod extends Operation {
 
 }
 
+/***
+  The class represents the bias checking method
+*/
 class CheckingMethod extends Operation {
 	val ExplainerMethod[*] explainers;			
 }
