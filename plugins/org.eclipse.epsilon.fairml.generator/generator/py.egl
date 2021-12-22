@@ -1,9 +1,13 @@
 [% import 'Util.eol'; %]
 # load machine learning libraries
 import pandas as pd
-from sklearn.tree import * 
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import LinearSVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import * 
-from sklearn import *
+from sklearn import metrics
 
 # load AI Fair 360 libraries
 from aif360.metrics import *
@@ -33,9 +37,9 @@ resource = "[%=biasChecking.dataset.path%]"
 protected_attributes = ['[%=biasChecking.protectedAttribute%]']
 predicted_attribute = '[%=biasChecking.predictedAttribute%]'
 dropped_attributes = [[%=biasChecking.droppedAttributes.listToLine()%]]
-test_size = [%=biasChecking.trainValidationTestSplit[0]%]
+training_size = [%=biasChecking.trainValidationTestSplit[0]%]
 validation_size = [%=biasChecking.trainValidationTestSplit[1]%]
-training_size = [%=biasChecking.trainValidationTestSplit[2]%]
+test_size = [%=biasChecking.trainValidationTestSplit[2]%]
 total_size = training_size + validation_size + test_size
 priviledgedGroup = [%=biasChecking.priviledgedGroup%] 
 unprivilegedGroup = [%=biasChecking.unpriviledgedGroup%]
@@ -49,7 +53,7 @@ dataset_original = FairMLDataset(df=data, label_name=predicted_attribute, favora
                 instance_weights_name=None,
                 # categorical_features=feature_cols,
                 features_to_keep=[],
-                features_to_drop=[],
+                features_to_drop=dropped_attributes,
                 na_values=[], 
                 custom_preprocessing=None,
                 metadata=None)

@@ -5,6 +5,14 @@ for Fair Machine Learning.
 @namespace(uri="fairml", prefix="")
 package fairml;
 
+enum Classification {
+	DecisionTreeClassifier = 1;
+	LogisticRegression = 2;
+	KNeighborsClassifier = 3;
+	GaussianNB = 4;
+	LinearSVC = 5;
+}
+
 /***
  Root container
 */

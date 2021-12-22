@@ -1,0 +1,10 @@
+/bin/
+/backup/
+/graphics/
+/__pycache__/
+/.spyproject/
+/.idea/
+*.ipynb
+*.ipynb.checkpoints
+*.py
+*.flexmi.xmi

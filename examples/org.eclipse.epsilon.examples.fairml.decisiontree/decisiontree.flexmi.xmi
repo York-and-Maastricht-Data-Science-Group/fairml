@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="ASCII"?>
-<FairML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="fairml" xmi:id="_Zmv8MF2mEeyuLaNhglieWQ" name="Decision Tree" description="Testing Decision Tree for FairML">
-  <datasets xmi:id="_Zmv8MV2mEeyuLaNhglieWQ" name="Pima Indians Diabetes Database" path="data/diabetes.csv">
-    <protectedAttributes>young</protectedAttributes>
+<FairML xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="fairml" xmi:id="_EhFKAGKIEeyeeJZj1yOvfg" name="Decision Tree" description="Predict whether income exceeds $50K/yr based on census data. Also known as \&quot;Census Income\&quot; dataset. &lt;=50K = 0, >50K = 1 female = 0, male = 1 other = 0, white = 1">
+  <datasets xmi:id="_EhFKAWKIEeyeeJZj1yOvfg" name="Adult Census Income" path="data/adult.data.csv">
+    <protectedAttributes>sex</protectedAttributes>
+    <protectedAttributes>race</protectedAttributes>
   </datasets>
-  <biasChecks xmi:id="_Zmv8Ml2mEeyuLaNhglieWQ" name="Age Bias Checking" dataset="_Zmv8MV2mEeyuLaNhglieWQ" protectedAttribute="young" priviledgedGroup="1" predictedAttribute="label">
-    <trainValidationTestSplit>7</trainValidationTestSplit>
+  <biasChecks xmi:id="_EhFKAmKIEeyeeJZj1yOvfg" name="Sex Bias Checking" dataset="_EhFKAWKIEeyeeJZj1yOvfg" protectedAttribute="sex" priviledgedGroup="1" predictedAttribute="class">
+    <trainValidationTestSplit>6</trainValidationTestSplit>
     <trainValidationTestSplit>0</trainValidationTestSplit>
-    <trainValidationTestSplit>3</trainValidationTestSplit>
-    <droppedAttributes>age</droppedAttributes>
-    <checkingMethods xmi:id="_Zmv8M12mEeyuLaNhglieWQ" name="BinaryLabelDatasetMetric">
-      <functions xmi:id="_Zmv8NF2mEeyuLaNhglieWQ" name="mean_difference">
-        <parameters>Parameter-A</parameters>
-      </functions>
-      <explainers xmi:id="_Zmv8NV2mEeyuLaNhglieWQ" name="MetricTextExplainer">
-        <functions xmi:id="_Zmv8Nl2mEeyuLaNhglieWQ" name="disparate_impact"/>
+    <trainValidationTestSplit>4</trainValidationTestSplit>
+    <droppedAttributes>race</droppedAttributes>
+    <checkingMethods xmi:id="_EhFKA2KIEeyeeJZj1yOvfg" name="BinaryLabelDatasetMetric">
+      <functions xmi:id="_EhFKBGKIEeyeeJZj1yOvfg" name="statistical_parity_difference"/>
+      <functions xmi:id="_EhFKBWKIEeyeeJZj1yOvfg" name="mean_difference"/>
+      <explainers xmi:id="_EhFKBmKIEeyeeJZj1yOvfg" name="MetricTextExplainer">
+        <functions xmi:id="_EhFKB2KIEeyeeJZj1yOvfg" name="disparate_impact"/>
       </explainers>
     </checkingMethods>
-    <trainingMethods xmi:id="_Zmv8N12mEeyuLaNhglieWQ" name="DecisionTreeClassifier"/>
-    <trainingMethods xmi:id="_Zmv8OF2mEeyuLaNhglieWQ" name="DecisionTreeClassifier">
+    <trainingMethods xmi:id="_EhFKCGKIEeyeeJZj1yOvfg" name="DecisionTreeClassifier"/>
+    <trainingMethods xmi:id="_EhFKCWKIEeyeeJZj1yOvfg" name="DecisionTreeClassifier">
       <parameters>criterion='gini'</parameters>
       <parameters>max_depth=3</parameters>
     </trainingMethods>
   </biasChecks>
-  <biasMitigations xmi:id="_Zmv8OV2mEeyuLaNhglieWQ" name="Age Bias Mitigation" biasChecking="_Zmv8Ml2mEeyuLaNhglieWQ">
-    <mitigationMethod xmi:id="_Zmv8Ol2mEeyuLaNhglieWQ" name="Reweighing"/>
+  <biasMitigations xmi:id="_EhFKCmKIEeyeeJZj1yOvfg" name="Sex Bias Checking with Reweighing" biasChecking="_EhFKAmKIEeyeeJZj1yOvfg">
+    <mitigationMethod xmi:id="_EhFKC2KIEeyeeJZj1yOvfg" name="Reweighing"/>
   </biasMitigations>
 </FairML>

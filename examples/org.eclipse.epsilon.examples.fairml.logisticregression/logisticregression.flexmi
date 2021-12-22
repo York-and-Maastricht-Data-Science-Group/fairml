@@ -1,45 +1,43 @@
 ?nsuri: fairml
 fairml:
-- name: Decision Tree
-- description: Predict whether income exceeds $50K/yr based on census data.
-     Also known as \"Census Income\" dataset.
-     <=50K = 0, >50K = 1
-     female = 0, male = 1
-     other = 0, white = 1
+- name: Logistic Regression
+- description: Testing Logistic Regression for FairML.
 
 # set the dataset
 - dataset:
-  - name: Adult Census Income
-  - path: data/adult.data.csv
-  - protectedAttributes: sex, race
+  - name: Pima Indians Diabetes Database
+  - path: data/diabetes.csv
+  - protectedAttributes: young
 
 # configure the bias checking
 - biasChecking:
-  - name: Sex Bias Checking
-  - dataset: Adult Census Income
-  - protectedAttribute: sex
+  - name: Age Bias Checking
+  - dataset: Pima Indians Diabetes Database 
+  - protectedAttribute: young
   - priviledgedGroup: 1
   - unpriviledgedGroup: 0
-  - predictedAttribute: class
-  - favorableClasses: 1
+  - predictedAttribute: label
   - droppedAttribute: age
   - trainValidationTestSplit: 6, 0, 4
   
   - trainingMethod:
-    - name: DecisionTreeClassifier 
+    - name: LogisticRegression 
     
   - trainingMethod:
     - name: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=3
-        
+    - parameters: criterion='gini', max_depth=3 
+  
   - checkingMethod:
     - name: BinaryLabelDatasetMetric
     
     - function: 
       - name: statistical_parity_difference
-   
+    
+  - checkingMethod:
+    - name: BinaryLabelDatasetMetric
+    
     - function: 
-      - name: mean_difference
+      - name: statistical_parity_difference
     
     - explainer: 
       - name: MetricTextExplainer
@@ -48,8 +46,8 @@ fairml:
 
 # define the bias mitigation
 - biasMitigation:
-  - name: Sex Bias Checking with Reweighing
-  - biasChecking: Sex Bias Checking
+  - name: Age Bias Mitigation
+  - biasChecking: Age Bias Checking
   - mitigationMethod:
     - name: Reweighing  
 #    - function: 
