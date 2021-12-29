@@ -50,18 +50,18 @@ abstract class Operation {
 
 /***
  Class for representing functions/methods 
- of a class and their parameters	
+ of a function and their parameters	
 */
 class Function {
 	attr String name;
-	attr String[*] parameters;	
+    attr String[*] parameters;
 }
 
 /***
   The class represents the training algorithm
 */
 class TrainingMethod extends Operation {
-			
+    attr Classification type;
 }
 
 /***
@@ -86,13 +86,15 @@ class BiasChecking {
 	attr String name;
 	ref Dataset dataset;
 
-	attr int[0..2] trainValidationTestSplit;
+	!unique attr int[0..2] trainValidationTestSplit;
 	
 	attr String protectedAttribute;
 	attr int priviledgedGroup;
 	attr int unpriviledgedGroup;
 	
 	attr String predictedAttribute;
+	attr String favorableClass;
+	
 	attr String[*] droppedAttributes;
 	
 	val CheckingMethod[*] checkingMethods; 

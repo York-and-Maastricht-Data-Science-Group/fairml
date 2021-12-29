@@ -1,16 +1,17 @@
 ?nsuri: fairml
 fairml:
 - name: Decision Tree
-- description: Predict whether income exceeds $50K/yr based on census data.
-     Also known as \"Census Income\" dataset.
-     <=50K = 0, >50K = 1
-     female = 0, male = 1
-     other = 0, white = 1
+- description: 
+    Predict whether income exceeds $50K/yr based on census data.
+    Also known as \"Census Income\" dataset.
+    <=50K = 0, >50K = 1
+    female = 0, male = 1
+    other = 0, white = 1
 
 # set the dataset
 - dataset:
   - name: Adult Census Income
-  - path: data/adult.data.csv
+  - path: data/adult.data.small.csv
   - protectedAttributes: sex, race
 
 # configure the bias checking
@@ -21,26 +22,42 @@ fairml:
   - priviledgedGroup: 1
   - unpriviledgedGroup: 0
   - predictedAttribute: class
-  - favorableClasses: 1
+  - favorableClass: 1
   - droppedAttribute: age
-  - trainValidationTestSplit: 6, 0, 4
+  - trainValidationTestSplit: 5, 0, 5
   
   - trainingMethod:
-    - name: DecisionTreeClassifier 
+    - type: Classification.LogisticRegression
+    - parameter: solver='liblinear', random_state=1
     
-  - trainingMethod:
-    - name: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=3
-        
+#  - trainingMethod:
+#    - type: Classification.DecisionTreeClassifier
+#    - parameters: criterion='gini', max_depth=3
+             
+#  - checkingMethod:
+#    - name: BinaryLabelDatasetMetric
+#    - function: 
+#      - name: statistical_parity_difference
+#    - explainer: 
+#      - name: MetricTextExplainer
+#      - function:
+#        - name: disparate_impact
+      
   - checkingMethod:
-    - name: BinaryLabelDatasetMetric
-    
+    - name: ClassificationMetric
+#    - function: 
+#      - name: true_positive_rate
+#    - function: 
+#      - name: true_negative_rate
+    - function: 
+      - name: disparate_impact
     - function: 
       - name: statistical_parity_difference
-   
     - function: 
-      - name: mean_difference
-    
+      - name: equal_opportunity_difference
+    - function: 
+      - name: theil_index
+        
     - explainer: 
       - name: MetricTextExplainer
       - function:
@@ -51,10 +68,7 @@ fairml:
   - name: Sex Bias Checking with Reweighing
   - biasChecking: Sex Bias Checking
   - mitigationMethod:
-    - name: Reweighing  
-#    - function: 
-#      - name: fit_transform
-#      - parameter: Parameter-01
+    - name: Reweighing
   
   
  
