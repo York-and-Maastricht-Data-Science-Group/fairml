@@ -11,8 +11,8 @@ rule FairMLFile transform fairml : FairML {
 	parameters : Map {     
     	"fairml" = fairml
     }
-  	template: "fairml.egl"
-  	target: "fairml.py"
+  	template: "ipynb.egl"
+  	target: fairml.name.replace(" ", "") + "IpynbGen.java"
 }
 
 /***
@@ -26,13 +26,3 @@ rule PythonFile transform fairml : FairML {
   	target: fairml.name.replace(" ", "_").toLowerCase() + ".py"
 }
 
-/***
- * To generate Python Notebook File (*.ipynb)
-***/
-rule NotebookFile transform fairml : FairML {
-	parameters : Map {     
-    	"fairml" = fairml
-    }
-  	template: "ipynb.egl"
-  	target: fairml.name.replace(" ", "_").toLowerCase() + ".ipynb"
-}

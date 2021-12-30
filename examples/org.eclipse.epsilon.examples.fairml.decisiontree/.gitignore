@@ -4,7 +4,9 @@
 /__pycache__/
 /.spyproject/
 /.idea/
+/.ipynb_checkpoints/
 *.ipynb
 *.ipynb.checkpoints
 *.py
 *.flexmi.xmi
+*.java
