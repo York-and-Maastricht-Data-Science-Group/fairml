@@ -1,6 +1,6 @@
 ?nsuri: fairml
 fairml:
-- name: Decision Tree
+- name: Adult Census Income
 - description: 
     Predict whether income exceeds $50K/yr based on census data.
     Also known as \"Census Income\" dataset.
@@ -24,7 +24,7 @@ fairml:
   - predictedAttribute: class
   - favorableClass: 1
   - droppedAttribute: age
-  - trainValidationTestSplit: 5, 0, 5
+  - trainValidationTestSplit: 7, 0, 3
   
   - trainingMethod:
     - type: Classification.LogisticRegression
@@ -45,10 +45,10 @@ fairml:
       
   - checkingMethod:
     - name: ClassificationMetric
-#    - function: 
-#      - name: true_positive_rate
-#    - function: 
-#      - name: true_negative_rate
+    - function: 
+      - name: true_positive_rate
+    - function: 
+      - name: true_negative_rate
     - function: 
       - name: disparate_impact
     - function: 
@@ -60,8 +60,18 @@ fairml:
         
     - explainer: 
       - name: MetricTextExplainer
-      - function:
+      - function: 
+        - name: true_positive_rate
+      - function: 
+        - name: true_negative_rate
+      - function: 
         - name: disparate_impact
+      - function: 
+        - name: statistical_parity_difference
+      - function: 
+        - name: equal_opportunity_difference
+      - function: 
+        - name: theil_index
 
 # define the bias mitigation
 - biasMitigation:

@@ -7,9 +7,9 @@
     <intAttribute key="generateTo" value="1"/>
     <stringAttribute key="implementation_name" value="Sequential EGX"/>
     <listAttribute key="models">
-        <listEntry value="#Wed Dec 15 10:24:57 GMT 2021&#13;&#10;aliases=M&#13;&#10;reuseUnmodifiedFileBasedMetamodels=true&#13;&#10;modelFile=/org.eclipse.epsilon.examples.fairml.decisiontree/decisiontree.flexmi.xmi&#13;&#10;metamodelUri=http\://www.eclipse.org/emf/2002/Ecore,fairml&#13;&#10;concurrent=false&#13;&#10;type=EMF&#13;&#10;readOnLoad=true&#13;&#10;storeOnDisposal=false&#13;&#10;expand=true&#13;&#10;fileBasedMetamodelUri=&#13;&#10;metamodelFile=&#13;&#10;cached=true&#13;&#10;name=M&#13;&#10;modelUri=platform\:/resource/org.eclipse.epsilon.examples.fairml.decisiontree/decisiontree.flexmi.xmi&#13;&#10;isMetamodelFileBased=false"/>
+        <listEntry value="#Fri Dec 31 16:17:51 GMT 2021&#13;&#10;aliases=M&#13;&#10;reuseUnmodifiedFileBasedMetamodels=true&#13;&#10;modelFile=/org.eclipse.epsilon.examples.fairml.income/adult_census_income.flexmi.xmi&#13;&#10;metamodelUri=http\://www.eclipse.org/emf/2002/Ecore,fairml&#13;&#10;concurrent=false&#13;&#10;type=EMF&#13;&#10;readOnLoad=true&#13;&#10;storeOnDisposal=false&#13;&#10;expand=true&#13;&#10;fileBasedMetamodelUri=&#13;&#10;metamodelFile=&#13;&#10;cached=true&#13;&#10;name=M&#13;&#10;modelUri=platform\:/resource/org.eclipse.epsilon.examples.fairml.income/adult_census_income.flexmi.xmi&#13;&#10;isMetamodelFileBased=false"/>
     </listAttribute>
-    <stringAttribute key="outputDirPath" value="/org.eclipse.epsilon.examples.fairml.decisiontree"/>
+    <stringAttribute key="outputDirPath" value="/org.eclipse.epsilon.examples.fairml.income"/>
     <stringAttribute key="outputFilePath" value=""/>
     <listAttribute key="parameters"/>
     <booleanAttribute key="produceTrace" value="false"/>

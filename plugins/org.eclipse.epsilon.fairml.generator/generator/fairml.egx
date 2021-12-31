@@ -5,7 +5,7 @@ pre {
 }
 
 /***
- * To generate FairML File (*.py)
+ * To generate Java File (*.java) that converts *.py file to *.ipynb file. 
 ***/
 rule FairMLFile transform fairml : FairML {
 	parameters : Map {     

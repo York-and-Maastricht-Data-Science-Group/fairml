@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.eclipse.epsilon.examples.fairml.decisiontree</name>
+	<name>org.eclipse.epsilon.examples.fairml.income</name>
 	<comment></comment>
 	<projects>
 		<project>org.eclipse.epsilon.fairml.generator</project>
@@ -23,7 +23,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1640891942811</id>
+			<id>0</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
