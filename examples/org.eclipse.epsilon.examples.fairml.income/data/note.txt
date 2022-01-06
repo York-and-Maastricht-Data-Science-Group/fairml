@@ -1,11 +1,11 @@
 1. Statistical Parity Difference
 Computed as the difference of the rate of favorable outcomes received by the unprivileged group to the privileged group.
-The ideal value of this metric is 0
-Fairness for this metric is between -0.1 and 0.1
-For a discussion of potential issues with this metric see Cynthia Dwork, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. Fairness through awareness. Proceedings of the 3rd Innovations in Theoretical Computer Science Conference (ITCS 2012). ACM, New York, NY, USA, 214-226.
+The ideal value of this metric is 0. Fairness for this metric is between -0.1 and 0.1.
+For a discussion of potential issues with this metric see Cynthia Dwork, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel.Fairness through awareness. Proceedings of the 3rd Innovations in Theoretical Computer Science Conference (ITCS 2012). ACM, New York, NY, USA, 214-226.
 
 2. Equal Opportunity Difference
-This metric is computed as the difference of true positive rates between the unprivileged and the privileged groups. The true positive rate is the ratio of true positives to the total number of actual positives for a given group.
+This metric is computed as the difference of true positive rates between the unprivileged and the privileged groups. 
+The true positive rate is the ratio of true positives to the total number of actual positives for a given group.
 The ideal value is 0. A value of < 0 implies higher benefit for the privileged group and a value > 0 implies higher benefit for the unprivileged group.
 Fairness for this metric is between -0.1 and 0.1
 

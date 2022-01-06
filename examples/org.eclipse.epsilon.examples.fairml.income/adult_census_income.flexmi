@@ -16,12 +16,6 @@ fairml:
   - datasetPath: data/adult.data.small.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex
-#  - privilegedClasses: 1
-#  - unprivilegedClasses: 0
-#  - droppedAttribute: fnlwgt
-#  - favorableClasses: 1
-#  - notAvailableValues: |-
-#      ?
   - trainTestSplit: 7, 3
   - categoricalFeatures: workclass, education, marital-status, 
       occupation, relationship, native-country
@@ -46,13 +40,13 @@ fairml:
   - checkingMethod:
     - name: ClassificationMetric
     - function: 
-      - name: average_abs_odds_difference
-    - function: 
-      - name: disparate_impact
-    - function: 
       - name: statistical_parity_difference
     - function: 
       - name: equal_opportunity_difference
+    - function: 
+      - name: average_abs_odds_difference
+    - function: 
+      - name: disparate_impact
     - function: 
       - name: theil_index 
   
