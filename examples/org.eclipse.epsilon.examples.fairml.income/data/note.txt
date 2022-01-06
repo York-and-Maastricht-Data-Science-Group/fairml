@@ -1,0 +1,25 @@
+1. Statistical Parity Difference
+Computed as the difference of the rate of favorable outcomes received by the unprivileged group to the privileged group.
+The ideal value of this metric is 0
+Fairness for this metric is between -0.1 and 0.1
+For a discussion of potential issues with this metric see Cynthia Dwork, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Richard Zemel. Fairness through awareness. Proceedings of the 3rd Innovations in Theoretical Computer Science Conference (ITCS 2012). ACM, New York, NY, USA, 214-226.
+
+2. Equal Opportunity Difference
+This metric is computed as the difference of true positive rates between the unprivileged and the privileged groups. The true positive rate is the ratio of true positives to the total number of actual positives for a given group.
+The ideal value is 0. A value of < 0 implies higher benefit for the privileged group and a value > 0 implies higher benefit for the unprivileged group.
+Fairness for this metric is between -0.1 and 0.1
+
+3. Average Odds Difference
+Computed as average difference of false positive rate (false positives / negatives) and true positive rate (true positives / positives) between unprivileged and privileged groups.
+The ideal value of this metric is 0. A value of < 0 implies higher benefit for the privileged group and a value > 0 implies higher benefit for the unprivileged group.
+Fairness for this metric is between -0.1 and 0.1
+
+4. Disparate Impact
+Computed as the ratio of rate of favorable outcome for the unprivileged group to that of the privileged group.
+The ideal value of this metric is 1.0 A value < 1 implies higher benefit for the privileged group and a value >1 implies a higher benefit for the unprivileged group.
+Fairness for this metric is between 0.8 and 1.25
+
+5. Theil Index
+Computed as the generalized entropy of benefit for all individuals in the dataset, with alpha = 1. It measures the inequality in benefit allocation for individuals.
+A value of 0 implies perfect fairness.
+Fairness is indicated by lower scores, higher scores are problematic

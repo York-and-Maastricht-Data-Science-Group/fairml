@@ -2,8 +2,10 @@
 [%var number1 = 0; %]
 [%var number2 = 0; %]
 [%var number3 = 0; %]
+[%var number4 = 0; %]
+[%var number5 = 0; %]
 # # FairML: [%=fairml.name%]
-# [%=fairml.description%]
+# [%=fairml.description.replace("\n","\\\n# ")%]
 
 # Load dependencies.
 import numpy as np
@@ -19,98 +21,88 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from aif360.metrics import BinaryLabelDatasetMetric
 from aif360.metrics import ClassificationMetric
-from aif360.algorithms.preprocessing import Reweighing
+from aif360.algorithms.preprocessing import *
+from aif360.algorithms.inprocessing import *
+from aif360.algorithms.postprocessing import *
 from aif360.explainers import MetricTextExplainer
 from aif360.datasets import StandardDataset
 import matplotlib.pyplot as plt
 from collections import defaultdict
+from IPython.display import Markdown, display
 
 print("========================")
 print("FairML: [%=fairml.name%]")
 print("========================")
 print("Description:")
-print("[%=fairml.description%]")
+print("[%=fairml.description.replace("\n","\"+\\\n\"")%]")
 
 results = []
-[% if (fairml.biasMitigations.size() > 0) { %]
-line_num = pd.Series(range(1,([%=fairml.biasMitigations.size()%]*2) + 1))
-[% } %]
-
+line_num_counter = 1
 [% for (biasMitigation in fairml.biasMitigations) { %]
+
 # ## [%=number1++%]. Bias Mitigation: [%=biasMitigation.name%]
+
 print("")
 print("========================")
 print("Bias Mitigation: [%=biasMitigation.name%]")
 print("------------------------")
-[% var biasChecking = biasMitigation.biasChecking; %]
-resource = "[%=biasChecking.dataset.path%]"
-protected_attributes = ['[%=biasChecking.protectedAttribute%]']
-predicted_attribute = '[%=biasChecking.predictedAttribute%]'
-favorable_classes = ['[%=biasChecking.favorableClass%]']
-dropped_attributes = [[%=biasChecking.droppedAttributes.listToLine()%]]
-training_size = [%=biasChecking.trainValidationTestSplit[0]%]  
-validation_size = [%=biasChecking.trainValidationTestSplit[1]%]  
-test_size = [%=biasChecking.trainValidationTestSplit[2]%] 
-total_size = (training_size + validation_size + test_size) * 1.0
-priviledgedGroup = [%=biasChecking.priviledgedGroup%] 
-unprivilegedGroup = [%=biasChecking.unpriviledgedGroup%]
-mitigation_results = defaultdict(list)
-results.append(mitigation_results)
-mitigation_results["Mitigation"].append("Original")
 
+[% for (dataset in biasMitigation.datasets) { %]
+
+# ### [%=number1%].[%=number2++%]. Dataset [%=dataset.name%]
+print("")
+print("Dataset: [%=dataset.name%]")
+print("-------------")
+
+# #### [%=number1%].[%=number2%].[%=number3++%]. Original Dataset
+predicted_attribute = '[%=dataset.predictedAttribute%]'
+protected_attributes = [[%=dataset.protectedAttributes.listToLine()%]]
+#favorable_classes = [[%=dataset.favorableClasses.listToLineWithoutQuote()%]]
+#privileged_classes = [[%=dataset.privilegedClasses.listToLineWithoutQuotesWithBrackets()%]]
+#unprivileged_classes = [[%=dataset.unprivilegedClasses.listToLineWithoutQuotesWithBrackets()%]]
+#dropped_attributes = [[%=dataset.droppedAttributes.listToLine()%]]
+#na_values = [[%=dataset.notAvailableValues.listToLine()%]]
+favorable_classes = [1]
+privileged_classes = [[1]]
+unprivileged_classes = [[0]]
+dropped_attributes = []
+na_values = []
+training_size = [%=dataset.trainTestSplit[0]%]    
+test_size = [%=dataset.trainTestSplit[1]%] 
+total_size = (training_size + test_size) * 1.0
+#priviledged_group = [%=dataset.priviledgedGroup%] 
+#unprivileged_group = [%=dataset.unpriviledgedGroup%]
+categorical_features = [[%=dataset.categoricalFeatures.listToLine()%]]
+[% if (dataset.defaultMappings == null) {%]
+default_mappings = None
+[% } %]
 # Load dataset.
+resource = "[%=dataset.datasetPath%]"
 data = pd.read_csv(resource, header=0)
-dataset_original = StandardDataset(df=data, label_name=predicted_attribute, favorable_classes=favorable_classes,
+dataset_original = StandardDataset(df=data, label_name=predicted_attribute, 
+                favorable_classes=favorable_classes,
                 protected_attribute_names=protected_attributes,
-                privileged_classes=[[priviledgedGroup]],
+                privileged_classes=privileged_classes,
                 instance_weights_name=None,
-                # categorical_features=feature_cols,
+                categorical_features=categorical_features,
                 features_to_keep=[],
                 features_to_drop=dropped_attributes,
-                na_values=[], 
+                na_values=na_values, 
                 custom_preprocessing=None,
-                metadata=None)
-dataset_original_train, dataset_original_validation, dataset_original_test = dataset_original.split([training_size/total_size, (training_size + validation_size) / total_size], shuffle=True)
-privileged_groups = [{protected_attributes[0] : priviledgedGroup}]
-unprivileged_groups = [{protected_attributes[0] : unprivilegedGroup}]
+                metadata=default_mappings)
+dataset_original_train, dataset_original_test = dataset_original.split([training_size/total_size], shuffle=True)
+privileged_groups = [{protected_attributes[0] : privileged_classes[0][0]}]
+unprivileged_groups = [{protected_attributes[0] : unprivileged_classes[0][0]}]
+#privileged_groups = [{protected_attributes[0] : priviledged_group}]
+#unprivileged_groups = [{protected_attributes[0] : unprivileged_group}]
 
-# ### [%=number1%].[%=number2++%]. Original Bias Checking: [%=biasChecking.name%]
+    [% for (trainingMethod in biasMitigation.trainingMethods) { %]
 
+# ##### [%=number1%].[%=number2%].[%=number3%].[%=number4++%]. Original Dataset: Classifier [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
+[%number5 = 0;%]
 print("")
-print("Original Bias Checking: [%=biasChecking.name%]")
+print("Original Dataset: Classifier [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 print("-------------")
-print("Dataset: [%=biasChecking.dataset.name%]")
-mitigation_results["Dataset"].append("[%=biasChecking.dataset.name%] ("+str(training_size)+":"+str(validation_size)+":"+str(test_size)+")")
-
-# #### [%=number1%].[%=number2%].[%=number3++%]. Preprocessing Metrics
-
-print("Preprocessing Metrics")
-    [% for (checkingMethod in biasChecking.checkingMethods) { %]
-    [% if (checkingMethod.name = "BinaryLabelDatasetMetric") { %]
-metric_original_train = [%=checkingMethod.name%](dataset_original_train, 
-                                             unprivileged_groups=unprivileged_groups,
-                                             privileged_groups=privileged_groups)
-        [% for (explainer in checkingMethod.explainers) { %]
-explainer_train = [%=explainer.name%](metric_original_train)
-            [% for (func in explainer.functions) { %]
-            
-print("Original explainer: " + explainer_train.[%=func.name%]())
-            [% } %]
-        [% for (func in checkingMethod.functions) { %]
-print("Original [%=func.name%]: %f" % metric_original_train.[%=func.name%]())
-        [% } %]
-        [% } %]
-    [% } %] 
-    [% } %]
-
-    [% for (trainingMethod in biasChecking.trainingMethods) { %]
-
-# #### [%=number1%].[%=number2%].[%=number3++%]. Original Training: [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
-
-print("")
-print("Original Training: [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
-print("-------------")
-mitigation_results["Classifier"].append("[%=trainingMethod.type.name%]")
 
 # Train the model from the original train data
 classifier = [%=trainingMethod.type.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
@@ -118,31 +110,30 @@ model = make_pipeline(StandardScaler(), classifier)
 fit_params = {'[%=trainingMethod.type.name.toLowerCase()%]__sample_weight': dataset_original_train.instance_weights}
 model_original_train = model.fit(dataset_original_train.features, dataset_original_train.labels.ravel(), **fit_params)
 
-# #### [%=number1%].[%=number2%].[%=number3++%]. Check the Accuracy of the Prediction
+# ###### [%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. Original Dataset: Check the Accuracy of the Prediction
 
 print("Check the accuracy of the prediction")
 y_pred = model_original_train.predict(dataset_original_test.features)
 y_test = dataset_original_test.labels.ravel()
 original_accuracy = metrics.accuracy_score(y_test, y_pred)
 print("Original Accuracy:", original_accuracy)
-mitigation_results["Accuracy"].append(original_accuracy)
 
         [% if (trainingMethod.type.name == "DecisionTreeClassifier") { %]
 if isinstance(classifier, DecisionTreeClassifier): 
-	plt.figure(figsize=(12, 5), dpi=500)
-	tree.plot_tree(classifier,
-	               feature_names=dataset_original_train.feature_names,
-	               class_names=["[%=biasChecking.unpriviledgedGroup%]", "[%=biasChecking.priviledgedGroup%]"],
-	               filled=True,
-	               rounded=True);
-	plt.savefig('graphics/Original-[%=trainingMethod.type.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
+    plt.figure(figsize=(12, 5), dpi=500)
+    tree.plot_tree(classifier,
+                   feature_names=dataset_original_train.feature_names,
+                   class_names=["[%=dataset.unpriviledgedGroup%]", "[%=dataset.priviledgedGroup%]"],
+                   filled=True,
+                   rounded=True);
+    plt.savefig('graphics/Original-[%=trainingMethod.type.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
         [% } %]
-    [% } %]
 
-# #### [%=number1%].[%=number2%].[%=number3++%]. Inprocessing Metrics
-    [% for (checkingMethod in biasChecking.checkingMethods) { %]
+# ###### [%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. Original Dataset: Bias Metrics[% // start of metrics %]
+
+    [% for (checkingMethod in biasMitigation.checkingMethods) { %]
     [%   if (checkingMethod.name == "ClassificationMetric") { %] 
-print("In-processing Metrics")
+print("Bias Metrics")
 dataset_original_train_pred = dataset_original_train.copy()
 y_val_pred = model_original_train.predict(dataset_original_train.features)
 dataset_original_train_pred.labels = y_val_pred
@@ -150,94 +141,75 @@ metric_original_train = [%=checkingMethod.name%](dataset_original_train,
                                                 dataset_original_train_pred,
                                              unprivileged_groups=unprivileged_groups,
                                              privileged_groups=privileged_groups)
-        [% for (explainer in checkingMethod.explainers) { %]
-explainer_train = [%=explainer.name%](metric_original_train)
-            [% for (func in explainer.functions) { %]
-            
-print("Original explainer: " + explainer_train.[%=func.name%]())
-            [% } %]
-        [% } %]
+explainer_train = MetricTextExplainer(metric_original_train)
+
         [% for (func in checkingMethod.functions) { %]
+print("")
 print("Original [%=func.name%]: %f" % metric_original_train.[%=func.name%]())
+print("Explanation: " + explainer_train.[%=func.name%]())
+        [% } %]
+
+line_num_counter = line_num_counter + 1
+mitigation_results = defaultdict(list)
+results.append(mitigation_results)
+mitigation_results["Mitigation"].append("Original")
+mitigation_results["Dataset"].append("[%=dataset.name%] ("+str(training_size)+":"+str(test_size)+")")
+mitigation_results["Classifier"].append("[%=trainingMethod.type.name%]")
+mitigation_results["Accuracy"].append(original_accuracy)
+        [% for (func in checkingMethod.functions) { %]
 mitigation_results["[%=func.name%]"].append(metric_original_train.[%=func.name%]())
         [% } %]
         [% } %]
+    [% // end of original metrics %]
+    [% } %]        
+    [% // end of original training %]    
     [% } %]
 
-# ### [%=number1%].[%=number2++%]. Bias Mitigation: Method: [%=biasMitigation.mitigationMethod.name%]  
-[% number3=0; %]
+    [% for (mitigationMethod in biasMitigation.mitigationMethods) { %]
 
+# #### [%=number1%].[%=number2%].[%=number3++%]. Mitigate Bias using [%=mitigationMethod.type.name%]  
+[% number4 = 0; number5 = 0; %]
 print("")
-print("Bias Mitigation")
+print("Mitigate Bias using [%=mitigationMethod.type.name%]")
 print("-------------")
-print("Method: [%=biasMitigation.mitigationMethod.name%]")
-mitigation_results = defaultdict(list)
-results.append(mitigation_results)
-mitigation_results["Mitigation"].append("[%=biasMitigation.mitigationMethod.name%]")
-
-mitigation_method = [%=biasMitigation.mitigationMethod.name%](unprivileged_groups=unprivileged_groups,
+[% if (mitigationMethod.type.name == "Reweighing") { %]
+mitigation_method = [%=mitigationMethod.type.name%](unprivileged_groups=unprivileged_groups,
                 privileged_groups=privileged_groups)
+[% } else if (mitigationMethod.type.name == "LFR") { %]
+mitigation_method = [%=mitigationMethod.type.name%](unprivileged_groups=unprivileged_groups,
+                privileged_groups=privileged_groups)
+[% } else if (mitigationMethod.type.name == "DisparateImpactRemover") { %]
+mitigation_method = [%=mitigationMethod.type.name%]()
+[% } %]
 dataset_mitigated_train = mitigation_method.fit_transform(dataset_original_train)
 dataset_mitigated_test = mitigation_method.fit_transform(dataset_original_test)
 
-# ### [%=number1%].[%=number2++%]. After-mitigation Bias Checking: [%=biasChecking.name%]
-[% number3=0; %]
+    [% for (trainingMethod in biasMitigation.trainingMethods) { %]
 
+# ##### [%=number1%].[%=number2%].[%=number3%].[%=number4++%]. After-mitigation Dataset: Classifier [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]"
+[% number5=0; %]
 print("")
-print("After-mitigation Bias Checking: [%=biasChecking.name%]")
+print("After-mitigation Training: [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 print("-------------")
-print("Dataset: [%=biasChecking.dataset.name%]")
-mitigation_results["Dataset"].append("[%=biasChecking.dataset.name%] ("+str(training_size)+":"+str(validation_size)+":"+str(test_size)+")")
-
-# #### [%=number1%].[%=number2%].[%=number3++%]. After-mitigation Preprocessing Metrics
-
-print("Preprocessing Metrics")
-    [% for (checkingMethod in biasChecking.checkingMethods) { %]
-    [% if (checkingMethod.name = "BinaryLabelDatasetMetric") { %]
-metric_mitigated_train = [%=checkingMethod.name%](dataset_mitigated_train, 
-                                             unprivileged_groups=unprivileged_groups,
-                                             privileged_groups=privileged_groups)
-        [% for (explainer in checkingMethod.explainers) { %]
-explainer_train = [%=explainer.name%](metric_mitigated_train)
-            [% for (func in explainer.functions) { %]
-            
-print("Original explainer: " + explainer_train.[%=func.name%]())
-            [% } %]
-        [% for (func in checkingMethod.functions) { %]
-print("Original [%=func.name%]: %f" % metric_mitigated_train.[%=func.name%]())
-mitigation_results["[%=func.name%]"].append(metric_mitigated_train.[%=func.name%]())
-        [% } %]
-        [% } %]
-    [% } %] 
-    [% } %]
-
-
-    [% for (trainingMethod in biasChecking.trainingMethods) { %]
-
-# #### [%=number1%].[%=number2%].[%=number3++%]. After Mitigation Training: [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]
-print("")
-print("After Mitigation Training: [%=trainingMethod.type.name%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]")
-print("-------------")
-mitigation_results["Classifier"].append("[%=trainingMethod.type.name%]")
 
 # Train the model from the after-mitigation train data
 classifier = [%=trainingMethod.type.name%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
+model = make_pipeline(StandardScaler(), classifier)
 fit_params = {'[%=trainingMethod.type.name.toLowerCase()%]__sample_weight': dataset_mitigated_train.instance_weights}
 model_mitigated_train = model.fit(dataset_mitigated_train.features, dataset_mitigated_train.labels.ravel(), **fit_params)
 
-# #### [%=number1%].[%=number2%].[%=number3++%]. Check the Accuracy of the Prediction
+# ###### [%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. After-mitigation: Check the Accuracy of the Prediction
 
 print("Check the accuracy of the prediction")
 y_pred = model_mitigated_train.predict(dataset_mitigated_test.features)
 y_test = dataset_mitigated_test.labels.ravel()
 after_mitigation_accuracy = metrics.accuracy_score(y_test, y_pred)
 print("After Mitigation Accuracy:", after_mitigation_accuracy)
-mitigation_results["Accuracy"].append(after_mitigation_accuracy)
 
-# #### [%=number1%].[%=number2%].[%=number3++%]. Inprocessing Metrics
+# ###### [%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. After-mitigation: Bias Metrics
 
-print("Inprocessing Metrics")
-    [% for (checkingMethod in biasChecking.checkingMethods) { %]
+print("Metrics")
+    [% for (checkingMethod in biasMitigation.checkingMethods) { %]
 dataset_mitigated_train_pred = dataset_mitigated_train.copy()
 y_val_pred = model_mitigated_train.predict(dataset_mitigated_train.features)
 dataset_mitigated_train_pred.labels = y_val_pred
@@ -245,36 +217,57 @@ metric_mitigated_train = [%=checkingMethod.name%](dataset_mitigated_train,
                                              dataset_mitigated_train_pred, 
                                              unprivileged_groups=unprivileged_groups,
                                              privileged_groups=privileged_groups)
-        [% for (explainer in checkingMethod.explainers) { %]
-explainer_train = [%=explainer.name%](metric_mitigated_train)
-            [% for (func in explainer.functions) { %]
-            
-print("After mitigation explainer: " + explainer_train.[%=func.name%]())
-            [% } %]
-        [% } %]
+                                             
+explainer_train = MetricTextExplainer(metric_mitigated_train)
         [% for (func in checkingMethod.functions) { %]
+print("")        
 print("After mitigation [%=func.name%]: %f" % metric_mitigated_train.[%=func.name%]())
+print("After mitigation explainer: " + explainer_train.[%=func.name%]())
+        [% } %]
+
+line_num_counter = line_num_counter + 1
+mitigation_results = defaultdict(list)
+results.append(mitigation_results)
+mitigation_results["Mitigation"].append("[%=mitigationMethod.type.name%]")
+mitigation_results["Dataset"].append("[%=dataset.name%] ("+str(training_size)+":"+str(test_size)+")")
+mitigation_results["Classifier"].append("[%=trainingMethod.type.name%]")
+mitigation_results["Accuracy"].append(after_mitigation_accuracy)
+        [% for (func in checkingMethod.functions) { %]
 mitigation_results["[%=func.name%]"].append(metric_mitigated_train.[%=func.name%]())
         [% } %]
     [% } %]
+    
         [% if (trainingMethod.type.name == "DecisionTreeClassifier") { %]
 if isinstance(classifier, DecisionTreeClassifier): 
-	plt.figure(figsize=(12, 5), dpi=500)
-	tree.plot_tree(classifier,
-	               feature_names=dataset_mitigated_train.feature_names,
-	               class_names=["[%=biasChecking.unpriviledgedGroup%]", "[%=biasChecking.priviledgedGroup%]"],
-	               filled=True,
-	               rounded=True);
-	plt.savefig('graphics/Mitigated-[%=trainingMethod.type.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
-	   [% } %]
+    plt.figure(figsize=(12, 5), dpi=500)
+    tree.plot_tree(classifier,
+                   feature_names=dataset_mitigated_train.feature_names,
+                   class_names=["[%=dataset.unpriviledgedGroup%]", "[%=dataset.priviledgedGroup%]"],
+                   filled=True,
+                   rounded=True);
+    plt.savefig('graphics/Mitigated-[%=trainingMethod.type.name%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
+        [% } %]
+      [% } %]
     [% } %]
-[% } %]
 
-# ## Summary 
+# ### [%=number1%].[%=number2++%]. Summary
+
 print("")
+line_num = pd.Series(range(1,line_num_counter))
 table = pd.concat([pd.DataFrame(m) for m in results], axis=0).set_axis(line_num)
 print(table)
 
-pd.concat([pd.DataFrame(m) for m in results], axis=0).set_axis(line_num)
+display(Markdown("Original Data size: "+ str(len(dataset_original.instance_names)) + "</br>" +
+"Predicted attribute: '[%=dataset.predictedAttribute%]'</br>" +  
+"Protected attributes: [%=dataset.protectedAttributes.listToLine()%]</br>" + 
+"Favorable classes: [%=dataset.favorableClasses.listToLine()%]</br>" +
+"Dropped attributes: [%=dataset.droppedAttributes.listToLine()%]</br>"
+"Training data size (ratio): [%=dataset.trainTestSplit[0]%]</br>" +
+"Test data size (ratio): [%=dataset.trainTestSplit[1]%]"))
+
+pd.concat([pd.DataFrame(m) for m in results], axis=0).set_axis(line_num)      
+  [% } %]  
+[% } %]
+
 
 [% //fairml.p2j(); %]

@@ -102,6 +102,12 @@ United-States 40
 Vietnam 41
 Yugoslavia  42
 
+White 1
+Amer-Indian-Eskimo 2
+Asian-Pac-Islander 3
+Black 4
+Other 5
 
+'Amer-Indian-Eskimo','Asian-Pac-Islander', 'Black', 'Other'
 
 

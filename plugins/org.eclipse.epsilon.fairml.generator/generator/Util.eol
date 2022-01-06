@@ -4,6 +4,18 @@ operation Collection listToLine(): String {
 		.concat(", ");
 }
 
+operation Collection listToLineWithBrackets(): String {
+    return self
+        .collect(item | "['" + item + "']")
+        .concat(", ");
+}
+
+operation Collection listToLineWithoutQuotesWithBrackets(): String {
+    return self
+        .collect(item | "[" + item + "]")
+        .concat(", ");
+}
+
 operation Collection listToLineWithoutQuote(): String {
 	return self
 		.collect(item | item )

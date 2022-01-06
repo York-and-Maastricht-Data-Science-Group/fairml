@@ -2,27 +2,21 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="fairml" nsURI="fairml" nsPrefix="">
   <eClassifiers xsi:type="ecore:EEnum" name="Classification">
-    <eLiterals name="DecisionTreeClassifier" value="1"/>
-    <eLiterals name="LogisticRegression" value="2"/>
-    <eLiterals name="KNeighborsClassifier" value="3"/>
-    <eLiterals name="GaussianNB" value="4"/>
-    <eLiterals name="LinearSVC" value="5"/>
+    <eLiterals name="DecisionTreeClassifier"/>
+    <eLiterals name="LogisticRegression" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Mitigation">
+    <eLiterals name="Reweighing"/>
+    <eLiterals name="LFR" value="1"/>
+    <eLiterals name="DisparateImpactRemover" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FairML">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="datasets" upperBound="-1"
         eType="#//Dataset" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="biasChecks" upperBound="-1"
-        eType="#//BiasChecking" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="biasMitigations" upperBound="-1"
         eType="#//BiasMitigation" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Dataset">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protectedAttributes" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Operation" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -40,33 +34,47 @@
   <eClassifiers xsi:type="ecore:EClass" name="TrainingMethod" eSuperTypes="#//Operation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Classification"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MitigationMethod" eSuperTypes="#//Operation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CheckingMethod" eSuperTypes="#//Operation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="explainers" upperBound="-1"
-        eType="#//ExplainerMethod" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MitigationMethod" eSuperTypes="#//Operation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//Mitigation"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExplainerMethod" eSuperTypes="#//Operation"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BiasChecking">
+  <eClassifiers xsi:type="ecore:EClass" name="CheckingMethod" eSuperTypes="#//Operation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Dataset">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataset" eType="#//Dataset"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trainValidationTestSplit"
-        unique="false" upperBound="2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protectedAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="datasetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trainDatasetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="testDatasetPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="priviledgedGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unpriviledgedGroup" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="predictedAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="favorableClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="favorableClasses" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="protectedAttributes" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="privilegedClasses" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unprivilegedClasses" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="instanceWeights" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="categoricalFeatures" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="droppedAttributes" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="checkingMethods" upperBound="-1"
-        eType="#//CheckingMethod" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingMethods" upperBound="-1"
-        eType="#//TrainingMethod" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notAvailableValues" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultMappings" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trainTestSplit" unique="false"
+        upperBound="2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BiasMitigation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="biasChecking" eType="#//BiasChecking"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="mitigationMethod" eType="#//MitigationMethod"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datasets" upperBound="-1"
+        eType="#//Dataset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="checkingMethods" upperBound="-1"
+        eType="#//CheckingMethod" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mitigationMethods" upperBound="-1"
+        eType="#//MitigationMethod" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="trainingMethods" upperBound="-1"
+        eType="#//TrainingMethod" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -1,54 +1,52 @@
 ?nsuri: fairml
 fairml:
 - name: Adult Census Income
-- description: 
+- description: |-
     Predict whether income exceeds $50K/yr based on census data.
     Also known as \"Census Income\" dataset.
+    Favourable classes: 
     <=50K = 0, >50K = 1
+    Protected attributes:
     female = 0, male = 1
     other = 0, white = 1
 
 # set the dataset
 - dataset:
   - name: Adult Census Income
-  - path: data/adult.data.small.csv
-  - protectedAttributes: sex, race
+  - datasetPath: data/adult.data.small.csv
+  - predictedAttribute: income-per-year
+  - protectedAttributes: sex
+#  - privilegedClasses: 1
+#  - unprivilegedClasses: 0
+#  - droppedAttribute: fnlwgt
+#  - favorableClasses: 1
+#  - notAvailableValues: |-
+#      ?
+  - trainTestSplit: 7, 3
+  - categoricalFeatures: workclass, education, marital-status, 
+      occupation, relationship, native-country
 
-# configure the bias checking
-- biasChecking:
-  - name: Sex Bias Checking
+# define the bias mitigation
+- biasMitigation:
+  - name: Mitigate Bias  
   - dataset: Adult Census Income
-  - protectedAttribute: sex
-  - priviledgedGroup: 1
-  - unpriviledgedGroup: 0
-  - predictedAttribute: class
-  - favorableClass: 1
-  - droppedAttribute: age
-  - trainValidationTestSplit: 7, 0, 3
   
+  - mitigationMethod:
+    - type: Mitigation.Reweighing
+  - mitigationMethod:
+    - type: Mitigation.DisparateImpactRemover  
+  
+  - trainingMethod:
+    - type: Classification.DecisionTreeClassifier
+    - parameters: criterion='gini', max_depth=3
   - trainingMethod:
     - type: Classification.LogisticRegression
     - parameter: solver='liblinear', random_state=1
-    
-#  - trainingMethod:
-#    - type: Classification.DecisionTreeClassifier
-#    - parameters: criterion='gini', max_depth=3
-             
-#  - checkingMethod:
-#    - name: BinaryLabelDatasetMetric
-#    - function: 
-#      - name: statistical_parity_difference
-#    - explainer: 
-#      - name: MetricTextExplainer
-#      - function:
-#        - name: disparate_impact
-      
+  
   - checkingMethod:
     - name: ClassificationMetric
     - function: 
-      - name: true_positive_rate
-    - function: 
-      - name: true_negative_rate
+      - name: average_abs_odds_difference
     - function: 
       - name: disparate_impact
     - function: 
@@ -56,33 +54,7 @@ fairml:
     - function: 
       - name: equal_opportunity_difference
     - function: 
-      - name: theil_index
-        
-    - explainer: 
-      - name: MetricTextExplainer
-      - function: 
-        - name: true_positive_rate
-      - function: 
-        - name: true_negative_rate
-      - function: 
-        - name: disparate_impact
-      - function: 
-        - name: statistical_parity_difference
-      - function: 
-        - name: equal_opportunity_difference
-      - function: 
-        - name: theil_index
-
-# define the bias mitigation
-- biasMitigation:
-  - name: Sex Bias Checking with Reweighing
-  - biasChecking: Sex Bias Checking
-  - mitigationMethod:
-    - name: Reweighing
-  
-  
- 
-  
+      - name: theil_index 
   
   
  

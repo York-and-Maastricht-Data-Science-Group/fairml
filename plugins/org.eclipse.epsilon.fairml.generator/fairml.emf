@@ -6,11 +6,17 @@ for Fair Machine Learning.
 package fairml;
 
 enum Classification {
-	DecisionTreeClassifier = 1;
-	LogisticRegression = 2;
-	KNeighborsClassifier = 3;
-	GaussianNB = 4;
-	LinearSVC = 5;
+	DecisionTreeClassifier;
+	LogisticRegression;
+//	KNeighborsClassifier;
+//	GaussianNB;
+//	LinearSVC;
+}
+
+enum Mitigation {
+    Reweighing;
+    LFR;
+    DisparateImpactRemover;
 }
 
 /***
@@ -20,17 +26,7 @@ class FairML {
 	attr String name;
 	attr String description;
 	val Dataset[*] datasets;
-	val BiasChecking[*] biasChecks;
 	val BiasMitigation[*] biasMitigations;
-}
-
-/***
- Class for representing datasets
-*/
-class Dataset {
-	attr String name;
-	attr String path;
-	attr String[*] protectedAttributes;
 }
 
 /***
@@ -68,46 +64,51 @@ class TrainingMethod extends Operation {
   The class represents the bias mitigation method
 */
 class MitigationMethod extends Operation {
-
+    attr Mitigation type;
 }
 
 /***
   The class represents the bias checking method
 */
 class CheckingMethod extends Operation {
-	val ExplainerMethod[*] explainers;			
-}
-
-class ExplainerMethod extends Operation {
 			
 }
 
-class BiasChecking {
-	attr String name;
-	ref Dataset dataset;
-
-	!unique attr int[0..2] trainValidationTestSplit;
-	
-	attr String protectedAttribute;
-	attr int priviledgedGroup;
-	attr int unpriviledgedGroup;
-	
-	attr String predictedAttribute;
-	attr String favorableClass;
-	
-	attr String[*] droppedAttributes;
-	
-	val CheckingMethod[*] checkingMethods; 
-	
-	val TrainingMethod[*] trainingMethods;
+/***
+ Class for representing datasets
+*/
+class Dataset {
+    attr String name;
+    attr String datasetPath;
+    
+    // if the dataset path above is empty then 
+    // the train and test datasets are defined by these paths
+    attr String trainDatasetPath;  
+    attr String testDatasetPath;
+    
+    attr int priviledgedGroup;
+    attr int unpriviledgedGroup;
+    
+    attr String predictedAttribute;
+    !unique attr int[*] favorableClasses;
+    attr String[*] protectedAttributes;
+    !unique attr int[*] privilegedClasses;
+    !unique attr int[*] unprivilegedClasses;
+    attr String[*] instanceWeights;
+    attr String[*] categoricalFeatures;    
+    attr String[*] droppedAttributes;
+    attr String[*] notAvailableValues;
+    attr String defaultMappings;
+    
+    // Fraction of dataset for training -- the rest is for testing.
+    // Maximum value is 1.0.
+    !unique attr int[0..2] trainTestSplit;
 }
 
 class BiasMitigation {
 	attr String name;
-	ref BiasChecking biasChecking;		 
-	
-	val MitigationMethod mitigationMethod;		
+	ref Dataset[*] datasets;
+	val CheckingMethod[*] checkingMethods;		 
+	val MitigationMethod[*] mitigationMethods;	
+	val TrainingMethod[*] trainingMethods;		
 }
-
-
-
