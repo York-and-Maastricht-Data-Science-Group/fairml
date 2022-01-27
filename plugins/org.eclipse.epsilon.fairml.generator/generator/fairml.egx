@@ -7,7 +7,7 @@ pre {
 /***
  * To generate Java File (*.java) that converts *.py file to *.ipynb file. 
 ***/
-rule FairMLFile transform fairml : FairML {
+rule IpynbGenFile transform fairml: FairML {
 	parameters : Map {     
     	"fairml" = fairml
     }

@@ -1,3 +1,9 @@
+ Amer-Indian-Eskimo 2
+ Asian-Pac-Islander 3
+ Black  4
+ Other  5
+ White  1
+
 ? 0
 Federal-gov 1
 Local-gov 2

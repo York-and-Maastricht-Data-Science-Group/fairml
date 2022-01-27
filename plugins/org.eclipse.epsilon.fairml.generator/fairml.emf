@@ -1,81 +1,110 @@
 /***
 A metamodel for FairML -- A model-based approach
 for Fair Machine Learning.
+
+@Project: York-Maastricht Partnership Project
+@Info: https://www.york.ac.uk/maastricht/
+@Author: Alfa Yohannis
+
 */
 @namespace(uri="fairml", prefix="")
 package fairml;
 
-enum Classification {
-	DecisionTreeClassifier;
-	LogisticRegression;
-//	KNeighborsClassifier;
-//	GaussianNB;
-//	LinearSVC;
-}
+/***
+  Types of PopulationTarget to automatically choose bias metrics 
+  in Bias Mitigation.
+***/
+/*enum PopulationTarget {
+    Group;
+    Individual;
+    SingleMetricForBoth;
+}*/
 
-enum Mitigation {
+/***
+  Types of WorldViews to automatically choose bias metrics 
+  in Bias Mitigation
+***/
+/*enum FairnessWorldView {
+    Equal;
+    Proportional;
+    Both;
+}*/
+
+/* Classifiers/Training Algorithms */
+/*enum Classification {
+    DecisionTreeClassifier;
+    LogisticRegression;
+//  KNeighborsClassifier;
+//  GaussianNB;
+//  LinearSVC;
+}*/
+
+/* Bias Mitigation Algorithms */
+/*enum Mitigation {   
+    // Preprocessing
     Reweighing;
     LFR;
     DisparateImpactRemover;
-}
+    OptimisedPreprocessing;
+    
+    // Inprocessing
+    MetaFairClassifier;
+    AdversarialDebiasing;
+    PrejudiceRemover;
+    
+    // Postprocessing
+    EqualisingOddsPostprocessing;
+    CalibratedEqOddsPostprocessing;
+    RejectOptionClassification;
+}*/
 
 /***
  Root container
 */
+
 class FairML {
-	attr String name;
-	attr String description;
-	val Dataset[*] datasets;
-	val BiasMitigation[*] biasMitigations;
+    attr String name;
+    attr String description;
+    val Dataset[*] datasets;
+    val BiasMitigation[*] biasMitigations;
 }
 
-/***
- Abtract class for representing executable operations.
- Basically it mimics the Python classes used for
- training, bias detection and mitigation.
- It has package name, class name, 
- parameters as well as the class' 
- functions/methods and their parameters
-*/
 abstract class Operation {
-	attr String packageName;
-	attr String name;
-	attr String[*] parameters;
-	val Function[*] functions;	
+    attr String packageName;
+    attr String name;
+    attr String[*] parameters;
+    val Function[*] functions;
 }
 
-/***
- Class for representing functions/methods 
- of a function and their parameters	
-*/
 class Function {
-	attr String name;
+    attr String name;
     attr String[*] parameters;
 }
+
 
 /***
   The class represents the training algorithm
 */
-class TrainingMethod extends Operation {
-    attr Classification type;
+class TrainingMethod extends Operation  {
+    attr String algorithm;
 }
 
 /***
   The class represents the bias mitigation method
 */
 class MitigationMethod extends Operation {
-    attr Mitigation type;
+    attr String algorithm;
 }
 
 /***
   The class represents the bias checking method
 */
-class CheckingMethod extends Operation {
-			
+class BiasMetric extends Operation {
+     attr String className = "ClassificationMetric";
 }
 
 /***
- Class for representing datasets
+ Class for representing datasets that will be bias mitigated
 */
 class Dataset {
     attr String name;
@@ -105,10 +134,49 @@ class Dataset {
     !unique attr int[0..2] trainTestSplit;
 }
 
+/***
+    The class to define bias mitigation process.
+***/
 class BiasMitigation {
-	attr String name;
-	ref Dataset[*] datasets;
-	val CheckingMethod[*] checkingMethods;		 
-	val MitigationMethod[*] mitigationMethods;	
-	val TrainingMethod[*] trainingMethods;		
+    attr String name;
+    
+    /* flags to automatically select bias metrics */
+    attr boolean groupFairness = true;
+    attr boolean individualFairness = false;
+    attr boolean groupIndividualSingleMetric = false;
+    
+    attr boolean equalFairness = false;
+    attr boolean proportionalFairness = true; 
+    
+    attr boolean checkFalsePositive = false;
+    attr boolean checkFalseNegative = false;
+    attr boolean checkErrorRate = false;
+    attr boolean checkEqualBenefit = false;
+    
+    /* flags to automatically select mitigation algorithms */
+  
+    // preprocessing
+    attr boolean prepreprocessingMitigation = false;
+    attr boolean modifiableWeight = true;
+    attr boolean allowLatentSpace = false;
+    
+    // inprocessing
+    attr boolean inpreprocessingMitigation = false;
+    attr boolean allowRegularisation = false;
+    
+    // postprocessing
+    attr boolean postpreprocessingMitigation = false;
+    attr boolean allowRandomisation = false;
+    
+    // define the datasets to mitigate their biases
+    ref Dataset[*] datasets;
+    
+    // define the metrics to measure biases
+    val BiasMetric[*] biasMetrics;
+    
+    // define the mitigation algorithms to mitigate biases       
+    val MitigationMethod[*] mitigationMethods;  
+    
+    // define the classifiers to train models
+    val TrainingMethod[*] trainingMethods;      
 }

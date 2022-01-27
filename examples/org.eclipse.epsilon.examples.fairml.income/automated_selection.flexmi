@@ -1,14 +1,15 @@
 ?nsuri: fairml
 fairml:
-- name: Adult Census Income
+- name: Automated Selection
 - description: |-
-    Predict whether income exceeds $50K/yr based on census data.
+    Automatically select metrics to 
+    predict whether income exceeds $50K/yr based on census data.
     Also known as \"Census Income\" dataset.
     Favourable classes: 
-    <=50K = 0, >50K = 1
+    <=50K: 0, >50K: 1
     Protected attributes:
-    female = 0, male = 1
-    other = 0, white = 1
+    female: 0, male: 1
+    other: 0, white: 1
 
 # set the dataset
 - dataset:
@@ -25,6 +26,27 @@ fairml:
   - name: Mitigate Bias  
   - dataset: Adult Census Income
   
+    groupFairness: true
+    individualFairness: false
+    groupIndividualSingleMetric: false    
+    equalFairness: false
+    proportionalFairness: true
+
+    checkFalsePositive: false
+    checkFalseNegative: false
+    checkErrorRate: false
+    checkEqualBenefit: false
+    
+    prepreprocessingMitigation: false
+    modifiableWeight: true
+    allowLatentSpace: false
+    
+    inpreprocessingMitigation: false
+    allowRegularisation: false
+    
+    postpreprocessingMitigation: false
+    allowRandomisation: false
+  
   - mitigationMethod:
     - algorithm: Reweighing
   - mitigationMethod:
@@ -33,19 +55,8 @@ fairml:
   - trainingMethod:
     - algorithm: DecisionTreeClassifier
     - parameters: criterion='gini', max_depth=4
-  - trainingMethod:
-    - algorithm: LogisticRegression
-    - parameter: solver='liblinear', random_state=1
   
-  - biasMetric:
-    - name: statistical_parity_difference
-  - biasMetric:
-    - name: equal_opportunity_difference
-  - biasMetric:
-    - name: average_abs_odds_difference
-  - biasMetric:
-    - name: disparate_impact
-  - biasMetric:
+  - biasMetric: 
     - name: theil_index 
   
   
