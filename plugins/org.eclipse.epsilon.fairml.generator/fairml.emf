@@ -146,7 +146,7 @@ class BiasMitigation {
     attr boolean groupIndividualSingleMetric = false;
     
     attr boolean equalFairness = false;
-    attr boolean proportionalFairness = true; 
+    attr boolean proportionalFairness = false; 
     
     attr boolean checkFalsePositive = false;
     attr boolean checkFalseNegative = false;

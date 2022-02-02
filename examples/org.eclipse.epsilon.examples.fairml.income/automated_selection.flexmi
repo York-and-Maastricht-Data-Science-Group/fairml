@@ -16,7 +16,7 @@ fairml:
   - name: Adult Census Income
   - datasetPath: data/adult.data.small.csv
   - predictedAttribute: income-per-year
-  - protectedAttributes: sex
+  - protectedAttributes: sex, race
   - trainTestSplit: 7, 3
   - categoricalFeatures: workclass, education, marital-status, 
       occupation, relationship, native-country
@@ -26,38 +26,21 @@ fairml:
   - name: Mitigate Bias  
   - dataset: Adult Census Income
   
-    groupFairness: true
-    individualFairness: false
-    groupIndividualSingleMetric: false    
-    equalFairness: false
-    proportionalFairness: true
-
-    checkFalsePositive: false
-    checkFalseNegative: false
-    checkErrorRate: false
-    checkEqualBenefit: false
-    
-    prepreprocessingMitigation: false
-    modifiableWeight: true
-    allowLatentSpace: false
-    
-    inpreprocessingMitigation: false
-    allowRegularisation: false
-    
-    postpreprocessingMitigation: false
-    allowRandomisation: false
+    equalFairness: true
+#    proportionalFairness: true
   
   - mitigationMethod:
     - algorithm: Reweighing
   - mitigationMethod:
-    - algorithm: DisparateImpactRemover  
+    - algorithm: DisparateImpactRemover
+    - parameters: repair_level=1.0  
   
   - trainingMethod:
     - algorithm: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=4
+    - parameters: criterion='gini', max_depth=7
   
-  - biasMetric: 
-    - name: theil_index 
+#  - biasMetric: 
+#    - name: false_negative_rate_ratio 
   
   
  

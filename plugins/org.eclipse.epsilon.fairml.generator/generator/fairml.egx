@@ -5,7 +5,7 @@ pre {
 }
 
 /***
- * To generate Java File (*.java) that converts *.py file to *.ipynb file. 
+ * Generate Java File (*.java) that converts *.py file to *.ipynb file. 
 ***/
 rule IpynbGenFile transform fairml: FairML {
 	parameters : Map {     
@@ -16,7 +16,7 @@ rule IpynbGenFile transform fairml: FairML {
 }
 
 /***
- * To generate Python File (*.py)
+ * Generate Python File (*.py)
 ***/
 rule PythonFile transform fairml : FairML {
 	parameters : Map {     
@@ -25,4 +25,16 @@ rule PythonFile transform fairml : FairML {
   	template: "py.egl"
   	target: fairml.name.replace(" ", "_").toLowerCase() + ".py"
 }
+
+/***
+ * Generate FairML's Python module
+***/
+rule FairMLFile transform fairml : FairML {
+    parameters : Map {     
+        "fairml" = fairml
+    }
+    template: "fairml.py"
+    target: "fairml.py"
+}
+
 
