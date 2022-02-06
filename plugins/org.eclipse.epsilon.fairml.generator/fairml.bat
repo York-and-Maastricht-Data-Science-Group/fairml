@@ -1,0 +1,1 @@
+java -cp "fairml.jar" org.eclipse.epsilon.fairml.generator.FairML %1
