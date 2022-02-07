@@ -37,6 +37,9 @@
 					</execution>
 				</executions>
 				<configuration>
+				  <finalName>fairml</finalName>
+				  <appendAssemblyId>false</appendAssemblyId> 
+				  <outputDirectory>./</outputDirectory>
 					<archive>
 						<manifest>
 						  <addClasspath>true</addClasspath>
