@@ -244,26 +244,15 @@ print("-------------")
 
 # Train the model from the original train data
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
-model = make_pipeline(StandardScaler(), classifier)
-fit_params = {'[%=trainingMethod.algorithm.toLowerCase()%]__sample_weight': bm.dataset_original_train.instance_weights}
-model_original_train = model.fit(bm.dataset_original_train.features, bm.dataset_original_train.labels.ravel(), **fit_params)
+model_original_train = bm.train(bm.dataset_original_train,  classifier)
+
+bm.drawModel(classifier, bm.dataset_original_train, 'graphics/Original-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) Original Dataset: Check the Accuracy of the Prediction
 
 print_message("Check the accuracy of the prediction")
 original_accuracy = bm.check_accuracy(model_original_train, dataset_original_test)
 print_message("Original Accuracy: " + str(original_accuracy))
-
-        [% if (trainingMethod.algorithm == "DecisionTreeClassifier") { %]
-if isinstance(classifier, DecisionTreeClassifier): 
-    plt.figure(figsize=(12, 5), dpi=500)
-    tree.plot_tree(classifier,
-                   feature_names=bm.dataset_original_train.feature_names,
-                   class_names=["[%=dataset.unpriviledgedGroup%]", "[%=dataset.priviledgedGroup%]"],
-                   filled=True,
-                   rounded=True);
-    plt.savefig('graphics/Original-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
-[%      } %]
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) Original Dataset: Bias Metrics[% // start of metrics %]
 
@@ -309,20 +298,9 @@ print("-------------")
 
 # Train the model from the after-mitigation train data
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
-model = make_pipeline(StandardScaler(), classifier)
-fit_params = {'[%=trainingMethod.algorithm.toLowerCase()%]__sample_weight': dataset_mitigated_train.instance_weights}
-model_mitigated_train = model.fit(dataset_mitigated_train.features, dataset_mitigated_train.labels.ravel(), **fit_params)
+model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
 
- [% if (trainingMethod.algorithm == "DecisionTreeClassifier") { %]
-if isinstance(classifier, DecisionTreeClassifier): 
-    plt.figure(figsize=(12, 5), dpi=500)
-    tree.plot_tree(classifier,
-                   feature_names=dataset_mitigated_train.feature_names,
-                   class_names=["[%=dataset.unpriviledgedGroup%]", "[%=dataset.priviledgedGroup%]"],
-                   filled=True,
-                   rounded=True);
-    plt.savefig('graphics/Mitigated-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
-[%        } %]
+bm.drawModel(classifier, dataset_mitigated_train, 'graphics/Mitigated-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) After-mitigation: Check the Accuracy of the Prediction
 

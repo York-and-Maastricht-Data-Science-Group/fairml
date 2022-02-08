@@ -16,16 +16,16 @@
 				</configuration>
 			</plugin>
 			<plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>org.eclipse.epsilon.fairml.generator.FairML</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>org.eclipse.epsilon.fairml.generator.FairML</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
@@ -37,12 +37,12 @@
 					</execution>
 				</executions>
 				<configuration>
-				  <finalName>fairml</finalName>
-				  <appendAssemblyId>false</appendAssemblyId> 
-				  <outputDirectory>./</outputDirectory>
+					<finalName>fairml</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<outputDirectory>./</outputDirectory>
 					<archive>
 						<manifest>
-						  <addClasspath>true</addClasspath>
+							<addClasspath>true</addClasspath>
 							<mainClass>org.eclipse.epsilon.fairml.generator.FairML</mainClass>
 						</manifest>
 					</archive>
@@ -52,15 +52,15 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		 <resources>
-      <resource>
-        <directory>generator</directory>
-        <targetPath>generator</targetPath>
-        <includes>
-          <include>**.*</include>
-        </includes>
-      </resource>
-    </resources>
+		<resources>
+			<resource>
+				<directory>generator</directory>
+				<targetPath>generator</targetPath>
+				<includes>
+					<include>**.*</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.eclipse.epsilon/org.eclipse.epsilon.egl.engine -->
@@ -81,17 +81,17 @@
 			<artifactId>org.eclipse.epsilon.flexmi</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.epsilon/org.eclipse.epsilon.eol.tools -->
-		<dependency>
-			<groupId>org.eclipse.epsilon</groupId>
-			<artifactId>org.eclipse.epsilon.eol.tools</artifactId>
-			<version>2.3.0</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/info.picocli/picocli -->
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
 			<version>4.6.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.30</version>
 		</dependency>
 	</dependencies>
 </project>
