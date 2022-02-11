@@ -54,6 +54,13 @@
 		</plugins>
 		<resources>
 			<resource>
+				<directory>data</directory>
+				<targetPath>data</targetPath>
+				<includes>
+					<include>**.*</include>
+				</includes>
+			</resource>
+			<resource>
 				<directory>generator</directory>
 				<targetPath>generator</targetPath>
 				<includes>
@@ -92,6 +99,12 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>1.30</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/tech.tablesaw/tablesaw-core -->
+		<dependency>
+			<groupId>tech.tablesaw</groupId>
+			<artifactId>tablesaw-core</artifactId>
+			<version>0.42.0</version>
 		</dependency>
 	</dependencies>
 </project>

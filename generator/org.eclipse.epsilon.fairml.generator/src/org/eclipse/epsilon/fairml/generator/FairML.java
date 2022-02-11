@@ -2,6 +2,8 @@ package org.eclipse.epsilon.fairml.generator;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -55,17 +57,20 @@ import picocli.CommandLine.Parameters;
 				+ "from a FairML model in a Flexmi file.")
 public class FairML implements Callable<Integer> {
 
+	private static CommandLine commandLine;
 	private static final String DIR_GENERATOR = "generator";
+	private static final String DIR_DATA = "data";
 
 	public static void main(String... args) {
-		int exitCode = new CommandLine(new FairML()).execute(args);
+		commandLine = new CommandLine(new FairML());
+		int exitCode = commandLine.execute(args);
 		System.exit(exitCode);
 	}
 
 	@Parameters(index = "0", description = "A FairML Model in a Flexmi file (*.flexmi).")
 	private File flexmiFile;
 
-	@Option(names = { "-w", "--wizard" }, description = "[true, false(default)] Wizard to create a flexmi file.")
+	@Option(names = { "-w", "--wizard" }, description = "Run the wizard to create a flexmi file.")
 	private boolean isWizard = false;
 
 	private Scanner scanner;
@@ -76,6 +81,13 @@ public class FairML implements Callable<Integer> {
 	@Override
 	public Integer call() throws Exception {
 		try {
+			// extracting generator files from the jar to the local generator dan data
+			// folders
+			extractFilesFromJar(new String[] { "fairml.egx", "fairml.py", "ipynb.egl", //
+					"py.egl", "Util.eol" }, DIR_GENERATOR);
+			extractFilesFromJar(new String[] { "adult.data.numeric.csv", //
+					"adult.data.numeric.txt" }, DIR_DATA);
+
 			if (isWizard) {
 				scanner = new Scanner(System.in);
 				flexmiFile = generateFlexmiFile(flexmiFile);
@@ -132,26 +144,6 @@ public class FairML implements Callable<Integer> {
 			Resource xmiResource = xmiResourceSet.createResource(resourceURI);
 			xmiResource.getContents().addAll(EcoreUtil.copyAll(flexmiResource.getContents()));
 			xmiResource.save(null);
-
-			// extracting generator files from the jar to the generator folder
-			File dir = new File("." + File.separator + DIR_GENERATOR);
-			dir = new File(dir.getAbsolutePath());
-			if (!dir.exists()) {
-				System.out.println("Create generator directory ..");
-				Files.createDirectories(Paths.get(dir.getAbsolutePath()));
-			}
-
-			String[] fileNames = { "fairml.egx", "fairml.py", "ipynb.egl", //
-					"py.egl", "Util.eol" };
-
-			for (String filename : fileNames) {
-				File targetFile = new File(DIR_GENERATOR + File.separator + filename);
-				targetFile = new File(targetFile.getAbsolutePath());
-				InputStream is = getClass().getResourceAsStream("/" + DIR_GENERATOR + "/" + filename);
-//				System.out.println("Create file " + targetFile.getAbsolutePath());
-				Files.copy(is, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-//				System.out.println("Success");
-			}
 
 			// Parse *.egx, read from file first,
 			// if not available then read from JAR
@@ -216,91 +208,313 @@ public class FairML implements Callable<Integer> {
 						File.separator + filename + ".py\"";
 			} else {
 //				command = "ls";
-				command = "p2j -o \"" + path + File.separator + filename + ".py\"";
-				command = new String(command.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+				command = path + File.separator + filename + ".py";
+				command = "p2j -o " + command.replace(" ", "\\ ");
 
 			}
 //			System.out.println(command);
 			Process p = Runtime.getRuntime().exec(command);
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//			String line;
-//			while ((line = reader.readLine()) != null) {
-//				System.out.println(line);
-//			}
-//			reader.close();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				System.out.println(line);
+			}
+			reader.close();
 
 			System.out.println("Finished!");
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
 
+	private void extractFilesFromJar(String[] fileNames, String dirInJar) throws IOException {
+		File dir = new File("." + File.separator + dirInJar);
+		dir = new File(dir.getAbsolutePath());
+		if (!dir.exists()) {
+			System.out.println("Create generator directory ..");
+			Files.createDirectories(Paths.get(dir.getAbsolutePath()));
+		}
+
+		for (String filename : fileNames) {
+			File targetFile = new File(dirInJar + File.separator + filename);
+			targetFile = new File(targetFile.getAbsolutePath());
+			InputStream is = getClass().getResourceAsStream("/" + dirInJar + "/" + filename);
+			Files.copy(is, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		}
+	}
+
 	@SuppressWarnings("serial")
-	private File generateFlexmiFile(File flexmiFile) {
+	private File generateFlexmiFile(File flexmiFile) throws IOException {
+
+		System.out.println("=====================================");
+		System.out.println("           FairML Wizard             ");
+		System.out.println("=====================================");
+		System.out.println("");
 
 		/** root **/
 		Map<String, Object> root = new LinkedHashMap<String, Object>();
 		root.put("?nsuri", "fairml");
 
-//		/** fairml **/
-//		List<Object> fairml = new ArrayList<>();
-//		fairml.add(Map.of("name", getUserInput("FairML project's name:")));		
-//		fairml.add(Map.of("description", getUserInput("FairML project's description:")));
-//		root.put("fairml", fairml);
+		/** fairml **/
+		List<Object> fairml = new ArrayList<>();
+		System.out.println("==== FairML ====");
+		String projectName = "Demo";
+		fairml.add(Map.of("name", getUserInput("FairML project's name (default: " + //
+				projectName + "):", projectName)));
+
+		String projectDescription = "Predict income <=50K: 0, >50K: 1";
+		fairml.add(Map.of("description", getUserInput(
+				"FairML project's description (default: " + projectDescription + "):", projectDescription)));
+		root.put("fairml", fairml);
 //
-//		/** dataset **/
-//		List<Object> dataset = new ArrayList<>();
-//		dataset.add(Map.of("datasetPath", getUserInput("Path to your dataset (e.g., data/census.csv):")));		
-//		dataset.add(Map.of("name", getUserInput("The name of the dataset:")));
-//		dataset.add(Map.of("predictedAttribute", getUserInput("Predicted attribute:")));
-//		dataset.add(Map.of("protectedAttributes", getUserInput("Protected attributes [seperated by comma] (sex, race, etc.):")));
-//		dataset.add(Map.of("categoricalFeatures", getUserInput("Categorical features [seperated by comma] (education, occupation, etc.):")));		
-//		dataset.add(Map.of("trainTestSplit", getUserInput("Train test split [seperated by comma] (e.g., 7, 3 or 6,4):")));		
-//		root.put("dataset", dataset);
-		
+		/** dataset **/
+		System.out.println("");
+		System.out.println("==== Dataset ====");
+		List<Object> dataset = new ArrayList<>();
+
+		String datasetPath = "data/adult.data.numeric.csv";
+		dataset.add(Map.of("datasetPath",
+				getUserInput("Path to your dataset (default: " + datasetPath + "):", datasetPath, File.class)));
+
+		String datasetName = "Adult Dataset";
+		dataset.add(
+				Map.of("name", getUserInput("The name of the dataset: (default: " + datasetName + "):", datasetName)));
+
+		String predictedAttribute = "income-per-year";
+		dataset.add(Map.of("predictedAttribute",
+				getUserInput("Predicted attribute (default: " + predictedAttribute + "):", predictedAttribute)));
+
+		String protectedAttributes = "sex, race";
+		dataset.add(Map.of("protectedAttributes", getUserInput(
+				"Protected attributes (default: " + protectedAttributes + "):", protectedAttributes, String[].class)));
+
+		String categoricalFeatures = "workclass, education, marital-status, "
+				+ "occupation, relationship, native-country";
+		dataset.add(Map.of("categoricalFeatures",
+				getUserInput("Categorical features (default: " + categoricalFeatures + ")\n:", categoricalFeatures,
+						String[].class)));
+
+		String trainTestSplit = "7, 3";
+		dataset.add(Map.of("trainTestSplit",
+				getUserInput("Train test split (default: " + trainTestSplit + "):", trainTestSplit, Double[].class)));
+		fairml.add(Map.of("dataset", dataset));
+
 		/** bias mitigation **/
+		System.out.println("");
+		System.out.println("==== Bias Mitigation ====");
 		List<Object> biasMitigation = new ArrayList<>();
-		biasMitigation.add(Map.of("name", getUserInput("Bias mitigation's name:")));		
-		biasMitigation.add(Map.of("description", getUserInput("Bias mitigation's description:")));				
-		root.put("biasMitigation", biasMitigation);
-		
+		String name = "Bias Mitigation 01";
+		biasMitigation.add(Map.of("name", getUserInput("Bias mitigation's name (default " + //
+				name + "):", name)));
+		String description = "Bias Mitigation 01 Description";
+		biasMitigation.add(Map.of("description", getUserInput("Bias mitigation's description (default " + //
+				description + "):", description)));
+		biasMitigation.add(Map.of("dataset", datasetName));
+		fairml.add(Map.of("biasMitigation", biasMitigation));
+
 		/** training method **/
+		System.out.println("");
+		System.out.println("---- Training Algorithm ----");
 		List<Object> trainingMethod = new ArrayList<>();
-		trainingMethod.add(Map.of("algorithm", getUserInput("Classifier (DecisionTree):")));						
+		System.out.println("1. DecisionTreeClassifier");
+		System.out.println("2. LogisticRegression");
+		System.out.println("3. LinearSVC");
+		String optNum = "1";
+		trainingMethod
+				.add(Map.of("algorithm", getUserInput("Classifier (default 1. DecisionTreeClassifier):", optNum, "Classifier")));
 		biasMitigation.add(Map.of("trainingMethod", trainingMethod));
-		
-		/** training method **/
-		List<Object> mitigationMethod = new ArrayList<>();
-		mitigationMethod.add(Map.of("algorithm", getUserInput("Mitigation Algorithm (Reweighing):")));						
-		biasMitigation.add(Map.of("mitigationMethod", mitigationMethod));
-		
-		/** training method **/
-		List<Object> biasMetric = new ArrayList<>();
-		biasMetric.add(Map.of("algorithm", getUserInput("BiasMetric (false_negative_rate_ratio):")));						
-		biasMitigation.add(Map.of("biasMetric", biasMetric));
-		
+
+		/** bias mitigation algorithm **/
+		System.out.println("");
+		System.out.println("---- Mitigation Algorithm ----");
+//		List<Object> mitigationMethod = new ArrayList<>();
+
+		// preprocessing
+		System.out.println("");
+		System.out.println("# 1. Pre-processing");
+		String prepreprocessingMitigation = "true";
+		Object result = getUserInput("Apply bias mitigation in preprocessing" + //
+				" (default: true):", prepreprocessingMitigation, Boolean.class);
+		biasMitigation.add(Map.of("prepreprocessingMitigation", result));
+		if ((Boolean.parseBoolean(result.toString()))) {
+			String modifiableWeight = "true";
+			biasMitigation.add(Map.of("modifiableWeight", getUserInput("The weights of the dataset are modifiable" + //
+					" (default: true):", modifiableWeight, Boolean.class)));
+			String allowLatentSpace = "false";
+			biasMitigation.add(Map.of("allowLatentSpace", getUserInput("The bias mitigation allows latent space" + //
+					" (default: false):", allowLatentSpace, Boolean.class)));
+		}
+
+		// inprocessing
+		System.out.println("");
+		System.out.println("# 2. In-processing");
+		String inpreprocessingMitigation = "true";
+		result = getUserInput("Apply bias mitigation in in-processing" + //
+				" (default: false):", inpreprocessingMitigation, Boolean.class);
+		biasMitigation.add(Map.of("inpreprocessingMitigation", result));
+		if ((Boolean.parseBoolean(result.toString()))) {
+			String allowRegularisation = "false";
+			biasMitigation.add(Map.of("allowRegularisation", getUserInput("Regularisation is allowed" + //
+					" (default: false):", allowRegularisation, Boolean.class)));
+		}
+
+		// postprocessing
+		System.out.println("");
+		System.out.println("# 3. Post-processing");
+		String postpreprocessingMitigation = "true";
+		result = getUserInput("Apply bias mitigation in postprocessing" + //
+				" (default: false):", postpreprocessingMitigation, Boolean.class);
+		biasMitigation.add(Map.of("postpreprocessingMitigation", result));
+		if ((Boolean.parseBoolean(result.toString()))) {
+			String allowRandomisation = "false";
+			biasMitigation.add(Map.of("allowRandomisation", getUserInput("Randomisation is allowed" + //
+					" (default: false):", allowRandomisation, Boolean.class)));
+		}
+
+//		mitigationMethod.add(Map.of("algorithm", getUserInput("Mitigation Algorithm (Reweighing):")));
+//		biasMitigation.add(Map.of("mitigationMethod", mitigationMethod));
+
+		/** bias metric **/
+		System.out.println("");
+		System.out.println("---- Bias Metric ----");
+//		List<Object> biasMetric = new ArrayList<>();
+
+		String groupFairness = "false";
+		biasMitigation.add(Map.of("groupFairness", getUserInput("Measure group fairness" + //
+				" (default: true):", groupFairness, Boolean.class)));
+
+		String individualFairness = "false";
+		biasMitigation.add(Map.of("individualFairness", getUserInput("Measure individual fairness" + //
+				" (default: false):", individualFairness, Boolean.class)));
+
+		String groupIndividualSingleMetric = "false";
+		biasMitigation.add(Map.of("groupIndividualSingleMetric",
+				getUserInput("I want to use metrics for both individuals and groups" + //
+						" (default: false):", groupIndividualSingleMetric, Boolean.class)));
+
+		String equalFairness = "false";
+		biasMitigation.add(Map.of("equalFairness", getUserInput("Measure equal fairness" + //
+				" (default: false):", equalFairness, Boolean.class)));
+
+		String proportionalFairness = "false";
+		biasMitigation.add(Map.of("proportionalFairness", getUserInput("Measure proportional fairness" + //
+				" (default: false):", proportionalFairness, Boolean.class)));
+
+		String checkFalsePositive = "false";
+		biasMitigation.add(Map.of("checkFalsePositive", getUserInput("Measure false positives" + //
+				" (default: false):", checkFalsePositive, Boolean.class)));
+
+		String checkFalseNegative = "false";
+		biasMitigation.add(Map.of("checkFalseNegative", getUserInput("Measure false negatives" + //
+				" (default: false):", checkFalseNegative, Boolean.class)));
+
+		String checkErrorRate = "false";
+		biasMitigation.add(Map.of("checkErrorRate", getUserInput("Measure error rates" + //
+				" (default: false):", checkErrorRate, Boolean.class)));
+
+		String checkEqualBenefit = "false";
+		biasMitigation.add(Map.of("checkEqualBenefit", getUserInput("Measure equal benefit" + //
+				" (default: false):", checkEqualBenefit, Boolean.class)));
+
 		DumperOptions options = new DumperOptions();
 		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 		Yaml yaml = new Yaml(options);
 		StringWriter writer = new StringWriter();
 		yaml.dump(root, writer);
 		System.out.println();
+		System.out.println("==== Flexmi Output ====");
 		System.out.println(writer.toString());
 
+		System.out.println("------Generating-------");
+		FileWriter fw = new FileWriter(flexmiFile.getAbsoluteFile());
+		fw.write(writer.toString());
+		fw.close();
+		
 		return flexmiFile;
 	}
 
-	private String getUserInput(String question) {
+	private Object getUserInput(String question) {
+		return this.getUserInput(question, null, String.class);
+	}
+
+	private Object getUserInput(String question, String defaultValue) {
+		return this.getUserInput(question, defaultValue, String.class);
+	}
+
+	private String getUserInput(String question, String defaultValue, Object expectedType) {
 		String answer = null;
 		boolean valid = false;
 		while (!valid) {
 			System.out.print(question + " ");
 			answer = scanner.nextLine().trim();
-			if (answer instanceof String) {
+			if ((answer == null || answer.trim().equals("")) && defaultValue != null) {
+				answer = defaultValue;
+			}
+
+			if ("Classifier".equals(expectedType)) {
+				try {
+					int opt = Integer.parseInt(answer);
+					if (opt > 0 && opt < 4) {
+						switch (answer) {
+						case "2":
+							answer = "LogisticRegression";
+							break;
+						case "3":
+							answer = "LinearSVC";
+							break;
+						default:
+							answer = "DecisionTreeClassifier";
+						}
+						valid = true;
+					} else {
+						System.out.println("Error: the option is not available");
+					}
+				} catch (Exception e) {
+					System.out.println("Error: answer should be in integer");
+				}
+			} else if (File.class == expectedType) {
+				File file = new File(answer);
+				if (file.exists()) {
+					valid = true;
+				} else {
+					System.out.println("Error: file does not exist");
+				}
+			} else if (Boolean.class == expectedType) {
+				try {
+					Boolean.parseBoolean(answer);
+					valid = true;
+				} catch (Exception e) {
+					System.out.println("Error: answer should be true or false");
+				}
+			} else if (String[].class == expectedType) {
+				String[] obj = answer.split(",");
+				if (obj.getClass().isArray()) {
+					valid = true;
+				} else {
+					System.out.println("Error: answer should in Strings separated by commas");
+				}
+			} else if (Double[].class == expectedType) {
+				String[] obj = answer.split(",");
+				if (obj.getClass().isArray()) {
+					if (obj.length > 0) {
+						try {
+							Double.parseDouble(obj[0]);
+							valid = true;
+						} catch (Exception e) {
+							System.out.println("Error: answer should be in numbers separated by commas");
+						}
+					}
+				} else {
+					System.out.println("Error: answer should be in numbers separated by commas");
+				}
+			} else {
 				valid = true;
 			}
 		}
+
 		return answer;
 	}
 

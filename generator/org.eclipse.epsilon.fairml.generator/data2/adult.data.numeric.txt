@@ -1,0 +1,120 @@
+workclass
+   State-gov: 1
+   Self-emp-not-inc: 2
+   Private: 3
+   Federal-gov: 4
+   Local-gov: 5
+   ?: 6
+   Self-emp-inc: 7
+   Without-pay: 8
+   Never-worked: 9
+
+education:
+  Preschool: 1
+  1st-4th: 2
+  5th-6th: 3
+  7th-8th: 4
+  9th: 5
+  10th:  6
+  11th:  7
+  12th:  8
+  HS-grad: 9
+  Some-college: 10
+  Assoc-voc: 11
+  Assoc-acdm:  12
+  Bachelors: 13
+  Masters: 14
+  Prof-school: 15
+  Doctorate: 16
+
+
+marital-status
+   Never-married: 1
+   Married-civ-spouse: 2
+   Divorced: 3
+   Married-spouse-absent: 4
+   Separated: 5
+   Married-AF-spouse: 6
+   Widowed: 7
+
+occupation
+   Adm-clerical: 1
+   Exec-managerial: 2
+   Handlers-cleaners: 3
+   Prof-specialty: 4
+   Other-service: 5
+   Sales: 6
+   Craft-repair: 7
+   Transport-moving: 8
+   Farming-fishing: 9
+   Machine-op-inspct: 10
+   Tech-support: 11
+   ?: 12
+   Protective-serv: 13
+   Armed-Forces: 14
+   Priv-house-serv: 15
+
+relationship
+   Not-in-family: 1
+   Husband: 2
+   Wife: 3
+   Own-child: 4
+   Unmarried: 5
+   Other-relative: 6
+
+race
+  White: 1
+  Others: 0
+
+sex
+  Male: 1
+  Female: 0
+
+native-country
+   United-States: 1
+   Cuba: 2
+   Jamaica: 3
+   India: 4
+   ?: 5
+   Mexico: 6
+   South: 7
+   Puerto-Rico: 8
+   Honduras: 9
+   England: 10
+   Canada: 11
+   Germany: 12
+   Iran: 13
+   Philippines: 14
+   Italy: 15
+   Poland: 16
+   Columbia: 17
+   Cambodia: 18
+   Thailand: 19
+   Ecuador: 20
+   Laos: 21
+   Taiwan: 22
+   Haiti: 23
+   Portugal: 24
+   Dominican-Republic: 25
+   El-Salvador: 26
+   France: 27
+   Guatemala: 28
+   China: 29
+   Japan: 30
+   Yugoslavia: 31
+   Peru: 32
+   Outlying-US(Guam-USVI-etc): 33
+   Scotland: 34
+   Trinadad&Tobago: 35
+   Greece: 36
+   Nicaragua: 37
+   Vietnam: 38
+   Hong: 39
+   Ireland: 40
+   Hungary: 41
+   Holand-Netherlands: 42
+
+income-per-year
+  <=50K: 0
+  >50K: 1
+

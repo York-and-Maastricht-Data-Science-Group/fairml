@@ -14,7 +14,7 @@ fairml:
 # set the dataset
 - dataset:
   - name: Adult Census Income
-  - datasetPath: data/adult.data.small.csv
+  - datasetPath: data/adult.data.numeric.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
   - trainTestSplit: 7, 3

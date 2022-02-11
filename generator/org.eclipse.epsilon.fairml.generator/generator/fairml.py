@@ -1,4 +1,6 @@
 import pandas as pd
+from pandas.api.types import is_string_dtype
+from pandas.api.types import is_numeric_dtype
 import matplotlib.pyplot as plt
 import os.path 
 
@@ -76,7 +78,7 @@ class BiasMitigation():
         self.privileged_groups = None
         self.unprivileged_groups = None
         self.mitigation_results = None
-
+       
 
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)

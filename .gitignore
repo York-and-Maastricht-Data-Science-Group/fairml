@@ -29,3 +29,8 @@ generator/org.eclipse.epsilon.fairml.generator/fairml.py
 generator/org.eclipse.epsilon.fairml.generator/automated_selection.flexmi.xmi
 generator/org.eclipse.epsilon.fairml.generator/automated_selection.ipynb
 generator/org.eclipse.epsilon.fairml.generator/automated_selection.py
+generator/org.eclipse.epsilon.fairml.generator/demo.flexmi.xmi
+generator/org.eclipse.epsilon.fairml.generator/demo.flexmi
+generator/org.eclipse.epsilon.fairml.generator/demo.ipynb
+generator/org.eclipse.epsilon.fairml.generator/demo.py
+graphics
