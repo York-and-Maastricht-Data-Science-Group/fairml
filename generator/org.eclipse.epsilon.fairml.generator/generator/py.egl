@@ -327,7 +327,7 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_train, dataset_mitigat
 # ### [[%=number1%].[%=number2++%].](#Contents) Summary
 
 table = bm.display_summary()
-table
+table.style.apply(bm.hightlight_fairest_values, axis=1)
 [%   } %]
 [% } %]
 [% //fairml.p2j(); %]

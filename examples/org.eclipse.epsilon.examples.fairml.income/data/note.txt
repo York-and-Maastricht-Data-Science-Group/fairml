@@ -16,7 +16,7 @@ Fairness for this metric is between -0.1 and 0.1
 
 4. Disparate Impact
 Computed as the ratio of rate of favorable outcome for the unprivileged group to that of the privileged group.
-The ideal value of this metric is 1.0 A value < 1 implies higher benefit for the privileged group and a value >1 
+The ideal value of this metric is 1.0. A value < 1 implies higher benefit for the privileged group and a value >1 
 implies a higher benefit for the unprivileged group.
 Fairness for this metric is between 0.8 and 1.25
 

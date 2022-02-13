@@ -78,6 +78,10 @@ class BiasMitigation():
         self.privileged_groups = None
         self.unprivileged_groups = None
         self.mitigation_results = None
+        self.metrics = ['Accuracy']
+        self.fairest_values = {}
+        self.fairest_combinations = {}
+        self.summary_table = None
        
 
     def check_accuracy(self, model, dataset_test):
@@ -133,6 +137,8 @@ class BiasMitigation():
         Returns:
             None
         """
+        if not metric_name in self.metrics:      
+            self.metrics.append(metric_name)
         metric_mitigated_train = ClassificationMetric(dataset,
                                              predicted_dataset,
                                              unprivileged_groups=unprivileged_groups,
@@ -157,7 +163,22 @@ class BiasMitigation():
     def display_summary(self):
         print("")
         line_num = pd.Series(range(1, len(self.fairml.results) + 1))
-        table = pd.concat([pd.DataFrame(m) for m in self.fairml.results], axis=0).set_axis(line_num)
+        self.summary_table = pd.concat([pd.DataFrame(m) for m in self.fairml.results], axis=0).set_axis(line_num)
+        
+        for metric in self.metrics:
+            for name, values in self.summary_table [[metric]].iteritems():
+                if name == "Accuracy":
+                    fairest_value, fairest_line = self.get_fairest_value(values, 1)
+                    self.fairest_values[name] = fairest_value
+                    self.fairest_combinations[name] = fairest_line
+                elif name == "disparate_impact":
+                    fairest_value, fairest_line = self.get_fairest_value(values, 1)
+                    self.fairest_values[name] = fairest_value
+                    self.fairest_combinations[name] = fairest_line
+                elif name == "statistical_parity_difference":
+                    fairest_value, fairest_line = self.get_fairest_value(values, 0)
+                    self.fairest_values[name] = fairest_value
+                    self.fairest_combinations[name] = fairest_line
         
         if get_ipython() == None:
             print("Original Data size: " + str(len(self.dataset_original.instance_names))) 
@@ -168,14 +189,59 @@ class BiasMitigation():
             print("Training data size (ratio): " + str(self.training_size)) 
             print("Test data size (ratio): " + str(self.test_size))
             print("")
-            print(table)
+            print(self.summary_table )
+    
         else:
             display(Markdown("Original Data size: " + str(len(self.dataset_original.instance_names)) + "</br>" + 
                 "Predicted attribute: " + self.predicted_attribute + "</br>" + 
                 "Protected attributes: " + ", ".join(self.protected_attributes) + "</br>" + 
-                "Favorable classes: " + str(self.favorable_class) + "</br>" + 
+                "Favourable classes: " + str(self.favorable_class) + "</br>" + 
                 "Dropped attributes: " + ", ".join(self.dropped_attributes) + " </br>"
                 "Training data size (ratio): " + str(self.training_size) + "</br>" + 
                 "Test data size (ratio): " + str(self.test_size)))
-                    
-        return table 
+        
+        
+        return self.summary_table  
+    
+    def get_fairest_value(self, values, ideal_value):
+        fairest_value = None
+        fairest_combination = 1
+        x1 = values.get(key = fairest_combination) - ideal_value
+        min_abs_val = abs(x1)
+        min_val_sign = ""
+        if x1 < 0:
+            min_val_sign = "-"
+        elif x1 >= 0:
+            min_val_sign = "+"
+        
+        i = 0
+        for value in values:
+            i = i + 1
+            x1 = value - ideal_value 
+            temp = abs(x1)
+            if temp < min_abs_val:
+                fairest_combination = i
+                min_abs_val = temp
+                if x1 < 0:
+                    min_val_sign = "-"
+                elif x1 >= 0:    
+                    min_val_sign = "+"
+        
+        if min_val_sign == "-":
+            fairest_value =(-1 * min_abs_val) + ideal_value
+        else:
+            fairest_value = (1 * min_abs_val) + ideal_value
+        
+        return fairest_value, fairest_combination    
+
+       
+    def hightlight_fairest_values(self, row):
+        cell_formats = [''] * len(row)
+        for metric in self.fairest_combinations:
+            if row.name == self.fairest_combinations[metric]:
+                index = self.summary_table.columns.get_loc(metric)
+                cell_formats[index] = 'font-weight: bold; background-color: #e6ffe6;'
+        
+        return cell_formats 
+  
+

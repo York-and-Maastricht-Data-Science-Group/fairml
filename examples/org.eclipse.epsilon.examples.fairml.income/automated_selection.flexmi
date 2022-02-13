@@ -14,7 +14,7 @@ fairml:
 # set the dataset
 - dataset:
   - name: Adult Census Income
-  - datasetPath: data/adult.data.numeric.csv
+  - datasetPath: data/adult.data.small.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
   - trainTestSplit: 7, 3
@@ -37,7 +37,7 @@ fairml:
   
   - trainingMethod:
     - algorithm: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=7
+    - parameters: criterion='gini', max_depth=4
   
 #  - biasMetric: 
 #    - name: false_negative_rate_ratio 
