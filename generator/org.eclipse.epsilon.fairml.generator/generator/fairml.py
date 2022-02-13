@@ -74,6 +74,7 @@ class BiasMitigation():
         self.data = None
         self.dataset_original = None
         self.dataset_original_train = None
+        self.dataset_original_validation = None
         self.dataset_original_test = None
         self.privileged_groups = None
         self.unprivileged_groups = None
@@ -214,18 +215,19 @@ class BiasMitigation():
         elif x1 >= 0:
             min_val_sign = "+"
         
-        i = 0
-        for value in values:
-            i = i + 1
-            x1 = value - ideal_value 
-            temp = abs(x1)
-            if temp < min_abs_val:
-                fairest_combination = i
-                min_abs_val = temp
-                if x1 < 0:
-                    min_val_sign = "-"
-                elif x1 >= 0:    
-                    min_val_sign = "+"
+        if len(values) > 1:
+            i = 1
+            for value in values:
+                i = i + 1
+                x1 = value - ideal_value 
+                temp = abs(x1)
+                if temp < min_abs_val:
+                    fairest_combination = i
+                    min_abs_val = temp
+                    if x1 < 0:
+                        min_val_sign = "-"
+                    elif x1 >= 0:    
+                        min_val_sign = "+"
         
         if min_val_sign == "-":
             fairest_value =(-1 * min_abs_val) + ideal_value
@@ -235,7 +237,7 @@ class BiasMitigation():
         return fairest_value, fairest_combination    
 
        
-    def hightlight_fairest_values(self, row):
+    def highlight_fairest_values(self, row):
         cell_formats = [''] * len(row)
         for metric in self.fairest_combinations:
             if row.name == self.fairest_combinations[metric]:

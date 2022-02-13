@@ -208,9 +208,29 @@ bm.privileged_class = 1
 bm.unprivileged_class = 0
 bm.dropped_attributes = []
 bm.na_values = []
-bm.training_size = [%=dataset.trainTestSplit[0]%]    
-bm.test_size = [%=dataset.trainTestSplit[1]%] 
-bm.total_size = (bm.training_size + bm.test_size) * 1.0
+[%
+if (dataset.trainTestValidationSplit == null or 
+    dataset.trainTestValidationSplit.size() == 0) {
+    dataset.trainTestValidationSplit = Sequence{8.0, 2.0, 0.0};    
+} else if (dataset.trainTestValidationSplit.size() == 1) {
+    dataset.trainTestValidationSplit = Sequence{
+    dataset.trainTestValidationSplit[0].abs(), 
+    0.2 * dataset.trainTestValidationSplit[0].abs(), 0.0};    
+} else if (dataset.trainTestValidationSplit.size() == 2) {
+    dataset.trainTestValidationSplit = Sequence{
+    dataset.trainTestValidationSplit[0].abs(), 
+    dataset.trainTestValidationSplit[1].abs(), 0.0};    
+} else if (dataset.trainTestValidationSplit.size() >= 3) {
+    dataset.trainTestValidationSplit = Sequence{
+    dataset.trainTestValidationSplit[0].abs(), 
+    dataset.trainTestValidationSplit[1].abs(), 
+    dataset.trainTestValidationSplit[2].abs() 
+    };    
+} %]
+bm.training_size = [%=dataset.trainTestValidationSplit[0]%]    
+bm.test_size = [%=dataset.trainTestValidationSplit[1]%]
+bm.validation_size = [%=dataset.trainTestValidationSplit[2]%]
+bm.total_size = (bm.training_size + bm.test_size + bm.validation_size) * 1.0
 bm.categorical_features = [[%=dataset.categoricalFeatures.listToLine()%]]
 [% if (dataset.defaultMappings == null) {%]
 bm.default_mappings = None
@@ -230,7 +250,11 @@ bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attrib
                 na_values=bm.na_values, 
                 custom_preprocessing=None,
                 metadata=bm.default_mappings)
-bm.dataset_original_train, dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+[% if (dataset.trainTestValidationSplit[2] == 0) { %]
+bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+[% } else { %]
+bm.dataset_original_train, bm.dataset_original_validation, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+[% } %]
 bm.privileged_groups = [{bm.protected_attributes[0] : bm.privileged_class}]
 bm.unprivileged_groups = [{bm.protected_attributes[0] : bm.unprivileged_class}]
 
@@ -251,7 +275,7 @@ bm.drawModel(classifier, bm.dataset_original_train, 'graphics/Original-[%=traini
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) Original Dataset: Check the Accuracy of the Prediction
 
 print_message("Check the accuracy of the prediction")
-original_accuracy = bm.check_accuracy(model_original_train, dataset_original_test)
+original_accuracy = bm.check_accuracy(model_original_train, bm.dataset_original_test)
 print_message("Original Accuracy: " + str(original_accuracy))
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) Original Dataset: Bias Metrics[% // start of metrics %]
@@ -286,7 +310,7 @@ mitigation_method = [%=mitigationMethod.algorithm%]([%=mitigationMethod.paramete
 [% } %]
 
 dataset_mitigated_train = mitigation_method.fit_transform(bm.dataset_original_train)
-dataset_mitigated_test = mitigation_method.fit_transform(dataset_original_test)
+dataset_mitigated_test = mitigation_method.fit_transform(bm.dataset_original_test)
 
     [% for (trainingMethod in biasMitigation.trainingMethods) { %]
 
@@ -300,7 +324,7 @@ print("-------------")
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
 model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
 
-bm.drawModel(classifier, dataset_mitigated_train, 'graphics/Mitigated-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
+# bm.drawModel(classifier, dataset_mitigated_train, 'graphics/Mitigated-[%=trainingMethod.algorithm%]_[%=trainingMethod.parameters.listToLineWithoutQuote().replace("'","").replace(",", "-").replace(" ", "")%].png')
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) After-mitigation: Check the Accuracy of the Prediction
 
@@ -327,7 +351,7 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_train, dataset_mitigat
 # ### [[%=number1%].[%=number2++%].](#Contents) Summary
 
 table = bm.display_summary()
-table.style.apply(bm.hightlight_fairest_values, axis=1)
+table.style.apply(bm.highlight_fairest_values, axis=1)
 [%   } %]
 [% } %]
 [% //fairml.p2j(); %]

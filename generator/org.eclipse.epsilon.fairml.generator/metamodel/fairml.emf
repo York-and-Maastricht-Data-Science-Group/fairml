@@ -131,7 +131,7 @@ class Dataset {
     
     // Fraction of dataset for training -- the rest is for testing.
     // Maximum value is 1.0.
-    !unique attr int[0..2] trainTestSplit;
+    !unique attr float[0..3] trainTestValidationSplit;
 }
 
 /***

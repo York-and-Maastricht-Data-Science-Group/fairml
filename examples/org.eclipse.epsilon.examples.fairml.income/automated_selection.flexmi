@@ -17,7 +17,7 @@ fairml:
   - datasetPath: data/adult.data.small.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
-  - trainTestSplit: 7, 3
+  - trainTestValidationSplit: 5, 2, 3
   - categoricalFeatures: workclass, education, marital-status, 
       occupation, relationship, native-country
 
