@@ -10,11 +10,13 @@ import fairml.FairmlFactory;
 import fairml.FairmlPackage;
 import fairml.Function;
 import fairml.MitigationMethod;
+import fairml.MitigationType;
 import fairml.Operation;
 import fairml.TrainingMethod;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -510,7 +512,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_TrainTestSplit() {
+	public EAttribute getDataset_TrainTestValidationSplit() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -805,7 +807,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		createEAttribute(datasetEClass, DATASET__DROPPED_ATTRIBUTES);
 		createEAttribute(datasetEClass, DATASET__NOT_AVAILABLE_VALUES);
 		createEAttribute(datasetEClass, DATASET__DEFAULT_MAPPINGS);
-		createEAttribute(datasetEClass, DATASET__TRAIN_TEST_SPLIT);
+		createEAttribute(datasetEClass, DATASET__TRAIN_TEST_VALIDATION_SPLIT);
 
 		biasMitigationEClass = createEClass(BIAS_MITIGATION);
 		createEAttribute(biasMitigationEClass, BIAS_MITIGATION__NAME);
@@ -906,7 +908,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEAttribute(getDataset_DroppedAttributes(), ecorePackage.getEString(), "droppedAttributes", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_NotAvailableValues(), ecorePackage.getEString(), "notAvailableValues", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_DefaultMappings(), ecorePackage.getEString(), "defaultMappings", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataset_TrainTestSplit(), ecorePackage.getEInt(), "trainTestSplit", null, 0, 2, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_TrainTestValidationSplit(), ecorePackage.getEFloat(), "trainTestValidationSplit", null, 0, 3, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(biasMitigationEClass, BiasMitigation.class, "BiasMitigation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBiasMitigation_Name(), ecorePackage.getEString(), "name", null, 0, 1, BiasMitigation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

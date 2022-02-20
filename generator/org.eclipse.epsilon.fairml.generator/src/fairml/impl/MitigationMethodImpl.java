@@ -5,6 +5,7 @@ package fairml.impl;
 import fairml.FairmlPackage;
 import fairml.MitigationMethod;
 
+import fairml.MitigationType;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;

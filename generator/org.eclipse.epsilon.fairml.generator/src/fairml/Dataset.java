@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link fairml.Dataset#getDroppedAttributes <em>Dropped Attributes</em>}</li>
  *   <li>{@link fairml.Dataset#getNotAvailableValues <em>Not Available Values</em>}</li>
  *   <li>{@link fairml.Dataset#getDefaultMappings <em>Default Mappings</em>}</li>
- *   <li>{@link fairml.Dataset#getTrainTestSplit <em>Train Test Split</em>}</li>
+ *   <li>{@link fairml.Dataset#getTrainTestValidationSplit <em>Train Test Validation Split</em>}</li>
  * </ul>
  *
  * @see fairml.FairmlPackage#getDataset()
@@ -312,15 +312,15 @@ public interface Dataset extends EObject {
 	void setDefaultMappings(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Train Test Split</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Integer}.
+	 * Returns the value of the '<em><b>Train Test Validation Split</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.Float}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Train Test Split</em>' attribute list.
-	 * @see fairml.FairmlPackage#getDataset_TrainTestSplit()
-	 * @model unique="false" upper="2"
+	 * @return the value of the '<em>Train Test Validation Split</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_TrainTestValidationSplit()
+	 * @model unique="false" upper="3"
 	 * @generated
 	 */
-	EList<Integer> getTrainTestSplit();
+	EList<Float> getTrainTestValidationSplit();
 
 } // Dataset

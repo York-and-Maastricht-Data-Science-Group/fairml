@@ -4,6 +4,7 @@ package fairml;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -549,13 +550,13 @@ public interface FairmlPackage extends EPackage {
 	int DATASET__DEFAULT_MAPPINGS = 15;
 
 	/**
-	 * The feature id for the '<em><b>Train Test Split</b></em>' attribute list.
+	 * The feature id for the '<em><b>Train Test Validation Split</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__TRAIN_TEST_SPLIT = 16;
+	int DATASET__TRAIN_TEST_VALIDATION_SPLIT = 16;
 
 	/**
 	 * The number of structural features of the '<em>Dataset</em>' class.
@@ -1165,15 +1166,15 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getDataset_DefaultMappings();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link fairml.Dataset#getTrainTestSplit <em>Train Test Split</em>}'.
+	 * Returns the meta object for the attribute list '{@link fairml.Dataset#getTrainTestValidationSplit <em>Train Test Validation Split</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Train Test Split</em>'.
-	 * @see fairml.Dataset#getTrainTestSplit()
+	 * @return the meta object for the attribute list '<em>Train Test Validation Split</em>'.
+	 * @see fairml.Dataset#getTrainTestValidationSplit()
 	 * @see #getDataset()
 	 * @generated
 	 */
-	EAttribute getDataset_TrainTestSplit();
+	EAttribute getDataset_TrainTestValidationSplit();
 
 	/**
 	 * Returns the meta object for class '{@link fairml.BiasMitigation <em>Bias Mitigation</em>}'.
@@ -1741,12 +1742,12 @@ public interface FairmlPackage extends EPackage {
 		EAttribute DATASET__DEFAULT_MAPPINGS = eINSTANCE.getDataset_DefaultMappings();
 
 		/**
-		 * The meta object literal for the '<em><b>Train Test Split</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Train Test Validation Split</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DATASET__TRAIN_TEST_SPLIT = eINSTANCE.getDataset_TrainTestSplit();
+		EAttribute DATASET__TRAIN_TEST_VALIDATION_SPLIT = eINSTANCE.getDataset_TrainTestValidationSplit();
 
 		/**
 		 * The meta object literal for the '{@link fairml.impl.BiasMitigationImpl <em>Bias Mitigation</em>}' class.

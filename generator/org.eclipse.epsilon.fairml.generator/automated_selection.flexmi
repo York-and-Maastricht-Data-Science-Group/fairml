@@ -1,48 +1,33 @@
 ?nsuri: fairml
 fairml:
-- name: Automated Selection
-- description: |-
-    Automatically select metrics to 
-    predict whether income exceeds $50K/yr based on census data.
-    Also known as \"Census Income\" dataset.
-    Favourable classes: 
-    <=50K: 0, >50K: 1
-    Protected attributes:
-    female: 0, male: 1
-    other: 0, white: 1
-
-# set the dataset
+- name: Demo
+- description: 'Predict income <=50K: 0, >50K: 1'
 - dataset:
-  - name: Adult Census Income
   - datasetPath: data/adult.data.numeric.csv
+  - name: Adult Dataset
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
-  - trainTestSplit: 7, 3
-  - categoricalFeatures: workclass, education, marital-status, 
-      occupation, relationship, native-country
-
-# define the bias mitigation
+  - categoricalFeatures: workclass, education, marital-status, occupation, relationship,
+      native-country
+  - trainTestSplit: 7, 2, 3
 - biasMitigation:
-  - name: Mitigate Bias  
-  - dataset: Adult Census Income
-  
-    equalFairness: true
-#    proportionalFairness: true
-  
-  - mitigationMethod:
-    - algorithm: Reweighing
-  - mitigationMethod:
-    - algorithm: DisparateImpactRemover
-    - parameters: repair_level=1.0  
-  
+  - name: Bias Mitigation 01
+  - description: Bias Mitigation 01 Description
+  - dataset: Adult Dataset
   - trainingMethod:
     - algorithm: DecisionTreeClassifier
-    - parameters: criterion='gini', max_depth=7
-  
-#  - biasMetric: 
-#    - name: false_negative_rate_ratio 
-  
-  
- 
-  
-
+    - parameters: criterion='gini', max_depth=4
+  - prepreprocessingMitigation: 'true'
+  - modifiableWeight: 'true'
+  - allowLatentSpace: 'false'
+  - inpreprocessingMitigation: 'false'
+  - postpreprocessingMitigation: 'false'
+  - groupFairness: 'false'
+  - individualFairness: 'false'
+  - groupIndividualSingleMetric: 'true'
+  - equalFairness: 'true'
+  - proportionalFairness: 'false'
+  - checkFalsePositive: 'false'
+  - checkFalseNegative: 'true'
+  - checkErrorRate: 'false'
+  - checkEqualBenefit: 'false'

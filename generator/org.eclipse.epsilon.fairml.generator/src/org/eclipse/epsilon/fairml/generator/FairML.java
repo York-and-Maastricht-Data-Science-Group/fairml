@@ -84,7 +84,7 @@ public class FairML implements Callable<Integer> {
 			// extracting generator files from the jar to the local generator dan data
 			// folders
 			extractFilesFromJar(new String[] { "fairml.egx", "fairml.py", "ipynb.egl", //
-					"py.egl", "Util.eol" }, DIR_GENERATOR);
+					"py.egl", "fairml.eol" }, DIR_GENERATOR);
 			extractFilesFromJar(new String[] { "adult.data.numeric.csv", //
 					"adult.data.numeric.txt" }, DIR_DATA);
 
@@ -101,9 +101,6 @@ public class FairML implements Callable<Integer> {
 			flexmiFile = new File(flexmiFile.getAbsolutePath().trim());
 			String path = flexmiFile.getParentFile().getPath().trim();
 
-			// initialise the xmiFile from the flexmi file
-			File xmiFile = new File(flexmiFile.getAbsolutePath() + ".xmi");
-
 			// load the flexmi file
 			ResourceSet flexmiResourceSet = new ResourceSetImpl();
 			flexmiResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*",
@@ -111,39 +108,42 @@ public class FairML implements Callable<Integer> {
 			Resource flexmiResource = flexmiResourceSet.createResource(URI.createFileURI(flexmiFile.getAbsolutePath()));
 			flexmiResource.load(null);
 
-			// The EClasses of all model elements
-			final Set<EClass> eClasses = new HashSet<>();
-
-			ResourceSet xmiResourceSet = new ResourceSetImpl();
-			xmiResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*",
-					new XMIResourceFactoryImpl() {
-						@Override
-						public Resource createResource(URI uri) {
-							return new XMIResourceImpl(uri) {
-								@Override
-								protected boolean useUUIDs() {
-									for (EClass eClass : eClasses) {
-										for (EAttribute eAttribute : eClass.getEAttributes()) {
-											if (eAttribute.isID())
-												return false;
-										}
-									}
-									return true;
-								}
-							};
-						}
-					});
-
-			// Collect all EClasses of all model elements
-			// so that we can use them above to decide if the XMI
-			// resource will have XMI IDs or not
-			for (Iterator<EObject> it = flexmiResource.getAllContents(); it.hasNext(); eClasses.add(it.next().eClass()))
-				;
-
-			URI resourceURI = URI.createFileURI(xmiFile.getAbsolutePath());
-			Resource xmiResource = xmiResourceSet.createResource(resourceURI);
-			xmiResource.getContents().addAll(EcoreUtil.copyAll(flexmiResource.getContents()));
-			xmiResource.save(null);
+//			// The EClasses of all model elements
+//			final Set<EClass> eClasses = new HashSet<>();
+//
+//			ResourceSet xmiResourceSet = new ResourceSetImpl();
+//			xmiResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*",
+//					new XMIResourceFactoryImpl() {
+//						@Override
+//						public Resource createResource(URI uri) {
+//							return new XMIResourceImpl(uri) {
+//								@Override
+//								protected boolean useUUIDs() {
+//									for (EClass eClass : eClasses) {
+//										for (EAttribute eAttribute : eClass.getEAttributes()) {
+//											if (eAttribute.isID())
+//												return false;
+//										}
+//									}
+//									return true;
+//								}
+//							};
+//						}
+//					});
+//
+//			// Collect all EClasses of all model elements
+//			// so that we can use them above to decide if the XMI
+//			// resource will have XMI IDs or not
+//			for (Iterator<EObject> it = flexmiResource.getAllContents(); it.hasNext(); eClasses.add(it.next().eClass()))
+//				;
+//
+//			// initialise the xmiFile from the flexmi file
+//			File xmiFile = new File(flexmiFile.getAbsolutePath() + ".xmi");
+//
+//			URI resourceURI = URI.createFileURI(xmiFile.getAbsolutePath());
+//			Resource xmiResource = xmiResourceSet.createResource(resourceURI);
+//			xmiResource.getContents().addAll(EcoreUtil.copyAll(flexmiResource.getContents()));
+//			xmiResource.save(null);
 
 			// Parse *.egx, read from file first,
 			// if not available then read from JAR
@@ -183,7 +183,8 @@ public class FairML implements Callable<Integer> {
 			}
 
 			// create a in-memory model of the xmi resource
-			InMemoryEmfModel model = new InMemoryEmfModel(xmiResource);
+			InMemoryEmfModel model = new InMemoryEmfModel(flexmiResource);
+//			InMemoryEmfModel model = new InMemoryEmfModel(xmiResource);
 			model.setName("M");
 			model.load();
 
@@ -195,7 +196,8 @@ public class FairML implements Callable<Integer> {
 
 //			Thread.sleep(1000);
 
-			fairml.FairML fairml = (fairml.FairML) xmiResource.getContents().get(0);
+			fairml.FairML fairml = (fairml.FairML) flexmiResource.getContents().get(0);
+//			fairml.FairML fairml = (fairml.FairML) xmiResource.getContents().get(0);
 			String filename = fairml.getName().toLowerCase().replace(" ", "_").trim();
 //			System.out.println("Python file:");
 //			System.out.println(path + File.separator + filename + ".py");
@@ -250,8 +252,9 @@ public class FairML implements Callable<Integer> {
 	private File generateFlexmiFile(File flexmiFile) throws IOException {
 
 		System.out.println("=====================================");
-		System.out.println("           FairML Wizard             ");
+		System.out.println("            FairML Wizard");
 		System.out.println("=====================================");
+		System.out.println(this.commandLine.getCommandSpec().version()[0]);
 		System.out.println("");
 
 		/** root **/
@@ -297,9 +300,10 @@ public class FairML implements Callable<Integer> {
 				getUserInput("Categorical features (default: " + categoricalFeatures + ")\n:", categoricalFeatures,
 						String[].class)));
 
-		String trainTestSplit = "7, 3";
-		dataset.add(Map.of("trainTestSplit",
-				getUserInput("Train test split (default: " + trainTestSplit + "):", trainTestSplit, Double[].class)));
+		String trainTestValidationSplit = "7, 2, 3";
+		dataset.add(
+				Map.of("trainTestSplit", getUserInput("Train test split (default: " + trainTestValidationSplit + "):",
+						trainTestValidationSplit, Double[].class)));
 		fairml.add(Map.of("dataset", dataset));
 
 		/** bias mitigation **/
@@ -323,8 +327,11 @@ public class FairML implements Callable<Integer> {
 		System.out.println("2. LogisticRegression");
 		System.out.println("3. LinearSVC");
 		String optNum = "1";
-		trainingMethod
-				.add(Map.of("algorithm", getUserInput("Classifier (default 1. DecisionTreeClassifier):", optNum, "Classifier")));
+		optNum = getUserInput("Classifier (default 1. DecisionTreeClassifier):", optNum, "Classifier");
+		trainingMethod.add(Map.of("algorithm", optNum));
+		if (optNum.equals("DecisionTreeClassifier")) {
+			trainingMethod.add(Map.of("parameters", "criterion='gini', max_depth=4"));
+		}
 		biasMitigation.add(Map.of("trainingMethod", trainingMethod));
 
 		/** bias mitigation algorithm **/
@@ -351,7 +358,7 @@ public class FairML implements Callable<Integer> {
 		// inprocessing
 		System.out.println("");
 		System.out.println("# 2. In-processing");
-		String inpreprocessingMitigation = "true";
+		String inpreprocessingMitigation = "false";
 		result = getUserInput("Apply bias mitigation in in-processing" + //
 				" (default: false):", inpreprocessingMitigation, Boolean.class);
 		biasMitigation.add(Map.of("inpreprocessingMitigation", result));
@@ -364,8 +371,8 @@ public class FairML implements Callable<Integer> {
 		// postprocessing
 		System.out.println("");
 		System.out.println("# 3. Post-processing");
-		String postpreprocessingMitigation = "true";
-		result = getUserInput("Apply bias mitigation in postprocessing" + //
+		String postpreprocessingMitigation = "false";
+		result = getUserInput("Apply bias mitigation in post-processing" + //
 				" (default: false):", postpreprocessingMitigation, Boolean.class);
 		biasMitigation.add(Map.of("postpreprocessingMitigation", result));
 		if ((Boolean.parseBoolean(result.toString()))) {
@@ -382,42 +389,46 @@ public class FairML implements Callable<Integer> {
 		System.out.println("---- Bias Metric ----");
 //		List<Object> biasMetric = new ArrayList<>();
 
-		String groupFairness = "false";
-		biasMitigation.add(Map.of("groupFairness", getUserInput("Measure group fairness" + //
-				" (default: true):", groupFairness, Boolean.class)));
+		String groupFairness = "true";
+		groupFairness = getUserInput("Measure group fairness" + //
+				" (default: " + groupFairness + "):", groupFairness, Boolean.class);
+		biasMitigation.add(Map.of("groupFairness", groupFairness));
 
 		String individualFairness = "false";
 		biasMitigation.add(Map.of("individualFairness", getUserInput("Measure individual fairness" + //
-				" (default: false):", individualFairness, Boolean.class)));
+				" (default: " + individualFairness + "):", individualFairness, Boolean.class)));
 
 		String groupIndividualSingleMetric = "false";
 		biasMitigation.add(Map.of("groupIndividualSingleMetric",
-				getUserInput("I want to use metrics for both individuals and groups" + //
-						" (default: false):", groupIndividualSingleMetric, Boolean.class)));
+				getUserInput("Use single metrics for both individuals and groups" + //
+						" (default: " + groupIndividualSingleMetric + "):", groupIndividualSingleMetric,
+						Boolean.class)));
 
-		String equalFairness = "false";
-		biasMitigation.add(Map.of("equalFairness", getUserInput("Measure equal fairness" + //
-				" (default: false):", equalFairness, Boolean.class)));
+		if (groupFairness.equals("true")) {
+			String equalFairness = "false";
+			biasMitigation.add(Map.of("equalFairness", getUserInput("Measure equal fairness" + //
+					" (default: " + equalFairness + "):", equalFairness, Boolean.class)));
 
-		String proportionalFairness = "false";
-		biasMitigation.add(Map.of("proportionalFairness", getUserInput("Measure proportional fairness" + //
-				" (default: false):", proportionalFairness, Boolean.class)));
+			String proportionalFairness = "false";
+			biasMitigation.add(Map.of("proportionalFairness", getUserInput("Measure proportional fairness" + //
+					" (default: " + proportionalFairness + "):", proportionalFairness, Boolean.class)));
 
-		String checkFalsePositive = "false";
-		biasMitigation.add(Map.of("checkFalsePositive", getUserInput("Measure false positives" + //
-				" (default: false):", checkFalsePositive, Boolean.class)));
+			String checkFalsePositive = "false";
+			biasMitigation.add(Map.of("checkFalsePositive", getUserInput("Measure false positives" + //
+					" (default: " + checkFalsePositive + "):", checkFalsePositive, Boolean.class)));
 
-		String checkFalseNegative = "false";
-		biasMitigation.add(Map.of("checkFalseNegative", getUserInput("Measure false negatives" + //
-				" (default: false):", checkFalseNegative, Boolean.class)));
+			String checkFalseNegative = "false";
+			biasMitigation.add(Map.of("checkFalseNegative", getUserInput("Measure false negatives" + //
+					" (default: " + checkFalseNegative + "):", checkFalseNegative, Boolean.class)));
 
-		String checkErrorRate = "false";
-		biasMitigation.add(Map.of("checkErrorRate", getUserInput("Measure error rates" + //
-				" (default: false):", checkErrorRate, Boolean.class)));
+			String checkErrorRate = "false";
+			biasMitigation.add(Map.of("checkErrorRate", getUserInput("Measure error rates" + //
+					" (default: " + checkErrorRate + "):", checkErrorRate, Boolean.class)));
 
-		String checkEqualBenefit = "false";
-		biasMitigation.add(Map.of("checkEqualBenefit", getUserInput("Measure equal benefit" + //
-				" (default: false):", checkEqualBenefit, Boolean.class)));
+			String checkEqualBenefit = "false";
+			biasMitigation.add(Map.of("checkEqualBenefit", getUserInput("Measure equal benefit" + //
+					" (default: " + checkEqualBenefit + "):", checkEqualBenefit, Boolean.class)));
+		}
 
 		DumperOptions options = new DumperOptions();
 		options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
@@ -432,15 +443,11 @@ public class FairML implements Callable<Integer> {
 		FileWriter fw = new FileWriter(flexmiFile.getAbsoluteFile());
 		fw.write(writer.toString());
 		fw.close();
-		
+
 		return flexmiFile;
 	}
 
-	private Object getUserInput(String question) {
-		return this.getUserInput(question, null, String.class);
-	}
-
-	private Object getUserInput(String question, String defaultValue) {
+	private String getUserInput(String question, String defaultValue) {
 		return this.getUserInput(question, defaultValue, String.class);
 	}
 
@@ -450,7 +457,7 @@ public class FairML implements Callable<Integer> {
 		while (!valid) {
 			System.out.print(question + " ");
 			answer = scanner.nextLine().trim();
-			if ((answer == null || answer.trim().equals("")) && defaultValue != null) {
+			if ((answer == null || answer.trim().equals("")) && defaultValue != null && defaultValue.length() > 0) {
 				answer = defaultValue;
 			}
 
@@ -483,10 +490,9 @@ public class FairML implements Callable<Integer> {
 					System.out.println("Error: file does not exist");
 				}
 			} else if (Boolean.class == expectedType) {
-				try {
-					Boolean.parseBoolean(answer);
+				if ("true".equals(answer.toLowerCase()) || "false".equals(answer.toLowerCase())) {
 					valid = true;
-				} catch (Exception e) {
+				} else {
 					System.out.println("Error: answer should be true or false");
 				}
 			} else if (String[].class == expectedType) {

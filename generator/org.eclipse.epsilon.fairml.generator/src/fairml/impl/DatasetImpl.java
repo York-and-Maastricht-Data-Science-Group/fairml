@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link fairml.impl.DatasetImpl#getDroppedAttributes <em>Dropped Attributes</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getNotAvailableValues <em>Not Available Values</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getDefaultMappings <em>Default Mappings</em>}</li>
- *   <li>{@link fairml.impl.DatasetImpl#getTrainTestSplit <em>Train Test Split</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getTrainTestValidationSplit <em>Train Test Validation Split</em>}</li>
  * </ul>
  *
  * @generated
@@ -290,14 +290,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	protected String defaultMappings = DEFAULT_MAPPINGS_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTrainTestSplit() <em>Train Test Split</em>}' attribute list.
+	 * The cached value of the '{@link #getTrainTestValidationSplit() <em>Train Test Validation Split</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTrainTestSplit()
+	 * @see #getTrainTestValidationSplit()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Integer> trainTestSplit;
+	protected EList<Float> trainTestValidationSplit;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -612,11 +612,11 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
-	public EList<Integer> getTrainTestSplit() {
-		if (trainTestSplit == null) {
-			trainTestSplit = new EDataTypeEList<Integer>(Integer.class, this, FairmlPackage.DATASET__TRAIN_TEST_SPLIT);
+	public EList<Float> getTrainTestValidationSplit() {
+		if (trainTestValidationSplit == null) {
+			trainTestValidationSplit = new EDataTypeEList<Float>(Float.class, this, FairmlPackage.DATASET__TRAIN_TEST_VALIDATION_SPLIT);
 		}
-		return trainTestSplit;
+		return trainTestValidationSplit;
 	}
 
 	/**
@@ -659,8 +659,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return getNotAvailableValues();
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
 				return getDefaultMappings();
-			case FairmlPackage.DATASET__TRAIN_TEST_SPLIT:
-				return getTrainTestSplit();
+			case FairmlPackage.DATASET__TRAIN_TEST_VALIDATION_SPLIT:
+				return getTrainTestValidationSplit();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -730,9 +730,9 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
 				setDefaultMappings((String)newValue);
 				return;
-			case FairmlPackage.DATASET__TRAIN_TEST_SPLIT:
-				getTrainTestSplit().clear();
-				getTrainTestSplit().addAll((Collection<? extends Integer>)newValue);
+			case FairmlPackage.DATASET__TRAIN_TEST_VALIDATION_SPLIT:
+				getTrainTestValidationSplit().clear();
+				getTrainTestValidationSplit().addAll((Collection<? extends Float>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -794,8 +794,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
 				setDefaultMappings(DEFAULT_MAPPINGS_EDEFAULT);
 				return;
-			case FairmlPackage.DATASET__TRAIN_TEST_SPLIT:
-				getTrainTestSplit().clear();
+			case FairmlPackage.DATASET__TRAIN_TEST_VALIDATION_SPLIT:
+				getTrainTestValidationSplit().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -841,8 +841,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return notAvailableValues != null && !notAvailableValues.isEmpty();
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
 				return DEFAULT_MAPPINGS_EDEFAULT == null ? defaultMappings != null : !DEFAULT_MAPPINGS_EDEFAULT.equals(defaultMappings);
-			case FairmlPackage.DATASET__TRAIN_TEST_SPLIT:
-				return trainTestSplit != null && !trainTestSplit.isEmpty();
+			case FairmlPackage.DATASET__TRAIN_TEST_VALIDATION_SPLIT:
+				return trainTestValidationSplit != null && !trainTestValidationSplit.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -889,8 +889,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 		result.append(notAvailableValues);
 		result.append(", defaultMappings: ");
 		result.append(defaultMappings);
-		result.append(", trainTestSplit: ");
-		result.append(trainTestSplit);
+		result.append(", trainTestValidationSplit: ");
+		result.append(trainTestValidationSplit);
 		result.append(')');
 		return result.toString();
 	}

@@ -11,16 +11,6 @@ for Fair Machine Learning.
 package fairml;
 
 /***
-  Types of PopulationTarget to automatically choose bias metrics 
-  in Bias Mitigation.
-***/
-/*enum PopulationTarget {
-    Group;
-    Individual;
-    SingleMetricForBoth;
-}*/
-
-/***
   Types of WorldViews to automatically choose bias metrics 
   in Bias Mitigation
 ***/
