@@ -87,9 +87,10 @@ class BiasMitigation():
         self.unprivileged_class = 0
         self.dropped_attributes = []
         self.na_values = []
-        self.training_size = 7    
-        self.test_size = 3 
-        self.total_size = 7 + 3
+        self.training_size = 5
+        self.validation_size = 3     
+        self.test_size = 2 
+        self.total_size = self.training_size + self.validation_size + self.test_size
         self.categorical_features = []
         self.default_mappings = None
         self.resource = None
@@ -123,7 +124,7 @@ class BiasMitigation():
         Returns:
             Predicted dataset
         """
-        dataset_predicted = dataset.copy()
+        dataset_predicted = dataset.copy(deepcopy=True)
         y_val_pred = model.predict(dataset.features)
         dataset_predicted.labels = y_val_pred
         return dataset_predicted
@@ -182,7 +183,7 @@ class BiasMitigation():
                                              unprivileged_groups=unprivileged_groups,
                                              privileged_groups=privileged_groups)
         explainer_train = MetricTextExplainer(metric_mitigated_train)
-        print_message("")        
+        # print_message("")        
         getattr(metric_mitigated_train, metric_name)()
         print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
         print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
@@ -193,7 +194,8 @@ class BiasMitigation():
         self.mitigation_results = defaultdict(list)
         self.fairml.results.append(self.mitigation_results)
         self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
-        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + str(self.test_size) + ")")
+        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" +
+                                                   str(self.test_size) + ":" + str(self.validation_size) +")")
         self.mitigation_results["Classifier"].append(classifier_name)
         # self.mitigation_results["sklearn_accuracy"].append(accuracy)
         
@@ -229,6 +231,7 @@ class BiasMitigation():
             print("Dropped attributes: " + ", ".join(self.dropped_attributes))
             print("Training data size (ratio): " + str(self.training_size)) 
             print("Test data size (ratio): " + str(self.test_size))
+            print("Validation data size (ratio): " + str(self.validation_size)) 
             print("")
             display(self.summary_table.to_string() )
     
@@ -239,7 +242,8 @@ class BiasMitigation():
                 "Favourable classes: " + str(self.favorable_class) + "</br>" + 
                 "Dropped attributes: " + ", ".join(self.dropped_attributes) + " </br>"
                 "Training data size (ratio): " + str(self.training_size) + "</br>" + 
-                "Test data size (ratio): " + str(self.test_size)))
+                "Test data size (ratio): " + str(self.test_size) + "</br>" + 
+                "Validation data size (ratio): " + str(self.validation_size)))
         
         
         return self.summary_table  
@@ -283,7 +287,7 @@ class BiasMitigation():
         for metric in self.fairest_combinations:
             if row.name == self.fairest_combinations[metric]:
                 index = self.summary_table.columns.get_loc(metric)
-                cell_formats[index] = 'font-weight: bold; background-color: #e6ffe6;'
+                cell_formats[index] = 'font-weight: bold; background-color: #00ff00;'
         
         return cell_formats 
   
