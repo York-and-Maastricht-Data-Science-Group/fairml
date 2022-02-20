@@ -49,17 +49,17 @@ fairml:
 #  - mitigationMethod:
 #    - algorithm: GridSearchReduction
   
-  - mitigationMethod:
-    - algorithm: RejectOptionClassification
+#  - mitigationMethod:
+#    - algorithm: RejectOptionClassification
   - mitigationMethod:
     - algorithm: EqOddsPostprocessing
     - parameters: seed=1234567
-  - mitigationMethod:
-    - algorithm: CalibratedEqOddsPostprocessing
-    - parameters: cost_constraint='fnr', seed=1234567
+#  - mitigationMethod:
+#    - algorithm: CalibratedEqOddsPostprocessing
+#    - parameters: cost_constraint='fnr', seed=1234567
     
-  - mitigationMethod:
-    - algorithm: Reweighing
+#  - mitigationMethod:
+#    - algorithm: Reweighing
    
 #  - mitigationMethod:
 #    - algorithm: OptimPreproc

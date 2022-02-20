@@ -37,7 +37,6 @@ def print_message(text):
 
 class FairML():
     
-    
     def __init__(self):
         """
         """
@@ -61,6 +60,7 @@ class FairML():
         
     ''' generic distortion for optimised preprocessing
     '''
+
     def get_generic_distortion_for_optimised_preprocessing(self, vold, vnew):
         return 1.0  
             
@@ -105,15 +105,14 @@ class BiasMitigation():
         self.metrics = ['accuracy']
         self.fairest_values = {}
         self.fairest_combinations = {}
+        self.table_colours = {}
         self.summary_table = None
-        
     
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)
         y_test = dataset_test.labels.ravel()
         accuracy = metrics.accuracy_score(y_test, y_pred)
         return accuracy
-
 
     def create_predicted_dataset(self, dataset, model):
         """
@@ -143,7 +142,6 @@ class BiasMitigation():
                 
         mitigation_method = mitigation_class(**params)
         return mitigation_method
-         
     
     def train(self, dataset_train, classifier):
         # classifier = DecisionTreeClassifier(criterion='gini', max_depth=7)
@@ -152,7 +150,6 @@ class BiasMitigation():
         fit_params = {name + '__sample_weight': dataset_train.instance_weights}
         model_train = model.fit(dataset_train.features, dataset_train.labels.ravel(), **fit_params)
         return model_train
-    
     
     def drawModel(self, classifier, dataset, filename):
         if isinstance(classifier, DecisionTreeClassifier): 
@@ -163,7 +160,6 @@ class BiasMitigation():
                            filled=True,
                            rounded=True);
             plt.savefig(filename)
-    
     
     def measure_bias(self, metric_name, dataset, predicted_dataset,
                      privileged_groups, unprivileged_groups):
@@ -176,7 +172,7 @@ class BiasMitigation():
         Returns:
             None
         """
-        if not metric_name in self.metrics:      
+        if not metric_name in self.metrics: 
             self.metrics.append(metric_name)
         metric_mitigated_train = ClassificationMetric(dataset,
                                              predicted_dataset,
@@ -189,16 +185,14 @@ class BiasMitigation():
         print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
         self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
     
-    
     def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name):
         self.mitigation_results = defaultdict(list)
         self.fairml.results.append(self.mitigation_results)
         self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
-        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" +
-                                                   str(self.test_size) + ":" + str(self.validation_size) +")")
+        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + 
+                                                   str(self.test_size) + ":" + str(self.validation_size) + ")")
         self.mitigation_results["Classifier"].append(classifier_name)
         # self.mitigation_results["sklearn_accuracy"].append(accuracy)
-        
         
     def display_summary(self):
         print("")
@@ -211,14 +205,17 @@ class BiasMitigation():
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
+                    self.table_colours[name] = self.get_colours(values, 1) 
                 elif name == "disparate_impact":
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
+                    self.table_colours[name] = self.get_colours(values, 1)
                 elif name == "statistical_parity_difference":
                     fairest_value, fairest_line = self.get_fairest_value(values, 0)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
+                    self.table_colours[name] = self.get_colours(values, 0)
         
         # print_message("XXX: " + str(self.fairest_combinations))
         # print("XXX: " + str(self.fairest_combinations))
@@ -233,7 +230,7 @@ class BiasMitigation():
             print("Test data size (ratio): " + str(self.test_size))
             print("Validation data size (ratio): " + str(self.validation_size)) 
             print("")
-            display(self.summary_table.to_string() )
+            display(self.summary_table.to_string())
     
         else:
             display(Markdown("Original Data size: " + str(len(self.dataset_original.instance_names)) + "</br>" + 
@@ -245,13 +242,31 @@ class BiasMitigation():
                 "Test data size (ratio): " + str(self.test_size) + "</br>" + 
                 "Validation data size (ratio): " + str(self.validation_size)))
         
-        
         return self.summary_table  
+    
+    def get_colours(self, values, ideal_value):
+        max_num = abs(values.get(key=1) - ideal_value)
+        min_num = abs(values.get(key=1) - ideal_value) 
+        for i in range(1, values.size + 1):
+            val = abs(values.get(key=i) - ideal_value)
+            if val < min_num:
+                min_num = val
+            if val > max_num:
+                max_num = val
+        colours = []
+        for i in range(1, values.size + 1):
+            val = abs(values.get(key=i) - ideal_value)
+            result = 0
+            if max_num - min_num != 0:
+                # print(val, min_num, max_num)
+                result = int((val - min_num) / (max_num - min_num) * 240)
+            colours.append(result) 
+        return colours
     
     def get_fairest_value(self, values, ideal_value):
         fairest_value = -1
         fairest_combination = 1
-        x1 = values.get(key = fairest_combination) - ideal_value
+        x1 = values.get(key=fairest_combination) - ideal_value
         # x1 = 0 - ideal_value;
         min_abs_val = abs(x1)
         min_val_sign = ""
@@ -271,24 +286,28 @@ class BiasMitigation():
                     min_abs_val = temp
                     if x1 < 0:
                         min_val_sign = "-"
-                    elif x1 >= 0:    
+                    elif x1 >= 0: 
                         min_val_sign = "+"
         
         if min_val_sign == "-":
-            fairest_value =(-1 * min_abs_val) + ideal_value
+            fairest_value = (-1 * min_abs_val) + ideal_value
         else:
             fairest_value = (1 * min_abs_val) + ideal_value
         
         return fairest_value, fairest_combination    
-
        
     def highlight_fairest_values(self, row):
         cell_formats = [''] * len(row)
         for metric in self.fairest_combinations:
-            if row.name == self.fairest_combinations[metric]:
+                bold = ''
+                if row.name == self.fairest_combinations[metric]:
+                    bold = 'font-weight: bold;'
                 index = self.summary_table.columns.get_loc(metric)
-                cell_formats[index] = 'font-weight: bold; background-color: #00ff00;'
+                num = self.table_colours[metric][int(row.name) - 1]
+                c = "{0:0{1}x}".format(num, 2)
+                cell_formats[index] = bold + 'background-color: #' + c + 'f0' + c + ';'
+                # print(num)
+                # print(cell_formats[index])
         
         return cell_formats 
-  
 
