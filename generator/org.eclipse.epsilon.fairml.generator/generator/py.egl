@@ -66,6 +66,7 @@ import pandas as pd
 from sklearn import tree
 from sklearn.preprocessing import MaxAbsScaler
 from sklearn.tree import DecisionTreeClassifier
+# from sklearn.linear_model import LogisticRegression
 # from sklearn.svm import LinearSVC
 # from sklearn.neighbors import KNeighborsClassifier
 # from sklearn.naive_bayes import GaussianNB
@@ -220,7 +221,7 @@ dataset_mitigated_test = bm.dataset_original_test.copy(deepcopy=True)
 min_max_scaler = MaxAbsScaler()
 dataset_mitigated_train.features = min_max_scaler.fit_transform(bm.dataset_original_train.features)
 dataset_mitigated_valid.features = min_max_scaler.fit_transform(bm.dataset_original_valid.features)
-dataset_mitigated_test.features = min_max_scaler.transform(bm.dataset_original_test.features)
+dataset_mitigated_test.features = min_max_scaler.fit_transform(bm.dataset_original_test.features)
 [% } else if (postprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
 mitigation_method = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mitigationMethod.parameters.listToLineWithoutQuote()%])
 dataset_mitigated_train = bm.dataset_original_train.copy(deepcopy=True)
@@ -229,7 +230,7 @@ dataset_mitigated_test = bm.dataset_original_test.copy(deepcopy=True)
 standard_scaler = StandardScaler()
 dataset_mitigated_train.features = standard_scaler.fit_transform(bm.dataset_original_train.features)
 dataset_mitigated_valid.features = standard_scaler.fit_transform(bm.dataset_original_valid.features)
-dataset_mitigated_test.features = standard_scaler.transform(bm.dataset_original_test.features)
+dataset_mitigated_test.features = standard_scaler.fit_transform(bm.dataset_original_test.features)
 [% } %]
 
 [%      for (trainingMethod in biasMitigation.trainingMethods) { %]
@@ -240,10 +241,12 @@ print("After-mitigation Training: [%=trainingMethod.algorithm%], Parameters: [%=
 print("-------------")
 
 # Train the model from the after-mitigation train data
-classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
+
 [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
+classifier = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mitigationMethod.parameters.listToLineWithoutQuote()%])
 model_mitigated_train = classifier.fit(dataset_mitigated_train)
 [% } else { %]
+classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
 model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
 [% } %]
 
@@ -262,6 +265,14 @@ dataset_mitigated_test_pred = bm.create_predicted_dataset(dataset_mitigated_test
 
 [% if (postprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
 dataset_mitigated_test_pred.labels = dataset_mitigated_test_pred.labels.reshape((-1, 1))
+[%  if (mitigationMethod.algorithm == "CalibratedEqOddsPostprocessing") { %]
+y_test_pred_prob = bm.get_prediction_probability(model_mitigated_train, bm.dataset_original_train, dataset_mitigated_test.features)
+y_test_pred = np.zeros_like(dataset_mitigated_test_pred.labels)
+class_thresh = 0.5
+y_test_pred[y_test_pred_prob >= class_thresh] = dataset_mitigated_test_pred.favorable_label
+y_test_pred[~(y_test_pred_prob >= class_thresh)] = dataset_mitigated_test_pred.unfavorable_label
+dataset_mitigated_test_pred.labels = y_test_pred    
+[%  } %]
 mitigation_method = mitigation_method.fit(dataset_mitigated_valid, dataset_mitigated_valid_pred)
 dataset_mitigated_test_pred = mitigation_method.predict(dataset_mitigated_test_pred)
 [% } %]

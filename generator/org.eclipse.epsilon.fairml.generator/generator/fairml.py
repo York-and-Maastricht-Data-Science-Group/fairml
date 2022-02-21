@@ -1,4 +1,5 @@
 import inspect
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os.path 
@@ -8,6 +9,7 @@ from sklearn import tree
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
 from aif360.explainers import MetricTextExplainer
@@ -15,6 +17,8 @@ from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptT
 from IPython.display import Markdown, display
 from IPython import get_ipython
 
+
+import tensorflow.compat.v1 as tf
 
 def is_preprocessing(class_name):
     return 'preprocessing' in class_name.__file__
@@ -107,6 +111,7 @@ class BiasMitigation():
         self.fairest_combinations = {}
         self.table_colours = {}
         self.summary_table = None
+        self.tf_sessions = []
     
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)
@@ -128,19 +133,57 @@ class BiasMitigation():
         dataset_predicted.labels = y_val_pred
         return dataset_predicted
     
+    def get_prediction_probability(self, model, dataset_orig, scaled_target_dataset_features):
+        fav_idx = np.where(model.classes_ == dataset_orig.favorable_label)[0][0]
+        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:,fav_idx]
+        return y_test_pred_prob
+        
+        
     def create_mitigation_method(self, mitigation_class, **params):
         signatures = inspect.signature(mitigation_class)
         if 'privileged_groups' and 'unprivileged_groups' in signatures.parameters:
-            params['privileged_groups'] = self.privileged_groups
-            params['unprivileged_groups'] = self.unprivileged_groups
+            if 'privileged_groups' not in params:
+                params['privileged_groups'] = self.privileged_groups
+            if 'unprivileged_groups' not in params:
+                params['unprivileged_groups'] = self.unprivileged_groups
+
+        # if 'art_classifier' in signatures.parameters:
+        #     if 'art_classifier' not in params:
+        #         params['art_classifier'] =  Classifier()
+                
+        if 'estimator' in signatures.parameters:
+            if 'estimator' not in params:
+                params['estimator'] =  LogisticRegression(solver='lbfgs')
         
+        if 'constraints' in signatures.parameters:
+            if 'constraints' not in params:
+                params['constraints'] =  "DemographicParity"
+            # check import fairlearn.reductions 
+            # "DemographicParity", "TruePositiveRateDifference", "ErrorRateRatio."
+            
         if 'optimizer' in signatures.parameters:
-            params['optimizer'] = OptTools
+            if 'optimizer' not in params:
+                params['optimizer'] = OptTools
         
         if 'optim_options' in signatures.parameters:
-            params['optim_options'] = self.fairml.optim_options
-                
+            if 'optim_options' not in params:
+                params['optim_options'] = self.fairml.optim_options
+        
+        if 'scope_name' in signatures.parameters:
+            if 'scope_name' not in params:
+                params['scope_name'] ='debiased_classifier'
+            
+        if 'sess' in signatures.parameters:
+            if 'sess' not in params:
+                tf.reset_default_graph()
+                tf.disable_eager_execution()
+                sess = tf.Session()
+                self.tf_sessions.append(sess)
+                params['sess']  = sess
+            
         mitigation_method = mitigation_class(**params)
+        
+        
         return mitigation_method
     
     def train(self, dataset_train, classifier):
@@ -181,6 +224,8 @@ class BiasMitigation():
         explainer_train = MetricTextExplainer(metric_mitigated_train)
         # print_message("")        
         getattr(metric_mitigated_train, metric_name)()
+        a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
+        print_message("After mitigation Balanced accuracy: %f" % a )
         print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
         print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
         self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
@@ -242,6 +287,10 @@ class BiasMitigation():
                 "Test data size (ratio): " + str(self.test_size) + "</br>" + 
                 "Validation data size (ratio): " + str(self.validation_size)))
         
+        for session in self.tf_sessions:
+            session.close()
+        self.tf_sessions.clear()
+        
         return self.summary_table  
     
     def get_colours(self, values, ideal_value):
@@ -257,9 +306,9 @@ class BiasMitigation():
         for i in range(1, values.size + 1):
             val = abs(values.get(key=i) - ideal_value)
             result = 0
-            if max_num - min_num != 0:
-                # print(val, min_num, max_num)
-                result = int((val - min_num) / (max_num - min_num) * 240)
+            if (max_num - min_num) != 0:
+                print(val, min_num, max_num)
+                result = int((val - min_num) / (max_num - min_num) * 240.0)
             colours.append(result) 
         return colours
     
