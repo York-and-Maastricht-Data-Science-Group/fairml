@@ -302,7 +302,7 @@ public class FairML implements Callable<Integer> {
 
 		String trainTestValidationSplit = "7, 2, 3";
 		dataset.add(
-				Map.of("trainTestSplit", getUserInput("Train test split (default: " + trainTestValidationSplit + "):",
+				Map.of("trainTestSplit", getUserInput("Train test validation split (default: " + trainTestValidationSplit + "):",
 						trainTestValidationSplit, Double[].class)));
 		fairml.add(Map.of("dataset", dataset));
 

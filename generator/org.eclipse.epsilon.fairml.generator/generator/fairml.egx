@@ -1,14 +1,7 @@
 import 'fairml.eol';
 
 pre {
-	var genPath = ".";		
-    var preprocessings = Sequence{"DisparateImpactRemover", "LFR", "OptimPreproc", 
-        "Reweighing"};
-    var inprocessings = Sequence{"AdversarialDebiasing", "ARTClassifier", "PrejudiceRemover",
-    "MetaFairClassifier", "GerryFairClassifier", "ExponentiatedGradientReduction",
-    "GridSearchReduction"};
-    var postprocessings = Sequence{"CalibratedEqOddsPostprocessing", "EqOddsPostprocessing",
-        "RejectOptionClassification"};	
+	var genPath = ".";	
 }
 
 /***
@@ -16,7 +9,7 @@ pre {
 ***/
 rule IpynbGenFile transform fairml: FairML {
 	parameters : Map {     
-    	"fairml" = fairml    	
+    	"fairml" = fairml
     }
   	template: "ipynb.egl"
   	target: genPath + "/" + fairml.name.replace(" ", "") + "IpynbGen.java"
@@ -27,10 +20,7 @@ rule IpynbGenFile transform fairml: FairML {
 ***/
 rule PythonFile transform fairml : FairML {
 	parameters : Map {     
-    	"fairml" = fairml,
-        "preprocessings" = preprocessings,
-        "inprocessings" = inprocessings,        
-        "postprocessings" = postprocessings
+    	"fairml" = fairml
     }
   	template: "py.egl"
   	target: genPath + "/" + fairml.name.replace(" ", "_").toLowerCase() + ".py"

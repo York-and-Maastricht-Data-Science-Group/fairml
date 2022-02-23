@@ -29,18 +29,20 @@ fairml:
     equalFairness: true
 #    proportionalFairness: true
   
-#  - mitigationMethod:
-#    - algorithm: DisparateImpactRemover
-#    - parameters: repair_level=1.0
+  - mitigationMethod:
+    - algorithm: DisparateImpactRemover
+    - parameters: repair_level=1.0
 #  - mitigationMethod:
 #    - algorithm: LFR
+  - mitigationMethod:
+    - algorithm: Reweighing
 
-#  - mitigationMethod:
-#    - algorithm: PrejudiceRemover 
-#  - mitigationMethod:
-#    - algorithm: MetaFairClassifier
-#  - mitigationMethod:
-#    - algorithm: GerryFairClassifier
+  - mitigationMethod:
+    - algorithm: PrejudiceRemover 
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
   - mitigationMethod:
     - algorithm: AdversarialDebiasing
 
@@ -51,17 +53,16 @@ fairml:
 #  - mitigationMethod:
 #    - algorithm: ARTClassifier    
   
-#  - mitigationMethod:
-#    - algorithm: RejectOptionClassification
-#  - mitigationMethod:
-#    - algorithm: EqOddsPostprocessing
-#    - parameters: seed=1234567
-#  - mitigationMethod:
-#    - algorithm: CalibratedEqOddsPostprocessing
-#    - parameters: cost_constraint='fnr', seed=1234567
-
   - mitigationMethod:
-    - algorithm: Reweighing
+    - algorithm: RejectOptionClassification
+  - mitigationMethod:
+    - algorithm: EqOddsPostprocessing
+    - parameters: seed=1234567
+  - mitigationMethod:
+    - algorithm: CalibratedEqOddsPostprocessing
+    - parameters: cost_constraint='fnr', seed=1234567
+
+
     
 #  - mitigationMethod:
 #    - algorithm: OptimPreproc

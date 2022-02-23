@@ -5,6 +5,22 @@ operation FairML getAllPreprocessings(): Sequence {
         .addAll(self.getPostprocessings());
 }
 
+operation FairML getPreprocessings(): Sequence {
+    return Sequence{"DisparateImpactRemover", "LFR", "OptimPreproc", 
+        "Reweighing"};
+}
+
+operation FairML getInprocessings(): Sequence {
+    return Sequence{"AdversarialDebiasing", "ARTClassifier", "PrejudiceRemover",
+    "MetaFairClassifier", "GerryFairClassifier", "ExponentiatedGradientReduction",
+    "GridSearchReduction"};
+}
+
+operation FairML getPostprocessings(): Sequence {
+    return Sequence{"CalibratedEqOddsPostprocessing", "EqOddsPostprocessing",
+        "RejectOptionClassification"};
+}
+
 operation Collection listToLine(): String {
 	return self
 		.collect(item | "'" + item + "'")
@@ -66,13 +82,6 @@ operation FairML initialise(): void {
     for (biasMitigation in self.biasMitigations) {
     /* Setting up flags to automatically select bias metrics and mitigation algorithms. */
     // automatically select metrics
-    
-        var metric = new BiasMetric;
-        metric.name = "accuracy";
-        if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-            biasMitigation.biasMetrics.add(metric); 
-        }
-    
 	    if (biasMitigation.groupFairness) {
 	        if (biasMitigation.equalFairness){
 	           var metric = new BiasMetric;

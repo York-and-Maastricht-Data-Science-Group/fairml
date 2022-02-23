@@ -1,5 +1,4 @@
 import inspect
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os.path 
@@ -9,7 +8,6 @@ from sklearn import tree
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
 from aif360.explainers import MetricTextExplainer
@@ -17,8 +15,6 @@ from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptT
 from IPython.display import Markdown, display
 from IPython import get_ipython
 
-
-import tensorflow.compat.v1 as tf
 
 def is_preprocessing(class_name):
     return 'preprocessing' in class_name.__file__
@@ -40,6 +36,7 @@ def print_message(text):
 
 
 class FairML():
+    
     
     def __init__(self):
         """
@@ -64,7 +61,6 @@ class FairML():
         
     ''' generic distortion for optimised preprocessing
     '''
-
     def get_generic_distortion_for_optimised_preprocessing(self, vold, vnew):
         return 1.0  
             
@@ -91,10 +87,9 @@ class BiasMitigation():
         self.unprivileged_class = 0
         self.dropped_attributes = []
         self.na_values = []
-        self.training_size = 5
-        self.validation_size = 3     
-        self.test_size = 2 
-        self.total_size = self.training_size + self.validation_size + self.test_size
+        self.training_size = 7    
+        self.test_size = 3 
+        self.total_size = 7 + 3
         self.categorical_features = []
         self.default_mappings = None
         self.resource = None
@@ -106,18 +101,18 @@ class BiasMitigation():
         self.privileged_groups = None
         self.unprivileged_groups = None
         self.mitigation_results = None
-        self.metrics = ['accuracy']
+        self.metrics = ['Accuracy']
         self.fairest_values = {}
         self.fairest_combinations = {}
-        self.table_colours = {}
         self.summary_table = None
-        self.tf_sessions = []
+        
     
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)
         y_test = dataset_test.labels.ravel()
         accuracy = metrics.accuracy_score(y_test, y_pred)
         return accuracy
+
 
     def create_predicted_dataset(self, dataset, model):
         """
@@ -128,63 +123,26 @@ class BiasMitigation():
         Returns:
             Predicted dataset
         """
-        dataset_predicted = dataset.copy(deepcopy=True)
+        dataset_predicted = dataset.copy()
         y_val_pred = model.predict(dataset.features)
         dataset_predicted.labels = y_val_pred
         return dataset_predicted
     
-    def get_prediction_probability(self, model, dataset_orig, scaled_target_dataset_features):
-        fav_idx = np.where(model.classes_ == dataset_orig.favorable_label)[0][0]
-        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:,fav_idx]
-        return y_test_pred_prob
-        
-        
     def create_mitigation_method(self, mitigation_class, **params):
         signatures = inspect.signature(mitigation_class)
         if 'privileged_groups' and 'unprivileged_groups' in signatures.parameters:
-            if 'privileged_groups' not in params:
-                params['privileged_groups'] = self.privileged_groups
-            if 'unprivileged_groups' not in params:
-                params['unprivileged_groups'] = self.unprivileged_groups
-
-        # if 'art_classifier' in signatures.parameters:
-        #     if 'art_classifier' not in params:
-        #         params['art_classifier'] =  Classifier()
-                
-        if 'estimator' in signatures.parameters:
-            if 'estimator' not in params:
-                params['estimator'] =  LogisticRegression(solver='lbfgs')
+            params['privileged_groups'] = self.privileged_groups
+            params['unprivileged_groups'] = self.unprivileged_groups
         
-        if 'constraints' in signatures.parameters:
-            if 'constraints' not in params:
-                params['constraints'] =  "DemographicParity"
-            # check import fairlearn.reductions 
-            # "DemographicParity", "TruePositiveRateDifference", "ErrorRateRatio."
-            
         if 'optimizer' in signatures.parameters:
-            if 'optimizer' not in params:
-                params['optimizer'] = OptTools
+            params['optimizer'] = OptTools
         
         if 'optim_options' in signatures.parameters:
-            if 'optim_options' not in params:
-                params['optim_options'] = self.fairml.optim_options
-        
-        if 'scope_name' in signatures.parameters:
-            if 'scope_name' not in params:
-                params['scope_name'] ='debiased_classifier'
-            
-        if 'sess' in signatures.parameters:
-            if 'sess' not in params:
-                tf.reset_default_graph()
-                tf.disable_eager_execution()
-                sess = tf.Session()
-                self.tf_sessions.append(sess)
-                params['sess']  = sess
-            
+            params['optim_options'] = self.fairml.optim_options
+                
         mitigation_method = mitigation_class(**params)
-        
-        
         return mitigation_method
+         
     
     def train(self, dataset_train, classifier):
         # classifier = DecisionTreeClassifier(criterion='gini', max_depth=7)
@@ -193,6 +151,7 @@ class BiasMitigation():
         fit_params = {name + '__sample_weight': dataset_train.instance_weights}
         model_train = model.fit(dataset_train.features, dataset_train.labels.ravel(), **fit_params)
         return model_train
+    
     
     def drawModel(self, classifier, dataset, filename):
         if isinstance(classifier, DecisionTreeClassifier): 
@@ -203,6 +162,7 @@ class BiasMitigation():
                            filled=True,
                            rounded=True);
             plt.savefig(filename)
+    
     
     def measure_bias(self, metric_name, dataset, predicted_dataset,
                      privileged_groups, unprivileged_groups):
@@ -215,29 +175,28 @@ class BiasMitigation():
         Returns:
             None
         """
-        if not metric_name in self.metrics: 
+        if not metric_name in self.metrics:      
             self.metrics.append(metric_name)
         metric_mitigated_train = ClassificationMetric(dataset,
                                              predicted_dataset,
                                              unprivileged_groups=unprivileged_groups,
                                              privileged_groups=privileged_groups)
         explainer_train = MetricTextExplainer(metric_mitigated_train)
-        # print_message("")        
+        print_message("")        
         getattr(metric_mitigated_train, metric_name)()
-        a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
-        print_message("After mitigation Balanced accuracy: %f" % a )
         print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
         print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
         self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
     
-    def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name):
+    
+    def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name, accuracy):
         self.mitigation_results = defaultdict(list)
         self.fairml.results.append(self.mitigation_results)
         self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
-        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + 
-                                                   str(self.test_size) + ":" + str(self.validation_size) + ")")
+        self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + str(self.test_size) + ")")
         self.mitigation_results["Classifier"].append(classifier_name)
-        # self.mitigation_results["sklearn_accuracy"].append(accuracy)
+        self.mitigation_results["Accuracy"].append(accuracy)
+        
         
     def display_summary(self):
         print("")
@@ -246,24 +205,18 @@ class BiasMitigation():
         
         for metric in self.metrics:
             for name, values in self.summary_table [[metric]].iteritems():
-                if name == "accuracy":
+                if name == "Accuracy":
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
-                    self.table_colours[name] = self.get_colours(values, 1) 
                 elif name == "disparate_impact":
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
-                    self.table_colours[name] = self.get_colours(values, 1)
                 elif name == "statistical_parity_difference":
                     fairest_value, fairest_line = self.get_fairest_value(values, 0)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
-                    self.table_colours[name] = self.get_colours(values, 0)
-        
-        # print_message("XXX: " + str(self.fairest_combinations))
-        # print("XXX: " + str(self.fairest_combinations))
         
         if get_ipython() == None:
             print("Original Data size: " + str(len(self.dataset_original.instance_names))) 
@@ -273,9 +226,8 @@ class BiasMitigation():
             print("Dropped attributes: " + ", ".join(self.dropped_attributes))
             print("Training data size (ratio): " + str(self.training_size)) 
             print("Test data size (ratio): " + str(self.test_size))
-            print("Validation data size (ratio): " + str(self.validation_size)) 
             print("")
-            display(self.summary_table.to_string())
+            print(self.summary_table )
     
         else:
             display(Markdown("Original Data size: " + str(len(self.dataset_original.instance_names)) + "</br>" + 
@@ -284,39 +236,15 @@ class BiasMitigation():
                 "Favourable classes: " + str(self.favorable_class) + "</br>" + 
                 "Dropped attributes: " + ", ".join(self.dropped_attributes) + " </br>"
                 "Training data size (ratio): " + str(self.training_size) + "</br>" + 
-                "Test data size (ratio): " + str(self.test_size) + "</br>" + 
-                "Validation data size (ratio): " + str(self.validation_size)))
+                "Test data size (ratio): " + str(self.test_size)))
         
-        for session in self.tf_sessions:
-            session.close()
-        self.tf_sessions.clear()
         
         return self.summary_table  
     
-    def get_colours(self, values, ideal_value):
-        max_num = abs(values.get(key=1) - ideal_value)
-        min_num = abs(values.get(key=1) - ideal_value) 
-        for i in range(1, values.size + 1):
-            val = abs(values.get(key=i) - ideal_value)
-            if val < min_num:
-                min_num = val
-            if val > max_num:
-                max_num = val
-        colours = []
-        for i in range(1, values.size + 1):
-            val = abs(values.get(key=i) - ideal_value)
-            result = 0
-            if (max_num - min_num) != 0:
-                print(val, min_num, max_num)
-                result = int((val - min_num) / (max_num - min_num) * 240.0)
-            colours.append(result) 
-        return colours
-    
     def get_fairest_value(self, values, ideal_value):
-        fairest_value = -1
+        fairest_value = None
         fairest_combination = 1
-        x1 = values.get(key=fairest_combination) - ideal_value
-        # x1 = 0 - ideal_value;
+        x1 = values.get(key = fairest_combination) - ideal_value
         min_abs_val = abs(x1)
         min_val_sign = ""
         if x1 < 0:
@@ -325,7 +253,7 @@ class BiasMitigation():
             min_val_sign = "+"
         
         if len(values) > 1:
-            i = 0
+            i = 1
             for value in values:
                 i = i + 1
                 x1 = value - ideal_value 
@@ -335,28 +263,24 @@ class BiasMitigation():
                     min_abs_val = temp
                     if x1 < 0:
                         min_val_sign = "-"
-                    elif x1 >= 0: 
+                    elif x1 >= 0:    
                         min_val_sign = "+"
         
         if min_val_sign == "-":
-            fairest_value = (-1 * min_abs_val) + ideal_value
+            fairest_value =(-1 * min_abs_val) + ideal_value
         else:
             fairest_value = (1 * min_abs_val) + ideal_value
         
         return fairest_value, fairest_combination    
+
        
     def highlight_fairest_values(self, row):
         cell_formats = [''] * len(row)
         for metric in self.fairest_combinations:
-                bold = ''
-                if row.name == self.fairest_combinations[metric]:
-                    bold = 'font-weight: bold;'
+            if row.name == self.fairest_combinations[metric]:
                 index = self.summary_table.columns.get_loc(metric)
-                num = self.table_colours[metric][int(row.name) - 1]
-                c = "{0:0{1}x}".format(num, 2)
-                cell_formats[index] = bold + 'background-color: #' + c + 'f0' + c + ';'
-                # print(num)
-                # print(cell_formats[index])
+                cell_formats[index] = 'font-weight: bold; background-color: #e6ffe6;'
         
         return cell_formats 
+  
 
