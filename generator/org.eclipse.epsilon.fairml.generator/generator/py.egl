@@ -65,11 +65,11 @@ import numpy as np
 import pandas as pd
 from sklearn import tree
 from sklearn.preprocessing import MaxAbsScaler
-from sklearn.tree import DecisionTreeClassifier
-# from sklearn.linear_model import LogisticRegression
-# from sklearn.svm import LinearSVC
-# from sklearn.neighbors import KNeighborsClassifier
-# from sklearn.naive_bayes import GaussianNB
+from sklearn.tree import *
+from sklearn.linear_model import *
+from sklearn.svm import *
+from sklearn.neighbors import *
+from sklearn.naive_bayes import *
 from sklearn import metrics
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
