@@ -1,29 +1,39 @@
 import 'fairml.eol';
 
 pre {
-	var genPath = ".";	
+    var genPath = ".";      
+    var preprocessings = Sequence{"DisparateImpactRemover", "LFR", "OptimPreproc", 
+        "Reweighing"};
+    var inprocessings = Sequence{"AdversarialDebiasing", "ARTClassifier", "PrejudiceRemover",
+    "MetaFairClassifier", "GerryFairClassifier", "ExponentiatedGradientReduction",
+    "GridSearchReduction"};
+    var postprocessings = Sequence{"CalibratedEqOddsPostprocessing", "EqOddsPostprocessing",
+        "RejectOptionClassification"};  
 }
 
 /***
  * Generate Java File (*.java) that converts *.py file to *.ipynb file. 
 ***/
 rule IpynbGenFile transform fairml: FairML {
-	parameters : Map {     
-    	"fairml" = fairml
+    parameters : Map {     
+        "fairml" = fairml       
     }
-  	template: "ipynb.egl"
-  	target: genPath + "/" + fairml.name.replace(" ", "") + "IpynbGen.java"
+    template: "ipynb.egl"
+    target: genPath + "/" + fairml.name.replace(" ", "") + "IpynbGen.java"
 }
 
 /***
  * Generate Python File (*.py)
 ***/
 rule PythonFile transform fairml : FairML {
-	parameters : Map {     
-    	"fairml" = fairml
+    parameters : Map {     
+        "fairml" = fairml,
+        "preprocessings" = preprocessings,
+        "inprocessings" = inprocessings,        
+        "postprocessings" = postprocessings
     }
-  	template: "py.egl"
-  	target: genPath + "/" + fairml.name.replace(" ", "_").toLowerCase() + ".py"
+    template: "py.egl"
+    target: genPath + "/" + fairml.name.replace(" ", "_").toLowerCase() + ".py"
 }
 
 /***

@@ -265,12 +265,13 @@ public class FairML implements Callable<Integer> {
 		List<Object> fairml = new ArrayList<>();
 		System.out.println("==== FairML ====");
 		String projectName = "Demo";
-		fairml.add(Map.of("name", getUserInput("FairML project's name (default: " + //
-				projectName + "):", projectName)));
+		String temp = getUserInput("FairML project's name (default: " + //
+				projectName + "):", projectName);
+		fairml.add(Map.of("name", temp));
 
 		String projectDescription = "Predict income <=50K: 0, >50K: 1";
-		fairml.add(Map.of("description", getUserInput(
-				"FairML project's description (default: " + projectDescription + "):", projectDescription)));
+		temp = getUserInput("FairML project's description (default: " + projectDescription + "):", projectDescription);
+		fairml.add(Map.of("description", temp));
 		root.put("fairml", fairml);
 //
 		/** dataset **/
@@ -279,31 +280,32 @@ public class FairML implements Callable<Integer> {
 		List<Object> dataset = new ArrayList<>();
 
 		String datasetPath = "data/adult.data.numeric.csv";
-		dataset.add(Map.of("datasetPath",
-				getUserInput("Path to your dataset (default: " + datasetPath + "):", datasetPath, File.class)));
+		temp = getUserInput("Path to your dataset (default: " + datasetPath + "):", datasetPath, File.class);
+		dataset.add(Map.of("datasetPath", temp));
 
 		String datasetName = "Adult Dataset";
-		dataset.add(
-				Map.of("name", getUserInput("The name of the dataset: (default: " + datasetName + "):", datasetName)));
+		temp = getUserInput("The name of the dataset: (default: " + datasetName + "):", datasetName);
+		dataset.add(Map.of("name", temp));
 
 		String predictedAttribute = "income-per-year";
-		dataset.add(Map.of("predictedAttribute",
-				getUserInput("Predicted attribute (default: " + predictedAttribute + "):", predictedAttribute)));
+		temp = getUserInput("Predicted attribute (default: " + predictedAttribute + "):", predictedAttribute);
+		dataset.add(Map.of("predictedAttribute", temp));
 
 		String protectedAttributes = "sex, race";
-		dataset.add(Map.of("protectedAttributes", getUserInput(
-				"Protected attributes (default: " + protectedAttributes + "):", protectedAttributes, String[].class)));
+		temp = getUserInput("Protected attributes (default: " + protectedAttributes + "):", protectedAttributes,
+				String[].class);
+		dataset.add(Map.of("protectedAttributes", temp));
 
 		String categoricalFeatures = "workclass, education, marital-status, "
 				+ "occupation, relationship, native-country";
-		dataset.add(Map.of("categoricalFeatures",
-				getUserInput("Categorical features (default: " + categoricalFeatures + ")\n:", categoricalFeatures,
-						String[].class)));
+		temp = getUserInput("Categorical features (default: " + categoricalFeatures + ")\n:", categoricalFeatures,
+				String[].class);
+		dataset.add(Map.of("categoricalFeatures", temp));
 
 		String trainTestValidationSplit = "7, 2, 3";
-		dataset.add(
-				Map.of("trainTestSplit", getUserInput("Train test validation split (default: " + trainTestValidationSplit + "):",
-						trainTestValidationSplit, Double[].class)));
+		temp = getUserInput("Train test validation split (default: " + trainTestValidationSplit + "):",
+				trainTestValidationSplit, Double[].class);
+		dataset.add(Map.of("trainTestSplit", temp));
 		fairml.add(Map.of("dataset", dataset));
 
 		/** bias mitigation **/
@@ -311,11 +313,14 @@ public class FairML implements Callable<Integer> {
 		System.out.println("==== Bias Mitigation ====");
 		List<Object> biasMitigation = new ArrayList<>();
 		String name = "Bias Mitigation 01";
-		biasMitigation.add(Map.of("name", getUserInput("Bias mitigation's name (default " + //
-				name + "):", name)));
+		temp = getUserInput("Bias mitigation's name (default " + //
+				name + "):", name);
+		biasMitigation.add(Map.of("name", temp));
+
 		String description = "Bias Mitigation 01 Description";
-		biasMitigation.add(Map.of("description", getUserInput("Bias mitigation's description (default " + //
-				description + "):", description)));
+		temp = getUserInput("Bias mitigation's description (default " + //
+				description + "):", description);
+		biasMitigation.add(Map.of("description", temp));
 		biasMitigation.add(Map.of("dataset", datasetName));
 		fairml.add(Map.of("biasMitigation", biasMitigation));
 
@@ -326,10 +331,10 @@ public class FairML implements Callable<Integer> {
 		System.out.println("1. DecisionTreeClassifier");
 		System.out.println("2. LogisticRegression");
 		System.out.println("3. LinearSVC");
-		String optNum = "1";
-		optNum = getUserInput("Classifier (default 1. DecisionTreeClassifier):", optNum, "Classifier");
-		trainingMethod.add(Map.of("algorithm", optNum));
-		if (optNum.equals("DecisionTreeClassifier")) {
+		temp = "1";
+		temp = getUserInput("Classifier (default 1. DecisionTreeClassifier):", temp, "Classifier");
+		trainingMethod.add(Map.of("algorithm", temp));
+		if (temp.equals("DecisionTreeClassifier")) {
 			trainingMethod.add(Map.of("parameters", "criterion='gini', max_depth=4"));
 		}
 		biasMitigation.add(Map.of("trainingMethod", trainingMethod));
@@ -343,42 +348,60 @@ public class FairML implements Callable<Integer> {
 		System.out.println("");
 		System.out.println("# 1. Pre-processing");
 		String prepreprocessingMitigation = "true";
-		Object result = getUserInput("Apply bias mitigation in preprocessing" + //
-				" (default: true):", prepreprocessingMitigation, Boolean.class);
-		biasMitigation.add(Map.of("prepreprocessingMitigation", result));
-		if ((Boolean.parseBoolean(result.toString()))) {
+		if (!prepreprocessingMitigation.equals(temp)) {
+			temp = getUserInput("Apply bias mitigation in preprocessing" + //
+					" (default: true):", prepreprocessingMitigation, Boolean.class);
+		}
+		biasMitigation.add(Map.of("prepreprocessingMitigation", temp));
+		if ((Boolean.parseBoolean(temp.toString()))) {
 			String modifiableWeight = "true";
-			biasMitigation.add(Map.of("modifiableWeight", getUserInput("The weights of the dataset are modifiable" + //
-					" (default: true):", modifiableWeight, Boolean.class)));
+			temp = getUserInput("The weights of the dataset are modifiable" + //
+					" (default: true):", modifiableWeight, Boolean.class);
+			if (!modifiableWeight.equals(temp)) {
+				biasMitigation.add(Map.of("modifiableWeight", temp));
+			}
 			String allowLatentSpace = "false";
-			biasMitigation.add(Map.of("allowLatentSpace", getUserInput("The bias mitigation allows latent space" + //
-					" (default: false):", allowLatentSpace, Boolean.class)));
+			temp = getUserInput("The bias mitigation allows latent space" + //
+					" (default: false):", allowLatentSpace, Boolean.class);
+			if (!allowLatentSpace.equals(temp)) {
+				biasMitigation.add(Map.of("allowLatentSpace", temp));
+			}
 		}
 
 		// inprocessing
 		System.out.println("");
 		System.out.println("# 2. In-processing");
 		String inpreprocessingMitigation = "false";
-		result = getUserInput("Apply bias mitigation in in-processing" + //
+		temp = getUserInput("Apply bias mitigation in in-processing" + //
 				" (default: false):", inpreprocessingMitigation, Boolean.class);
-		biasMitigation.add(Map.of("inpreprocessingMitigation", result));
-		if ((Boolean.parseBoolean(result.toString()))) {
+		if (!inpreprocessingMitigation.equals(temp)) {
+			biasMitigation.add(Map.of("inpreprocessingMitigation", temp));
+		}
+		if ((Boolean.parseBoolean(temp.toString()))) {
 			String allowRegularisation = "false";
-			biasMitigation.add(Map.of("allowRegularisation", getUserInput("Regularisation is allowed" + //
-					" (default: false):", allowRegularisation, Boolean.class)));
+			temp = getUserInput("Regularisation is allowed" + //
+					" (default: false):", allowRegularisation, Boolean.class);
+			if (!allowRegularisation.equals(temp)) {
+				biasMitigation.add(Map.of("allowRegularisation", temp));
+			}
 		}
 
 		// postprocessing
 		System.out.println("");
 		System.out.println("# 3. Post-processing");
 		String postpreprocessingMitigation = "false";
-		result = getUserInput("Apply bias mitigation in post-processing" + //
+		temp = getUserInput("Apply bias mitigation in post-processing" + //
 				" (default: false):", postpreprocessingMitigation, Boolean.class);
-		biasMitigation.add(Map.of("postpreprocessingMitigation", result));
-		if ((Boolean.parseBoolean(result.toString()))) {
+		if (!postpreprocessingMitigation.equals(temp)) {
+			biasMitigation.add(Map.of("postpreprocessingMitigation", temp));
+		}
+		if ((Boolean.parseBoolean(temp.toString()))) {
 			String allowRandomisation = "false";
-			biasMitigation.add(Map.of("allowRandomisation", getUserInput("Randomisation is allowed" + //
-					" (default: false):", allowRandomisation, Boolean.class)));
+			temp = getUserInput("Randomisation is allowed" + //
+					" (default: false):", allowRandomisation, Boolean.class);
+			if (!allowRandomisation.equals(temp)) {
+				biasMitigation.add(Map.of("allowRandomisation", temp));
+			}
 		}
 
 //		mitigationMethod.add(Map.of("algorithm", getUserInput("Mitigation Algorithm (Reweighing):")));
@@ -390,44 +413,68 @@ public class FairML implements Callable<Integer> {
 //		List<Object> biasMetric = new ArrayList<>();
 
 		String groupFairness = "true";
-		groupFairness = getUserInput("Measure group fairness" + //
+		temp = getUserInput("Measure group fairness" + //
 				" (default: " + groupFairness + "):", groupFairness, Boolean.class);
-		biasMitigation.add(Map.of("groupFairness", groupFairness));
+		if (!groupFairness.equals(temp)) {
+			biasMitigation.add(Map.of("groupFairness", temp));
+		}
 
 		String individualFairness = "false";
-		biasMitigation.add(Map.of("individualFairness", getUserInput("Measure individual fairness" + //
-				" (default: " + individualFairness + "):", individualFairness, Boolean.class)));
+		temp = getUserInput("Measure individual fairness" + //
+				" (default: " + individualFairness + "):", individualFairness, Boolean.class);
+		if (!individualFairness.equals(temp)) {
+			biasMitigation.add(Map.of("individualFairness", temp));
+		}
 
 		String groupIndividualSingleMetric = "false";
-		biasMitigation.add(Map.of("groupIndividualSingleMetric",
-				getUserInput("Use single metrics for both individuals and groups" + //
-						" (default: " + groupIndividualSingleMetric + "):", groupIndividualSingleMetric,
-						Boolean.class)));
+		temp = getUserInput("Use single metrics for both individuals and groups" + //
+				" (default: " + groupIndividualSingleMetric + "):", groupIndividualSingleMetric, Boolean.class);
+		if (!groupIndividualSingleMetric.equals(temp)) {
+			biasMitigation.add(Map.of("groupIndividualSingleMetric", temp));
+		}
 
 		if (groupFairness.equals("true")) {
 			String equalFairness = "false";
-			biasMitigation.add(Map.of("equalFairness", getUserInput("Measure equal fairness" + //
-					" (default: " + equalFairness + "):", equalFairness, Boolean.class)));
+			temp = getUserInput("Measure equal fairness" + //
+					" (default: " + equalFairness + "):", equalFairness, Boolean.class);
+			if (!equalFairness.equals(temp)) {
+				biasMitigation.add(Map.of("equalFairness", temp));
+			}
 
 			String proportionalFairness = "false";
-			biasMitigation.add(Map.of("proportionalFairness", getUserInput("Measure proportional fairness" + //
-					" (default: " + proportionalFairness + "):", proportionalFairness, Boolean.class)));
+			temp = getUserInput("Measure proportional fairness" + //
+					" (default: " + proportionalFairness + "):", proportionalFairness, Boolean.class);
+			if (!proportionalFairness.equals(temp)) {
+				biasMitigation.add(Map.of("proportionalFairness", temp));
+			}
 
 			String checkFalsePositive = "false";
-			biasMitigation.add(Map.of("checkFalsePositive", getUserInput("Measure false positives" + //
-					" (default: " + checkFalsePositive + "):", checkFalsePositive, Boolean.class)));
+			temp = getUserInput("Measure false positives" + //
+					" (default: " + checkFalsePositive + "):", checkFalsePositive, Boolean.class);
+			if (!checkFalsePositive.equals(temp)) {
+				biasMitigation.add(Map.of("checkFalsePositive", temp));
+			}
 
 			String checkFalseNegative = "false";
-			biasMitigation.add(Map.of("checkFalseNegative", getUserInput("Measure false negatives" + //
-					" (default: " + checkFalseNegative + "):", checkFalseNegative, Boolean.class)));
+			temp = getUserInput("Measure false negatives" + //
+					" (default: " + checkFalseNegative + "):", checkFalseNegative, Boolean.class);
+			if (!checkFalseNegative.equals(temp)) {
+				biasMitigation.add(Map.of("checkFalseNegative", temp));
+			}
 
 			String checkErrorRate = "false";
-			biasMitigation.add(Map.of("checkErrorRate", getUserInput("Measure error rates" + //
-					" (default: " + checkErrorRate + "):", checkErrorRate, Boolean.class)));
+			temp = getUserInput("Measure error rates" + //
+					" (default: " + checkErrorRate + "):", checkErrorRate, Boolean.class);
+			if (!checkErrorRate.equals(temp)) {
+				biasMitigation.add(Map.of("checkErrorRate", temp));
+			}
 
 			String checkEqualBenefit = "false";
-			biasMitigation.add(Map.of("checkEqualBenefit", getUserInput("Measure equal benefit" + //
-					" (default: " + checkEqualBenefit + "):", checkEqualBenefit, Boolean.class)));
+			temp = getUserInput("Measure equal benefit" + //
+					" (default: " + checkEqualBenefit + "):", checkEqualBenefit, Boolean.class);
+			if (!checkEqualBenefit.equals(temp)) {
+				biasMitigation.add(Map.of("checkEqualBenefit", temp));
+			}
 		}
 
 		DumperOptions options = new DumperOptions();

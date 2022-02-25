@@ -5,26 +5,10 @@ operation FairML getAllPreprocessings(): Sequence {
         .addAll(self.getPostprocessings());
 }
 
-operation FairML getPreprocessings(): Sequence {
-    return Sequence{"DisparateImpactRemover", "LFR", "OptimPreproc", 
-        "Reweighing"};
-}
-
-operation FairML getInprocessings(): Sequence {
-    return Sequence{"AdversarialDebiasing", "ARTClassifier", "PrejudiceRemover",
-    "MetaFairClassifier", "GerryFairClassifier", "ExponentiatedGradientReduction",
-    "GridSearchReduction"};
-}
-
-operation FairML getPostprocessings(): Sequence {
-    return Sequence{"CalibratedEqOddsPostprocessing", "EqOddsPostprocessing",
-        "RejectOptionClassification"};
-}
-
 operation Collection listToLine(): String {
-	return self
-		.collect(item | "'" + item + "'")
-		.concat(", ");
+    return self
+        .collect(item | "'" + item + "'")
+        .concat(", ");
 }
 
 operation Collection listToLineWithBrackets(): String {
@@ -40,14 +24,14 @@ operation Collection listToLineWithoutQuotesWithBrackets(): String {
 }
 
 operation Collection listToLineWithoutQuote(): String {
-	return self
-		.collect(item | item )
-		.concat(", ");
+    return self
+        .collect(item | item )
+        .concat(", ");
 }
 
 operation FairML inc(value: Integer): Integer {
-	value := value + 1;
-	return value;		
+    value := value + 1;
+    return value;       
 }
 
 //operation FairML p2j(): String {
@@ -82,137 +66,144 @@ operation FairML initialise(): void {
     for (biasMitigation in self.biasMitigations) {
     /* Setting up flags to automatically select bias metrics and mitigation algorithms. */
     // automatically select metrics
-	    if (biasMitigation.groupFairness) {
-	        if (biasMitigation.equalFairness){
-	           var metric = new BiasMetric;
-	           metric.name = "disparate_impact";
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           }
-	           
-	           metric = new BiasMetric;
-	           metric.name = "statistical_parity_difference";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           }
-	        }    
-	        if (biasMitigation.proportionalFairness){
-	           var metric = new BiasMetric;
-	           metric.name = "average_odds_difference";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           } 	           
-	        }    
-	        if (biasMitigation.checkFalsePositive){
-	           var metric = new BiasMetric;
-	           metric.name = "false_positive_rate_ratio";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           } 
-	           
-	           metric = new BiasMetric;
-	           metric.name = "false_discovery_rate_ratio";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           }
-	        }
-	        if (biasMitigation.checkFalseNegative){
-	           var metric = new BiasMetric;
-	           metric.name = "false_negative_rate_ratio";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           } 
-	           
-	           metric = new BiasMetric;
-	           metric.name = "false_omission_rate_ratio";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           }
-	        }
-	        if (biasMitigation.checkErrorRate){
-	           var metric = new BiasMetric;
-	           metric.name = "error_rate";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           } 
-	        }
-	        if (biasMitigation.checkEqualBenefit){
-	           var metric = new BiasMetric;
-	           metric.name = "equal_opportunity_difference";   
-	           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	               biasMitigation.biasMetrics.add(metric); 
-	           } 
-	        }
-	    } 
-	    if (biasMitigation.individualFairness) {
-	       var metric = new BiasMetric;
-	       metric.className = "SampleDistortionMetric";
-	       metric.name = "euclidean_distance";   
-	       if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	            biasMitigation.biasMetrics.add(metric); 
-	       }  
-	    
-	       metric = new BiasMetric;
-	       metric.className = "SampleDistortionMetric";
-	       metric.name = "manhattan_distance";   
-	       if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	            biasMitigation.biasMetrics.add(metric); 
-	       }
-	       
-	       metric = new BiasMetric;
-	       metric.className = "SampleDistortionMetric";
-	       metric.name = "mahalanobis_distance";   
-	       if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	            biasMitigation.biasMetrics.add(metric); 
-	       }
-	    } 
-	    if (biasMitigation.groupIndividualSingleMetric){
-	       var metric = new BiasMetric;
-	       metric.name = "generalized_entropy_index";   
-	       if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	            biasMitigation.biasMetrics.add(metric); 
-	       }  
-	    
-	       metric = new BiasMetric;
-	       metric.name = "theil_index";   
-	       if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
-	            biasMitigation.biasMetrics.add(metric); 
-	       }
-	    }    
-	    
-	    // automatically select bias mitigation algorithms
-	    if (biasMitigation.prepreprocessingMitigation){
-	        
-//	        var method = new MitigationMethod;
-//	        method.algorithm = "OptimPreproc";   
-//	        biasMitigation.mitigationMethods.add(method);
-//	        if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
-//	            biasMitigation.mitigationMethods.add(method); 
-//	        }
-	           
-	        var method = new MitigationMethod;
-	        method.algorithm = "DisparateImpactRemover";   
-	        if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
-	            biasMitigation.mitigationMethods.add(method); 
-	        }
-	
-	        if (biasMitigation.modifiableWeight){
-	           var method = new MitigationMethod;
-	           method.algorithm = "Reweighing";   
-	           if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
-	            biasMitigation.mitigationMethods.add(method); 
-	           }
-	        }
-	        if (biasMitigation.allowLatentSpace){
-	           var method = new MitigationMethod;
+    
+        var metric = new BiasMetric;
+        metric.name = "accuracy";
+        if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+            biasMitigation.biasMetrics.add(metric); 
+        }
+    
+        if (biasMitigation.groupFairness) {
+            if (biasMitigation.equalFairness){
+               var metric = new BiasMetric;
+               metric.name = "disparate_impact";
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               }
+               
+               metric = new BiasMetric;
+               metric.name = "statistical_parity_difference";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               }
+            }    
+            if (biasMitigation.proportionalFairness){
+               var metric = new BiasMetric;
+               metric.name = "average_odds_difference";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               }               
+            }    
+            if (biasMitigation.checkFalsePositive){
+               var metric = new BiasMetric;
+               metric.name = "false_positive_rate_ratio";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               } 
+               
+               metric = new BiasMetric;
+               metric.name = "false_discovery_rate_ratio";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               }
+            }
+            if (biasMitigation.checkFalseNegative){
+               var metric = new BiasMetric;
+               metric.name = "false_negative_rate_ratio";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               } 
+               
+               metric = new BiasMetric;
+               metric.name = "false_omission_rate_ratio";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               }
+            }
+            if (biasMitigation.checkErrorRate){
+               var metric = new BiasMetric;
+               metric.name = "error_rate";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               } 
+            }
+            if (biasMitigation.checkEqualBenefit){
+               var metric = new BiasMetric;
+               metric.name = "equal_opportunity_difference";   
+               if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                   biasMitigation.biasMetrics.add(metric); 
+               } 
+            }
+        } 
+        if (biasMitigation.individualFairness) {
+           var metric = new BiasMetric;
+           metric.className = "SampleDistortionMetric";
+           metric.name = "euclidean_distance";   
+           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                biasMitigation.biasMetrics.add(metric); 
+           }  
+        
+           metric = new BiasMetric;
+           metric.className = "SampleDistortionMetric";
+           metric.name = "manhattan_distance";   
+           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                biasMitigation.biasMetrics.add(metric); 
+           }
+           
+           metric = new BiasMetric;
+           metric.className = "SampleDistortionMetric";
+           metric.name = "mahalanobis_distance";   
+           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                biasMitigation.biasMetrics.add(metric); 
+           }
+        } 
+        if (biasMitigation.groupIndividualSingleMetric){
+           var metric = new BiasMetric;
+           metric.name = "generalized_entropy_index";   
+           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                biasMitigation.biasMetrics.add(metric); 
+           }  
+        
+           metric = new BiasMetric;
+           metric.name = "theil_index";   
+           if (not biasMitigation.biasMetrics.exists(m | m.name == metric.name)){   
+                biasMitigation.biasMetrics.add(metric); 
+           }
+        }    
+        
+        // automatically select bias mitigation algorithms
+        if (biasMitigation.prepreprocessingMitigation){
+            
+//          var method = new MitigationMethod;
+//          method.algorithm = "OptimPreproc";   
+//          biasMitigation.mitigationMethods.add(method);
+//          if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
+//              biasMitigation.mitigationMethods.add(method); 
+//          }
+               
+            var method = new MitigationMethod;
+            method.algorithm = "DisparateImpactRemover";   
+            if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
+                biasMitigation.mitigationMethods.add(method); 
+            }
+    
+            if (biasMitigation.modifiableWeight){
+               var method = new MitigationMethod;
+               method.algorithm = "Reweighing";   
+               if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
+                biasMitigation.mitigationMethods.add(method); 
+               }
+            }
+            if (biasMitigation.allowLatentSpace){
+               var method = new MitigationMethod;
                method.algorithm = "LFR";   
                if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
                 biasMitigation.mitigationMethods.add(method); 
                }
-	        }   
-	    }
-	    
-	    if (biasMitigation.inpreprocessingMitigation){
+            }   
+        }
+        
+        if (biasMitigation.inpreprocessingMitigation){
            var method = new MitigationMethod;
            method.algorithm = "MetaFairClassifier";   
            if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
@@ -224,30 +215,30 @@ operation FairML initialise(): void {
            if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
             biasMitigation.mitigationMethods.add(method); 
            }   
-	
-	        if (biasMitigation.allowRegularisation){
-		       var method = new MitigationMethod;
-	           method.algorithm = "PrejudiceRemover";   
-	           if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
-	            biasMitigation.mitigationMethods.add(method); 
-	           }
-	        }           
-	    }
-	    
-	    if (biasMitigation.postpreprocessingMitigation){
-	       var method = new MitigationMethod;
+    
+            if (biasMitigation.allowRegularisation){
+               var method = new MitigationMethod;
+               method.algorithm = "PrejudiceRemover";   
+               if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
+                biasMitigation.mitigationMethods.add(method); 
+               }
+            }           
+        }
+        
+        if (biasMitigation.postpreprocessingMitigation){
+           var method = new MitigationMethod;
            method.algorithm = "RejectOptionClassification";   
            if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
             biasMitigation.mitigationMethods.add(method); 
            }
-	       
-	       if (biasMitigation.allowRandomisation){
-	           var method = new MitigationMethod;
-	           method.algorithm = "EqOddsPostprocessing";   
-	           if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
-	            biasMitigation.mitigationMethods.add(method); 
-	           }
-	           var method = new MitigationMethod;
+           
+           if (biasMitigation.allowRandomisation){
+               var method = new MitigationMethod;
+               method.algorithm = "EqOddsPostprocessing";   
+               if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
+                biasMitigation.mitigationMethods.add(method); 
+               }
+               var method = new MitigationMethod;
                method.algorithm = "CalibratedEqOddsPostprocessing";   
                if (not biasMitigation.mitigationMethods.exists(m | m.algorithm == method.algorithm)){   
                 biasMitigation.mitigationMethods.add(method); 
