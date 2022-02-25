@@ -1,33 +1,73 @@
 ?nsuri: fairml
 fairml:
-- name: Demo
-- description: 'Predict income <=50K: 0, >50K: 1'
+- name: Automated Selection
+- description: |-
+    Automatically select metrics to 
+    predict whether income exceeds $50K/yr based on census data.
+    Also known as \"Census Income\" dataset.
+    Favourable classes: 
+    <=50K: 0, >50K: 1
+    Protected attributes:
+    female: 0, male: 1
+    other: 0, white: 1
+
+# set the dataset
 - dataset:
-  - datasetPath: data/adult.data.numeric.csv
-  - name: Adult Dataset
+  - name: Adult Census Income
+  - datasetPath: data/adult.data.small.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
-  - categoricalFeatures: workclass, education, marital-status, occupation, relationship,
-      native-country
-  - trainTestSplit: 7, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
+  - categoricalFeatures: workclass, education, marital-status, 
+      occupation, relationship, native-country
+
+# define the bias mitigation
 - biasMitigation:
-  - name: Bias Mitigation 01
-  - description: Bias Mitigation 01 Description
-  - dataset: Adult Dataset
+  - name: Mitigate Bias  
+  - dataset: Adult Census Income
+  
+    equalFairness: true
+    proportionalFairness: true
+  
+#  - mitigationMethod:
+#    - algorithm: DisparateImpactRemover
+#    - parameters: repair_level=1.0
+#  - mitigationMethod:
+#    - algorithm: LFR
+  - mitigationMethod:
+    - algorithm: Reweighing
+
+#  - mitigationMethod:
+#    - algorithm: PrejudiceRemover 
+#  - mitigationMethod:
+#    - algorithm: MetaFairClassifier
+#  - mitigationMethod:
+#    - algorithm: GerryFairClassifier
+#  - mitigationMethod:
+#    - algorithm: AdversarialDebiasing
+
+#  - mitigationMethod:
+#    - algorithm: ExponentiatedGradientReduction
+#  - mitigationMethod:
+#    - algorithm: GridSearchReduction
+#  - mitigationMethod:
+#    - algorithm: ARTClassifier    
+  
+#  - mitigationMethod:
+#    - algorithm: RejectOptionClassification
+#  - mitigationMethod:
+#    - algorithm: EqOddsPostprocessing
+#    - parameters: seed=1234567
+#  - mitigationMethod:
+#    - algorithm: CalibratedEqOddsPostprocessing
+#    - parameters: cost_constraint='fnr', seed=1234567
+
+#  - mitigationMethod:
+#    - algorithm: OptimPreproc
+  
   - trainingMethod:
     - algorithm: DecisionTreeClassifier
     - parameters: criterion='gini', max_depth=4
-  - prepreprocessingMitigation: 'true'
-  - modifiableWeight: 'true'
-  - allowLatentSpace: 'false'
-  - inpreprocessingMitigation: 'false'
-  - postpreprocessingMitigation: 'false'
-  - groupFairness: 'true'
-  - individualFairness: 'false'
-  - groupIndividualSingleMetric: 'false'
-  - equalFairness: 'false'
-  - proportionalFairness: 'false'
-  - checkFalsePositive: 'false'
-  - checkFalseNegative: 'false'
-  - checkErrorRate: 'false'
-  - checkEqualBenefit: 'false'
+  
+  - biasMetric: 
+    - name: error_rate
