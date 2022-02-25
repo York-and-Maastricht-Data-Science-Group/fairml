@@ -36,7 +36,7 @@ FairML is a tool that implements a model-based approach to model and automate bi
 4. **Python dependencies**. Install all the following Python dependencies.
    
    ```
-   pip install jupyter scipy numpy sklearn pandas tensorflow matplotlib aif360 shap fairlearn p2j adversarial-robustness-toolbox
+   pip install numba jupyter scipy numpy sklearn pandas tensorflow matplotlib aif360 shap fairlearn p2j adversarial-robustness-toolbox
    ```
 
 5. **Install Maven**. Follow there instruction here https://maven.apache.org/install.html.
@@ -105,7 +105,7 @@ sudo apt install python3 python3-pip maven
 3. **Python dependencies**. Install all the following dependencies. If it doesn't work, replace the 'pip3' with 'pip'. Ubuntu uses pip3 for Python 3 and pip for Python 2, but it depends on the settings of your local machine.
 
 ```
-pip3 install jupyter scipy numpy sklearn pandas tensorflow matplotlib aif360 shap fairlearn p2j adversarial-robustness-toolbox
+sudo pip3 install numba jupyter scipy numpy sklearn pandas tensorflow matplotlib aif360 shap fairlearn p2j adversarial-robustness-toolbox
 ```
 
 4. **Download the FairML project**. Download from Github.
