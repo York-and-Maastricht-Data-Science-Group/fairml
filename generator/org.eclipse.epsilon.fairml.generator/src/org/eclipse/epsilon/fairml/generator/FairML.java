@@ -72,6 +72,9 @@ public class FairML implements Callable<Integer> {
 
 	@Option(names = { "-w", "--wizard" }, description = "Run the wizard to create a flexmi file.")
 	private boolean isWizard = false;
+	
+	@Option(names = { "-j", "--jupyter" }, description = "Run Jupyter Notebook.")
+	private boolean runJupyter = false;
 
 	private Scanner scanner;
 
@@ -92,6 +95,23 @@ public class FairML implements Callable<Integer> {
 				scanner = new Scanner(System.in);
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
+			} else if (runJupyter) {
+				String command = "jupyter notebook " + flexmiFile.getAbsolutePath() +  " --port=8888 --no-browser --allow-root --config=jupyter_notebook_config.py";
+				System.out.println(command);
+				Runtime.getRuntime().exec(command);
+				
+				command = "jupyter notebook list";
+				System.out.println(command);
+				Process p = Runtime.getRuntime().exec(command);
+				
+				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					System.out.println(line);
+				}
+				reader.close();
+				
+				return 0;
 			}
 
 			// Load FairML Package
