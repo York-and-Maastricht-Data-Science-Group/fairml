@@ -14,7 +14,7 @@ fairml:
 # set the dataset
 - dataset:
   - name: Adult Census Income
-  - datasetPath: data/adult.data.small.csv
+  - datasetPath: data/adult.data.numeric.csv
   - predictedAttribute: income-per-year
   - protectedAttributes: sex, race
   - trainTestValidationSplit: 5, 2, 3
@@ -29,9 +29,9 @@ fairml:
     equalFairness: true
     proportionalFairness: true
   
-#  - mitigationMethod:
-#    - algorithm: DisparateImpactRemover
-#    - parameters: repair_level=1.0
+  - mitigationMethod:
+    - algorithm: DisparateImpactRemover
+    - parameters: repair_level=1.0
 #  - mitigationMethod:
 #    - algorithm: LFR
   - mitigationMethod:
@@ -39,8 +39,8 @@ fairml:
 
 #  - mitigationMethod:
 #    - algorithm: PrejudiceRemover 
-#  - mitigationMethod:
-#    - algorithm: MetaFairClassifier
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
 #  - mitigationMethod:
 #    - algorithm: GerryFairClassifier
 #  - mitigationMethod:
@@ -55,9 +55,9 @@ fairml:
   
 #  - mitigationMethod:
 #    - algorithm: RejectOptionClassification
-#  - mitigationMethod:
-#    - algorithm: EqOddsPostprocessing
-#    - parameters: seed=1234567
+  - mitigationMethod:
+    - algorithm: EqOddsPostprocessing
+    - parameters: seed=1234567
 #  - mitigationMethod:
 #    - algorithm: CalibratedEqOddsPostprocessing
 #    - parameters: cost_constraint='fnr', seed=1234567
