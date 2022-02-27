@@ -5,7 +5,6 @@ FROM ubuntu:20.04
 
 WORKDIR /fairml-src
 COPY requirements.txt /fairml-src
-COPY jupyter_notebook_config.py /fairml-src
 
 RUN apt-get update
 RUN apt-get install -y openjdk-11-jdk=11.0.13+8-0ubuntu1~20.04

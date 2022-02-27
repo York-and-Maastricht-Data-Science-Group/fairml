@@ -72,7 +72,7 @@ public class FairML implements Callable<Integer> {
 
 	@Option(names = { "-w", "--wizard" }, description = "Run the wizard to create a flexmi file.")
 	private boolean isWizard = false;
-	
+
 	@Option(names = { "-j", "--jupyter" }, description = "Run Jupyter Notebook.")
 	private boolean runJupyter = false;
 
@@ -96,21 +96,28 @@ public class FairML implements Callable<Integer> {
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
 			} else if (runJupyter) {
-				String command = "jupyter notebook " + flexmiFile.getAbsolutePath() +  " --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True";
+				String command = "jupyter notebook " + flexmiFile.getAbsolutePath()
+						+ " --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True";
 				System.out.println(command);
 				Runtime.getRuntime().exec(command);
-				
+
 				command = "jupyter notebook list";
 				System.out.println(command);
 				Process p = Runtime.getRuntime().exec(command);
-				
+
 				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 				String line;
 				while ((line = reader.readLine()) != null) {
 					System.out.println(line);
 				}
 				reader.close();
-				
+
+				scanner = new Scanner(System.in);
+				System.out.print("Type quit and enter to exit: ");
+				String input = scanner.next();
+				while (!"quit".equals(input)) {
+					input = scanner.next();
+				}
 				return 0;
 			}
 
