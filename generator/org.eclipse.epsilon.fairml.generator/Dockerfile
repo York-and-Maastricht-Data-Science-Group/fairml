@@ -30,7 +30,5 @@ RUN mvn install
 RUN mkdir /fairml
 WORKDIR /fairml
 
-CMD /bin/bash -c "jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True &"
-
 ENTRYPOINT ["java", "-cp", "/fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator/fairml.jar", "org.eclipse.epsilon.fairml.generator.FairML"]
 #ENTRYPOINT ["fairml"]

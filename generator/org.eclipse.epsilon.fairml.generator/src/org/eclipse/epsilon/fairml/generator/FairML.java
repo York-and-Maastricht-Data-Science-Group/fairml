@@ -96,8 +96,16 @@ public class FairML implements Callable<Integer> {
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
 			} else if (runJupyter) {
-				String command = "jupyter notebook " + flexmiFile.getAbsolutePath()
-						+ " --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True &";
+				String command = null;
+				if (System.getProperty("os.name").startsWith("Windows")) {
+					command = String.format(
+							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True\"",
+							flexmiFile.getAbsolutePath());
+				} else {
+					command = String.format(
+							"jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True &",
+							flexmiFile.getAbsolutePath());
+				}
 				System.out.println(command);
 				Runtime.getRuntime().exec(command);
 
