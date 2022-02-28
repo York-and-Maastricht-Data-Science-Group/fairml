@@ -1,6 +1,6 @@
 # run the following command to use this docker container later after installing
-# docker run --rm -i -v %cd%:/fairml --name=fairml fairml -w demo.flexmi
-
+# docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -w demo.flexmi
+# docker exec fairml bash -c "jupyter notebook list"
 FROM ubuntu:20.04
 
 WORKDIR /fairml-src
