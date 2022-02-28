@@ -102,14 +102,9 @@ public class FairML implements Callable<Integer> {
 							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True\"",
 							flexmiFile.getAbsolutePath());
 				} else {
-					command = String.format(
-							"jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True &",
-							flexmiFile.getAbsolutePath());
+					command = "jupyter notebook " + flexmiFile.getAbsolutePath()
+							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True";
 				}
-				System.out.println(command);
-				Runtime.getRuntime().exec(command);
-
-				command = "jupyter notebook list";
 				System.out.println(command);
 				Process p = Runtime.getRuntime().exec(command);
 
@@ -119,6 +114,17 @@ public class FairML implements Callable<Integer> {
 					System.out.println(line);
 				}
 				reader.close();
+				
+//				command = "jupyter notebook list";
+//				System.out.println(command);
+//				Process p = Runtime.getRuntime().exec(command);
+//
+//				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//				String line;
+//				while ((line = reader.readLine()) != null) {
+//					System.out.println(line);
+//				}
+//				reader.close();
 
 				scanner = new Scanner(System.in);
 				System.out.print("Type quit and enter to exit: ");
@@ -142,43 +148,6 @@ public class FairML implements Callable<Integer> {
 					new FlexmiResourceFactory());
 			Resource flexmiResource = flexmiResourceSet.createResource(URI.createFileURI(flexmiFile.getAbsolutePath()));
 			flexmiResource.load(null);
-
-//			// The EClasses of all model elements
-//			final Set<EClass> eClasses = new HashSet<>();
-//
-//			ResourceSet xmiResourceSet = new ResourceSetImpl();
-//			xmiResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*",
-//					new XMIResourceFactoryImpl() {
-//						@Override
-//						public Resource createResource(URI uri) {
-//							return new XMIResourceImpl(uri) {
-//								@Override
-//								protected boolean useUUIDs() {
-//									for (EClass eClass : eClasses) {
-//										for (EAttribute eAttribute : eClass.getEAttributes()) {
-//											if (eAttribute.isID())
-//												return false;
-//										}
-//									}
-//									return true;
-//								}
-//							};
-//						}
-//					});
-//
-//			// Collect all EClasses of all model elements
-//			// so that we can use them above to decide if the XMI
-//			// resource will have XMI IDs or not
-//			for (Iterator<EObject> it = flexmiResource.getAllContents(); it.hasNext(); eClasses.add(it.next().eClass()))
-//				;
-//
-//			// initialise the xmiFile from the flexmi file
-//			File xmiFile = new File(flexmiFile.getAbsolutePath() + ".xmi");
-//
-//			URI resourceURI = URI.createFileURI(xmiFile.getAbsolutePath());
-//			Resource xmiResource = xmiResourceSet.createResource(resourceURI);
-//			xmiResource.getContents().addAll(EcoreUtil.copyAll(flexmiResource.getContents()));
-//			xmiResource.save(null);
 
 			// Parse *.egx, read from file first,
 			// if not available then read from JAR
