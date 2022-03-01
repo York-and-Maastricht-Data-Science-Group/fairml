@@ -12,10 +12,17 @@
 * [Ubuntu](#Ubuntu)
   
   * [Ubuntu-Installation](#Windows-Installation)
-  
   * [Ubuntu-Running](#Ubuntu-Running)
-    
-    ## Introduction
+
+* [Docker](#Docker)
+  
+  * [Download from DockerHub](#Download-from-DockerHub)
+  * [Build Dockerfile](#Build-Dockerfile)
+  * [Running using Docker](#Running-using-Docker)
+
+* [Tutorials](#Tutorials)
+
+## Introduction
 
 FairML is a tool that implements a model-based approach to model and automate bias measurement and mitigation in machine learning. 
 
@@ -152,6 +159,101 @@ You will find **fairml.jar** file created.
 4. Open the **automated_selection.ipynb** in Jupyter Notebook and run the whole notebook.
 
 5. If you find errors while running it, there might be modules that haven't been installed yet. Install the modules using the 'pip3' or 'pip' command.
+
+## Docker
+
+### Download from DockerHub
+
+The docker image can be found at [Fairml DockerHub](https://hub.docker.com/repository/docker/alfayohannisyorkacuk/fairml) or can be pulled using this command:
+
+```
+docker pull alfayohannisyorkacuk/fairml
+```
+
+### Build Dockerfile
+
+You can also build the docker image manually. Download the **FairML project** from Github.
+
+```
+git clone https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git
+```
+
+Change directory to the source code of FairML generator:
+
+```
+cd fairml/generator/org.eclipse.epsilon.fairml.generator
+```
+
+And build the docker image using the command below. The building process takes 15 minutes on my computer (32 GB RAM, Intel i9).
+
+```
+docker build -t fairml .
+```
+
+### Running using Docker
+
+#### Using Wizard
+
+The command below will run FairML wizard (the '-w' argument). It will guide users to create a FairML model (*.flexmi) as well as its Python/Jupyter notebook implementation. The 'demo.flexmi' is the name of the FairML model file. This command generates demo.py and demo.ipynb files.
+
+##### Windows
+
+```
+docker run --rm -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -w demo.flexmi
+```
+
+##### Ubuntu
+
+```
+docker run --rm -i -t -v $PWD:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -w demo.flexmi
+```
+
+#### Generate from a FairML model file
+
+If you have an existing FairML model in flexmi file, execute the command below to generate its Python/Jupyter notebook implementation (the name of the file is the only argument). The 'demo.flexmi' is the name of the existing FairML model file. This command generates demo.py and demo.ipynb files. 
+
+##### Windows
+
+```
+docker run --rm -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml demo.flexmi
+```
+
+##### Ubuntu
+
+```
+docker run --rm -i -t -v $PWD:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml demo.flexmi
+```
+
+#### Running the generated Jupyter Notebook file
+
+Jupyter Notebook server is also embedded in  the Docker image. To run the generated Jupyter notebook file (**.ipynb*)  using the internal server, execute the command below. Use the '-j' argument and the name of ipynb file (demo.ipynb).
+
+##### Windows
+
+```
+docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
+```
+
+##### Ubuntu
+
+```
+docker run --rm -d -i -t -v $PWD:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
+```
+
+Execute the command below to get the token for login later when accessing Jupyter notebook through your web browser.
+
+```
+docker exec fairml bash -c "jupyter notebook list"
+```
+
+It will show ouput similar to the following:
+
+```
+Currently running servers:
+http://0.0.0.0:8888/?token=56ba87ebb9b359884b23f234bcf155d3afebf56f4323290c :: /fairml
+```
+
+Copy the token, and then use your web browser to access [http://localhost:8888](http://localhost:8888). Paste the token and the click the login button. Open the 'demo.ipyb' file and run it.
 
 ## Tutorials
 
