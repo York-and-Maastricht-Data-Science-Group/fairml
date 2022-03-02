@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link fairml.FairML#getName <em>Name</em>}</li>
  *   <li>{@link fairml.FairML#getDescription <em>Description</em>}</li>
+ *   <li>{@link fairml.FairML#getFilename <em>Filename</em>}</li>
  *   <li>{@link fairml.FairML#getDatasets <em>Datasets</em>}</li>
  *   <li>{@link fairml.FairML#getBiasMitigations <em>Bias Mitigations</em>}</li>
  * </ul>
@@ -69,6 +70,28 @@ public interface FairML extends EObject {
 	 * @generated
 	 */
 	void setDescription(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Filename</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Filename</em>' attribute.
+	 * @see #setFilename(String)
+	 * @see fairml.FairmlPackage#getFairML_Filename()
+	 * @model
+	 * @generated
+	 */
+	String getFilename();
+
+	/**
+	 * Sets the value of the '{@link fairml.FairML#getFilename <em>Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Filename</em>' attribute.
+	 * @see #getFilename()
+	 * @generated
+	 */
+	void setFilename(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Datasets</b></em>' containment reference list.

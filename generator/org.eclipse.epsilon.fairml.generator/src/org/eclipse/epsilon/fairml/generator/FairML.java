@@ -64,7 +64,7 @@ public class FairML implements Callable<Integer> {
 	public static void main(String... args) {
 		commandLine = new CommandLine(new FairML());
 		int exitCode = commandLine.execute(args);
-		System.exit(exitCode);
+//		System.exit(exitCode);
 	}
 
 	@Parameters(index = "0", description = "A FairML Model in a Flexmi file (*.flexmi).")
@@ -89,7 +89,8 @@ public class FairML implements Callable<Integer> {
 			extractFilesFromJar(new String[] { "fairml.egx", "fairml.py", "ipynb.egl", //
 					"py.egl", "fairml.eol" }, DIR_GENERATOR);
 			extractFilesFromJar(new String[] { "adult.data.numeric.csv", //
-					"adult.data.numeric.txt" }, DIR_DATA);
+					"adult.data.numeric.txt", "german.numeric.csv",
+					"german.numeric.txt"}, DIR_DATA);
 
 			if (isWizard) {
 				scanner = new Scanner(System.in);
@@ -307,7 +308,7 @@ public class FairML implements Callable<Integer> {
 		dataset.add(Map.of("categoricalFeatures", temp));
 
 		String trainTestValidationSplit = "7, 2, 3";
-		temp = getUserInput("Train test validation split (default: " + trainTestValidationSplit + "):",
+		temp = getUserInput("Train org.eclipse.epsilon.fairml.generator.test validation split (default: " + trainTestValidationSplit + "):",
 				trainTestValidationSplit, Double[].class);
 		dataset.add(Map.of("trainTestSplit", temp));
 		fairml.add(Map.of("dataset", dataset));

@@ -182,8 +182,18 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getFairML_Filename() {
+		return (EAttribute)fairMLEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EReference getFairML_Datasets() {
-		return (EReference)fairMLEClass.getEStructuralFeatures().get(2);
+		return (EReference)fairMLEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -193,7 +203,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 */
 	@Override
 	public EReference getFairML_BiasMitigations() {
-		return (EReference)fairMLEClass.getEStructuralFeatures().get(3);
+		return (EReference)fairMLEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -768,6 +778,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		fairMLEClass = createEClass(FAIR_ML);
 		createEAttribute(fairMLEClass, FAIR_ML__NAME);
 		createEAttribute(fairMLEClass, FAIR_ML__DESCRIPTION);
+		createEAttribute(fairMLEClass, FAIR_ML__FILENAME);
 		createEReference(fairMLEClass, FAIR_ML__DATASETS);
 		createEReference(fairMLEClass, FAIR_ML__BIAS_MITIGATIONS);
 
@@ -869,6 +880,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEClass(fairMLEClass, FairML.class, "FairML", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFairML_Name(), ecorePackage.getEString(), "name", null, 0, 1, FairML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFairML_Description(), ecorePackage.getEString(), "description", null, 0, 1, FairML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFairML_Filename(), ecorePackage.getEString(), "filename", null, 0, 1, FairML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFairML_Datasets(), this.getDataset(), null, "datasets", null, 0, -1, FairML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFairML_BiasMitigations(), this.getBiasMitigation(), null, "biasMitigations", null, 0, -1, FairML.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

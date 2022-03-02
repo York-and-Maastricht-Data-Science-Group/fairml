@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link fairml.impl.FairMLImpl#getName <em>Name</em>}</li>
  *   <li>{@link fairml.impl.FairMLImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link fairml.impl.FairMLImpl#getFilename <em>Filename</em>}</li>
  *   <li>{@link fairml.impl.FairMLImpl#getDatasets <em>Datasets</em>}</li>
  *   <li>{@link fairml.impl.FairMLImpl#getBiasMitigations <em>Bias Mitigations</em>}</li>
  * </ul>
@@ -79,6 +80,26 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 	 * @ordered
 	 */
 	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getFilename() <em>Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFilename()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String FILENAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getFilename() <em>Filename</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFilename()
+	 * @generated
+	 * @ordered
+	 */
+	protected String filename = FILENAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDatasets() <em>Datasets</em>}' containment reference list.
@@ -171,6 +192,29 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 	 * @generated
 	 */
 	@Override
+	public String getFilename() {
+		return filename;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setFilename(String newFilename) {
+		String oldFilename = filename;
+		filename = newFilename;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.FAIR_ML__FILENAME, oldFilename, filename));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<Dataset> getDatasets() {
 		if (datasets == null) {
 			datasets = new EObjectContainmentEList<Dataset>(Dataset.class, this, FairmlPackage.FAIR_ML__DATASETS);
@@ -219,6 +263,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				return getName();
 			case FairmlPackage.FAIR_ML__DESCRIPTION:
 				return getDescription();
+			case FairmlPackage.FAIR_ML__FILENAME:
+				return getFilename();
 			case FairmlPackage.FAIR_ML__DATASETS:
 				return getDatasets();
 			case FairmlPackage.FAIR_ML__BIAS_MITIGATIONS:
@@ -241,6 +287,9 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				return;
 			case FairmlPackage.FAIR_ML__DESCRIPTION:
 				setDescription((String)newValue);
+				return;
+			case FairmlPackage.FAIR_ML__FILENAME:
+				setFilename((String)newValue);
 				return;
 			case FairmlPackage.FAIR_ML__DATASETS:
 				getDatasets().clear();
@@ -268,6 +317,9 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 			case FairmlPackage.FAIR_ML__DESCRIPTION:
 				setDescription(DESCRIPTION_EDEFAULT);
 				return;
+			case FairmlPackage.FAIR_ML__FILENAME:
+				setFilename(FILENAME_EDEFAULT);
+				return;
 			case FairmlPackage.FAIR_ML__DATASETS:
 				getDatasets().clear();
 				return;
@@ -290,6 +342,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case FairmlPackage.FAIR_ML__DESCRIPTION:
 				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case FairmlPackage.FAIR_ML__FILENAME:
+				return FILENAME_EDEFAULT == null ? filename != null : !FILENAME_EDEFAULT.equals(filename);
 			case FairmlPackage.FAIR_ML__DATASETS:
 				return datasets != null && !datasets.isEmpty();
 			case FairmlPackage.FAIR_ML__BIAS_MITIGATIONS:
@@ -312,6 +366,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 		result.append(name);
 		result.append(", description: ");
 		result.append(description);
+		result.append(", filename: ");
+		result.append(filename);
 		result.append(')');
 		return result.toString();
 	}

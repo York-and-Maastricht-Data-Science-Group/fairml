@@ -55,6 +55,7 @@ package fairml;
 class FairML {
     attr String name;
     attr String description;
+    attr String filename;
     val Dataset[*] datasets;
     val BiasMitigation[*] biasMitigations;
 }
@@ -101,7 +102,7 @@ class Dataset {
     attr String datasetPath;
     
     // if the dataset path above is empty then 
-    // the train and test datasets are defined by these paths
+    // the train and org.eclipse.epsilon.fairml.generator.test datasets are defined by these paths
     attr String trainDatasetPath;  
     attr String testDatasetPath;
     

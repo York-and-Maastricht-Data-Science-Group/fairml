@@ -34,5 +34,6 @@ generator/org.eclipse.epsilon.fairml.generator/demo.flexmi
 generator/org.eclipse.epsilon.fairml.generator/demo.ipynb
 generator/org.eclipse.epsilon.fairml.generator/demo.py
 graphics
-generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints/automated_selection-checkpoint.ipynb
-generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints/demo-checkpoint.ipynb
+generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints
+generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints
+generator/org.eclipse.epsilon.fairml.generator/test-model/__pycache__

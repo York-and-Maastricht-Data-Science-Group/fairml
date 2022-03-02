@@ -19,6 +19,7 @@ from IPython import get_ipython
 
 
 import tensorflow.compat.v1 as tf
+from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
 
 def is_preprocessing(class_name):
     return 'preprocessing' in class_name.__file__
@@ -106,7 +107,7 @@ class BiasMitigation():
         self.privileged_groups = None
         self.unprivileged_groups = None
         self.mitigation_results = None
-        self.metrics = ['accuracy']
+        self.metrics = []
         self.fairest_values = {}
         self.fairest_combinations = {}
         self.table_colours = {}
@@ -204,8 +205,8 @@ class BiasMitigation():
                            rounded=True);
             plt.savefig(filename)
     
-    def measure_bias(self, metric_name, dataset, predicted_dataset,
-                     privileged_groups, unprivileged_groups):
+    def measure_bias(self, metric_name, dataset, predicted_dataset=None,
+                     privileged_groups=None, unprivileged_groups=None):
         """Compute the number of true/false positives/negatives, optionally
         conditioned on protected attributes.
         
@@ -217,26 +218,44 @@ class BiasMitigation():
         """
         if not metric_name in self.metrics: 
             self.metrics.append(metric_name)
-        metric_mitigated_train = ClassificationMetric(dataset,
-                                             predicted_dataset,
-                                             unprivileged_groups=unprivileged_groups,
-                                             privileged_groups=privileged_groups)
-        explainer_train = MetricTextExplainer(metric_mitigated_train)
-        # print_message("")        
-        getattr(metric_mitigated_train, metric_name)()
-        # a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
-        # print_message("After mitigation Balanced accuracy: %f" % a )
-        print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
-        print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
-        self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
+        
+        metric_mitigated_train = None
+        if predicted_dataset is not None:
+            metric_mitigated_train = ClassificationMetric(dataset,
+                                                 predicted_dataset,
+                                                 unprivileged_groups=unprivileged_groups,
+                                                 privileged_groups=privileged_groups)
+        else:
+            metric_mitigated_train = BinaryLabelDatasetMetric(dataset,
+                                                 unprivileged_groups=unprivileged_groups,
+                                                 privileged_groups=privileged_groups)
     
-    def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name):
+        explainer_train = MetricTextExplainer(metric_mitigated_train)
+        
+        if not callable(getattr(metric_mitigated_train, metric_name, None)):
+            # print_message("After mitigation " + metric_name + ": %f" % 0)
+            print_message("After mitigation: " + str(None))
+            self.mitigation_results[metric_name].append(None)
+        else:        
+            # print_message("")        
+            # getattr(metric_mitigated_train, metric_name)()
+            # a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
+            # print_message("After mitigation Balanced accuracy: %f" % a )
+            # print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
+            # print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
+            print_message("After mitigation: " + getattr(explainer_train, metric_name)())
+            self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
+    
+    def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name, parameters):
         self.mitigation_results = defaultdict(list)
         self.fairml.results.append(self.mitigation_results)
         self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
         self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + 
                                                    str(self.test_size) + ":" + str(self.validation_size) + ")")
-        self.mitigation_results["Classifier"].append(classifier_name)
+        if len(parameters) > 0:
+            self.mitigation_results["Classifier"].append(classifier_name + "\n" + parameters)
+        else:
+            self.mitigation_results["Classifier"].append(classifier_name + parameters)
         # self.mitigation_results["sklearn_accuracy"].append(accuracy)
         
     def display_summary(self):
@@ -261,6 +280,11 @@ class BiasMitigation():
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 0)
+                elif "ratio" in name:
+                    fairest_value, fairest_line = self.get_fairest_value(values, 1)
+                    self.fairest_values[name] = fairest_value
+                    self.fairest_combinations[name] = fairest_line
+                    self.table_colours[name] = self.get_colours(values, 1)
                 else:
                     fairest_value, fairest_line = self.get_fairest_value(values, 0)
                     self.fairest_values[name] = fairest_value
@@ -297,17 +321,17 @@ class BiasMitigation():
         return self.summary_table  
     
     def get_colours(self, values, ideal_value):
-        max_num = abs(values.get(key=1) - ideal_value)
-        min_num = abs(values.get(key=1) - ideal_value) 
+        max_num = abs((0 if values.get(key=1) is None else values.get(key=1))  - ideal_value)
+        min_num = abs((0 if values.get(key=1) is None else values.get(key=1)) - ideal_value) 
         for i in range(1, values.size + 1):
-            val = abs(values.get(key=i) - ideal_value)
+            val = abs((0 if values.get(key=i) is None else values.get(key=i)) - ideal_value)
             if val < min_num:
                 min_num = val
             if val > max_num:
                 max_num = val
         colours = []
         for i in range(1, values.size + 1):
-            val = abs(values.get(key=i) - ideal_value)
+            val = abs((0 if values.get(key=i) is None else values.get(key=i)) - ideal_value)
             result = 0
             if ((max_num - min_num) != 0) and not pd.isna(val):
                 # print(val, min_num, max_num)
@@ -318,7 +342,11 @@ class BiasMitigation():
     def get_fairest_value(self, values, ideal_value):
         fairest_value = -1
         fairest_combination = 1
-        x1 = values.get(key=fairest_combination) - ideal_value
+        x1 = 0
+        if not values.get(key=fairest_combination) is None: 
+            x1 = values.get(key=fairest_combination) - ideal_value
+        else:
+            x1 = x1- ideal_value
         # x1 = 0 - ideal_value;
         min_abs_val = abs(x1)
         min_val_sign = ""
@@ -331,7 +359,10 @@ class BiasMitigation():
             i = 0
             for value in values:
                 i = i + 1
-                x1 = value - ideal_value 
+                if value is None:
+                    x1 = 0 - ideal_value
+                else:
+                    x1 = value - ideal_value 
                 temp = abs(x1)
                 if temp < min_abs_val:
                     fairest_combination = i

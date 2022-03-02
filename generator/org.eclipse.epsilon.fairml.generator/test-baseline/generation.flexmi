@@ -1,0 +1,20 @@
+?nsuri: fairml
+fairml:
+- name: generation
+- description: 'Predict income <=50K: 0, >50K: 1'
+- dataset:
+  - datasetPath: data/adult.data.numeric.csv
+  - name: Adult Dataset
+  - predictedAttribute: income-per-year
+  - protectedAttributes: sex, race
+  - categoricalFeatures: workclass, education, marital-status, occupation, relationship,
+      native-country
+  - trainTestSplit: 7, 2, 3
+- biasMitigation:
+  - name: Bias Mitigation 01
+  - description: Bias Mitigation 01 Description
+  - dataset: Adult Dataset
+  - trainingMethod:
+    - algorithm: DecisionTreeClassifier
+    - parameters: criterion='gini', max_depth=4
+  - prepreprocessingMitigation: 'true'

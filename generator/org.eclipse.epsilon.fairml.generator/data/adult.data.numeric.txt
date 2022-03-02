@@ -9,7 +9,7 @@ workclass
    Without-pay: 8
    Never-worked: 9
 
-education:
+education-num:
   Preschool: 1
   1st-4th: 2
   5th-6th: 3

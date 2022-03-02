@@ -85,13 +85,22 @@ public interface FairmlPackage extends EPackage {
 	int FAIR_ML__DESCRIPTION = 1;
 
 	/**
+	 * The feature id for the '<em><b>Filename</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAIR_ML__FILENAME = 2;
+
+	/**
 	 * The feature id for the '<em><b>Datasets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAIR_ML__DATASETS = 2;
+	int FAIR_ML__DATASETS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Bias Mitigations</b></em>' containment reference list.
@@ -100,7 +109,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FAIR_ML__BIAS_MITIGATIONS = 3;
+	int FAIR_ML__BIAS_MITIGATIONS = 4;
 
 	/**
 	 * The number of structural features of the '<em>Fair ML</em>' class.
@@ -109,7 +118,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FAIR_ML_FEATURE_COUNT = 4;
+	int FAIR_ML_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.OperationImpl <em>Operation</em>}' class.
@@ -809,6 +818,17 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getFairML_Description();
 
 	/**
+	 * Returns the meta object for the attribute '{@link fairml.FairML#getFilename <em>Filename</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Filename</em>'.
+	 * @see fairml.FairML#getFilename()
+	 * @see #getFairML()
+	 * @generated
+	 */
+	EAttribute getFairML_Filename();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link fairml.FairML#getDatasets <em>Datasets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1464,6 +1484,14 @@ public interface FairmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FAIR_ML__DESCRIPTION = eINSTANCE.getFairML_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Filename</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FAIR_ML__FILENAME = eINSTANCE.getFairML_Filename();
 
 		/**
 		 * The meta object literal for the '<em><b>Datasets</b></em>' containment reference list feature.

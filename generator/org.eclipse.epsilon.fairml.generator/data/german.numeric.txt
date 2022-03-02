@@ -1,0 +1,91 @@
+status
+  A11: 1
+  A12: 2
+  A14: 3
+  A13: 4
+
+credit_history
+  A34: 1
+  A32: 2
+  A33: 3
+  A30: 4
+  A31: 5
+
+purpose
+  A43: 1
+  A46: 2
+  A42: 3
+  A40: 4
+  A41: 5
+  A49: 6
+  A44: 7
+  A45: 8
+  A410: 9
+  A48: 10
+
+savings
+  A65: 1
+  A61: 2
+  A63: 3
+  A64: 4
+  A62: 5
+
+employment
+  A75: 1
+  A73: 2
+  A74: 3
+  A71: 4
+  A72: 5
+
+personal_status
+  A93: 1
+  A92: 2
+  A91: 3
+  A94: 4
+
+other_debtors
+  A101: 1
+  A103: 2
+  A102: 3
+
+property
+  A121: 1
+  A122: 2
+  A124: 3
+  A123: 4
+
+installment_plans
+  A143: 1
+  A141: 2
+  A142: 3
+
+housing
+  A152: 1
+  A153: 2
+  A151: 3
+
+skill_level
+  A173: 1
+  A172: 2
+  A174: 3
+  A171: 4
+
+telephone
+  A192: 1
+  A191: 2
+
+foreign_worker
+  A201: 1
+  A202: 2
+
+credit:
+  good credit: 1
+  bad credit: 0
+  
+sex
+  male: 1
+  female: 0
+
+age
+  mature: 1
+  young: 0

@@ -1,0 +1,31 @@
+?nsuri: fairml
+fairml:
+- name: Tutorial Credit Scoring
+- description: |-
+    Tutorial Credit Scoring using German Credit Dataset
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/tutorial_credit_scoring.ipynb
+
+# set the dataset
+- dataset:
+  - name: German Credit Dataset
+  - datasetPath: ../data/german.numeric.csv
+  - predictedAttribute: credit
+  - protectedAttributes: mature 
+  - trainTestSplit: 7, 3
+  - droppedAttributes: personal_status, sex, age
+  - categoricalFeatures: |-
+     status, credit_history, purpose,
+     savings, employment, other_debtors, property,
+     installment_plans, housing, skill_level, telephone,
+     foreign_worker
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Bias Mitigation using Reweighing  
+  - dataset: German Credit Dataset
+  
+  - mitigationMethod:
+    - algorithm: Reweighing
+  
+  - biasMetric:
+    - name: statistical_parity_difference

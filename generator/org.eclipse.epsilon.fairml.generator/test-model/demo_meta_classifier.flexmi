@@ -1,0 +1,64 @@
+?nsuri: fairml
+fairml:
+- name: Demo Meta Classifier
+- description: |-
+    Meta-Algorithm for fair classification
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_meta_classifier.ipynb
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset
+  - datasetPath: ../data/adult.data.numeric.csv
+  - predictedAttribute: income-per-year
+  - protectedAttributes: sex, race 
+  - trainTestSplit: 7, 3
+  - droppedAttributes: fnlwgt
+  - categoricalFeatures: |-
+     workclass, education-num, marital-status, 
+     occupation, relationship, native-country
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Bias Mitigation using MetaFair Classifier  
+  - dataset: Adult Dataset
+  
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.0, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.1, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.2, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.3, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.4, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.5, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.6, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.7, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.8, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=0.9, sensitive_attr='sex', type='fdr'
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+    - parameters: tau=1.0, sensitive_attr='sex', type='fdr'
+  
+  - biasMetric:
+    - name: statistical_parity_difference
+  - biasMetric:
+    - name: disparate_impact
+  - biasMetric:
+    - name: false_discovery_rate_ratio
