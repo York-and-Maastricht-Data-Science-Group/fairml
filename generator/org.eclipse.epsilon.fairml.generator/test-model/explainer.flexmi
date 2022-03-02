@@ -1,0 +1,43 @@
+?nsuri: fairml
+fairml:
+- name: Explainer
+- description: |-
+    Test Explainer using German Credit Dataset
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/tutorial_credit_scoring.ipynb
+
+# set the dataset
+- dataset:
+  - name: German Credit Dataset
+  - datasetPath: ../data/german.numeric.csv
+  - predictedAttribute: credit
+  - protectedAttributes: mature 
+  - trainTestSplit: 7, 3
+  - droppedAttributes: personal_status, sex, age
+  - categoricalFeatures: |-
+     status, credit_history, purpose,
+     savings, employment, other_debtors, property,
+     installment_plans, housing, skill_level, telephone,
+     foreign_worker
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Test Explainer using German Credit Dataset  
+  - dataset: German Credit Dataset
+  
+  - trainingMethod:
+    - algorithm: DecisionTreeClassifier
+    - parameters: criterion='gini', max_depth=4
+  - trainingMethod:
+    - algorithm: LinearSVC
+      
+  - mitigationMethod:
+    - algorithm: Reweighing
+  - mitigationMethod:
+    - algorithm: MetaFairClassifier
+  
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: statistical_parity_difference
+  - biasMetric: 
+    - name: theil_index

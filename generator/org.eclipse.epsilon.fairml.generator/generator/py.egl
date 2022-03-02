@@ -78,7 +78,6 @@ from aif360.metrics import ClassificationMetric
 from aif360.algorithms.preprocessing import *
 from aif360.algorithms.inprocessing import *
 from aif360.algorithms.postprocessing import *
-from aif360.explainers import MetricTextExplainer
 from aif360.datasets import StandardDataset
 import matplotlib.pyplot as plt
 from collections import defaultdict
@@ -260,6 +259,7 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, privileged_group
 [% } %]    
 
 [%      for (trainingMethod in biasMitigation.trainingMethods) { %]
+
 # ##### [[%=number1%].[%=number2%].[%=number3%].[%=number4++%].](#Contents) After-mitigation Dataset: Classifier [%=trainingMethod.algorithm%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]
 [% number5=0; %]
 print("")

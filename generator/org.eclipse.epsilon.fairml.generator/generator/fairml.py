@@ -2,9 +2,11 @@ import inspect
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os.path 
+import os.path
+import json 
 
 from collections import defaultdict
+from collections import OrderedDict
 from sklearn import tree
 from sklearn import metrics
 from sklearn.pipeline import make_pipeline
@@ -12,14 +14,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
-from aif360.explainers import MetricTextExplainer
+from aif360.explainers import MetricJSONExplainer
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
-from IPython.display import Markdown, display
+from IPython.display import Markdown, display, JSON, display_json
 from IPython import get_ipython
-
 
 import tensorflow.compat.v1 as tf
 from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
+
 
 def is_preprocessing(class_name):
     return 'preprocessing' in class_name.__file__
@@ -113,6 +115,8 @@ class BiasMitigation():
         self.table_colours = {}
         self.summary_table = None
         self.tf_sessions = []
+        self.mitigation_algorithms = {}
+        self.classifiers = {}
     
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)
@@ -136,11 +140,11 @@ class BiasMitigation():
     
     def get_prediction_probability(self, model, dataset_orig, scaled_target_dataset_features):
         fav_idx = np.where(model.classes_ == dataset_orig.favorable_label)[0][0]
-        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:,fav_idx]
+        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:, fav_idx]
         return y_test_pred_prob
         
-        
     def create_mitigation_method(self, mitigation_class, **params):
+        self.mitigation_algorithms[mitigation_class.__name__] = mitigation_class
         signatures = inspect.signature(mitigation_class)
         if 'privileged_groups' and 'unprivileged_groups' in signatures.parameters:
             if 'privileged_groups' not in params:
@@ -154,11 +158,11 @@ class BiasMitigation():
                 
         if 'estimator' in signatures.parameters:
             if 'estimator' not in params:
-                params['estimator'] =  LogisticRegression(solver='lbfgs')
+                params['estimator'] = LogisticRegression(solver='lbfgs')
         
         if 'constraints' in signatures.parameters:
             if 'constraints' not in params:
-                params['constraints'] =  "DemographicParity"
+                params['constraints'] = "DemographicParity"
             # check import fairlearn.reductions 
             # "DemographicParity", "TruePositiveRateDifference", "ErrorRateRatio."
             
@@ -172,7 +176,7 @@ class BiasMitigation():
         
         if 'scope_name' in signatures.parameters:
             if 'scope_name' not in params:
-                params['scope_name'] ='debiased_classifier'
+                params['scope_name'] = 'debiased_classifier'
             
         if 'sess' in signatures.parameters:
             if 'sess' not in params:
@@ -180,15 +184,14 @@ class BiasMitigation():
                 tf.disable_eager_execution()
                 sess = tf.Session()
                 self.tf_sessions.append(sess)
-                params['sess']  = sess
+                params['sess'] = sess
             
         mitigation_method = mitigation_class(**params)
-        
         
         return mitigation_method
     
     def train(self, dataset_train, classifier):
-        # classifier = DecisionTreeClassifier(criterion='gini', max_depth=7)
+        self.classifiers[classifier.__class__.__name__] = classifier.__class__
         model = make_pipeline(StandardScaler(), classifier)
         name = type(classifier).__name__.lower()
         fit_params = {name + '__sample_weight': dataset_train.instance_weights}
@@ -230,20 +233,31 @@ class BiasMitigation():
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
     
-        explainer_train = MetricTextExplainer(metric_mitigated_train)
+        explainer_train = MetricJSONExplainer(metric_mitigated_train)
         
         if not callable(getattr(metric_mitigated_train, metric_name, None)):
             # print_message("After mitigation " + metric_name + ": %f" % 0)
-            print_message("After mitigation: " + str(None))
+            # print_message("After mitigation: " + str(None))
             self.mitigation_results[metric_name].append(None)
-        else:        
+        else: 
+            explanation = json.loads(getattr(explainer_train, metric_name)(), object_pairs_hook=OrderedDict)
+            
+            if get_ipython() == None:
+                print("")
+                for key in explanation:
+                    print(key[0].upper() + key[1:] + ": " + str(explanation[key]))
+            else:
+                text = ""
+                for key in explanation:
+                    text += "**" + key[0].upper() + key[1:] + ":** " + str(explanation[key]) + "<br/>"     
+                display(Markdown(text))
             # print_message("")        
             # getattr(metric_mitigated_train, metric_name)()
             # a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
             # print_message("After mitigation Balanced accuracy: %f" % a )
             # print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
             # print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
-            print_message("After mitigation: " + getattr(explainer_train, metric_name)())
+            # print_message("After mitigation: " + getattr(explainer_train, metric_name)())
             self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
     
     def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name, parameters):
@@ -291,7 +305,6 @@ class BiasMitigation():
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 0)
         
-        
         if get_ipython() == None:
             print("Original Data size: " + str(len(self.dataset_original.instance_names))) 
             print("Predicted attribute: " + self.predicted_attribute)
@@ -305,7 +318,8 @@ class BiasMitigation():
             display(self.summary_table.to_string())
     
         else:
-            display(Markdown("Original Data size: " + str(len(self.dataset_original.instance_names)) + "</br>" + 
+            display(Markdown("**Description:**<br/>" + 
+                "Original Data size: " + str(len(self.dataset_original.instance_names)) + "</br>" + 
                 "Predicted attribute: " + self.predicted_attribute + "</br>" + 
                 "Protected attributes: " + ", ".join(self.protected_attributes) + "</br>" + 
                 "Favourable classes: " + str(self.favorable_class) + "</br>" + 
@@ -313,6 +327,8 @@ class BiasMitigation():
                 "Training data size (ratio): " + str(self.training_size) + "</br>" + 
                 "Test data size (ratio): " + str(self.test_size) + "</br>" + 
                 "Validation data size (ratio): " + str(self.validation_size)))
+            
+        self.print_explanation()
         
         for session in self.tf_sessions:
             session.close()
@@ -320,8 +336,35 @@ class BiasMitigation():
         
         return self.summary_table  
     
+    def print_explanation(self):
+        if get_ipython() == None:
+            pass
+            # for classifier in self.classifiers:              
+            #     text = classifier.__class__.__name__  + ":\n"   
+            #     text += classifier.__class__.__doc__ + "\n"  
+            #
+            #     print(text)
+        else:
+            for key in self.classifiers:
+                text = "**" + self.classifiers[key].__name__ + ":**"            
+                text += "<details>" 
+                # text += "<summary><i>Click here to show description</i></summary>"  
+                text += self.classifiers[key].__doc__.replace("\n", "<br/>") 
+                text += "</details>"
+                
+                display(Markdown(text)) 
+                
+            for key in self.mitigation_algorithms:
+                text = "**" + self.mitigation_algorithms[key].__name__ + ":**"            
+                text += "<details>" 
+                # text += "<summary><i>Click here to show description</i></summary>"   
+                text += self.mitigation_algorithms[key].__doc__.replace("\n", "<br/>")   
+                text += "</details>"
+                
+                display(Markdown(text)) 
+            
     def get_colours(self, values, ideal_value):
-        max_num = abs((0 if values.get(key=1) is None else values.get(key=1))  - ideal_value)
+        max_num = abs((0 if values.get(key=1) is None else values.get(key=1)) - ideal_value)
         min_num = abs((0 if values.get(key=1) is None else values.get(key=1)) - ideal_value) 
         for i in range(1, values.size + 1):
             val = abs((0 if values.get(key=i) is None else values.get(key=i)) - ideal_value)
@@ -346,7 +389,7 @@ class BiasMitigation():
         if not values.get(key=fairest_combination) is None: 
             x1 = values.get(key=fairest_combination) - ideal_value
         else:
-            x1 = x1- ideal_value
+            x1 = x1 - ideal_value
         # x1 = 0 - ideal_value;
         min_abs_val = abs(x1)
         min_val_sign = ""
