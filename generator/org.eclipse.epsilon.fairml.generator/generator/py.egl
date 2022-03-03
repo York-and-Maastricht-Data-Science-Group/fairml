@@ -171,7 +171,7 @@ bm.unprivileged_groups = [{bm.protected_attributes[0] : bm.unprivileged_class}]
 bm.init_new_result("Original", "[%=dataset.name%]", "", "")
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
 [%    /*  if (biasMetric.name == "accuracy") continue; */ %]
-bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_train, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_test, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%    } %]
 [%  } %]
 
@@ -191,12 +191,13 @@ model_original_train = bm.train(bm.dataset_original_train,  classifier)
 
 print("Original Bias Metrics")
 dataset_original_train_pred = bm.create_predicted_dataset(bm.dataset_original_train, model_original_train)
+dataset_original_test_pred = bm.create_predicted_dataset(bm.dataset_original_test, model_original_train)
 
 bm.init_new_result("Original", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
 [%      if (biasMetric.className == "ClassificationMetric") { %]
-bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_train, predicted_dataset=dataset_original_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_test, predicted_dataset=dataset_original_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%      } %]
 [%    } %][% // end of original metrics %]
 [%  } %][% // end of original training %]
