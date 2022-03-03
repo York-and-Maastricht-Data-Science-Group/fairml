@@ -1,9 +1,10 @@
 import inspect
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plot
 import os.path
 import json 
+import numbers
 
 from collections import defaultdict
 from collections import OrderedDict
@@ -21,6 +22,7 @@ from IPython import get_ipython
 
 import tensorflow.compat.v1 as tf
 from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
+from IPython.core.pylabtools import figsize
 
 
 def is_preprocessing(class_name):
@@ -117,6 +119,7 @@ class BiasMitigation():
         self.tf_sessions = []
         self.mitigation_algorithms = {}
         self.classifiers = {}
+        self.ideal_values = {}
     
     def check_accuracy(self, model, dataset_test):
         y_pred = model.predict(dataset_test.features)
@@ -200,13 +203,13 @@ class BiasMitigation():
     
     def drawModel(self, classifier, dataset, filename):
         if isinstance(classifier, DecisionTreeClassifier): 
-            plt.figure(figsize=(12, 5), dpi=500)
+            plot.figure(figsize=(12, 5), dpi=500)
             tree.plot_tree(classifier,
                            feature_names=dataset.feature_names,
                            # class_names=["1", "0"],
                            filled=True,
                            rounded=True);
-            plt.savefig(filename)
+            plot.savefig(filename)
     
     def measure_bias(self, metric_name, dataset, predicted_dataset=None,
                      privileged_groups=None, unprivileged_groups=None):
@@ -283,27 +286,32 @@ class BiasMitigation():
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
-                    self.table_colours[name] = self.get_colours(values, 1) 
+                    self.table_colours[name] = self.get_colours(values, 1)
+                    self.ideal_values[name] = 1 
                 elif name == "disparate_impact":
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 1)
+                    self.ideal_values[name] = 1
                 elif name == "statistical_parity_difference":
                     fairest_value, fairest_line = self.get_fairest_value(values, 0)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 0)
+                    self.ideal_values[name] = 0
                 elif "ratio" in name:
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 1)
+                    self.ideal_values[name] = 1
                 else:
                     fairest_value, fairest_line = self.get_fairest_value(values, 0)
                     self.fairest_values[name] = fairest_value
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 0)
+                    self.ideal_values[name] = 0
         
         if get_ipython() == None:
             print("Original Data size: " + str(len(self.dataset_original.instance_names))) 
@@ -335,6 +343,27 @@ class BiasMitigation():
         self.tf_sessions.clear()
         
         return self.summary_table  
+    
+    def display_barchart(self):
+        data = self.summary_table.copy(True)
+        cols = list(data.columns)
+        for col in cols:
+            if col not in self.metrics:
+                del data[col]
+        
+        for metric in self.metrics:
+            v_min = data[metric].min()
+            v_ideal = self.ideal_values[metric]
+            data[metric] = data[metric].apply(lambda x: abs((x if isinstance(x, numbers.Number) else v_min) - v_ideal))
+            
+            v_max = data[metric].max()
+            v_min = data[metric].min()
+            v_range = v_max - v_min
+            data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
+            
+        data.plot.bar( figsize=(16, 5), rot=0,  xlabel="Bias Mitigation",
+                      title="Normalised Metrics (Value 1 Means the Bias Mitigation is the Best Option for the Metric)")
+        plot.show(block=True);
     
     def print_explanation(self):
         if get_ipython() == None:

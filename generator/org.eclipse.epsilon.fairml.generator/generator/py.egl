@@ -328,6 +328,8 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, predicted_datase
 
 table = bm.display_summary()
 table.style.apply(bm.highlight_fairest_values, axis=1)
+
+bm.display_barchart()
 [%   } %]
 [% } %]
 [% //fairml.p2j(); %]

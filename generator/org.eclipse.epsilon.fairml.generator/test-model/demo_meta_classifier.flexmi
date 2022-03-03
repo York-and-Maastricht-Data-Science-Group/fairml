@@ -57,6 +57,8 @@ fairml:
     - parameters: tau=1.0, sensitive_attr='sex', type='fdr'
   
   - biasMetric:
+    - name: accuracy
+  - biasMetric:
     - name: statistical_parity_difference
   - biasMetric:
     - name: disparate_impact
