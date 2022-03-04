@@ -3,6 +3,7 @@
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml demo.flexmi
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
 # docker exec fairml bash -c "jupyter notebook list"
+# docker exec -i fairml bash -c "python3 -m notebook.auth password"
 FROM ubuntu:20.04
 
 WORKDIR /fairml-src

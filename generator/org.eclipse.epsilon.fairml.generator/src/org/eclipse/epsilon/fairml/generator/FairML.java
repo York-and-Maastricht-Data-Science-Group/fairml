@@ -75,6 +75,9 @@ public class FairML implements Callable<Integer> {
 
 	@Option(names = { "-j", "--jupyter" }, description = "Run Jupyter Notebook.")
 	private boolean runJupyter = false;
+	
+	@Option(names = { "-p", "--password" }, description = "Setup Password.")
+	private boolean isPassword = false;
 
 	private Scanner scanner;
 
@@ -91,21 +94,42 @@ public class FairML implements Callable<Integer> {
 			extractFilesFromJar(new String[] { "adult.data.numeric.csv", //
 					"adult.data.numeric.txt", "german.numeric.csv",
 					"german.numeric.txt"}, DIR_DATA);
+			
+			
 
 			if (isWizard) {
 				scanner = new Scanner(System.in);
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
+			} else if (isPassword) {
+				String command = null;
+				if (System.getProperty("os.name").startsWith("Windows")) {
+					command = "cmd.exe /C \"start python -m notebook.auth password\"";
+				} else {
+					command = "python3 -m notebook.auth password";
+				}
+				
+				System.out.println(command);
+				Process p = Runtime.getRuntime().exec(command);
+
+				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					System.out.println(line);
+				}
+				reader.close();
+				return 0;
 			} else if (runJupyter) {
 				String command = null;
 				if (System.getProperty("os.name").startsWith("Windows")) {
 					command = String.format(
-							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True\"",
+							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True\"",
 							flexmiFile.getAbsolutePath());
 				} else {
 					command = "jupyter notebook " + flexmiFile.getAbsolutePath()
-							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True";
+							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True";
 				}
+				
 				System.out.println(command);
 				Process p = Runtime.getRuntime().exec(command);
 
@@ -116,17 +140,6 @@ public class FairML implements Callable<Integer> {
 				}
 				reader.close();
 				
-//				command = "jupyter notebook list";
-//				System.out.println(command);
-//				Process p = Runtime.getRuntime().exec(command);
-//
-//				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-//				String line;
-//				while ((line = reader.readLine()) != null) {
-//					System.out.println(line);
-//				}
-//				reader.close();
-
 				scanner = new Scanner(System.in);
 				System.out.print("Type quit and enter to exit: ");
 				String input = scanner.next();
