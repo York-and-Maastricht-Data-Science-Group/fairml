@@ -12,10 +12,11 @@ RUN apt-get update && \
   apt-get install -y openjdk-11-jre-headless=11.0.13+8-0ubuntu1~20.04 && \
   apt-get install -y git=1:2.25.1-1ubuntu3.2 && \
   apt-get install -y maven=3.6.3-1 && \
-  apt-get install -y python3-minimal=3.8.2-0ubuntu2 && \ 
+  apt-get install -y python3-minimal=3.8.2-0ubuntu2 && \
+  apt-get install -y python3-tk=3.8.10-0ubuntu1~20.04 && \ 
   apt-get install -y python3-pip=20.0.2-5ubuntu1.6 && \
   python3 -m pip install -r requirements.txt && \
-  git clone -b v0.0.3 https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git && \
+  git clone -b v0.0.4 https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git && \
   cd /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
 
 WORKDIR /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
