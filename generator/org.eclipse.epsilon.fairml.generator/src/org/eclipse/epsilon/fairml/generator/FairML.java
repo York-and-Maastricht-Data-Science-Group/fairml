@@ -76,8 +76,8 @@ public class FairML implements Callable<Integer> {
 	@Option(names = { "-j", "--jupyter" }, description = "Run Jupyter Notebook.")
 	private boolean runJupyter = false;
 	
-	@Option(names = { "-p", "--password" }, description = "Setup Password.")
-	private boolean isPassword = false;
+//	@Option(names = { "-p", "--password" }, description = "Setup Password.")
+//	private boolean isPassword = false;
 
 	private Scanner scanner;
 
@@ -101,33 +101,35 @@ public class FairML implements Callable<Integer> {
 				scanner = new Scanner(System.in);
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
-			} else if (isPassword) {
-				String command = null;
-				if (System.getProperty("os.name").startsWith("Windows")) {
-					command = "cmd.exe /C \"start python -m notebook.auth password\"";
-				} else {
-					command = "python3 -m notebook.auth password";
-				}
-				
-				System.out.println(command);
-				Process p = Runtime.getRuntime().exec(command);
-
-				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-				String line;
-				while ((line = reader.readLine()) != null) {
-					System.out.println(line);
-				}
-				reader.close();
-				return 0;
-			} else if (runJupyter) {
+			} 
+//			else if (isPassword) {
+//				String command = null;
+//				if (System.getProperty("os.name").startsWith("Windows")) {
+//					command = "cmd.exe /C \"start python -m notebook.auth password\"";
+//				} else {
+//					command = "python3 -m notebook.auth password";
+//				}
+//				
+//				System.out.println(command);
+//				Process p = Runtime.getRuntime().exec(command);
+//
+//				BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//				String line;
+//				while ((line = reader.readLine()) != null) {
+//					System.out.println(line);
+//				}
+//				reader.close();
+//				return 0;
+//			} 
+			else if (runJupyter) {
 				String command = null;
 				if (System.getProperty("os.name").startsWith("Windows")) {
 					command = String.format(
-							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True\"",
+							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''\"",
 							flexmiFile.getAbsolutePath());
 				} else {
 					command = "jupyter notebook " + flexmiFile.getAbsolutePath()
-							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True";
+							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''";
 				}
 				
 				System.out.println(command);

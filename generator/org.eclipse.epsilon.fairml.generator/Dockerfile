@@ -4,6 +4,7 @@
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
 # docker exec fairml bash -c "jupyter notebook list"
 # docker exec -i fairml bash -c "python3 -m notebook.auth password"
+# jupyter notebook demo.ipynb --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''
 FROM ubuntu:20.04
 
 WORKDIR /fairml-src
