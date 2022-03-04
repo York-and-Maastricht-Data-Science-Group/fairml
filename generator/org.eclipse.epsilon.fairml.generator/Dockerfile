@@ -15,7 +15,7 @@ RUN apt-get update && \
   apt-get install -y python3-minimal=3.8.2-0ubuntu2 && \ 
   apt-get install -y python3-pip=20.0.2-5ubuntu1.6 && \
   python3 -m pip install -r requirements.txt && \
-  git clone https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git && \
+  git clone -b v0.0.2 https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git && \
   cd /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
 
 WORKDIR /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
