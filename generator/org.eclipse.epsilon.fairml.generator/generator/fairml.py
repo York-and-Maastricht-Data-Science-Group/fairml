@@ -8,6 +8,7 @@ import inspect
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plot
+import matplotlib
 import os.path
 import json 
 import numbers
@@ -354,13 +355,22 @@ class BiasMitigation():
             v_min = data[metric].min()
             v_range = v_max - v_min
             data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
-            
+        
         data.plot.bar(figsize=(16, 5), rot=0, xlabel="Bias Mitigation",
                       title="Normalised Metrics (Value 1 Means the Bias Mitigation is the Best Option for the Metric)")
         # plot.show(block=True)
         image = "graphics/" + self.name.replace(" ", "_").lower() + ".png"
-        plot.savefig(image)
-        display(Image(filename=image))
+        
+        if get_ipython() == None:
+            plot.savefig(image)  
+            plot.show(block=True)
+        else:
+            # backend = matplotlib.get_backend()
+            # print(backend)
+            # matplotlib.use("Agg")
+            plot.savefig(image)
+            # matplotlib.use(backend)        
+            # display(Image(filename=image))
     
     def print_explanation(self):
         if get_ipython() == None:
