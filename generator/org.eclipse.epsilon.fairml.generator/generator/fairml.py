@@ -1,3 +1,8 @@
+'''
+    @organization: University of York, University of Maastricht
+    @author: Alfa Yohannis
+'''
+
 import inspect
 import numpy as np
 import pandas as pd
@@ -236,7 +241,7 @@ class BiasMitigation():
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
     
-        explainer_train = MetricJSONExplainer(metric_mitigated_train)
+        explainer_train = MetricFairMLExplainer(metric_mitigated_train)
         
         if not callable(getattr(metric_mitigated_train, metric_name, None)):
             # print_message("After mitigation " + metric_name + ": %f" % 0)
@@ -361,7 +366,7 @@ class BiasMitigation():
             v_range = v_max - v_min
             data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
             
-        data.plot.bar( figsize=(16, 5), rot=0,  xlabel="Bias Mitigation",
+        data.plot.bar(figsize=(16, 5), rot=0, xlabel="Bias Mitigation",
                       title="Normalised Metrics (Value 1 Means the Bias Mitigation is the Best Option for the Metric)")
         plot.show(block=True);
     
@@ -474,3 +479,67 @@ class BiasMitigation():
         
         return cell_formats 
 
+
+class MetricFairMLExplainer(MetricJSONExplainer):
+    '''
+    The class is derived from MetricJSONExplainer because I think there is a logic error
+    in disparate_impact() and  statistical_parity_difference().
+    The line if isinstance(self.metric, BinaryLabelDatasetMetric): should be
+    if type(self.metric) is BinaryLabelDatasetMetric: otherwise any class derived from
+    BinaryLabelDatasetMetric, including ClassificationMetric 
+    always goes to the first condition.
+    '''
+    
+    def disparate_impact(self):
+        outcome = super(MetricJSONExplainer, self).disparate_impact()
+        response = []
+        if type(self.metric) is BinaryLabelDatasetMetric:
+            response = OrderedDict((
+                ("metric", "Disparate Impact"),
+                ("message", outcome),
+                ("numPositivePredictionsUnprivileged", self.metric.num_positives(privileged=False)),
+                ("numUnprivileged", self.metric.num_instances(privileged=False)),
+                ("numPositivePredictionsPrivileged", self.metric.num_positives(privileged=True)),
+                ("numPrivileged", self.metric.num_instances(privileged=True)),
+                ("description", "Computed as the ratio of rate of favorable outcome for the unprivileged group to that of the privileged group."),
+                ("ideal", "The ideal value of this metric is 1.0 A value < 1 implies higher benefit for the privileged group and a value >1 implies a higher benefit for the unprivileged group.")
+            ))
+        else:
+            response = OrderedDict((
+                ("metric", "Disparate Impact"),
+                ("message", outcome),
+                ("numPositivePredictionsUnprivileged", self.metric.num_pred_positives(privileged=False)),
+                ("numUnprivileged", self.metric.num_instances(privileged=False)),
+                ("numPositivePredictionsPrivileged", self.metric.num_pred_positives(privileged=True)),
+                ("numPrivileged", self.metric.num_instances(privileged=True)),
+                ("description", "Computed as the ratio of likelihood of favorable outcome for the unprivileged group to that of the privileged group."),
+                ("ideal", "The ideal value of this metric is 1.0")
+            ))
+        return json.dumps(response)
+    
+    def statistical_parity_difference(self):
+        outcome = super(MetricJSONExplainer, self).statistical_parity_difference()
+        response = []
+        if type(self.metric) is BinaryLabelDatasetMetric:
+            response = OrderedDict((
+                ("metric", "Statistical Parity Difference"),
+                ("message", outcome),
+                ("numPositivesUnprivileged", self.metric.num_positives(privileged=False)),
+                ("numInstancesUnprivileged", self.metric.num_instances(privileged=False)),
+                ("numPositivesPrivileged", self.metric.num_positives(privileged=True)),
+                ("numInstancesPrivileged", self.metric.num_instances(privileged=True)),
+                ("description", "Computed as the difference of the rate of favorable outcomes received by the unprivileged group to the privileged group."),
+                ("ideal", " The ideal value of this metric is 0")
+            ))
+        else:
+            response = OrderedDict((
+                ("metric", "Statistical Parity Difference"),
+                ("message", outcome),
+                ("numPositivesUnprivileged", self.metric.num_pred_positives(privileged=False)),
+                ("numInstancesUnprivileged", self.metric.num_instances(privileged=False)),
+                ("numPositivesPrivileged", self.metric.num_pred_positives(privileged=True)),
+                ("numInstancesPrivileged", self.metric.num_instances(privileged=True)),
+                ("description", "Computed as the difference of the rate of favorable outcomes received by the unprivileged group to the privileged group."),
+                ("ideal", " The ideal value of this metric is 0")
+            ))
+        return json.dumps(response)
