@@ -1,4 +1,5 @@
 '''
+    @note: York-Maastricht Project (YMP)
     @organization: University of York, University of Maastricht
     @author: Alfa Yohannis
 '''
@@ -28,18 +29,6 @@ from IPython import get_ipython
 import tensorflow.compat.v1 as tf
 from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
 from IPython.core.pylabtools import figsize
-
-
-def is_preprocessing(class_name):
-    return 'preprocessing' in class_name.__file__
-
-
-def is_inprocessing(class_name):
-    return 'inprocessing' in class_name.__file__
-
-
-def is_postprocessing(class_name):
-    return 'postprocessing' in class_name.__file__
 
     
 def print_message(text):
@@ -72,10 +61,9 @@ class FairML():
         if not os.path.exists(dir_name) and not os.path.isdir(dir_name):
             os.mkdir(dir_name)    
         
-    ''' generic distortion for optimised preprocessing
-    '''
-
     def get_generic_distortion_for_optimised_preprocessing(self, vold, vnew):
+        ''' generic distortion for optimised preprocessing
+        '''
         return 1.0  
             
     def add_bias_mitigation(self, bias_mitigation):
