@@ -100,11 +100,11 @@ public class FairML implements Callable<Integer> {
 				String command = null;
 				if (System.getProperty("os.name").startsWith("Windows")) {
 					command = String.format(
-							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True\"",
+							"cmd.exe /C \"start /B jupyter notebook %s --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True\"",
 							flexmiFile.getAbsolutePath());
 				} else {
 					command = "jupyter notebook " + flexmiFile.getAbsolutePath()
-							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=True --NotebookApp.allow_remote_access=True";
+							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True";
 				}
 				System.out.println(command);
 				Process p = Runtime.getRuntime().exec(command);

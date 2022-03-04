@@ -23,7 +23,7 @@ from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
 from aif360.explainers import MetricJSONExplainer
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
-from IPython.display import Markdown, display, JSON, display_json
+from IPython.display import Markdown, display, JSON, display_json, Image
 from IPython import get_ipython
 
 import tensorflow.compat.v1 as tf
@@ -358,7 +358,9 @@ class BiasMitigation():
         data.plot.bar(figsize=(16, 5), rot=0, xlabel="Bias Mitigation",
                       title="Normalised Metrics (Value 1 Means the Bias Mitigation is the Best Option for the Metric)")
         # plot.show(block=True)
-        plot.savefig("graphics/" + self.name.replace(" ", "_").lower() + ".png")
+        image = "graphics/" + self.name.replace(" ", "_").lower() + ".png"
+        plot.savefig(image)
+        display(Image(filename=image))
     
     def print_explanation(self):
         if get_ipython() == None:
