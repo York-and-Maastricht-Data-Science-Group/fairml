@@ -4,29 +4,50 @@
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
 # docker exec fairml bash -c "jupyter notebook list"
 # docker exec -i fairml bash -c "python3 -m notebook.auth password"
-# jupyter notebook demo.ipynb --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''
-FROM ubuntu:20.04
+# jupyter notebook dcatmo.ipynb --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''
+# FROM openjdk:11-jdk-slim-bullseye
+
+# STAGE 01: Do all the Java stuff to build only the fairml
+FROM openjdk:11-jdk-slim-bullseye AS stage01
+# FROM debian:bullseye-slim AS Stage01
 
 WORKDIR /fairml-src
-COPY requirements.txt /fairml-src
 
-RUN apt-get update && \
-  apt-get install -y openjdk-11-jre-headless=11.0.13+8-0ubuntu1~20.04 && \
-  apt-get install -y git=1:2.25.1-1ubuntu3.2 && \
-  apt-get install -y maven=3.6.3-1 && \
-  apt-get install -y python3-minimal=3.8.2-0ubuntu2 && \
-  apt-get install -y python3-tk=3.8.10-0ubuntu1~20.04 && \ 
-  apt-get install -y python3-pip=20.0.2-5ubuntu1.6 && \
-  python3 -m pip install -r requirements.txt && \
+RUN apt-get update -y && \
+  # apt-get install -y openjdk-11-jre-headless nocache && \
+  apt-get install -y git nocache && \
+  apt-get install -y maven nocache && \
   git clone https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git && \
-  cd /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
+  cd /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator && \
+  apt-get remove -y git nocache && \
+  apt-get autoremove -y
 
 WORKDIR /fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator
 
 RUN mvn install && \
-  mkdir /fairml
+  mkdir /fairml && \
+  cp -v fairml.jar /fairml-src && \
+  apt-get remove -y maven nocache && \
+  apt-get autoremove -y && \
+  rm -rf /fairml-src/fairml && \
+  rm -rf /root/.m2/repository 
+
+# STAGE 02: copy the fairml in stage 2 and install all python dependencies
+# FROM debian:bullseye-slim
+FROM openjdk:11-jre-slim-bullseye
+
+WORKDIR /fairml-src
+COPY requirements.txt /fairml-src
+
+COPY --from=Stage01 /fairml-src/fairml.jar /fairml-src/
+
+RUN apt-get update -y && \
+  apt-get install -y python3-minimal nocache && \
+  apt-get install -y python3-pip nocache && \
+  python3 -m pip install -r requirements.txt --no-cache-dir && \
+  rm -rf /fairml-src/requirements.txt && \
+  apt-get autoremove -y
 
 WORKDIR /fairml
 
-ENTRYPOINT ["java", "-cp", "/fairml-src/fairml/generator/org.eclipse.epsilon.fairml.generator/fairml.jar", "org.eclipse.epsilon.fairml.generator.FairML"]
-#ENTRYPOINT ["fairml"]
+ENTRYPOINT ["java", "-cp", "/fairml-src/fairml.jar", "org.eclipse.epsilon.fairml.generator.FairML"]

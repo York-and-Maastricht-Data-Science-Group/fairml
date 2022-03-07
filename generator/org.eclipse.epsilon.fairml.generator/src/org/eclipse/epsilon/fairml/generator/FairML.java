@@ -52,7 +52,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 @Command(name = "fairml", mixinStandardHelpOptions = true, //
-		version = "fairml 0.1", //
+		version = "fairml 0.0.5", //
 		description = "Generate Bias Mitigation Implementation " + "in Python & Jupyter Notebook "
 				+ "from a FairML model in a Flexmi file.")
 public class FairML implements Callable<Integer> {
@@ -348,9 +348,12 @@ public class FairML implements Callable<Integer> {
 		System.out.println("");
 		System.out.println("---- Training Algorithm ----");
 		List<Object> trainingMethod = new ArrayList<>();
+		System.out.println("The options in this Wizard are limited. Modify the generated files later");
+		System.out.println("to apply other training algorithms that sklearn library supports.");
 		System.out.println("1. DecisionTreeClassifier");
 		System.out.println("2. LogisticRegression");
 		System.out.println("3. LinearSVC");
+		
 		temp = "1";
 		temp = getUserInput("Classifier (default 1. DecisionTreeClassifier):", temp, "Classifier");
 		trainingMethod.add(Map.of("algorithm", temp));
