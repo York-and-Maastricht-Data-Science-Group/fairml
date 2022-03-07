@@ -94,7 +94,8 @@ The fastest way to run and test FairML is by using its docker image.
 
 Learn more about FairML using these tutorials.
 
-1. [FairML Generator](docs/FairMLGenerator.md)
+1. [FairML Generator](docs/Generator.md)
+2. [FairML Model](docs/Model.md)
 
 ### Installation
 

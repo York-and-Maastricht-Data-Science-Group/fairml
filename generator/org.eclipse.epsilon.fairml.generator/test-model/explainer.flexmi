@@ -37,7 +37,5 @@ fairml:
   
   - biasMetric:
     - name: accuracy
-  - biasMetric:
-    - name: statistical_parity_difference
   - biasMetric: 
     - name: theil_index
