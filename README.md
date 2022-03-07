@@ -1,19 +1,19 @@
 # FairML: Towards Automated Fair Machine Learning
 
-[Contents](#Contents)
 
-* [Introduction](#Introduction)
+## [Contents](#Contents)
 
 - [FairML: Towards Automated Fair Machine Learning](#fairml-towards-automated-fair-machine-learning)
-  - [## Introduction](#-introduction)
-  - [## Up and Running](#-up-and-running)
-  - [## Others](#-others)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Up and Running](#up-and-running)
+  - [Others](#others)
     - [Tutorials](#tutorials)
     - [Installation](#installation)
     - [Docker](#docker)
 
-## Introduction
----
+## [Introduction](#contents)
+
 FairML is a tool that implements a model-based approach to model and automate bias measurement and mitigation in machine learning. 
 
 1. FairML raises the abstraction of bias measurement and mitigation so that users can configure their bias mitigation model in YAML (YAML Ain't Markup Language), a human-friendly declarative language, without having to code in general/statistical programming languages.
@@ -21,8 +21,8 @@ FairML is a tool that implements a model-based approach to model and automate bi
 3. It automatically generates Python and Jupyter Notebook files which users can execute to run measure and mitigate biases on given datasets. All generated files are modifiable and extensible for fine-tuning and further development.
 
 
-## Up and Running
----
+## [Up and Running](#contents)
+
 The fastest way to run and test FairML is by using its docker image.
 
 1. Open your command prompt and execute the following command. First, we create a directory where we want to put your work. Let's say that we want work under FAIRML directory.
@@ -69,6 +69,9 @@ The fastest way to run and test FairML is by using its docker image.
    docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter fairml -j demo.ipynb
     ```
 7. Use your browser to access [http://localhost:8888](http://localhost:8888). You will see Jupyter Notebook with your current directory as your working directory. Open `demo.ipynb` file and run the whole notebook.
+
+### [More...](#contents)
+
 8. We don't have to run the wizard all the time. We can directly add the desired classifiers, bias mitigation algorithms, and bias metrics directly into the generated `*.flexmi` file and re-generate the `*.py`/`*.ipynb` files. Let's add `theil_index` metric to the end of `demo.flexmi` file so the end of file becomes like this.
    ```
      ...
@@ -83,10 +86,10 @@ The fastest way to run and test FairML is by using its docker image.
    docker run --rm -i -t -v %cd%:/fairml fairml demo.flexmi
    ```
 10. Refresh your Jupyter Notebook tab on associated with `demo.ipynb` file on your brower and run your whole notebook again. You will notice that `theil_index` metric has been added to your notebook.
-11. Feel free to check and modify the generated `*.flexmi`, `*.py`, `*.ipynb` files to learn more about FairML .
+11. Feel free to check and modify the generated `*.flexmi`, `*.py`, `*.ipynb` files to learn more about FairML and modify the results.
 
-## Others
----
+## [Others](#contents)
+
 ### Tutorials
 
 Learn more about FairML using these tutorials.
