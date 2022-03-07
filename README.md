@@ -34,11 +34,11 @@ The fastest way to run and test FairML is by using its docker image.
    ```
    docker pull alfayohannisyorkacuk/fairml
    ```
-3. Then, we use the FairML wizard to create an FairML model saved in a flexmi file by executing the command below on **Windows**. **For Linux, replace the %cd% with $PWD**. They are the environment variables for current directory. The `-w` flag indicates to run a wizard.
+3. Then, we use the FairML wizard to create an FairML model saved in a flexmi file by executing the command below on **Windows**. **For Linux, replace the %cd% with $PWD**. They are the environment variables for the current directory. The `-w` flag indicates to run a wizard.
    ```
    docker run --rm -i -t -v %cd%:/fairml fairml -w demo.flexmi
    ```
-4. **The wizard prompt us with some questions**. Just **choose all the default values for now**, EXCEPT for the `Measure equal fairness (default: false):` question. Please type `true` and enter. For the rest, keep select their default values.
+4. **The wizard prompts us with some questions**. Just **choose all the default values, for now,**, EXCEPT for the `Measure equal fairness (default: false):` question. Please type `true` and enter. For the rest, keep selecting their default values.
    ```:
    =====================================
             FairML Wizard
@@ -55,7 +55,7 @@ The fastest way to run and test FairML is by using its docker image.
    
    Your answers to the questions help the wizard to select the best bias mitigation algorithms and metrics.
 
-5. After the end of the wizard, the following directories and files are generated. Use `dir` or `ls` commands, depedending on your operating systems, to see the generated files and directories.
+5. After the end of the wizard, the following directories and files are generated. Depending on your operating systems, use `dir` or `ls` commands to see the generated files and directories.
    ```
    data
    demo.flexmi
@@ -64,15 +64,15 @@ The fastest way to run and test FairML is by using its docker image.
    fairml.py
    generator
    ```
-6. Let's run Jupyter Notebook to execute the generated `demo.ipynb`. Remember to replace `%cd` with `$PWD` if you are running on Linux.
+6. Let's run Jupyter Notebook to execute the generated `demo.ipynb`. Remember to replace `%cd` with `$PWD` if running on Linux.
    ```
    docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter fairml -j demo.ipynb
     ```
-7. Use your browser to access [http://localhost:8888](http://localhost:8888). You will see Jupyter Notebook with your current directory as your working directory. Open `demo.ipynb` file and run the whole notebook.
+7. Use your browser to access [http://localhost:8888](http://localhost:8888). You will see Jupyter Notebook with your current directory as your working directory. Open the `demo.ipynb` file and run the whole notebook.
 
 ### [More...](#contents)
 
-8. We don't have to run the wizard all the time. We can directly add the desired classifiers, bias mitigation algorithms, and bias metrics directly into the generated `*.flexmi` file and re-generate the `*.py`/`*.ipynb` files. Let's add `theil_index` metric to the end of `demo.flexmi` file so the end of file becomes like this.
+8. We don't have to run the wizard all the time. We can directly add the desired classifiers, bias mitigation algorithms, and bias metrics directly into the generated `*.flexmi` file and re-generate the `*.py`/`*.ipynb` files. Let's add the `theil_index` metric to the end of the `demo.flexmi` file, so the end part becomes like this.
    ```
      ...
      ...
@@ -85,7 +85,7 @@ The fastest way to run and test FairML is by using its docker image.
    ```
    docker run --rm -i -t -v %cd%:/fairml fairml demo.flexmi
    ```
-10. Refresh your Jupyter Notebook tab on associated with `demo.ipynb` file on your brower and run your whole notebook again. You will notice that `theil_index` metric has been added to your notebook.
+10. Refresh your Jupyter Notebook tab associated with the `demo.ipynb` file on your browser and rerun your whole notebook. You will notice that the `theil_index` metric has been added to your Jupyter notebook.
 11. Feel free to check and modify the generated `*.flexmi`, `*.py`, `*.ipynb` files to learn more about FairML and modify the results.
 
 ## [Others](#contents)
@@ -98,10 +98,10 @@ Learn more about FairML using these tutorials.
 
 ### Installation
 
-For installation &ndash; setting up environment, downloading and building source code, please follow the instructions here [FairML Installation](docs/Installation.md).
+For installation &ndash; setting up an environment, downloading and building source code, please follow the instructions here [FairML Installation](docs/Installation.md).
 
 ### Docker
 
-For a more detailed documentation for downloading, building, and running FairML docker image, please follow the instructions here [FairML Docker](docs/Docker.md).
+For more detailed documentation for downloading, building, and running FairML docker images, please follow the instructions here [FairML Docker](docs/Docker.md).
 
 
