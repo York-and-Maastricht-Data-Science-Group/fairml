@@ -29,8 +29,10 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <ul>
  *   <li>{@link fairml.impl.DatasetImpl#getName <em>Name</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getDatasetPath <em>Dataset Path</em>}</li>
- *   <li>{@link fairml.impl.DatasetImpl#getTrainDatasetPath <em>Train Dataset Path</em>}</li>
- *   <li>{@link fairml.impl.DatasetImpl#getTestDatasetPath <em>Test Dataset Path</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getDatasetModule <em>Dataset Module</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getTrainDatasetModule <em>Train Dataset Module</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getTestDatasetModule <em>Test Dataset Module</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getValidationDatasetModule <em>Validation Dataset Module</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getPriviledgedGroup <em>Priviledged Group</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getUnpriviledgedGroup <em>Unpriviledged Group</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getPredictedAttribute <em>Predicted Attribute</em>}</li>
@@ -90,44 +92,84 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	protected String datasetPath = DATASET_PATH_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTrainDatasetPath() <em>Train Dataset Path</em>}' attribute.
+	 * The default value of the '{@link #getDatasetModule() <em>Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTrainDatasetPath()
+	 * @see #getDatasetModule()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TRAIN_DATASET_PATH_EDEFAULT = null;
+	protected static final String DATASET_MODULE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTrainDatasetPath() <em>Train Dataset Path</em>}' attribute.
+	 * The cached value of the '{@link #getDatasetModule() <em>Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTrainDatasetPath()
+	 * @see #getDatasetModule()
 	 * @generated
 	 * @ordered
 	 */
-	protected String trainDatasetPath = TRAIN_DATASET_PATH_EDEFAULT;
+	protected String datasetModule = DATASET_MODULE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getTestDatasetPath() <em>Test Dataset Path</em>}' attribute.
+	 * The default value of the '{@link #getTrainDatasetModule() <em>Train Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTestDatasetPath()
+	 * @see #getTrainDatasetModule()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TEST_DATASET_PATH_EDEFAULT = null;
+	protected static final String TRAIN_DATASET_MODULE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getTestDatasetPath() <em>Test Dataset Path</em>}' attribute.
+	 * The cached value of the '{@link #getTrainDatasetModule() <em>Train Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTestDatasetPath()
+	 * @see #getTrainDatasetModule()
 	 * @generated
 	 * @ordered
 	 */
-	protected String testDatasetPath = TEST_DATASET_PATH_EDEFAULT;
+	protected String trainDatasetModule = TRAIN_DATASET_MODULE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTestDatasetModule() <em>Test Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTestDatasetModule()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEST_DATASET_MODULE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTestDatasetModule() <em>Test Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTestDatasetModule()
+	 * @generated
+	 * @ordered
+	 */
+	protected String testDatasetModule = TEST_DATASET_MODULE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getValidationDatasetModule() <em>Validation Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationDatasetModule()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VALIDATION_DATASET_MODULE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getValidationDatasetModule() <em>Validation Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationDatasetModule()
+	 * @generated
+	 * @ordered
+	 */
+	protected String validationDatasetModule = VALIDATION_DATASET_MODULE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPriviledgedGroup() <em>Priviledged Group</em>}' attribute.
@@ -370,8 +412,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
-	public String getTrainDatasetPath() {
-		return trainDatasetPath;
+	public String getDatasetModule() {
+		return datasetModule;
 	}
 
 	/**
@@ -380,11 +422,11 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
-	public void setTrainDatasetPath(String newTrainDatasetPath) {
-		String oldTrainDatasetPath = trainDatasetPath;
-		trainDatasetPath = newTrainDatasetPath;
+	public void setDatasetModule(String newDatasetModule) {
+		String oldDatasetModule = datasetModule;
+		datasetModule = newDatasetModule;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__TRAIN_DATASET_PATH, oldTrainDatasetPath, trainDatasetPath));
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__DATASET_MODULE, oldDatasetModule, datasetModule));
 	}
 
 	/**
@@ -393,8 +435,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
-	public String getTestDatasetPath() {
-		return testDatasetPath;
+	public String getTrainDatasetModule() {
+		return trainDatasetModule;
 	}
 
 	/**
@@ -403,11 +445,57 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
-	public void setTestDatasetPath(String newTestDatasetPath) {
-		String oldTestDatasetPath = testDatasetPath;
-		testDatasetPath = newTestDatasetPath;
+	public void setTrainDatasetModule(String newTrainDatasetModule) {
+		String oldTrainDatasetModule = trainDatasetModule;
+		trainDatasetModule = newTrainDatasetModule;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__TEST_DATASET_PATH, oldTestDatasetPath, testDatasetPath));
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__TRAIN_DATASET_MODULE, oldTrainDatasetModule, trainDatasetModule));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getTestDatasetModule() {
+		return testDatasetModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTestDatasetModule(String newTestDatasetModule) {
+		String oldTestDatasetModule = testDatasetModule;
+		testDatasetModule = newTestDatasetModule;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__TEST_DATASET_MODULE, oldTestDatasetModule, testDatasetModule));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getValidationDatasetModule() {
+		return validationDatasetModule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setValidationDatasetModule(String newValidationDatasetModule) {
+		String oldValidationDatasetModule = validationDatasetModule;
+		validationDatasetModule = newValidationDatasetModule;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.DATASET__VALIDATION_DATASET_MODULE, oldValidationDatasetModule, validationDatasetModule));
 	}
 
 	/**
@@ -631,10 +719,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return getName();
 			case FairmlPackage.DATASET__DATASET_PATH:
 				return getDatasetPath();
-			case FairmlPackage.DATASET__TRAIN_DATASET_PATH:
-				return getTrainDatasetPath();
-			case FairmlPackage.DATASET__TEST_DATASET_PATH:
-				return getTestDatasetPath();
+			case FairmlPackage.DATASET__DATASET_MODULE:
+				return getDatasetModule();
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE:
+				return getTrainDatasetModule();
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE:
+				return getTestDatasetModule();
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
+				return getValidationDatasetModule();
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				return getPriviledgedGroup();
 			case FairmlPackage.DATASET__UNPRIVILEDGED_GROUP:
@@ -680,11 +772,17 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__DATASET_PATH:
 				setDatasetPath((String)newValue);
 				return;
-			case FairmlPackage.DATASET__TRAIN_DATASET_PATH:
-				setTrainDatasetPath((String)newValue);
+			case FairmlPackage.DATASET__DATASET_MODULE:
+				setDatasetModule((String)newValue);
 				return;
-			case FairmlPackage.DATASET__TEST_DATASET_PATH:
-				setTestDatasetPath((String)newValue);
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE:
+				setTrainDatasetModule((String)newValue);
+				return;
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE:
+				setTestDatasetModule((String)newValue);
+				return;
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
+				setValidationDatasetModule((String)newValue);
 				return;
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				setPriviledgedGroup((Integer)newValue);
@@ -752,11 +850,17 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__DATASET_PATH:
 				setDatasetPath(DATASET_PATH_EDEFAULT);
 				return;
-			case FairmlPackage.DATASET__TRAIN_DATASET_PATH:
-				setTrainDatasetPath(TRAIN_DATASET_PATH_EDEFAULT);
+			case FairmlPackage.DATASET__DATASET_MODULE:
+				setDatasetModule(DATASET_MODULE_EDEFAULT);
 				return;
-			case FairmlPackage.DATASET__TEST_DATASET_PATH:
-				setTestDatasetPath(TEST_DATASET_PATH_EDEFAULT);
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE:
+				setTrainDatasetModule(TRAIN_DATASET_MODULE_EDEFAULT);
+				return;
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE:
+				setTestDatasetModule(TEST_DATASET_MODULE_EDEFAULT);
+				return;
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
+				setValidationDatasetModule(VALIDATION_DATASET_MODULE_EDEFAULT);
 				return;
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				setPriviledgedGroup(PRIVILEDGED_GROUP_EDEFAULT);
@@ -813,10 +917,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case FairmlPackage.DATASET__DATASET_PATH:
 				return DATASET_PATH_EDEFAULT == null ? datasetPath != null : !DATASET_PATH_EDEFAULT.equals(datasetPath);
-			case FairmlPackage.DATASET__TRAIN_DATASET_PATH:
-				return TRAIN_DATASET_PATH_EDEFAULT == null ? trainDatasetPath != null : !TRAIN_DATASET_PATH_EDEFAULT.equals(trainDatasetPath);
-			case FairmlPackage.DATASET__TEST_DATASET_PATH:
-				return TEST_DATASET_PATH_EDEFAULT == null ? testDatasetPath != null : !TEST_DATASET_PATH_EDEFAULT.equals(testDatasetPath);
+			case FairmlPackage.DATASET__DATASET_MODULE:
+				return DATASET_MODULE_EDEFAULT == null ? datasetModule != null : !DATASET_MODULE_EDEFAULT.equals(datasetModule);
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE:
+				return TRAIN_DATASET_MODULE_EDEFAULT == null ? trainDatasetModule != null : !TRAIN_DATASET_MODULE_EDEFAULT.equals(trainDatasetModule);
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE:
+				return TEST_DATASET_MODULE_EDEFAULT == null ? testDatasetModule != null : !TEST_DATASET_MODULE_EDEFAULT.equals(testDatasetModule);
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
+				return VALIDATION_DATASET_MODULE_EDEFAULT == null ? validationDatasetModule != null : !VALIDATION_DATASET_MODULE_EDEFAULT.equals(validationDatasetModule);
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				return priviledgedGroup != PRIVILEDGED_GROUP_EDEFAULT;
 			case FairmlPackage.DATASET__UNPRIVILEDGED_GROUP:
@@ -861,10 +969,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 		result.append(name);
 		result.append(", datasetPath: ");
 		result.append(datasetPath);
-		result.append(", trainDatasetPath: ");
-		result.append(trainDatasetPath);
-		result.append(", testDatasetPath: ");
-		result.append(testDatasetPath);
+		result.append(", datasetModule: ");
+		result.append(datasetModule);
+		result.append(", trainDatasetModule: ");
+		result.append(trainDatasetModule);
+		result.append(", testDatasetModule: ");
+		result.append(testDatasetModule);
+		result.append(", validationDatasetModule: ");
+		result.append(validationDatasetModule);
 		result.append(", priviledgedGroup: ");
 		result.append(priviledgedGroup);
 		result.append(", unpriviledgedGroup: ");

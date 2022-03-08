@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link fairml.FairML#getFilename <em>Filename</em>}</li>
  *   <li>{@link fairml.FairML#getDatasets <em>Datasets</em>}</li>
  *   <li>{@link fairml.FairML#getBiasMitigations <em>Bias Mitigations</em>}</li>
+ *   <li>{@link fairml.FairML#getModules <em>Modules</em>}</li>
  * </ul>
  *
  * @see fairml.FairmlPackage#getFairML()
@@ -116,5 +117,17 @@ public interface FairML extends EObject {
 	 * @generated
 	 */
 	EList<BiasMitigation> getBiasMitigations();
+
+	/**
+	 * Returns the value of the '<em><b>Modules</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Modules</em>' attribute list.
+	 * @see fairml.FairmlPackage#getFairML_Modules()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getModules();
 
 } // FairML

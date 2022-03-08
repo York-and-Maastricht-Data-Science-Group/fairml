@@ -112,13 +112,22 @@ public interface FairmlPackage extends EPackage {
 	int FAIR_ML__BIAS_MITIGATIONS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Modules</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FAIR_ML__MODULES = 5;
+
+	/**
 	 * The number of structural features of the '<em>Fair ML</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FAIR_ML_FEATURE_COUNT = 5;
+	int FAIR_ML_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.OperationImpl <em>Operation</em>}' class.
@@ -433,22 +442,40 @@ public interface FairmlPackage extends EPackage {
 	int DATASET__DATASET_PATH = 1;
 
 	/**
-	 * The feature id for the '<em><b>Train Dataset Path</b></em>' attribute.
+	 * The feature id for the '<em><b>Dataset Module</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__TRAIN_DATASET_PATH = 2;
+	int DATASET__DATASET_MODULE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Test Dataset Path</b></em>' attribute.
+	 * The feature id for the '<em><b>Train Dataset Module</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__TEST_DATASET_PATH = 3;
+	int DATASET__TRAIN_DATASET_MODULE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Test Dataset Module</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATASET__TEST_DATASET_MODULE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Validation Dataset Module</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATASET__VALIDATION_DATASET_MODULE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Priviledged Group</b></em>' attribute.
@@ -457,7 +484,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__PRIVILEDGED_GROUP = 4;
+	int DATASET__PRIVILEDGED_GROUP = 6;
 
 	/**
 	 * The feature id for the '<em><b>Unpriviledged Group</b></em>' attribute.
@@ -466,7 +493,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__UNPRIVILEDGED_GROUP = 5;
+	int DATASET__UNPRIVILEDGED_GROUP = 7;
 
 	/**
 	 * The feature id for the '<em><b>Predicted Attribute</b></em>' attribute.
@@ -475,7 +502,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__PREDICTED_ATTRIBUTE = 6;
+	int DATASET__PREDICTED_ATTRIBUTE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Favorable Classes</b></em>' attribute list.
@@ -484,7 +511,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__FAVORABLE_CLASSES = 7;
+	int DATASET__FAVORABLE_CLASSES = 9;
 
 	/**
 	 * The feature id for the '<em><b>Protected Attributes</b></em>' attribute list.
@@ -493,7 +520,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__PROTECTED_ATTRIBUTES = 8;
+	int DATASET__PROTECTED_ATTRIBUTES = 10;
 
 	/**
 	 * The feature id for the '<em><b>Privileged Classes</b></em>' attribute list.
@@ -502,7 +529,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__PRIVILEGED_CLASSES = 9;
+	int DATASET__PRIVILEGED_CLASSES = 11;
 
 	/**
 	 * The feature id for the '<em><b>Unprivileged Classes</b></em>' attribute list.
@@ -511,7 +538,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__UNPRIVILEGED_CLASSES = 10;
+	int DATASET__UNPRIVILEGED_CLASSES = 12;
 
 	/**
 	 * The feature id for the '<em><b>Instance Weights</b></em>' attribute list.
@@ -520,7 +547,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__INSTANCE_WEIGHTS = 11;
+	int DATASET__INSTANCE_WEIGHTS = 13;
 
 	/**
 	 * The feature id for the '<em><b>Categorical Features</b></em>' attribute list.
@@ -529,7 +556,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__CATEGORICAL_FEATURES = 12;
+	int DATASET__CATEGORICAL_FEATURES = 14;
 
 	/**
 	 * The feature id for the '<em><b>Dropped Attributes</b></em>' attribute list.
@@ -538,7 +565,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__DROPPED_ATTRIBUTES = 13;
+	int DATASET__DROPPED_ATTRIBUTES = 15;
 
 	/**
 	 * The feature id for the '<em><b>Not Available Values</b></em>' attribute list.
@@ -547,7 +574,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__NOT_AVAILABLE_VALUES = 14;
+	int DATASET__NOT_AVAILABLE_VALUES = 16;
 
 	/**
 	 * The feature id for the '<em><b>Default Mappings</b></em>' attribute.
@@ -556,7 +583,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__DEFAULT_MAPPINGS = 15;
+	int DATASET__DEFAULT_MAPPINGS = 17;
 
 	/**
 	 * The feature id for the '<em><b>Train Test Validation Split</b></em>' attribute list.
@@ -565,7 +592,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__TRAIN_TEST_VALIDATION_SPLIT = 16;
+	int DATASET__TRAIN_TEST_VALIDATION_SPLIT = 18;
 
 	/**
 	 * The number of structural features of the '<em>Dataset</em>' class.
@@ -574,7 +601,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET_FEATURE_COUNT = 17;
+	int DATASET_FEATURE_COUNT = 19;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.BiasMitigationImpl <em>Bias Mitigation</em>}' class.
@@ -851,6 +878,17 @@ public interface FairmlPackage extends EPackage {
 	EReference getFairML_BiasMitigations();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link fairml.FairML#getModules <em>Modules</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Modules</em>'.
+	 * @see fairml.FairML#getModules()
+	 * @see #getFairML()
+	 * @generated
+	 */
+	EAttribute getFairML_Modules();
+
+	/**
 	 * Returns the meta object for class '{@link fairml.Operation <em>Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1032,26 +1070,48 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getDataset_DatasetPath();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fairml.Dataset#getTrainDatasetPath <em>Train Dataset Path</em>}'.
+	 * Returns the meta object for the attribute '{@link fairml.Dataset#getDatasetModule <em>Dataset Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Train Dataset Path</em>'.
-	 * @see fairml.Dataset#getTrainDatasetPath()
+	 * @return the meta object for the attribute '<em>Dataset Module</em>'.
+	 * @see fairml.Dataset#getDatasetModule()
 	 * @see #getDataset()
 	 * @generated
 	 */
-	EAttribute getDataset_TrainDatasetPath();
+	EAttribute getDataset_DatasetModule();
 
 	/**
-	 * Returns the meta object for the attribute '{@link fairml.Dataset#getTestDatasetPath <em>Test Dataset Path</em>}'.
+	 * Returns the meta object for the attribute '{@link fairml.Dataset#getTrainDatasetModule <em>Train Dataset Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Test Dataset Path</em>'.
-	 * @see fairml.Dataset#getTestDatasetPath()
+	 * @return the meta object for the attribute '<em>Train Dataset Module</em>'.
+	 * @see fairml.Dataset#getTrainDatasetModule()
 	 * @see #getDataset()
 	 * @generated
 	 */
-	EAttribute getDataset_TestDatasetPath();
+	EAttribute getDataset_TrainDatasetModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fairml.Dataset#getTestDatasetModule <em>Test Dataset Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Test Dataset Module</em>'.
+	 * @see fairml.Dataset#getTestDatasetModule()
+	 * @see #getDataset()
+	 * @generated
+	 */
+	EAttribute getDataset_TestDatasetModule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fairml.Dataset#getValidationDatasetModule <em>Validation Dataset Module</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Validation Dataset Module</em>'.
+	 * @see fairml.Dataset#getValidationDatasetModule()
+	 * @see #getDataset()
+	 * @generated
+	 */
+	EAttribute getDataset_ValidationDatasetModule();
 
 	/**
 	 * Returns the meta object for the attribute '{@link fairml.Dataset#getPriviledgedGroup <em>Priviledged Group</em>}'.
@@ -1510,6 +1570,14 @@ public interface FairmlPackage extends EPackage {
 		EReference FAIR_ML__BIAS_MITIGATIONS = eINSTANCE.getFairML_BiasMitigations();
 
 		/**
+		 * The meta object literal for the '<em><b>Modules</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FAIR_ML__MODULES = eINSTANCE.getFairML_Modules();
+
+		/**
 		 * The meta object literal for the '{@link fairml.impl.OperationImpl <em>Operation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1658,20 +1726,36 @@ public interface FairmlPackage extends EPackage {
 		EAttribute DATASET__DATASET_PATH = eINSTANCE.getDataset_DatasetPath();
 
 		/**
-		 * The meta object literal for the '<em><b>Train Dataset Path</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Dataset Module</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DATASET__TRAIN_DATASET_PATH = eINSTANCE.getDataset_TrainDatasetPath();
+		EAttribute DATASET__DATASET_MODULE = eINSTANCE.getDataset_DatasetModule();
 
 		/**
-		 * The meta object literal for the '<em><b>Test Dataset Path</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Train Dataset Module</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DATASET__TEST_DATASET_PATH = eINSTANCE.getDataset_TestDatasetPath();
+		EAttribute DATASET__TRAIN_DATASET_MODULE = eINSTANCE.getDataset_TrainDatasetModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Test Dataset Module</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATASET__TEST_DATASET_MODULE = eINSTANCE.getDataset_TestDatasetModule();
+
+		/**
+		 * The meta object literal for the '<em><b>Validation Dataset Module</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATASET__VALIDATION_DATASET_MODULE = eINSTANCE.getDataset_ValidationDatasetModule();
 
 		/**
 		 * The meta object literal for the '<em><b>Priviledged Group</b></em>' attribute feature.

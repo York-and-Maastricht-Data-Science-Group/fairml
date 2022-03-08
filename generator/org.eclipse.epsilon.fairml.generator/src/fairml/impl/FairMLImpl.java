@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link fairml.impl.FairMLImpl#getFilename <em>Filename</em>}</li>
  *   <li>{@link fairml.impl.FairMLImpl#getDatasets <em>Datasets</em>}</li>
  *   <li>{@link fairml.impl.FairMLImpl#getBiasMitigations <em>Bias Mitigations</em>}</li>
+ *   <li>{@link fairml.impl.FairMLImpl#getModules <em>Modules</em>}</li>
  * </ul>
  *
  * @generated
@@ -120,6 +122,16 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 	 * @ordered
 	 */
 	protected EList<BiasMitigation> biasMitigations;
+
+	/**
+	 * The cached value of the '{@link #getModules() <em>Modules</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModules()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> modules;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -241,6 +253,19 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 	 * @generated
 	 */
 	@Override
+	public EList<String> getModules() {
+		if (modules == null) {
+			modules = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.FAIR_ML__MODULES);
+		}
+		return modules;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case FairmlPackage.FAIR_ML__DATASETS:
@@ -269,6 +294,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				return getDatasets();
 			case FairmlPackage.FAIR_ML__BIAS_MITIGATIONS:
 				return getBiasMitigations();
+			case FairmlPackage.FAIR_ML__MODULES:
+				return getModules();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -299,6 +326,10 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				getBiasMitigations().clear();
 				getBiasMitigations().addAll((Collection<? extends BiasMitigation>)newValue);
 				return;
+			case FairmlPackage.FAIR_ML__MODULES:
+				getModules().clear();
+				getModules().addAll((Collection<? extends String>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -326,6 +357,9 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 			case FairmlPackage.FAIR_ML__BIAS_MITIGATIONS:
 				getBiasMitigations().clear();
 				return;
+			case FairmlPackage.FAIR_ML__MODULES:
+				getModules().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -348,6 +382,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 				return datasets != null && !datasets.isEmpty();
 			case FairmlPackage.FAIR_ML__BIAS_MITIGATIONS:
 				return biasMitigations != null && !biasMitigations.isEmpty();
+			case FairmlPackage.FAIR_ML__MODULES:
+				return modules != null && !modules.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -368,6 +404,8 @@ public class FairMLImpl extends EObjectImpl implements FairML {
 		result.append(description);
 		result.append(", filename: ");
 		result.append(filename);
+		result.append(", modules: ");
+		result.append(modules);
 		result.append(')');
 		return result.toString();
 	}

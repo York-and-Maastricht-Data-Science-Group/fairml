@@ -17,8 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link fairml.Dataset#getName <em>Name</em>}</li>
  *   <li>{@link fairml.Dataset#getDatasetPath <em>Dataset Path</em>}</li>
- *   <li>{@link fairml.Dataset#getTrainDatasetPath <em>Train Dataset Path</em>}</li>
- *   <li>{@link fairml.Dataset#getTestDatasetPath <em>Test Dataset Path</em>}</li>
+ *   <li>{@link fairml.Dataset#getDatasetModule <em>Dataset Module</em>}</li>
+ *   <li>{@link fairml.Dataset#getTrainDatasetModule <em>Train Dataset Module</em>}</li>
+ *   <li>{@link fairml.Dataset#getTestDatasetModule <em>Test Dataset Module</em>}</li>
+ *   <li>{@link fairml.Dataset#getValidationDatasetModule <em>Validation Dataset Module</em>}</li>
  *   <li>{@link fairml.Dataset#getPriviledgedGroup <em>Priviledged Group</em>}</li>
  *   <li>{@link fairml.Dataset#getUnpriviledgedGroup <em>Unpriviledged Group</em>}</li>
  *   <li>{@link fairml.Dataset#getPredictedAttribute <em>Predicted Attribute</em>}</li>
@@ -84,48 +86,92 @@ public interface Dataset extends EObject {
 	void setDatasetPath(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Train Dataset Path</b></em>' attribute.
+	 * Returns the value of the '<em><b>Dataset Module</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Train Dataset Path</em>' attribute.
-	 * @see #setTrainDatasetPath(String)
-	 * @see fairml.FairmlPackage#getDataset_TrainDatasetPath()
+	 * @return the value of the '<em>Dataset Module</em>' attribute.
+	 * @see #setDatasetModule(String)
+	 * @see fairml.FairmlPackage#getDataset_DatasetModule()
 	 * @model
 	 * @generated
 	 */
-	String getTrainDatasetPath();
+	String getDatasetModule();
 
 	/**
-	 * Sets the value of the '{@link fairml.Dataset#getTrainDatasetPath <em>Train Dataset Path</em>}' attribute.
+	 * Sets the value of the '{@link fairml.Dataset#getDatasetModule <em>Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Train Dataset Path</em>' attribute.
-	 * @see #getTrainDatasetPath()
+	 * @param value the new value of the '<em>Dataset Module</em>' attribute.
+	 * @see #getDatasetModule()
 	 * @generated
 	 */
-	void setTrainDatasetPath(String value);
+	void setDatasetModule(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Test Dataset Path</b></em>' attribute.
+	 * Returns the value of the '<em><b>Train Dataset Module</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Test Dataset Path</em>' attribute.
-	 * @see #setTestDatasetPath(String)
-	 * @see fairml.FairmlPackage#getDataset_TestDatasetPath()
+	 * @return the value of the '<em>Train Dataset Module</em>' attribute.
+	 * @see #setTrainDatasetModule(String)
+	 * @see fairml.FairmlPackage#getDataset_TrainDatasetModule()
 	 * @model
 	 * @generated
 	 */
-	String getTestDatasetPath();
+	String getTrainDatasetModule();
 
 	/**
-	 * Sets the value of the '{@link fairml.Dataset#getTestDatasetPath <em>Test Dataset Path</em>}' attribute.
+	 * Sets the value of the '{@link fairml.Dataset#getTrainDatasetModule <em>Train Dataset Module</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Test Dataset Path</em>' attribute.
-	 * @see #getTestDatasetPath()
+	 * @param value the new value of the '<em>Train Dataset Module</em>' attribute.
+	 * @see #getTrainDatasetModule()
 	 * @generated
 	 */
-	void setTestDatasetPath(String value);
+	void setTrainDatasetModule(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Test Dataset Module</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Test Dataset Module</em>' attribute.
+	 * @see #setTestDatasetModule(String)
+	 * @see fairml.FairmlPackage#getDataset_TestDatasetModule()
+	 * @model
+	 * @generated
+	 */
+	String getTestDatasetModule();
+
+	/**
+	 * Sets the value of the '{@link fairml.Dataset#getTestDatasetModule <em>Test Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Test Dataset Module</em>' attribute.
+	 * @see #getTestDatasetModule()
+	 * @generated
+	 */
+	void setTestDatasetModule(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Validation Dataset Module</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Dataset Module</em>' attribute.
+	 * @see #setValidationDatasetModule(String)
+	 * @see fairml.FairmlPackage#getDataset_ValidationDatasetModule()
+	 * @model
+	 * @generated
+	 */
+	String getValidationDatasetModule();
+
+	/**
+	 * Sets the value of the '{@link fairml.Dataset#getValidationDatasetModule <em>Validation Dataset Module</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Dataset Module</em>' attribute.
+	 * @see #getValidationDatasetModule()
+	 * @generated
+	 */
+	void setValidationDatasetModule(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Priviledged Group</b></em>' attribute.

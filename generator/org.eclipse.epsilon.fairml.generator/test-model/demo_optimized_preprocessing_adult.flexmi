@@ -1,0 +1,35 @@
+?nsuri: fairml
+fairml:
+- name: Demo Optimized Preprocessing Adult
+- description: |-
+    Detecting and mitigating racial bias in income estimation
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_optim_preproc_adult.ipynb
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+  - protectedAttributes: race 
+  - trainTestSplit: 7, 3
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Mitigate Bias using Optimized Preprocessing  
+  - dataset: Adult Dataset From Module
+  
+  - mitigationMethod:
+    - algorithm: OptimPreproc
+    - parameters: >
+        privileged_groups=None,
+        unprivileged_groups=None,
+        optim_options = {
+            "distortion_fun": get_distortion_adult,
+            "epsilon": 0.05,
+            "clist": [0.99, 1.99, 2.99],
+            "dlist": [.1, 0.05, 0]
+        }
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: statistical_parity_difference

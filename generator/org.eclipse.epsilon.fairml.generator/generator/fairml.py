@@ -5,13 +5,11 @@
 '''
 
 import inspect
-import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plot
-import matplotlib
 import os.path
 import json 
 import numbers
+import tensorflow.compat.v1 as tf
 
 from collections import defaultdict
 from collections import OrderedDict
@@ -22,16 +20,15 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
+from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
 from aif360.explainers import MetricJSONExplainer
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
-from IPython.display import Markdown, display, JSON, display_json, Image
+from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import *
+
+from IPython.display import Markdown, display
 from IPython import get_ipython
 
-import tensorflow.compat.v1 as tf
-from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
-from IPython.core.pylabtools import figsize
 
-    
 def print_message(text):
     if get_ipython() == None:
         print(text)

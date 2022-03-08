@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/org.eclipse.epsilon.fairml.generator/src"
+    modelPluginID="org.eclipse.epsilon.fairml.generator" modelName="Fairml" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>fairml.ecore</foreignModel>
+  <genPackages prefix="Fairml" disposableProviderFactory="true" ecorePackage="fairml.ecore#/">
+    <genClasses ecoreClass="fairml.ecore#//FairML">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//FairML/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//FairML/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//FairML/filename"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//FairML/datasets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//FairML/biasMitigations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//FairML/modules"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="fairml.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Operation/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Operation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Operation/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//Operation/functions"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//Function">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Function/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Function/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//TrainingMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//TrainingMethod/algorithm"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//MitigationMethod">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//MitigationMethod/algorithm"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//BiasMetric">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMetric/className"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//Dataset">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/datasetPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/datasetModule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/trainDatasetModule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/testDatasetModule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/validationDatasetModule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/priviledgedGroup"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/unpriviledgedGroup"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/predictedAttribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/favorableClasses"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/protectedAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/privilegedClasses"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/unprivilegedClasses"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/instanceWeights"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/categoricalFeatures"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/droppedAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/notAvailableValues"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/defaultMappings"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/trainTestValidationSplit"/>
+    </genClasses>
+    <genClasses ecoreClass="fairml.ecore#//BiasMitigation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/groupFairness"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/individualFairness"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/groupIndividualSingleMetric"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/equalFairness"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/proportionalFairness"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/checkFalsePositive"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/checkFalseNegative"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/checkErrorRate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/checkEqualBenefit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/prepreprocessingMitigation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/modifiableWeight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/allowLatentSpace"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/inpreprocessingMitigation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/allowRegularisation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/postpreprocessingMitigation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMitigation/allowRandomisation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference fairml.ecore#//BiasMitigation/datasets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//BiasMitigation/biasMetrics"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//BiasMitigation/mitigationMethods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference fairml.ecore#//BiasMitigation/trainingMethods"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

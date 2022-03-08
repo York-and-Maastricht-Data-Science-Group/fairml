@@ -37,4 +37,14 @@ public class AIF360ExampleTest {
 		
 		assertEquals(0, 0);
 	}
+	
+	@Test
+	public void testDemoOptimisedPreprocessingAdult() {
+		String filename = "demo_optimized_preprocessing_adult";
+		String modelFile = "test-model/" + filename + ".flexmi";
+
+		org.eclipse.epsilon.fairml.generator.FairML.main(new String[] { modelFile });
+		
+		assertEquals(0, 0);
+	}
 }
