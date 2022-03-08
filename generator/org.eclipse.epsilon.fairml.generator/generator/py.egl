@@ -183,9 +183,9 @@ bm.dataset_original_train, bm.dataset_original_valid, bm.dataset_original_test =
 [% if (dataset.trainDatasetModule != null and dataset.trainDatasetModule.length() > 0) { %]
 bm.dataset_original = [%=dataset.trainDatasetModule%]()
 [%   if (dataset.trainTestValidationSplit[2] == 0) { %]
-bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+bm.dataset_original_train, _ = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
 [%   } else { %]
-bm.dataset_original_train, _ , bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+bm.dataset_original_train, _ , _ = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
 [%   } %]
 [% } %]
 
@@ -195,7 +195,7 @@ bm.dataset_original_test = bm.dataset_original_train.align_datasets(bm.dataset_o
 [%   if (dataset.trainTestValidationSplit[2] == 0) { %]
 _ , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size], shuffle=True)
 [%   } else { %]
-_ , bm.dataset_original_valid , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+_ , _ , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
 [%   } %]
 [% } %]
 

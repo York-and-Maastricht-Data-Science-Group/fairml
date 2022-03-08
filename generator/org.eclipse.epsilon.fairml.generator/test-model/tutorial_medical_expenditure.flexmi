@@ -20,13 +20,13 @@ fairml:
 - dataset:
   - name: Panel19-Panel20
   - datasetModule: MEPSDataset19
-  - validationDatasetModule: MEPSDataset20
+  - testDatasetModule: MEPSDataset20
   - protectedAttributes: RACE 
   - trainTestSplit: 7, 2, 3
 - dataset:
   - name: Panel19-Panel21
   - datasetModule: MEPSDataset19
-  - validationDatasetModule: MEPSDataset21
+  - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE 
   - trainTestSplit: 7, 2, 3
 - dataset:
@@ -37,7 +37,7 @@ fairml:
 - dataset:
   - name: Panel20-Panel21
   - datasetModule: MEPSDataset20
-  - validationDatasetModule: MEPSDataset21
+  - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE
   - trainTestSplit: 7, 2, 3
     
