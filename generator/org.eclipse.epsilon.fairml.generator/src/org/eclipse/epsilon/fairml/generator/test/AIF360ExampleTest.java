@@ -47,4 +47,14 @@ public class AIF360ExampleTest {
 		
 		assertEquals(0, 0);
 	}
+	
+	@Test
+	public void testTutorialMedicalExpenditure() {
+		String filename = "tutorial_medical_expenditure";
+		String modelFile = "test-model/" + filename + ".flexmi";
+
+		org.eclipse.epsilon.fairml.generator.FairML.main(new String[] { modelFile });
+		
+		assertEquals(0, 0);
+	}
 }

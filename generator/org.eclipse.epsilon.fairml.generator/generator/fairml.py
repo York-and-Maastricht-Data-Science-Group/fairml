@@ -41,7 +41,7 @@ class FairML():
     def __init__(self):
         """
         """
-        self.results = []
+        # self.results = []
         self.line_num_counter = 1
         self.bias_mitigations = []
         self.optim_options = {
@@ -81,6 +81,7 @@ class BiasMitigation():
         """
         self.name = None
         self.fairml = None
+        self.results = []
         self.predicted_attribute = None
         self.protected_attributes = []
         self.favorable_class = 1
@@ -257,7 +258,7 @@ class BiasMitigation():
     
     def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name, parameters):
         self.mitigation_results = defaultdict(list)
-        self.fairml.results.append(self.mitigation_results)
+        self.results.append(self.mitigation_results)
         self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
         self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + 
                                                    str(self.test_size) + ":" + str(self.validation_size) + ")")
@@ -269,8 +270,8 @@ class BiasMitigation():
         
     def display_summary(self):
         print("")
-        line_num = pd.Series(range(1, len(self.fairml.results) + 1))
-        self.summary_table = pd.concat([pd.DataFrame(m) for m in self.fairml.results], axis=0).set_axis(line_num)
+        line_num = pd.Series(range(1, len(self.results) + 1))
+        self.summary_table = pd.concat([pd.DataFrame(m) for m in self.results], axis=0).set_axis(line_num)
         
         for metric in self.metrics:
             for name, values in self.summary_table [[metric]].iteritems():

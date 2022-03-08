@@ -10,14 +10,14 @@
 # [%=fairml.description.replace("\n","\\\n# ")%]
 
 # # Contents
-
-[% for (biasMitigation in fairml.biasMitigations) { %]
 # [FairML: [%=fairml.name%]](#FairML:-[%=fairml.name.replace(" ", "-")%])
 # [Contents](#Contents)
+[% for (biasMitigation in fairml.biasMitigations) { %]
 # * [[%=number1++%]. Bias Mitigation: [%=biasMitigation.name%]](#[%=number1%].-Bias-Mitigation:-[%=biasMitigation.name.replace(" ", "-")%])
-[%number2 = 0; %]
+[%number2 = 0; number3 = 0; number4 = 0; number5 = 0; %]
   [% for (dataset in biasMitigation.datasets) { %]
 #   * [[%=number1%].[%=number2++%]. Dataset [%=dataset.name%]](#[%=number1%].[%=number2%].-Dataset-[%=dataset.name.replace(" ", "-")%])
+        [%number3 = 0; number4 = 0; number5 = 0; %]
 #       * [[%=number1%].[%=number2%].[%=number3++%]. Original Dataset](#[%=number1%].[%=number2%].[%=number3%].-Original-Dataset)
     [% for (trainingMethod in biasMitigation.trainingMethods) { %]
      [%number5 = 0;%]
@@ -49,8 +49,8 @@
            tempTrainingMethods = biasMitigation.trainingMethods.clone();
         } %]
     [% } %]
-#   * [[%=number1%].[%=number2++%]. Summary](#[%=number1%].[%=number2%].-Summary)
   [% } %]
+#   * [[%=number1%].[%=number2++%]. Summary](#[%=number1%].[%=number2%].-Summary)
 [% } %]
 [%number1 = 0; %]
 [%number2 = 0; %]
@@ -82,12 +82,13 @@ from aif360.metrics import ClassificationMetric
 from aif360.algorithms.preprocessing import *
 from aif360.algorithms.inprocessing import *
 from aif360.algorithms.postprocessing import *
-from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import *
 from aif360.datasets import StandardDataset
 from collections import defaultdict
 from IPython.display import Markdown, display
 from IPython import get_ipython
-
+[% for (module in fairml.modules) { %]
+[%=module%]
+[% } %]
 
 fairml = FairML()
 
@@ -98,7 +99,7 @@ print("Description:")
 print("[%=fairml.description.replace("\n","\"+\\\n\"")%]")
 
 [% for (biasMitigation in fairml.biasMitigations) { %]
-
+[%number2 = 0; number3 = 0; number4 = 0; number5 = 0; %]
 # ## [[%=number1++%].](#Contents) Bias Mitigation: [%=biasMitigation.name%]
 bm = fairml.add_bias_mitigation(BiasMitigation())
 bm.name = "[%=biasMitigation.name%]"
@@ -109,7 +110,7 @@ print("Bias Mitigation: [%=biasMitigation.name%]")
 print("------------------------")
 
 [% for (dataset in biasMitigation.datasets) { %]
-
+[%number3 = 0; number4 = 0; number5 = 0; %]
 # ### [[%=number1%].[%=number2++%].](#Contents) Dataset [%=dataset.name%]
 print("")
 print("Dataset: [%=dataset.name%]")
@@ -167,14 +168,41 @@ bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attrib
                 custom_preprocessing=None,
                 metadata=bm.default_mappings)
 [% } else if (dataset.datasetModule != null and dataset.datasetModule.length() > 0) { %]
-[%=dataset.datasetModule%]
-bm.dataset_original = load_preproc_data_adult(bm.protected_attributes) 
+bm.dataset_original = [%=dataset.datasetModule%]() 
 [% } %]
 
-[% if (dataset.trainTestValidationSplit[2] == 0) { %]
+[% if ((dataset.datasetPath != null and dataset.datasetPath.length() > 0)
+        or (dataset.datasetModule != null and dataset.datasetModule.length() > 0)) { %]
+[%   if (dataset.trainTestValidationSplit[2] == 0) { %]
 bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
-[% } else { %]
+[%   } else { %]
 bm.dataset_original_train, bm.dataset_original_valid, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+[%   } %]
+[% } %]
+
+[% if (dataset.trainDatasetModule != null and dataset.trainDatasetModule.length() > 0) { %]
+bm.dataset_original = [%=dataset.trainDatasetModule%]()
+[%   if (dataset.trainTestValidationSplit[2] == 0) { %]
+bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+[%   } else { %]
+bm.dataset_original_train, _ , bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+[%   } %]
+[% } %]
+
+[% if (dataset.testDatasetModule != null and dataset.testDatasetModule.length() > 0) { %]
+bm.dataset_original_test = [%=dataset.testDatasetModule%]()
+bm.dataset_original_test = bm.dataset_original_train.align_datasets(bm.dataset_original_test)
+[%   if (dataset.trainTestValidationSplit[2] == 0) { %]
+_ , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size], shuffle=True)
+[%   } else { %]
+_ , bm.dataset_original_valid , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+[%   } %]
+[% } %]
+
+[% if (dataset.validationDatasetModule != null and dataset.validationDatasetModule.length() > 0) { %]
+bm.dataset_original_validation = [%=dataset.validationDatasetModule%]()
+bm.dataset_original_validation = bm.dataset_original_train.align_datasets(bm.dataset_original_validation)
+_ , bm.dataset_original_valid, _ = bm.dataset_original_validation.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
 [% } %]
 
 bm.privileged_groups = [{bm.protected_attributes[0] : bm.privileged_class}]
@@ -329,14 +357,16 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, predicted_datase
 [%        } else { %]
 [%        } %]
 [%      } %]
-    [% } %]
-    [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { 
+[%     } %]
+[%    if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { 
        // move BACK existing training methods in the temporary variable to bias mitigation 
        biasMitigation.trainingMethods.clear();
        biasMitigation.trainingMethods.addAll(tempTrainingMethods);
        tempTrainingMethods = biasMitigation.trainingMethods.clone();
-     } %]
-  [% } %]
+} %]
+[%  } %]
+
+[%  } %]
 
 # ### [[%=number1%].[%=number2++%].](#Contents) Summary
 
@@ -346,6 +376,6 @@ table.style.apply(bm.highlight_fairest_values, axis=1)
 if get_ipython() is not None:
     get_ipython().magic("matplotlib inline")
 bm.display_barchart()
-[%   } %]
+
 [% } %]
 [% //fairml.p2j(); %]

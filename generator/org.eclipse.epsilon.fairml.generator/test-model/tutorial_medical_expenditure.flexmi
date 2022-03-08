@@ -1,0 +1,103 @@
+?nsuri: fairml
+fairml:
+- name: Tutorial Medical Expenditure
+- description: |-
+    Medical Expenditure Tutorial. This tutorial demonstrates classification model learning 
+    with bias mitigation as a part of a Care Management use case 
+    using Medical Expenditure data.
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/tutorial_medical_expenditure.ipynb
+- modules: |-
+    from aif360.datasets import MEPSDataset19,
+    from aif360.datasets import MEPSDataset20,
+    from aif360.datasets import MEPSDataset21
+
+# set the datasets
+- dataset:
+  - name: Panel19-Panel19
+  - datasetModule: MEPSDataset19  
+  - protectedAttributes: RACE
+  - trainTestSplit: 7, 2, 3
+- dataset:
+  - name: Panel19-Panel20
+  - datasetModule: MEPSDataset19
+  - validationDatasetModule: MEPSDataset20
+  - protectedAttributes: RACE 
+  - trainTestSplit: 7, 2, 3
+- dataset:
+  - name: Panel19-Panel21
+  - datasetModule: MEPSDataset19
+  - validationDatasetModule: MEPSDataset21
+  - protectedAttributes: RACE 
+  - trainTestSplit: 7, 2, 3
+- dataset:
+  - name: Panel20-Panel20
+  - datasetModule: MEPSDataset20
+  - protectedAttributes: RACE
+  - trainTestSplit: 7, 2, 3
+- dataset:
+  - name: Panel20-Panel21
+  - datasetModule: MEPSDataset20
+  - validationDatasetModule: MEPSDataset21
+  - protectedAttributes: RACE
+  - trainTestSplit: 7, 2, 3
+    
+# define the bias mitigation 01
+- biasMitigation:
+  - name: Medical Expenditure Bias Mitigation
+  - dataset: Panel19-Panel19
+  
+  - trainingMethod:
+    - algorithm: LogisticRegression
+    - parameters: solver='liblinear', random_state=1
+  - trainingMethod:
+    - algorithm: RandomForestClassifier
+    - parameters: n_estimators=500, min_samples_leaf=25
+    
+  - mitigationMethod:
+    - algorithm: Reweighing
+  - mitigationMethod:
+    - algorithm: PrejudiceRemover
+    - parameters: sensitive_attr='RACE', eta=25.0
+      
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: average_odds_difference
+  - biasMetric:
+    - name: disparate_impact
+  - biasMetric:
+    - name: statistical_parity_difference
+  - biasMetric:
+    - name: equal_opportunity_difference
+  - biasMetric:
+    - name: theil_index
+
+# define the bias mitigation 02   
+- biasMitigation:
+  - name: Model Deployment
+  - dataset: Panel19-Panel19, 
+      Panel19-Panel20, 
+      Panel19-Panel21, 
+      Panel20-Panel20, 
+      Panel20-Panel21
+  
+  - trainingMethod:
+    - algorithm: LogisticRegression
+    - parameters: solver='liblinear', random_state=1
+    
+  - mitigationMethod:
+    - algorithm: Reweighing
+      
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: average_odds_difference
+  - biasMetric:
+    - name: disparate_impact
+  - biasMetric:
+    - name: statistical_parity_difference
+  - biasMetric:
+    - name: equal_opportunity_difference
+  - biasMetric:
+    - name: theil_index
+
