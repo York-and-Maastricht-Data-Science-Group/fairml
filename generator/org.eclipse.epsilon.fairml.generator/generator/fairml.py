@@ -335,7 +335,7 @@ class BiasMitigation():
             session.close()
         self.tf_sessions.clear()
         
-        return self.summary_table  
+        return self.summary_table
     
     def display_barchart(self):
         data = self.summary_table.copy(True)
@@ -355,7 +355,7 @@ class BiasMitigation():
             data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
         
         data.plot.bar(figsize=(16, 5), rot=0, xlabel="Bias Mitigation",
-                      title="Normalised Metrics (Value 1 Means the Bias Mitigation is the Best Option for the Metric)")
+                      title="Normalised Metrics (Value 1 Indicates the Bias Mitigation is the Best Option for the Metric)")
         # plot.show(block=True)
         image = "graphics/" + self.name.replace(" ", "_").lower() + ".png"
         
@@ -466,14 +466,17 @@ class BiasMitigation():
                 num = self.table_colours[metric][int(row.name) - 1]
                 r = 0
                 g = 0
+                b = 0
                 if num <= 255: 
                     r = "{0:0{1}x}".format(255, 2)
-                    g = "{0:0{1}x}".format(num, 2)
+                    g = "{0:0{1}x}".format(255, 2)
+                    b = "{0:0{1}x}".format(255 - num, 2)
                 else:
                     r = "{0:0{1}x}".format(255 - (num - 255), 2)
                     g = "{0:0{1}x}".format(255, 2)
+                    b = "{0:0{1}x}".format(0, 2)
                     
-                cell_formats[index] = bold + 'background-color: #' + r + g + '00;'
+                cell_formats[index] = bold + 'background-color: #' + r + g + b + ';'
                 # print(num)
                 # print(cell_formats[index])
         

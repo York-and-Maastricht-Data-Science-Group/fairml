@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link fairml.Dataset#getInstanceWeights <em>Instance Weights</em>}</li>
  *   <li>{@link fairml.Dataset#getCategoricalFeatures <em>Categorical Features</em>}</li>
  *   <li>{@link fairml.Dataset#getDroppedAttributes <em>Dropped Attributes</em>}</li>
+ *   <li>{@link fairml.Dataset#getFeaturesToKeep <em>Features To Keep</em>}</li>
  *   <li>{@link fairml.Dataset#getNotAvailableValues <em>Not Available Values</em>}</li>
  *   <li>{@link fairml.Dataset#getDefaultMappings <em>Default Mappings</em>}</li>
  *   <li>{@link fairml.Dataset#getTrainTestValidationSplit <em>Train Test Validation Split</em>}</li>
@@ -322,6 +323,18 @@ public interface Dataset extends EObject {
 	 * @generated
 	 */
 	EList<String> getDroppedAttributes();
+
+	/**
+	 * Returns the value of the '<em><b>Features To Keep</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Features To Keep</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_FeaturesToKeep()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getFeaturesToKeep();
 
 	/**
 	 * Returns the value of the '<em><b>Not Available Values</b></em>' attribute list.

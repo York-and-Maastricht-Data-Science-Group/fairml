@@ -92,6 +92,7 @@ class Dataset {
     attr String[*] instanceWeights;
     attr String[*] categoricalFeatures;    
     attr String[*] droppedAttributes;
+    attr String[*] featuresToKeep;
     attr String[*] notAvailableValues;
     attr String defaultMappings;
     

@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link fairml.impl.DatasetImpl#getInstanceWeights <em>Instance Weights</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getCategoricalFeatures <em>Categorical Features</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getDroppedAttributes <em>Dropped Attributes</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getFeaturesToKeep <em>Features To Keep</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getNotAvailableValues <em>Not Available Values</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getDefaultMappings <em>Default Mappings</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getTrainTestValidationSplit <em>Train Test Validation Split</em>}</li>
@@ -300,6 +301,16 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @ordered
 	 */
 	protected EList<String> droppedAttributes;
+
+	/**
+	 * The cached value of the '{@link #getFeaturesToKeep() <em>Features To Keep</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFeaturesToKeep()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> featuresToKeep;
 
 	/**
 	 * The cached value of the '{@link #getNotAvailableValues() <em>Not Available Values</em>}' attribute list.
@@ -664,6 +675,19 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
+	public EList<String> getFeaturesToKeep() {
+		if (featuresToKeep == null) {
+			featuresToKeep = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__FEATURES_TO_KEEP);
+		}
+		return featuresToKeep;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EList<String> getNotAvailableValues() {
 		if (notAvailableValues == null) {
 			notAvailableValues = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__NOT_AVAILABLE_VALUES);
@@ -747,6 +771,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return getCategoricalFeatures();
 			case FairmlPackage.DATASET__DROPPED_ATTRIBUTES:
 				return getDroppedAttributes();
+			case FairmlPackage.DATASET__FEATURES_TO_KEEP:
+				return getFeaturesToKeep();
 			case FairmlPackage.DATASET__NOT_AVAILABLE_VALUES:
 				return getNotAvailableValues();
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
@@ -821,6 +847,10 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				getDroppedAttributes().clear();
 				getDroppedAttributes().addAll((Collection<? extends String>)newValue);
 				return;
+			case FairmlPackage.DATASET__FEATURES_TO_KEEP:
+				getFeaturesToKeep().clear();
+				getFeaturesToKeep().addAll((Collection<? extends String>)newValue);
+				return;
 			case FairmlPackage.DATASET__NOT_AVAILABLE_VALUES:
 				getNotAvailableValues().clear();
 				getNotAvailableValues().addAll((Collection<? extends String>)newValue);
@@ -892,6 +922,9 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__DROPPED_ATTRIBUTES:
 				getDroppedAttributes().clear();
 				return;
+			case FairmlPackage.DATASET__FEATURES_TO_KEEP:
+				getFeaturesToKeep().clear();
+				return;
 			case FairmlPackage.DATASET__NOT_AVAILABLE_VALUES:
 				getNotAvailableValues().clear();
 				return;
@@ -945,6 +978,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return categoricalFeatures != null && !categoricalFeatures.isEmpty();
 			case FairmlPackage.DATASET__DROPPED_ATTRIBUTES:
 				return droppedAttributes != null && !droppedAttributes.isEmpty();
+			case FairmlPackage.DATASET__FEATURES_TO_KEEP:
+				return featuresToKeep != null && !featuresToKeep.isEmpty();
 			case FairmlPackage.DATASET__NOT_AVAILABLE_VALUES:
 				return notAvailableValues != null && !notAvailableValues.isEmpty();
 			case FairmlPackage.DATASET__DEFAULT_MAPPINGS:
@@ -997,6 +1032,8 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 		result.append(categoricalFeatures);
 		result.append(", droppedAttributes: ");
 		result.append(droppedAttributes);
+		result.append(", featuresToKeep: ");
+		result.append(featuresToKeep);
 		result.append(", notAvailableValues: ");
 		result.append(notAvailableValues);
 		result.append(", defaultMappings: ");

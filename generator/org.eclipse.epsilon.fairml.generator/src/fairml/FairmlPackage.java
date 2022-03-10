@@ -568,13 +568,22 @@ public interface FairmlPackage extends EPackage {
 	int DATASET__DROPPED_ATTRIBUTES = 15;
 
 	/**
+	 * The feature id for the '<em><b>Features To Keep</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATASET__FEATURES_TO_KEEP = 16;
+
+	/**
 	 * The feature id for the '<em><b>Not Available Values</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__NOT_AVAILABLE_VALUES = 16;
+	int DATASET__NOT_AVAILABLE_VALUES = 17;
 
 	/**
 	 * The feature id for the '<em><b>Default Mappings</b></em>' attribute.
@@ -583,7 +592,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__DEFAULT_MAPPINGS = 17;
+	int DATASET__DEFAULT_MAPPINGS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Train Test Validation Split</b></em>' attribute list.
@@ -592,7 +601,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET__TRAIN_TEST_VALIDATION_SPLIT = 18;
+	int DATASET__TRAIN_TEST_VALIDATION_SPLIT = 19;
 
 	/**
 	 * The number of structural features of the '<em>Dataset</em>' class.
@@ -601,7 +610,7 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATASET_FEATURE_COUNT = 19;
+	int DATASET_FEATURE_COUNT = 20;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.BiasMitigationImpl <em>Bias Mitigation</em>}' class.
@@ -1224,6 +1233,17 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getDataset_DroppedAttributes();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link fairml.Dataset#getFeaturesToKeep <em>Features To Keep</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Features To Keep</em>'.
+	 * @see fairml.Dataset#getFeaturesToKeep()
+	 * @see #getDataset()
+	 * @generated
+	 */
+	EAttribute getDataset_FeaturesToKeep();
+
+	/**
 	 * Returns the meta object for the attribute list '{@link fairml.Dataset#getNotAvailableValues <em>Not Available Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1836,6 +1856,14 @@ public interface FairmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute DATASET__DROPPED_ATTRIBUTES = eINSTANCE.getDataset_DroppedAttributes();
+
+		/**
+		 * The meta object literal for the '<em><b>Features To Keep</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATASET__FEATURES_TO_KEEP = eINSTANCE.getDataset_FeaturesToKeep();
 
 		/**
 		 * The meta object literal for the '<em><b>Not Available Values</b></em>' attribute list feature.

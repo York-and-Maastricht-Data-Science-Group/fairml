@@ -532,7 +532,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_NotAvailableValues() {
+	public EAttribute getDataset_FeaturesToKeep() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -542,7 +542,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_DefaultMappings() {
+	public EAttribute getDataset_NotAvailableValues() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -552,8 +552,18 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_TrainTestValidationSplit() {
+	public EAttribute getDataset_DefaultMappings() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataset_TrainTestValidationSplit() {
+		return (EAttribute)datasetEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -849,6 +859,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		createEAttribute(datasetEClass, DATASET__INSTANCE_WEIGHTS);
 		createEAttribute(datasetEClass, DATASET__CATEGORICAL_FEATURES);
 		createEAttribute(datasetEClass, DATASET__DROPPED_ATTRIBUTES);
+		createEAttribute(datasetEClass, DATASET__FEATURES_TO_KEEP);
 		createEAttribute(datasetEClass, DATASET__NOT_AVAILABLE_VALUES);
 		createEAttribute(datasetEClass, DATASET__DEFAULT_MAPPINGS);
 		createEAttribute(datasetEClass, DATASET__TRAIN_TEST_VALIDATION_SPLIT);
@@ -954,6 +965,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEAttribute(getDataset_InstanceWeights(), ecorePackage.getEString(), "instanceWeights", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_CategoricalFeatures(), ecorePackage.getEString(), "categoricalFeatures", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_DroppedAttributes(), ecorePackage.getEString(), "droppedAttributes", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_FeaturesToKeep(), ecorePackage.getEString(), "featuresToKeep", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_NotAvailableValues(), ecorePackage.getEString(), "notAvailableValues", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_DefaultMappings(), ecorePackage.getEString(), "defaultMappings", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_TrainTestValidationSplit(), ecorePackage.getEFloat(), "trainTestValidationSplit", null, 0, 3, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

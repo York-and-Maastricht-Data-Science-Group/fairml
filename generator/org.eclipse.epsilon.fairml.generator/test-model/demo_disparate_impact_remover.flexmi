@@ -1,0 +1,46 @@
+- ?nsuri: fairml
+
+- fairml:
+  - name: Demo Disparate Impact Remover
+  - :var: varFairml
+  - :global: varFairml2
+  - description: |-
+     This notebook demonstrates the ability of the DisparateImpactRemover algorithm.
+     The algorithm corrects for imbalanced selection rates between unprivileged and privileged groups at various levels of repair. 
+     https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_disparate_impact_remover.ipynb
+
+# set the dataset
+  - dataset:
+    - name: Adult Dataset
+    - datasetPath: ../data/adult.data.numeric.csv
+    - predictedAttribute: income-per-year
+    - protectedAttributes: sex, race 
+    - trainTestSplit: 7, 3
+    - featuresToKeep: age, education-num, capital-gain, capital-loss, hours-per-week
+       
+# define the bias mitigation
+  - biasMitigation:
+    - name: Bias Mitigation using Disparate Impact Remover  
+    - dataset: Adult Dataset
+  
+    - trainingMethod:
+      - algorithm: LogisticRegression
+      - parameters: class_weight='balanced', solver='liblinear'
+         
+    - createRangeDisparateImpactRemover
+    
+    - biasMetric:
+      - name: disparate_impact
+    
+- :template:
+  - name: createRangeDisparateImpactRemover
+#  - parameter:
+#    - name: from
+  - content:
+    - language: EGL
+    - script: |-
+       [% for (i in 1.iota(10, 1)) { %]
+       - mitigationMethod:
+         - algorithm: DisparateImpactRemover
+         - parameters: repair_level=[%=(i.asReal()/10)%] 
+       [% } %]

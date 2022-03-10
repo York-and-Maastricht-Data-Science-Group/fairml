@@ -119,6 +119,7 @@ print("-------------")
 # #### [[%=number1%].[%=number2%].[%=number3++%].](#Contents) Original Dataset
 bm.predicted_attribute = '[%=dataset.predictedAttribute%]'
 bm.protected_attributes = [[%=dataset.protectedAttributes.listToLine()%]]
+bm.features_to_keep = [[%=dataset.featuresToKeep.listToLine()%]]
 bm.favorable_class = 1
 bm.privileged_class = 1
 bm.unprivileged_class = 0
@@ -162,7 +163,7 @@ bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attrib
                 privileged_classes=[[bm.privileged_class]],
                 instance_weights_name=None,
                 categorical_features=bm.categorical_features,
-                features_to_keep=[],
+                features_to_keep=bm.features_to_keep,
                 features_to_drop=bm.dropped_attributes,
                 na_values=bm.na_values, 
                 custom_preprocessing=None,
@@ -371,7 +372,8 @@ bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, predicted_datase
 # ### [[%=number1%].[%=number2++%].](#Contents) Summary
 
 table = bm.display_summary()
-table.style.apply(bm.highlight_fairest_values, axis=1)
+table.style.set_caption("Worst = White, Best = Green, Mid = Yellow") \
+    .apply(bm.highlight_fairest_values, axis=1)
 
 if get_ipython() is not None:
     get_ipython().magic("matplotlib inline")
