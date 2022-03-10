@@ -27,20 +27,31 @@
       - algorithm: LogisticRegression
       - parameters: class_weight='balanced', solver='liblinear'
          
-    - createRangeDisparateImpactRemover
+    - createRangeDisparateImpactRemover:
+      - :from: 0.1
+      - :to: 1.0
+      - :step: 0.1
     
     - biasMetric:
       - name: disparate_impact
     
 - :template:
   - name: createRangeDisparateImpactRemover
-#  - parameter:
-#    - name: from
+  - parameter:
+    - name: from
+  - parameter:
+    - name: to
+  - parameter:
+    - name: step
   - content:
     - language: EGL
     - script: |-
-       [% for (i in 1.iota(10, 1)) { %]
+       [% var f = from.asDouble(); %]    
+       [% var t = to.asDouble(); %]    
+       [% var s = step.asDouble(); %]    
+       [% var times = ((t - f) / s).asInteger(); %]
+       [% for(i in 0.to(times)) { %]
        - mitigationMethod:
          - algorithm: DisparateImpactRemover
-         - parameters: repair_level=[%=(i.asReal()/10)%] 
+         - parameters: repair_level=[%= (f + (i * s)).format("%.5f") %]    
        [% } %]
