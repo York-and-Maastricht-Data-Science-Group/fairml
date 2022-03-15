@@ -56,8 +56,10 @@ class MitigationMethod extends Operation {
   The class represents the bias checking method
 */
 class BiasMetric extends Operation {
-     attr String className = "ClassificationMetric";
+     attr String className = "FairMLMetric";
+     attr String datasetType = "test"; // this should be test, train, validation 
 }
+
 
 /***
  Class for representing datasets that will be bias mitigated
@@ -80,6 +82,12 @@ class Dataset {
     attr String trainDatasetModule;  
     attr String testDatasetModule;
     attr String validationDatasetModule;    
+    
+    // to define the parameters of the IBMFAI360 internal datasets when called
+    attr String[*] datasetModuleParameters; 
+    attr String[*] trainDatasetModuleParameters; 
+    attr String[*] testDatasetModuleParameters; 
+    attr String[*] validationDatasetModuleParameters; 
     
     attr int priviledgedGroup;
     attr int unpriviledgedGroup;
@@ -139,6 +147,7 @@ class BiasMitigation {
     ref Dataset[*] datasets;
     
     // define the metrics to measure biases
+    
     val BiasMetric[*] biasMetrics;
     
     // define the mitigation algorithms to mitigate biases       

@@ -1,0 +1,224 @@
+[% import 'fairml.eol'; %]
+[% fairml.initialise(); %]
+[%var tempTrainingMethods = 0; %]
+[%var number1 = 0; %]
+[%var number2 = 0; %]
+[%var number3 = 0; %]
+[%var number4 = 0; %]
+[%var number5 = 0; %]
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# FairML: [%=fairml.name%]\n",
+    "[%=fairml.description.replace("\n","<br/>\",\n    \"")%]\n",
+    "# Contents\n",
+    "[FairML: [%=fairml.name%]](#FairML:-[%=fairml.name.replace(" ", "-")%])\n",
+    "\n",
+    "[Contents](#Contents)\n",
+    [% for (biasMitigation in fairml.biasMitigations) { %]
+    "* [[%=number1++%]. Bias Mitigation: [%=biasMitigation.name%]](#[%=number1%].-Bias-Mitigation:-[%=biasMitigation.name.replace(" ", "-")%])\n",
+    [%number2 = 0; number3 = 0; number4 = 0; number5 = 0; %]
+      [% for (dataset in biasMitigation.datasets) { %]
+    "  * [[%=number1%].[%=number2++%]. Dataset [%=dataset.name%]](#[%=number1%].[%=number2%].-Dataset-[%=dataset.name.replace(" ", "-")%])\n",
+            [%number3 = 0; number4 = 0; number5 = 0; %]
+    "      * [[%=number1%].[%=number2%].[%=number3++%]. Original Dataset](#[%=number1%].[%=number2%].[%=number3%].-Original-Dataset)\n",
+        [% for (trainingMethod in biasMitigation.trainingMethods) { %]
+         [%number5 = 0;%]
+    "          * [[%=number1%].[%=number2%].[%=number3%].[%=number4++%]. Classifier [%=trainingMethod.algorithm%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]](#[%=number1%].[%=number2%].[%=number3%].[%=number4%].-Original-Dataset:-Classifier-[%=trainingMethod.algorithm%],-Parameters:-[%=trainingMethod.parameters.listToLineWithoutQuote().replace(" ", "-")%])\n",
+    "              * [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. Bias Metrics](#[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5%].-Original-Dataset:-Bias-Metrics)\n",
+        [% } %]
+        [% for (mitigationMethod in biasMitigation.mitigationMethods) { %]
+    "      * [[%=number1%].[%=number2%].[%=number3++%]. Mitigate Bias using [%=mitigationMethod.algorithm%]](#[%=number1%].[%=number2%].[%=number3%].-Mitigate-Bias-using-[%=mitigationMethod.algorithm%])\n",
+          [% number4 = 0; number5 = 0; %]
+            [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) {
+               // move existing training methods to a temperary variable
+               // so that the IN-PROCESSING MITIGATION can take place   
+               tempTrainingMethods = biasMitigation.trainingMethods.clone();
+               biasMitigation.trainingMethods.clear();
+               var tm = new TrainingMethod();
+               tm.algorithm = mitigationMethod.algorithm;
+               tm.parameters = mitigationMethod.parameters.clone();
+               biasMitigation.trainingMethods.add(tm);
+            } %]
+          [% for (trainingMethod in biasMitigation.trainingMethods) { %]
+            [%number5 = 0;%]
+    "          * [[%=number1%].[%=number2%].[%=number3%].[%=number4++%]. Classifier [%=trainingMethod.algorithm%], Parameters: [%=trainingMethod.parameters.listToLineWithoutQuote()%]](#[%=number1%].[%=number2%].[%=number3%].[%=number4%].-After-mitigation-Dataset:-Classifier-[%=trainingMethod.algorithm%],-Parameters:-[%=trainingMethod.parameters.listToLineWithoutQuote().replace(" ", "-")%])\n",
+    "              * [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%]. Bias Metrics](#[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5%].-After-mitigation:-Bias-Metrics)\n",
+          [% } %]
+            [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { 
+               // move BACK existing training methods in the temporary variable to bias mitigation 
+               biasMitigation.trainingMethods.clear();
+               biasMitigation.trainingMethods.addAll(tempTrainingMethods);
+               tempTrainingMethods = biasMitigation.trainingMethods.clone();
+            } %]
+        [% } %]
+      [% } %]
+    "  * [[%=number1%].[%=number2++%]. Summary](#[%=number1%].[%=number2%].-Summary)\n",
+    [% } %]
+    ""
+   ]
+  },
+[%number1 = 0; %]
+[%number2 = 0; %]
+[%number3 = 0; %]
+[%number4 = 0; %]
+[%number5 = 0; %]
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import inspect\n",
+    "import numpy as np\n",
+    "np.random.seed(0)\n",
+    "import pandas as pd\n",
+    "import matplotlib\n",
+    "from fairml import *\n",
+    "from sklearn import tree\n",
+    "from sklearn.preprocessing import MaxAbsScaler\n",
+    "from sklearn.tree import *\n",
+    "from sklearn.linear_model import *\n",
+    "from sklearn.svm import *\n",
+    "from sklearn.neighbors import *\n",
+    "from sklearn.naive_bayes import *\n",
+    "from sklearn.neural_network import *\n",
+    "from sklearn.ensemble import *\n",
+    "from sklearn import metrics\n",
+    "from sklearn.preprocessing import StandardScaler\n",
+    "from sklearn.pipeline import make_pipeline\n",
+    "from aif360.algorithms.preprocessing import *\n",
+    "from aif360.algorithms.inprocessing import *\n",
+    "from aif360.algorithms.postprocessing import *\n",
+    "from aif360.datasets import StandardDataset\n",
+    "from collections import defaultdict\n",
+    "from IPython.display import Markdown, display\n",
+    "from IPython import get_ipython\n",
+    [% for (module in fairml.modules) { %]
+    "[%=module%]\n",
+    [% } %]
+    "\n",
+    "fairml = FairML()\n",
+    "def get_fairml():\n",
+    "    return fairml\n"
+   ]
+  },
+[% for (biasMitigation in fairml.biasMitigations) { %]
+[%number2 = 0; number3 = 0; number4 = 0; number5 = 0; %]
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## [[%=number1++%].](#Contents) Bias Mitigation: [%=biasMitigation.name%]"
+   ]
+  },
+  [% var x = Sequence{
+    "bm = fairml.add_bias_mitigation(BiasMitigation())", 
+    "bm.name = \\\"" + biasMitigation.name + "\\\""
+  };%] 
+  [%=fairml.code(x)%]
+[% for (dataset in biasMitigation.datasets) { %]
+[%number3 = 0; number4 = 0; number5 = 0; %]
+  [%=fairml.markdown("### ["+ number1 + "." + number2++ + ".](#Contents) Dataset " + dataset.name)%]
+  [%=fairml.markdown("#### ["+ number1 + "." + number2+ "." + number3++ +".](#Contents) Original Dataset")%]
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+[%=out.startPreserve("    \"'''", "'''\\n\",", "horse", true)%]
+    "print(\"ALFA\")\n",
+    "print(\"ALFA\")\n",
+[%=out.stopPreserve()%]
+    ""
+   ]
+  },
+[% } %]
+[% } %]
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
+
+[%
+@template
+operation FairML markdown(line: String) { %]
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+   "[%=line+ "\\n"%]" 
+   ]
+  },
+[% } %]
+
+[%
+@template
+operation FairML markdown(lines: Sequence) { %]
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+   "[%=lines.concat("\\n\",\n     \"")%]" 
+   ]
+  },
+[% } %]
+
+[%
+@template
+operation FairML code(line: String) { %]
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+   "[%=line + "\\n"%]"
+   ]
+  },
+[% } %]
+
+[%
+@template
+operation FairML code(lines: Sequence) { %]
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+   "[%=lines.concat("\\n\",\n     \"")%]"
+   ]
+  },
+[% } %]

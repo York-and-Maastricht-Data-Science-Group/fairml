@@ -60,7 +60,7 @@ fairml:
     - parameters: sensitive_attr='RACE', eta=25.0
       
   - biasMetric:
-    - name: accuracy
+    - name: balanced_accuracy
   - biasMetric:
     - name: average_odds_difference
   - biasMetric:
@@ -89,7 +89,7 @@ fairml:
     - algorithm: Reweighing
       
   - biasMetric:
-    - name: accuracy
+    - name: balanced_accuracy
   - biasMetric:
     - name: average_odds_difference
   - biasMetric:

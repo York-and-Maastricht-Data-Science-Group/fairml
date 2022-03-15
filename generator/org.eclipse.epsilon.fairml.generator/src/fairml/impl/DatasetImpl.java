@@ -33,6 +33,10 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link fairml.impl.DatasetImpl#getTrainDatasetModule <em>Train Dataset Module</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getTestDatasetModule <em>Test Dataset Module</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getValidationDatasetModule <em>Validation Dataset Module</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getDatasetModuleParameters <em>Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getTrainDatasetModuleParameters <em>Train Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getTestDatasetModuleParameters <em>Test Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.impl.DatasetImpl#getValidationDatasetModuleParameters <em>Validation Dataset Module Parameters</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getPriviledgedGroup <em>Priviledged Group</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getUnpriviledgedGroup <em>Unpriviledged Group</em>}</li>
  *   <li>{@link fairml.impl.DatasetImpl#getPredictedAttribute <em>Predicted Attribute</em>}</li>
@@ -171,6 +175,46 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @ordered
 	 */
 	protected String validationDatasetModule = VALIDATION_DATASET_MODULE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDatasetModuleParameters() <em>Dataset Module Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDatasetModuleParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> datasetModuleParameters;
+
+	/**
+	 * The cached value of the '{@link #getTrainDatasetModuleParameters() <em>Train Dataset Module Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTrainDatasetModuleParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> trainDatasetModuleParameters;
+
+	/**
+	 * The cached value of the '{@link #getTestDatasetModuleParameters() <em>Test Dataset Module Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTestDatasetModuleParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> testDatasetModuleParameters;
+
+	/**
+	 * The cached value of the '{@link #getValidationDatasetModuleParameters() <em>Validation Dataset Module Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationDatasetModuleParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> validationDatasetModuleParameters;
 
 	/**
 	 * The default value of the '{@link #getPriviledgedGroup() <em>Priviledged Group</em>}' attribute.
@@ -515,6 +559,58 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	 * @generated
 	 */
 	@Override
+	public EList<String> getDatasetModuleParameters() {
+		if (datasetModuleParameters == null) {
+			datasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS);
+		}
+		return datasetModuleParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<String> getTrainDatasetModuleParameters() {
+		if (trainDatasetModuleParameters == null) {
+			trainDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS);
+		}
+		return trainDatasetModuleParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<String> getTestDatasetModuleParameters() {
+		if (testDatasetModuleParameters == null) {
+			testDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS);
+		}
+		return testDatasetModuleParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<String> getValidationDatasetModuleParameters() {
+		if (validationDatasetModuleParameters == null) {
+			validationDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS);
+		}
+		return validationDatasetModuleParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public int getPriviledgedGroup() {
 		return priviledgedGroup;
 	}
@@ -751,6 +847,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return getTestDatasetModule();
 			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
 				return getValidationDatasetModule();
+			case FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS:
+				return getDatasetModuleParameters();
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS:
+				return getTrainDatasetModuleParameters();
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS:
+				return getTestDatasetModuleParameters();
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS:
+				return getValidationDatasetModuleParameters();
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				return getPriviledgedGroup();
 			case FairmlPackage.DATASET__UNPRIVILEDGED_GROUP:
@@ -809,6 +913,22 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return;
 			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
 				setValidationDatasetModule((String)newValue);
+				return;
+			case FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS:
+				getDatasetModuleParameters().clear();
+				getDatasetModuleParameters().addAll((Collection<? extends String>)newValue);
+				return;
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS:
+				getTrainDatasetModuleParameters().clear();
+				getTrainDatasetModuleParameters().addAll((Collection<? extends String>)newValue);
+				return;
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS:
+				getTestDatasetModuleParameters().clear();
+				getTestDatasetModuleParameters().addAll((Collection<? extends String>)newValue);
+				return;
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS:
+				getValidationDatasetModuleParameters().clear();
+				getValidationDatasetModuleParameters().addAll((Collection<? extends String>)newValue);
 				return;
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				setPriviledgedGroup((Integer)newValue);
@@ -892,6 +1012,18 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
 				setValidationDatasetModule(VALIDATION_DATASET_MODULE_EDEFAULT);
 				return;
+			case FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS:
+				getDatasetModuleParameters().clear();
+				return;
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS:
+				getTrainDatasetModuleParameters().clear();
+				return;
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS:
+				getTestDatasetModuleParameters().clear();
+				return;
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS:
+				getValidationDatasetModuleParameters().clear();
+				return;
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				setPriviledgedGroup(PRIVILEDGED_GROUP_EDEFAULT);
 				return;
@@ -958,6 +1090,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 				return TEST_DATASET_MODULE_EDEFAULT == null ? testDatasetModule != null : !TEST_DATASET_MODULE_EDEFAULT.equals(testDatasetModule);
 			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE:
 				return VALIDATION_DATASET_MODULE_EDEFAULT == null ? validationDatasetModule != null : !VALIDATION_DATASET_MODULE_EDEFAULT.equals(validationDatasetModule);
+			case FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS:
+				return datasetModuleParameters != null && !datasetModuleParameters.isEmpty();
+			case FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS:
+				return trainDatasetModuleParameters != null && !trainDatasetModuleParameters.isEmpty();
+			case FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS:
+				return testDatasetModuleParameters != null && !testDatasetModuleParameters.isEmpty();
+			case FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS:
+				return validationDatasetModuleParameters != null && !validationDatasetModuleParameters.isEmpty();
 			case FairmlPackage.DATASET__PRIVILEDGED_GROUP:
 				return priviledgedGroup != PRIVILEDGED_GROUP_EDEFAULT;
 			case FairmlPackage.DATASET__UNPRIVILEDGED_GROUP:
@@ -1012,6 +1152,14 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 		result.append(testDatasetModule);
 		result.append(", validationDatasetModule: ");
 		result.append(validationDatasetModule);
+		result.append(", datasetModuleParameters: ");
+		result.append(datasetModuleParameters);
+		result.append(", trainDatasetModuleParameters: ");
+		result.append(trainDatasetModuleParameters);
+		result.append(", testDatasetModuleParameters: ");
+		result.append(testDatasetModuleParameters);
+		result.append(", validationDatasetModuleParameters: ");
+		result.append(validationDatasetModuleParameters);
 		result.append(", priviledgedGroup: ");
 		result.append(priviledgedGroup);
 		result.append(", unpriviledgedGroup: ");

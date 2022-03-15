@@ -31,6 +31,7 @@
     </genClasses>
     <genClasses ecoreClass="fairml.ecore#//BiasMetric">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMetric/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//BiasMetric/datasetType"/>
     </genClasses>
     <genClasses ecoreClass="fairml.ecore#//Dataset">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/name"/>
@@ -39,6 +40,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/trainDatasetModule"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/testDatasetModule"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/validationDatasetModule"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/datasetModuleParameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/trainDatasetModuleParameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/testDatasetModuleParameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/validationDatasetModuleParameters"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/priviledgedGroup"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/unpriviledgedGroup"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/predictedAttribute"/>
@@ -49,6 +54,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/instanceWeights"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/categoricalFeatures"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/droppedAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/featuresToKeep"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/notAvailableValues"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/defaultMappings"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute fairml.ecore#//Dataset/trainTestValidationSplit"/>

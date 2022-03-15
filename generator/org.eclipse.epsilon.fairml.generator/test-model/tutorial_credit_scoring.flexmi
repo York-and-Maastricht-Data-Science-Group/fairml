@@ -4,20 +4,19 @@ fairml:
 - description: |-
     Tutorial Credit Scoring using German Credit Dataset
     https://github.com/Trusted-AI/AIF360/blob/master/examples/tutorial_credit_scoring.ipynb
+- modules: |-
+    from aif360.datasets import GermanDataset
 
 # set the dataset
 - dataset:
   - name: German Credit Dataset
-  - datasetPath: ../data/german.numeric.csv
-  - predictedAttribute: credit
-  - protectedAttributes: mature 
+  - datasetModule: GermanDataset
+  - protected_attributes: age
   - trainTestSplit: 7, 3
-  - droppedAttributes: personal_status, sex, age
-  - categoricalFeatures: |-
-     status, credit_history, purpose,
-     savings, employment, other_debtors, property,
-     installment_plans, housing, skill_level, telephone,
-     foreign_worker
+  - datasetModuleParameters: 
+    - "protected_attribute_names=['age']"
+    - "privileged_classes=[lambda x: x >= 25]"
+    - "features_to_drop=['personal_status'&comma; 'sex']"
 
 # define the bias mitigation
 - biasMitigation:
@@ -28,4 +27,5 @@ fairml:
     - algorithm: Reweighing
   
   - biasMetric:
-    - name: statistical_parity_difference
+    - datasetType: train
+    - name: mean_difference

@@ -62,11 +62,11 @@
 
 import inspect
 import numpy as np
+np.random.seed(0)
 import pandas as pd
 import matplotlib
 from fairml import *
 from sklearn import tree
-from sklearn.preprocessing import MaxAbsScaler
 from sklearn.tree import *
 from sklearn.linear_model import *
 from sklearn.svm import *
@@ -75,10 +75,10 @@ from sklearn.naive_bayes import *
 from sklearn.neural_network import *
 from sklearn.ensemble import *
 from sklearn import metrics
+from sklearn.preprocessing import MaxAbsScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
-from aif360.metrics import BinaryLabelDatasetMetric
-from aif360.metrics import ClassificationMetric
 from aif360.algorithms.preprocessing import *
 from aif360.algorithms.inprocessing import *
 from aif360.algorithms.postprocessing import *
@@ -91,6 +91,8 @@ from IPython import get_ipython
 [% } %]
 
 fairml = FairML()
+def get_fairml():
+    return fairml
 
 print("========================")
 print("FairML: [%=fairml.name%]")
@@ -132,7 +134,7 @@ if (dataset.trainTestValidationSplit == null or
 } else if (dataset.trainTestValidationSplit.size() == 1) {
     dataset.trainTestValidationSplit = Sequence{
     dataset.trainTestValidationSplit[0].abs(), 
-    0.2 * dataset.trainTestValidationSplit[0].abs(), 0.0};    
+    0.0, 0.0};    
 } else if (dataset.trainTestValidationSplit.size() == 2) {
     dataset.trainTestValidationSplit = Sequence{
     dataset.trainTestValidationSplit[0].abs(), 
@@ -154,10 +156,10 @@ bm.default_mappings = None
 [% } %]
 
 # Load dataset
-bm.resource = "[%=dataset.datasetPath%]"
+bm.resource = "[%=dataset.datasetPath%]" 
 [% if (dataset.datasetPath != null and dataset.datasetPath.length() > 0) { %]
 bm.data = pd.read_csv(bm.resource, header=0)
-bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attribute, 
+bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attribute,
                 favorable_classes=[bm.favorable_class],
                 protected_attribute_names=bm.protected_attributes,
                 privileged_classes=[[bm.privileged_class]],
@@ -165,55 +167,70 @@ bm.dataset_original = StandardDataset(df=bm.data, label_name=bm.predicted_attrib
                 categorical_features=bm.categorical_features,
                 features_to_keep=bm.features_to_keep,
                 features_to_drop=bm.dropped_attributes,
-                na_values=bm.na_values, 
+                na_values=bm.na_values,
                 custom_preprocessing=None,
                 metadata=bm.default_mappings)
 [% } else if (dataset.datasetModule != null and dataset.datasetModule.length() > 0) { %]
-bm.dataset_original = [%=dataset.datasetModule%]() 
+bm.dataset_original = [%=dataset.datasetModule%]([%=dataset.datasetModuleParameters.listToLineWithoutQuote()%])
 [% } %]
 
 [% if ((dataset.datasetPath != null and dataset.datasetPath.length() > 0)
         or (dataset.datasetModule != null and dataset.datasetModule.length() > 0)) { %]
-[%   if (dataset.trainTestValidationSplit[2] == 0) { %]
+[%   if (dataset.trainTestValidationSplit[2] == 0 and dataset.trainTestValidationSplit[1] <> 0) { %]
 bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+[%   } else if (dataset.trainTestValidationSplit[2] == 0 and dataset.trainTestValidationSplit[1] == 0) { %]
+bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([int(bm.training_size)])
+if bm.dataset_original_train.features.shape[0] < bm.dataset_original_test.features.shape[0]:
+   bm.dataset_original_test, bm.dataset_original_train = bm.dataset_original_train, bm.dataset_original_test  
+
+bm.training_size = bm.dataset_original_train.features.shape[0]    
+bm.test_size = bm.dataset_original_test.features.shape[0]
+bm.validation_size = 0
+bm.total_size = bm.training_size + bm.test_size + bm.validation_size
 [%   } else { %]
-bm.dataset_original_train, bm.dataset_original_valid, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+bm.dataset_original_train, bm.dataset_original_valid, bm.dataset_original_test = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size + bm.validation_size)/bm.total_size], shuffle=True)
 [%   } %]
 [% } %]
 
 [% if (dataset.trainDatasetModule != null and dataset.trainDatasetModule.length() > 0) { %]
-bm.dataset_original = [%=dataset.trainDatasetModule%]()
+bm.train_dataset_module = [%=dataset.trainDatasetModule%]()
 [%   if (dataset.trainTestValidationSplit[2] == 0) { %]
-bm.dataset_original_train, _ = bm.dataset_original.split([bm.training_size/bm.total_size], shuffle=True)
+bm.dataset_original_train, _ = bm.train_dataset_module.split([bm.training_size/bm.total_size], shuffle=True)
 [%   } else { %]
-bm.dataset_original_train, _ , _ = bm.dataset_original.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+bm.dataset_original_train, _ , _ = bm.train_dataset_module.split([bm.training_size/bm.total_size, (bm.training_size + bm.validation_size)/bm.total_size], shuffle=True)
 [%   } %]
 [% } %]
 
 [% if (dataset.testDatasetModule != null and dataset.testDatasetModule.length() > 0) { %]
-bm.dataset_original_test = [%=dataset.testDatasetModule%]()
-bm.dataset_original_test = bm.dataset_original_train.align_datasets(bm.dataset_original_test)
+bm.test_dataset_module = [%=dataset.testDatasetModule%]()
+bm.test_dataset_module = bm.dataset_original_train.align_datasets(bm.test_dataset_module)
 [%   if (dataset.trainTestValidationSplit[2] == 0) { %]
-_ , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size], shuffle=True)
+_ , bm.dataset_original_test = bm.test_dataset_module.split([bm.training_size/bm.total_size], shuffle=True)
 [%   } else { %]
-_ , _ , bm.dataset_original_test = bm.dataset_original_test.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+_ , _ , bm.dataset_original_test = bm.test_dataset_module.split([bm.training_size/bm.total_size, (bm.training_size + bm.validation_size)/bm.total_size], shuffle=True)
 [%   } %]
 [% } %]
 
 [% if (dataset.validationDatasetModule != null and dataset.validationDatasetModule.length() > 0) { %]
-bm.dataset_original_validation = [%=dataset.validationDatasetModule%]()
-bm.dataset_original_validation = bm.dataset_original_train.align_datasets(bm.dataset_original_validation)
-_ , bm.dataset_original_valid, _ = bm.dataset_original_validation.split([bm.training_size/bm.total_size, (bm.training_size/bm.total_size) + (bm.validation_size/bm.total_size)], shuffle=True)
+bm.validation_dataset_module = [%=dataset.validationDatasetModule%]()
+bm.dataset_original_valid = bm.validation_dataset_module.align_datasets(bm.dataset_original_validation)
+_ , bm.dataset_original_valid, _ = bm.validation_dataset_module.split([bm.training_size/bm.total_size, (bm.training_size + bm.validation_size)/bm.total_size], shuffle=True)
 [% } %]
 
 bm.privileged_groups = [{bm.protected_attributes[0] : bm.privileged_class}]
 bm.unprivileged_groups = [{bm.protected_attributes[0] : bm.unprivileged_class}]
 
 [% if (biasMitigation.trainingMethods.size() == 0) { %]
-bm.init_new_result("Original", "[%=dataset.name%]", "", "")
+bm.init_new_result("Original", "", "[%=dataset.name%]", "", "")
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
-[%    /*  if (biasMetric.name == "accuracy") continue; */ %]
-bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_test, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[% if (biasMetric.datasetType == "train") { %]
+baseline_dataset=bm.dataset_original_train
+[% } else if (biasMetric.datasetType == "test") {  %]
+baseline_dataset=bm.dataset_original_test
+[% } else if (biasMetric.datasetType == "validation") {  %]
+baseline_dataset=bm.dataset_original_valid
+[% } %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%    } %]
 [%  } %]
 
@@ -235,11 +252,21 @@ print("Original Bias Metrics")
 dataset_original_train_pred = bm.create_predicted_dataset(bm.dataset_original_train, model_original_train)
 dataset_original_test_pred = bm.create_predicted_dataset(bm.dataset_original_test, model_original_train)
 
-bm.init_new_result("Original", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
+bm.init_new_result("Original", "", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
-[%      if (biasMetric.className == "ClassificationMetric") { %]
-bm.measure_bias("[%=biasMetric.name%]", bm.dataset_original_test, predicted_dataset=dataset_original_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      if (biasMetric.className == "FairMLMetric") { %]
+[% if (biasMetric.datasetType == "train") { %]
+baseline_dataset=bm.dataset_original_train
+predicted_dataset=dataset_original_train_pred
+[% } else if (biasMetric.datasetType == "test") {  %]
+baseline_dataset=bm.dataset_original_test
+predicted_dataset=dataset_original_test_pred
+[% } else if (biasMetric.datasetType == "validation") {  %]
+baseline_dataset=bm.dataset_original_valid
+predicted_dataset=dataset_original_valid_pred
+[% } %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, predicted_dataset=predicted_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%      } %]
 [%    } %][% // end of original metrics %]
 [%  } %][% // end of original training %]
@@ -252,12 +279,36 @@ print("")
 print("Mitigate Bias using [%=mitigationMethod.algorithm%]")
 print("-------------")
 [% if (preprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
+[%   if (mitigationMethod.algorithm <> "DisparateImpactRemover" ) { %]
 mitigation_method = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mitigationMethod.parameters.listToLineWithoutQuote()%])
 dataset_mitigated_train = mitigation_method.fit_transform(bm.dataset_original_train)
 [%   if (dataset.trainTestValidationSplit.size() > 2 and dataset.trainTestValidationSplit[2] > 0) { %]
 dataset_mitigated_valid = mitigation_method.fit_transform(bm.dataset_original_valid)
 [%   } %]
 dataset_mitigated_test = mitigation_method.fit_transform(bm.dataset_original_test)
+[% } else { %]
+
+scaler = MinMaxScaler(copy=False)
+temp_train = bm.dataset_original_train.copy(deepcopy=True)
+temp_test = bm.dataset_original_test.copy(deepcopy=True)
+temp_train.features = scaler.fit_transform(temp_train.features)
+temp_test.features = scaler.fit_transform(temp_test.features)
+[%   if (dataset.trainTestValidationSplit.size() > 2 and dataset.trainTestValidationSplit[2] > 0) { %]
+temp_valid = bm.dataset_original_valid.copy(deepcopy=True)
+temp_valid.features = scaler.fit_transform(temp_valid.features)
+[%   } %]
+
+mitigation_method = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mitigationMethod.parameters.listToLineWithoutQuote()%])
+dataset_mitigated_train = mitigation_method.fit_transform(temp_train)
+dataset_mitigated_test = mitigation_method.fit_transform(temp_test)
+[%   if (dataset.trainTestValidationSplit.size() > 2 and dataset.trainTestValidationSplit[2] > 0) { %]
+dataset_mitigated_valid = mitigation_method.fit_transform(temp_valid)
+[%   } %]
+
+index = bm.dataset_original_train.feature_names.index(bm.protected_attributes[0])
+dataset_mitigated_train.features = np.delete(dataset_mitigated_train.features, index, axis=1)
+dataset_mitigated_test.features = np.delete(dataset_mitigated_test.features, index, axis=1)
+[%   } %]
 [% } else if (inprocessings.exists(p | p = mitigationMethod.algorithm)) {
    // move existing training methods to a temperary variable
    // so that the IN-PROCESSING MITIGATION can take place   
@@ -294,12 +345,18 @@ dataset_mitigated_test.features = standard_scaler.fit_transform(bm.dataset_origi
 [% } %]
 
 [% if(biasMitigation.trainingMethods.size() == 0) { %]
-bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=dataset.name%]", "", "")
+bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.parameters.listToLineWithoutQuote()%]", "[%=dataset.name%]", "", "")
 [%   for (biasMetric in biasMitigation.biasMetrics) { %]
-[%   /*   if (biasMetric.name == "accuracy") continue; */ %]
-bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[% if (biasMetric.datasetType == "train") { %]
+baseline_dataset=dataset_mitigated_train
+[% } else if (biasMetric.datasetType == "test") {  %]
+baseline_dataset=dataset_mitigated_test
+[% } else if (biasMetric.datasetType == "validation") {  %]
+baseline_dataset=dataset_mitigated_valid
+[% } %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%   } %]
-[% } %]    
+[% } %]
 
 [%      for (trainingMethod in biasMitigation.trainingMethods) { %]
 
@@ -350,11 +407,21 @@ mitigation_method = mitigation_method.fit(dataset_mitigated_valid, dataset_mitig
 dataset_mitigated_test_pred = mitigation_method.predict(dataset_mitigated_test_pred)
 [% } %]
 
-bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
+bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.parameters.listToLineWithoutQuote()%]", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 
 [%      for (biasMetric in biasMitigation.biasMetrics) { %]
-[%        if (biasMetric.className == "ClassificationMetric" ) { %]
-bm.measure_bias("[%=biasMetric.name%]", dataset_mitigated_test, predicted_dataset=dataset_mitigated_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[% if (biasMetric.datasetType == "train") { %]
+baseline_dataset=dataset_mitigated_train
+predicted_dataset=dataset_mitigated_tain_pred
+[% } else if (biasMetric.datasetType == "test") {  %]
+baseline_dataset=dataset_mitigated_test
+predicted_dataset=dataset_mitigated_test_pred
+[% } else if (biasMetric.datasetType == "validation") {  %]
+baseline_dataset=dataset_mitigated_valid
+predicted_dataset=dataset_mitigated_valid_pred
+[% } %]
+[%        if (biasMetric.className == "FairMLMetric" ) { %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, predicted_dataset=predicted_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%        } else { %]
 [%        } %]
 [%      } %]

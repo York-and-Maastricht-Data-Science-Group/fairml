@@ -362,6 +362,16 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getBiasMetric_DatasetType() {
+		return (EAttribute)biasMetricEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getDataset() {
 		return datasetEClass;
 	}
@@ -432,7 +442,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_PriviledgedGroup() {
+	public EAttribute getDataset_DatasetModuleParameters() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -442,7 +452,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_UnpriviledgedGroup() {
+	public EAttribute getDataset_TrainDatasetModuleParameters() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -452,7 +462,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_PredictedAttribute() {
+	public EAttribute getDataset_TestDatasetModuleParameters() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -462,7 +472,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_FavorableClasses() {
+	public EAttribute getDataset_ValidationDatasetModuleParameters() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -472,7 +482,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_ProtectedAttributes() {
+	public EAttribute getDataset_PriviledgedGroup() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -482,7 +492,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_PrivilegedClasses() {
+	public EAttribute getDataset_UnpriviledgedGroup() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -492,7 +502,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_UnprivilegedClasses() {
+	public EAttribute getDataset_PredictedAttribute() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -502,7 +512,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_InstanceWeights() {
+	public EAttribute getDataset_FavorableClasses() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -512,7 +522,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_CategoricalFeatures() {
+	public EAttribute getDataset_ProtectedAttributes() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -522,7 +532,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_DroppedAttributes() {
+	public EAttribute getDataset_PrivilegedClasses() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -532,7 +542,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_FeaturesToKeep() {
+	public EAttribute getDataset_UnprivilegedClasses() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -542,7 +552,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_NotAvailableValues() {
+	public EAttribute getDataset_InstanceWeights() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -552,7 +562,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_DefaultMappings() {
+	public EAttribute getDataset_CategoricalFeatures() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -562,8 +572,48 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataset_TrainTestValidationSplit() {
+	public EAttribute getDataset_DroppedAttributes() {
 		return (EAttribute)datasetEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataset_FeaturesToKeep() {
+		return (EAttribute)datasetEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataset_NotAvailableValues() {
+		return (EAttribute)datasetEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataset_DefaultMappings() {
+		return (EAttribute)datasetEClass.getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataset_TrainTestValidationSplit() {
+		return (EAttribute)datasetEClass.getEStructuralFeatures().get(23);
 	}
 
 	/**
@@ -841,6 +891,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 
 		biasMetricEClass = createEClass(BIAS_METRIC);
 		createEAttribute(biasMetricEClass, BIAS_METRIC__CLASS_NAME);
+		createEAttribute(biasMetricEClass, BIAS_METRIC__DATASET_TYPE);
 
 		datasetEClass = createEClass(DATASET);
 		createEAttribute(datasetEClass, DATASET__NAME);
@@ -849,6 +900,10 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		createEAttribute(datasetEClass, DATASET__TRAIN_DATASET_MODULE);
 		createEAttribute(datasetEClass, DATASET__TEST_DATASET_MODULE);
 		createEAttribute(datasetEClass, DATASET__VALIDATION_DATASET_MODULE);
+		createEAttribute(datasetEClass, DATASET__DATASET_MODULE_PARAMETERS);
+		createEAttribute(datasetEClass, DATASET__TRAIN_DATASET_MODULE_PARAMETERS);
+		createEAttribute(datasetEClass, DATASET__TEST_DATASET_MODULE_PARAMETERS);
+		createEAttribute(datasetEClass, DATASET__VALIDATION_DATASET_MODULE_PARAMETERS);
 		createEAttribute(datasetEClass, DATASET__PRIVILEDGED_GROUP);
 		createEAttribute(datasetEClass, DATASET__UNPRIVILEDGED_GROUP);
 		createEAttribute(datasetEClass, DATASET__PREDICTED_ATTRIBUTE);
@@ -946,7 +1001,8 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEAttribute(getMitigationMethod_Algorithm(), ecorePackage.getEString(), "algorithm", null, 0, 1, MitigationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(biasMetricEClass, BiasMetric.class, "BiasMetric", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBiasMetric_ClassName(), ecorePackage.getEString(), "className", "ClassificationMetric", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBiasMetric_ClassName(), ecorePackage.getEString(), "className", "FairMLMetric", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBiasMetric_DatasetType(), ecorePackage.getEString(), "datasetType", "test", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(datasetEClass, Dataset.class, "Dataset", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataset_Name(), ecorePackage.getEString(), "name", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -955,6 +1011,10 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEAttribute(getDataset_TrainDatasetModule(), ecorePackage.getEString(), "trainDatasetModule", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_TestDatasetModule(), ecorePackage.getEString(), "testDatasetModule", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_ValidationDatasetModule(), ecorePackage.getEString(), "validationDatasetModule", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_DatasetModuleParameters(), ecorePackage.getEString(), "datasetModuleParameters", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_TrainDatasetModuleParameters(), ecorePackage.getEString(), "trainDatasetModuleParameters", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_TestDatasetModuleParameters(), ecorePackage.getEString(), "testDatasetModuleParameters", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataset_ValidationDatasetModuleParameters(), ecorePackage.getEString(), "validationDatasetModuleParameters", null, 0, -1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_PriviledgedGroup(), ecorePackage.getEInt(), "priviledgedGroup", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_UnpriviledgedGroup(), ecorePackage.getEInt(), "unpriviledgedGroup", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDataset_PredictedAttribute(), ecorePackage.getEString(), "predictedAttribute", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

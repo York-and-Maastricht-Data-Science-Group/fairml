@@ -75,7 +75,7 @@ public class FairML implements Callable<Integer> {
 
 	@Option(names = { "-j", "--jupyter" }, description = "Run Jupyter Notebook.")
 	private boolean runJupyter = false;
-	
+
 //	@Option(names = { "-p", "--password" }, description = "Setup Password.")
 //	private boolean isPassword = false;
 
@@ -92,16 +92,13 @@ public class FairML implements Callable<Integer> {
 			extractFilesFromJar(new String[] { "fairml.egx", "fairml.py", "ipynb.egl", //
 					"py.egl", "fairml.eol" }, DIR_GENERATOR);
 			extractFilesFromJar(new String[] { "adult.data.numeric.csv", //
-					"adult.data.numeric.txt", "german.numeric.csv",
-					"german.numeric.txt"}, DIR_DATA);
-			
-			
+					"adult.data.numeric.txt", "german.numeric.csv", "german.numeric.txt" }, DIR_DATA);
 
 			if (isWizard) {
 				scanner = new Scanner(System.in);
 				flexmiFile = generateFlexmiFile(flexmiFile);
 				scanner.close();
-			} 
+			}
 //			else if (isPassword) {
 //				String command = null;
 //				if (System.getProperty("os.name").startsWith("Windows")) {
@@ -131,7 +128,7 @@ public class FairML implements Callable<Integer> {
 					command = "jupyter notebook " + flexmiFile.getAbsolutePath()
 							+ " --port=8888 --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''";
 				}
-				
+
 				System.out.println(command);
 				Process p = Runtime.getRuntime().exec(command);
 
@@ -141,7 +138,7 @@ public class FairML implements Callable<Integer> {
 					System.out.println(line);
 				}
 				reader.close();
-				
+
 				scanner = new Scanner(System.in);
 				System.out.print("Type quit and enter to exit: ");
 				String input = scanner.next();
@@ -323,8 +320,8 @@ public class FairML implements Callable<Integer> {
 		dataset.add(Map.of("categoricalFeatures", temp));
 
 		String trainTestValidationSplit = "7, 2, 3";
-		temp = getUserInput("Train org.eclipse.epsilon.fairml.generator.test validation split (default: " + trainTestValidationSplit + "):",
-				trainTestValidationSplit, Double[].class);
+		temp = getUserInput("Train org.eclipse.epsilon.fairml.generator.test validation split (default: "
+				+ trainTestValidationSplit + "):", trainTestValidationSplit, Double[].class);
 		dataset.add(Map.of("trainTestSplit", temp));
 		fairml.add(Map.of("dataset", dataset));
 
@@ -353,7 +350,7 @@ public class FairML implements Callable<Integer> {
 		System.out.println("1. DecisionTreeClassifier");
 		System.out.println("2. LogisticRegression");
 		System.out.println("3. LinearSVC");
-		
+
 		temp = "1";
 		temp = getUserInput("Classifier (default 1. DecisionTreeClassifier):", temp, "Classifier");
 		trainingMethod.add(Map.of("algorithm", temp));

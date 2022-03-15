@@ -7,25 +7,25 @@ operation FairML getAllPreprocessings(): Sequence {
 
 operation Collection listToLine(): String {
     return self
-        .collect(item | "'" + item + "'")
+        .collect(item | "'" + item.replace("&comma;", ",") + "'")
         .concat(", ");
 }
 
 operation Collection listToLineWithBrackets(): String {
     return self
-        .collect(item | "['" + item + "']")
+        .collect(item | "['" + item.replace("&comma;", ",") + "']")
         .concat(", ");
 }
 
 operation Collection listToLineWithoutQuotesWithBrackets(): String {
     return self
-        .collect(item | "[" + item + "]")
+        .collect(item | "[" + item.replace("&comma;", ",") + "]")
         .concat(", ");
 }
 
 operation Collection listToLineWithoutQuote(): String {
     return self
-        .collect(item | item )
+        .collect(item | item.replace("&comma;", ",") )
         .concat(", ");
 }
 

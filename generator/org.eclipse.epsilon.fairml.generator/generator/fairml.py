@@ -21,12 +21,14 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
 from aif360.metrics import ClassificationMetric
 from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
+from aif360.metrics import Metric
 from aif360.explainers import MetricJSONExplainer
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
 from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import *
 
 from IPython.display import Markdown, display
 from IPython import get_ipython
+from aif360.explainers.metric_text_explainer import MetricTextExplainer
 
 
 def print_message(text):
@@ -41,7 +43,7 @@ class FairML():
     def __init__(self):
         """
         """
-        # self.results = []
+        self.results = {}
         self.line_num_counter = 1
         self.bias_mitigations = []
         self.optim_options = {
@@ -99,8 +101,11 @@ class BiasMitigation():
         self.data = None
         self.dataset_original = None
         self.dataset_original_train = None
-        self.dataset_original_validation = None
+        self.dataset_original_valid = None
         self.dataset_original_test = None
+        self.train_dataset_module = None
+        self.test_dataset_module = None
+        self.validation_dataset_module = None
         self.privileged_groups = None
         self.unprivileged_groups = None
         self.mitigation_results = None
@@ -186,12 +191,17 @@ class BiasMitigation():
         
         return mitigation_method
     
-    def train(self, dataset_train, classifier):
+    def train(self, dataset_train, classifier, without_weight=True ,scaler=StandardScaler):
         self.classifiers[classifier.__class__.__name__] = classifier.__class__
-        model = make_pipeline(StandardScaler(), classifier)
-        name = type(classifier).__name__.lower()
-        fit_params = {name + '__sample_weight': dataset_train.instance_weights}
-        model_train = model.fit(dataset_train.features, dataset_train.labels.ravel(), **fit_params)
+        model_train = None
+        if without_weight:
+            model_train = classifier.fit(dataset_train.features, dataset_train.labels.ravel())
+        else:
+            model = make_pipeline(scaler(), classifier)
+            name = type(classifier).__name__.lower()
+            fit_params = {name + '__sample_weight': dataset_train.instance_weights}
+            model_train = model.fit(dataset_train.features, dataset_train.labels.ravel(), **fit_params)
+            
         return model_train
     
     def drawModel(self, classifier, dataset, filename):
@@ -204,7 +214,7 @@ class BiasMitigation():
                            rounded=True);
             plot.savefig(filename)
     
-    def measure_bias(self, metric_name, dataset, predicted_dataset=None,
+    def measure_bias(self, metric_name, baseline_dataset=None, predicted_dataset=None,
                      privileged_groups=None, unprivileged_groups=None):
         """Compute the number of true/false positives/negatives, optionally
         conditioned on protected attributes.
@@ -220,12 +230,12 @@ class BiasMitigation():
         
         metric_mitigated_train = None
         if predicted_dataset is not None:
-            metric_mitigated_train = ClassificationMetric(dataset,
+            metric_mitigated_train = FairMLMetric(baseline_dataset,
                                                  predicted_dataset,
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
         else:
-            metric_mitigated_train = BinaryLabelDatasetMetric(dataset,
+            metric_mitigated_train = BinaryLabelDatasetMetric(baseline_dataset,
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
     
@@ -256,10 +266,14 @@ class BiasMitigation():
             # print_message("After mitigation: " + getattr(explainer_train, metric_name)())
             self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
     
-    def init_new_result(self, mitigation_algorithm_name, dataset_name, classifier_name, parameters):
+    def init_new_result(self, mitigation_algorithm_name, mitigation_algorithm_params, dataset_name, classifier_name, parameters):
         self.mitigation_results = defaultdict(list)
         self.results.append(self.mitigation_results)
-        self.mitigation_results["Mitigation"].append(mitigation_algorithm_name)
+        if len(parameters) > 0:
+            self.mitigation_results["Mitigation"].append(mitigation_algorithm_name + "\n" + mitigation_algorithm_params)
+        else:
+            self.mitigation_results["Mitigation"].append(mitigation_algorithm_name + mitigation_algorithm_params)
+            
         self.mitigation_results["Dataset"].append(dataset_name + "(" + str(self.training_size) + ":" + 
                                                    str(self.test_size) + ":" + str(self.validation_size) + ")")
         if len(parameters) > 0:
@@ -269,7 +283,6 @@ class BiasMitigation():
         # self.mitigation_results["sklearn_accuracy"].append(accuracy)
         
     def display_summary(self):
-        print("")
         line_num = pd.Series(range(1, len(self.results) + 1))
         self.summary_table = pd.concat([pd.DataFrame(m) for m in self.results], axis=0).set_axis(line_num)
         
@@ -281,6 +294,12 @@ class BiasMitigation():
                     self.fairest_combinations[name] = fairest_line
                     self.table_colours[name] = self.get_colours(values, 1)
                     self.ideal_values[name] = 1 
+                elif name == "balanced_accuracy":
+                    fairest_value, fairest_line = self.get_fairest_value(values, 1)
+                    self.fairest_values[name] = fairest_value
+                    self.fairest_combinations[name] = fairest_line
+                    self.table_colours[name] = self.get_colours(values, 1)
+                    self.ideal_values[name] = 1
                 elif name == "disparate_impact":
                     fairest_value, fairest_line = self.get_fairest_value(values, 1)
                     self.fairest_values[name] = fairest_value
@@ -307,6 +326,7 @@ class BiasMitigation():
                     self.ideal_values[name] = 0
         
         if get_ipython() == None:
+            print("")
             print("Original Data size: " + str(len(self.dataset_original.instance_names))) 
             print("Predicted attribute: " + self.predicted_attribute)
             print("Protected attributes: " + ", ".join(self.protected_attributes)) 
@@ -361,7 +381,7 @@ class BiasMitigation():
         
         if get_ipython() == None:
             plot.savefig(image)  
-            plot.show(block=True)
+            plot.show(block=False)
         else:
             # backend = matplotlib.get_backend()
             # print(backend)
@@ -483,7 +503,29 @@ class BiasMitigation():
         return cell_formats 
 
 
-class MetricFairMLExplainer(MetricJSONExplainer):
+class MetricTextFairMLExplainer(MetricTextExplainer):
+
+    def __init__(self, metric):
+        """Initialize a `MetricTextExplainer` object.
+
+        Args:
+            metric (Metric): The metric to be explained.
+        """
+        if isinstance(metric, Metric):
+            self.metric = metric
+        else:
+            raise TypeError("metric must be a Metric.")
+        
+    def balanced_accuracy(self, privileged=None):
+        if privileged is None:
+            return "Balanced Classification accuracy (BACC): {}".format(
+                self.metric.balanced_accuracy(privileged=privileged))
+        return "Balanced Classification accuracy on {} instances: {}".format(
+            'privileged' if privileged else 'unprivileged',
+            self.metric.balanced_accuracy(privileged=privileged))
+
+
+class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
     '''
     The class is derived from MetricJSONExplainer because I think there is a logic error
     in disparate_impact() and  statistical_parity_difference().
@@ -546,3 +588,42 @@ class MetricFairMLExplainer(MetricJSONExplainer):
                 ("ideal", " The ideal value of this metric is 0")
             ))
         return json.dumps(response)
+
+    def balanced_accuracy(self):
+        outcome = super(MetricFairMLExplainer, self).balanced_accuracy()
+        response = OrderedDict((
+            ("metric", "Balanced Accuracy"),
+            ("message", outcome),
+            ("truePositiveRateUnprivileged", self.metric.true_positive_rate(privileged=False)),
+            ("trueNegativeRateUnprivileged", self.metric.true_negative_rate(privileged=False)),
+            ("truePositiveRatePrivileged", self.metric.true_positive_rate(privileged=True)),
+            ("trueNegativeRatePrivileged", self.metric.true_negative_rate(privileged=True)),
+            ("description", "Return the balanced accuracy of the ratios of true positives and true negatives examples in the dataset, :math:`0.5 * (TPR + TNR)`,  optionally conditioned on protected attributes."),
+            ("ideal", " The ideal value of this metric is 1")
+        ))
+        return json.dumps(response)
+
+class FairMLMetric(ClassificationMetric):
+    '''Extend the Classification Metric to Include Balanced Accuracy
+    '''
+    
+    def balanced_accuracy(self, privileged=None):
+        """Return the balanced accuracy of the ratio of true positives and 
+        true negatives examples in the dataset, :math:`0.5 * (TPR + TNR)`, 
+        optionally conditioned on protected attributes.
+
+        Args:
+            privileged (bool, optional): Boolean prescribing whether to
+                condition this metric on the `privileged_groups`, if `True`, or
+                the `unprivileged_groups`, if `False`. Defaults to `None`
+                meaning this metric is computed over the entire dataset.
+
+        Raises:
+            AttributeError: `privileged_groups` or `unprivileged_groups` 
+                must be provided at initialization to condition on them.
+        """
+        return 0.5 * (self.true_positive_rate(privileged) + self.true_negative_rate(privileged))
+        
+        
+        
+    

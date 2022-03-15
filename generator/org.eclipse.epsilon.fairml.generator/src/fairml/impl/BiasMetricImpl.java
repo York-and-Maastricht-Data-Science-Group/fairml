@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link fairml.impl.BiasMetricImpl#getClassName <em>Class Name</em>}</li>
+ *   <li>{@link fairml.impl.BiasMetricImpl#getDatasetType <em>Dataset Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -33,7 +34,7 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CLASS_NAME_EDEFAULT = "ClassificationMetric";
+	protected static final String CLASS_NAME_EDEFAULT = "FairMLMetric";
 
 	/**
 	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -44,6 +45,26 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 	 * @ordered
 	 */
 	protected String className = CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDatasetType() <em>Dataset Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDatasetType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DATASET_TYPE_EDEFAULT = "test";
+
+	/**
+	 * The cached value of the '{@link #getDatasetType() <em>Dataset Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDatasetType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String datasetType = DATASET_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,10 +114,35 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 	 * @generated
 	 */
 	@Override
+	public String getDatasetType() {
+		return datasetType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDatasetType(String newDatasetType) {
+		String oldDatasetType = datasetType;
+		datasetType = newDatasetType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.BIAS_METRIC__DATASET_TYPE, oldDatasetType, datasetType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case FairmlPackage.BIAS_METRIC__CLASS_NAME:
 				return getClassName();
+			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
+				return getDatasetType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,6 +157,9 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 		switch (featureID) {
 			case FairmlPackage.BIAS_METRIC__CLASS_NAME:
 				setClassName((String)newValue);
+				return;
+			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
+				setDatasetType((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,6 +176,9 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 			case FairmlPackage.BIAS_METRIC__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;
+			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
+				setDatasetType(DATASET_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -141,6 +193,8 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 		switch (featureID) {
 			case FairmlPackage.BIAS_METRIC__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
+			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
+				return DATASET_TYPE_EDEFAULT == null ? datasetType != null : !DATASET_TYPE_EDEFAULT.equals(datasetType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -157,6 +211,8 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (className: ");
 		result.append(className);
+		result.append(", datasetType: ");
+		result.append(datasetType);
 		result.append(')');
 		return result.toString();
 	}

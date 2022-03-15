@@ -21,6 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link fairml.Dataset#getTrainDatasetModule <em>Train Dataset Module</em>}</li>
  *   <li>{@link fairml.Dataset#getTestDatasetModule <em>Test Dataset Module</em>}</li>
  *   <li>{@link fairml.Dataset#getValidationDatasetModule <em>Validation Dataset Module</em>}</li>
+ *   <li>{@link fairml.Dataset#getDatasetModuleParameters <em>Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.Dataset#getTrainDatasetModuleParameters <em>Train Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.Dataset#getTestDatasetModuleParameters <em>Test Dataset Module Parameters</em>}</li>
+ *   <li>{@link fairml.Dataset#getValidationDatasetModuleParameters <em>Validation Dataset Module Parameters</em>}</li>
  *   <li>{@link fairml.Dataset#getPriviledgedGroup <em>Priviledged Group</em>}</li>
  *   <li>{@link fairml.Dataset#getUnpriviledgedGroup <em>Unpriviledged Group</em>}</li>
  *   <li>{@link fairml.Dataset#getPredictedAttribute <em>Predicted Attribute</em>}</li>
@@ -173,6 +177,54 @@ public interface Dataset extends EObject {
 	 * @generated
 	 */
 	void setValidationDatasetModule(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Dataset Module Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dataset Module Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_DatasetModuleParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getDatasetModuleParameters();
+
+	/**
+	 * Returns the value of the '<em><b>Train Dataset Module Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Train Dataset Module Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_TrainDatasetModuleParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getTrainDatasetModuleParameters();
+
+	/**
+	 * Returns the value of the '<em><b>Test Dataset Module Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Test Dataset Module Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_TestDatasetModuleParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getTestDatasetModuleParameters();
+
+	/**
+	 * Returns the value of the '<em><b>Validation Dataset Module Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Dataset Module Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getDataset_ValidationDatasetModuleParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getValidationDatasetModuleParameters();
 
 	/**
 	 * Returns the value of the '<em><b>Priviledged Group</b></em>' attribute.
