@@ -35,6 +35,8 @@
            var tm = new TrainingMethod();
            tm.algorithm = mitigationMethod.algorithm;
            tm.parameters = mitigationMethod.parameters.clone();
+           tm.fitParameters = mitigationMethod.fitParameters.clone();
+           tm.predictParameters = mitigationMethod.predictParameters.clone();
            biasMitigation.trainingMethods.add(tm);
         } %]
       [% for (trainingMethod in biasMitigation.trainingMethods) { %]
@@ -73,6 +75,7 @@ from sklearn.svm import *
 from sklearn.neighbors import *
 from sklearn.naive_bayes import *
 from sklearn.neural_network import *
+from sklearn.kernel_ridge import *
 from sklearn.ensemble import *
 from sklearn import metrics
 from sklearn.preprocessing import MaxAbsScaler
@@ -181,8 +184,11 @@ bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split(
 [%   } else if (dataset.trainTestValidationSplit[2] == 0 and dataset.trainTestValidationSplit[1] == 0) { %]
 bm.dataset_original_train, bm.dataset_original_test = bm.dataset_original.split([int(bm.training_size)])
 if bm.dataset_original_train.features.shape[0] < bm.dataset_original_test.features.shape[0]:
-   bm.dataset_original_test, bm.dataset_original_train = bm.dataset_original_train, bm.dataset_original_test  
-
+   bm.dataset_original_test, bm.dataset_original_train = bm.dataset_original_train, bm.dataset_original_test
+ 
+if bm.dataset_original_test.features.shape[0] == 0:
+    bm.dataset_original_test = bm.dataset_original_train.copy(deepcopy=True)     
+ 
 bm.training_size = bm.dataset_original_train.features.shape[0]    
 bm.test_size = bm.dataset_original_test.features.shape[0]
 bm.validation_size = 0
@@ -223,14 +229,13 @@ bm.unprivileged_groups = [{bm.protected_attributes[0] : bm.unprivileged_class}]
 [% if (biasMitigation.trainingMethods.size() == 0) { %]
 bm.init_new_result("Original", "", "[%=dataset.name%]", "", "")
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
-[% if (biasMetric.datasetType == "train") { %]
-baseline_dataset=bm.dataset_original_train
-[% } else if (biasMetric.datasetType == "test") {  %]
-baseline_dataset=bm.dataset_original_test
-[% } else if (biasMetric.datasetType == "validation") {  %]
-baseline_dataset=bm.dataset_original_valid
+[%      if (biasMetric.datasetType == "train") { %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_train, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+[%      } else if (biasMetric.datasetType == "test") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_test, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      } else if (biasMetric.datasetType == "validation") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_valid, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [% } %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
 [%    } %]
 [%  } %]
 
@@ -256,17 +261,13 @@ bm.init_new_result("Original", "", "[%=dataset.name%]", "[%=trainingMethod.algor
 
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
 [%      if (biasMetric.className == "FairMLMetric") { %]
-[% if (biasMetric.datasetType == "train") { %]
-baseline_dataset=bm.dataset_original_train
-predicted_dataset=dataset_original_train_pred
-[% } else if (biasMetric.datasetType == "test") {  %]
-baseline_dataset=bm.dataset_original_test
-predicted_dataset=dataset_original_test_pred
-[% } else if (biasMetric.datasetType == "validation") {  %]
-baseline_dataset=bm.dataset_original_valid
-predicted_dataset=dataset_original_valid_pred
-[% } %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, predicted_dataset=predicted_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%          if (biasMetric.datasetType == "train") { %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_train, predicted_dataset=dataset_original_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%          } else if (biasMetric.datasetType == "test") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_test, predicted_dataset=dataset_original_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%          } else if (biasMetric.datasetType == "validation") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_valid, predicted_dataset=dataset_original_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%          } %]
 [%      } %]
 [%    } %][% // end of original metrics %]
 [%  } %][% // end of original training %]
@@ -347,14 +348,13 @@ dataset_mitigated_test.features = standard_scaler.fit_transform(bm.dataset_origi
 [% if(biasMitigation.trainingMethods.size() == 0) { %]
 bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.parameters.listToLineWithoutQuote()%]", "[%=dataset.name%]", "", "")
 [%   for (biasMetric in biasMitigation.biasMetrics) { %]
-[% if (biasMetric.datasetType == "train") { %]
-baseline_dataset=dataset_mitigated_train
-[% } else if (biasMetric.datasetType == "test") {  %]
-baseline_dataset=dataset_mitigated_test
-[% } else if (biasMetric.datasetType == "validation") {  %]
-baseline_dataset=dataset_mitigated_valid
-[% } %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      if (biasMetric.datasetType == "train") { %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_train, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      } else if (biasMetric.datasetType == "test") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_test, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      } else if (biasMetric.datasetType == "validation") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_valid, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%      } %]
 [%   } %]
 [% } %]
 
@@ -370,7 +370,7 @@ print("-------------")
 
 [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
 classifier = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mitigationMethod.parameters.listToLineWithoutQuote()%])
-model_mitigated_train = classifier.fit(dataset_mitigated_train)
+model_mitigated_train = classifier.fit(dataset_mitigated_train, [%=mitigationMethod.fitParameters.listToLineWithoutQuote()%])
 [% } else { %]
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
 model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
@@ -380,11 +380,11 @@ model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
 
 print("After-mitigation Metrics")
 [% if (inprocessings.exists(p | p = mitigationMethod.algorithm)) { %]
-dataset_mitigated_train_pred = model_mitigated_train.predict(dataset_mitigated_train)
+dataset_mitigated_train_pred = model_mitigated_train.predict(dataset_mitigated_train, [%=mitigationMethod.predictParameters.listToLineWithoutQuote()%])
 [%   if (dataset.trainTestValidationSplit.size() > 2 and dataset.trainTestValidationSplit[2] > 0) { %]
-dataset_mitigated_valid_pred = model_mitigated_train.predict(dataset_mitigated_valid)
+dataset_mitigated_valid_pred = model_mitigated_train.predict(dataset_mitigated_valid, [%=mitigationMethod.predictParameters.listToLineWithoutQuote()%])
 [%    } %]
-dataset_mitigated_test_pred = model_mitigated_train.predict(dataset_mitigated_test)
+dataset_mitigated_test_pred = model_mitigated_train.predict(dataset_mitigated_test, [%=mitigationMethod.predictParameters.listToLineWithoutQuote()%])
 [% } else { %]
 dataset_mitigated_train_pred = bm.create_predicted_dataset(dataset_mitigated_train, model_mitigated_train)
 [%   if (dataset.trainTestValidationSplit.size() > 2 and dataset.trainTestValidationSplit[2] > 0) { %]
@@ -410,18 +410,14 @@ dataset_mitigated_test_pred = mitigation_method.predict(dataset_mitigated_test_p
 bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.parameters.listToLineWithoutQuote()%]", "[%=dataset.name%]", "[%=trainingMethod.algorithm%]", "[%=trainingMethod.parameters.listToLineWithoutQuote()%]")
 
 [%      for (biasMetric in biasMitigation.biasMetrics) { %]
-[% if (biasMetric.datasetType == "train") { %]
-baseline_dataset=dataset_mitigated_train
-predicted_dataset=dataset_mitigated_tain_pred
-[% } else if (biasMetric.datasetType == "test") {  %]
-baseline_dataset=dataset_mitigated_test
-predicted_dataset=dataset_mitigated_test_pred
-[% } else if (biasMetric.datasetType == "validation") {  %]
-baseline_dataset=dataset_mitigated_valid
-predicted_dataset=dataset_mitigated_valid_pred
-[% } %]
 [%        if (biasMetric.className == "FairMLMetric" ) { %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=baseline_dataset, predicted_dataset=predicted_dataset, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+[%          if (biasMetric.datasetType == "train") { %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_train, predicted_dataset=dataset_mitigated_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+[%          } else if (biasMetric.datasetType == "test") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_test, predicted_dataset=dataset_mitigated_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+[%          } else if (biasMetric.datasetType == "validation") {  %]
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_valid, predicted_dataset=dataset_mitigated_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+[%          } %]
 [%        } else { %]
 [%        } %]
 [%      } %]

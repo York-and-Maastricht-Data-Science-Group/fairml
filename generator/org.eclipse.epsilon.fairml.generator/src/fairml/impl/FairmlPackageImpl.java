@@ -322,6 +322,26 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getTrainingMethod_FitParameters() {
+		return (EAttribute)trainingMethodEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getTrainingMethod_PredictParameters() {
+		return (EAttribute)trainingMethodEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getMitigationMethod() {
 		return mitigationMethodEClass;
 	}
@@ -334,6 +354,26 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	@Override
 	public EAttribute getMitigationMethod_Algorithm() {
 		return (EAttribute)mitigationMethodEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMitigationMethod_FitParameters() {
+		return (EAttribute)mitigationMethodEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getMitigationMethod_PredictParameters() {
+		return (EAttribute)mitigationMethodEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -885,9 +925,13 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 
 		trainingMethodEClass = createEClass(TRAINING_METHOD);
 		createEAttribute(trainingMethodEClass, TRAINING_METHOD__ALGORITHM);
+		createEAttribute(trainingMethodEClass, TRAINING_METHOD__FIT_PARAMETERS);
+		createEAttribute(trainingMethodEClass, TRAINING_METHOD__PREDICT_PARAMETERS);
 
 		mitigationMethodEClass = createEClass(MITIGATION_METHOD);
 		createEAttribute(mitigationMethodEClass, MITIGATION_METHOD__ALGORITHM);
+		createEAttribute(mitigationMethodEClass, MITIGATION_METHOD__FIT_PARAMETERS);
+		createEAttribute(mitigationMethodEClass, MITIGATION_METHOD__PREDICT_PARAMETERS);
 
 		biasMetricEClass = createEClass(BIAS_METRIC);
 		createEAttribute(biasMetricEClass, BIAS_METRIC__CLASS_NAME);
@@ -996,9 +1040,13 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 
 		initEClass(trainingMethodEClass, TrainingMethod.class, "TrainingMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTrainingMethod_Algorithm(), ecorePackage.getEString(), "algorithm", null, 0, 1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTrainingMethod_FitParameters(), ecorePackage.getEString(), "fitParameters", null, 0, -1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTrainingMethod_PredictParameters(), ecorePackage.getEString(), "predictParameters", null, 0, -1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mitigationMethodEClass, MitigationMethod.class, "MitigationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMitigationMethod_Algorithm(), ecorePackage.getEString(), "algorithm", null, 0, 1, MitigationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMitigationMethod_FitParameters(), ecorePackage.getEString(), "fitParameters", null, 0, -1, MitigationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getMitigationMethod_PredictParameters(), ecorePackage.getEString(), "predictParameters", null, 0, -1, MitigationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(biasMetricEClass, BiasMetric.class, "BiasMetric", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBiasMetric_ClassName(), ecorePackage.getEString(), "className", "FairMLMetric", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1,0 +1,61 @@
+?nsuri: fairml
+fairml:
+- name: Demo Short Gerryfair Test
+- description: |-
+    Demo Short Gerryfair Test
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_short_gerryfair_test.ipynb
+- module: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult,
+    from aif360.algorithms.inprocessing.gerryfair.clean import array_to_tuple
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - datasetModuleParameters: sub_samp=1000, balance=True
+  - protectedAttributes: race 
+  - trainTestSplit: 1000 
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Mitigate Bias using Gerryfair  
+  - dataset: Adult Dataset From Module
+  
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
+    - parameters: C=100, printflag=True, gamma=0.005, fairness_def='FP', max_iters=10, heatmapflag=False
+    - fitParameters: early_termination=True
+    - predictParameters: threshold=False     
+    
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
+    - parameters: C=100, printflag=True, gamma= 0.005, predictor=LinearRegression(), max_iters=10
+    - fitParameters: early_termination=True
+    - predictParameters: threshold=False 
+  
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
+    - parameters: C=100, printflag=True, gamma= 0.005, predictor=LinearSVR(), max_iters=10
+    - fitParameters: early_termination=True
+    - predictParameters: threshold=False 
+  
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
+    - parameters: C=100, printflag=True, gamma= 0.005, predictor=DecisionTreeRegressor(max_depth=3), max_iters=10
+    - fitParameters: early_termination=True
+    - predictParameters: threshold=False 
+  
+  - mitigationMethod:
+    - algorithm: GerryFairClassifier
+    - parameters: C=100, printflag=True, gamma= 0.005, predictor=KernelRidge(alpha=1.0, gamma=1.0, kernel='rbf'), max_iters=10
+    - fitParameters: early_termination=True
+    - predictParameters: threshold=False 
+
+
+  - biasMetric:
+    - datasetType: 'train'
+    - name: accuracy
+  - biasMetric:
+    - datasetType: 'train'
+    - name: rich_subgroup
+    - parameters: fairness_def='FP' 

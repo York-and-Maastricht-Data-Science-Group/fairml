@@ -67,4 +67,16 @@ public class AIF360ExampleTest {
 		
 		assertEquals(0, 0);
 	}
+	
+	@Test
+	public void testDemoShortGerryfairTest() {
+		String filename = "demo_short_gerryfair_test";
+		String modelFile = "test-model/" + filename + ".flexmi";
+		
+		org.eclipse.epsilon.fairml.generator.FairML.main(new String[] { modelFile });
+		
+		assertEquals(0, 0);
+	}
+	
+	
 }

@@ -5,11 +5,14 @@
 '''
 
 import inspect
-import matplotlib.pyplot as plot
 import os.path
-import json 
+import json
 import numbers
 import tensorflow.compat.v1 as tf
+import matplotlib.pyplot as plot
+import pandas as pd
+import numpy as np
+np.random.seed(0)
 
 from collections import defaultdict
 from collections import OrderedDict
@@ -24,7 +27,7 @@ from aif360.metrics.binary_label_dataset_metric import BinaryLabelDatasetMetric
 from aif360.metrics import Metric
 from aif360.explainers import MetricJSONExplainer
 from aif360.algorithms.preprocessing.optim_preproc_helpers.opt_tools import OptTools
-from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import *
+from aif360.algorithms.inprocessing.gerryfair.clean import array_to_tuple
 
 from IPython.display import Markdown, display
 from IPython import get_ipython
@@ -215,7 +218,7 @@ class BiasMitigation():
             plot.savefig(filename)
     
     def measure_bias(self, metric_name, baseline_dataset=None, predicted_dataset=None,
-                     privileged_groups=None, unprivileged_groups=None):
+                     privileged_groups=None, unprivileged_groups=None, **params):
         """Compute the number of true/false positives/negatives, optionally
         conditioned on protected attributes.
         
@@ -238,15 +241,22 @@ class BiasMitigation():
             metric_mitigated_train = BinaryLabelDatasetMetric(baseline_dataset,
                                                  unprivileged_groups=unprivileged_groups,
                                                  privileged_groups=privileged_groups)
-    
+        
+        if metric_name == "rich_subgroup":
+            if predicted_dataset is not None:
+                params["predictions"] = array_to_tuple(predicted_dataset.labels)
+            else:
+                self.mitigation_results[metric_name].append(1.0)
+                return    
+        
         explainer_train = MetricFairMLExplainer(metric_mitigated_train)
         
         if not callable(getattr(metric_mitigated_train, metric_name, None)):
             # print_message("After mitigation " + metric_name + ": %f" % 0)
             # print_message("After mitigation: " + str(None))
             self.mitigation_results[metric_name].append(None)
-        else: 
-            explanation = json.loads(getattr(explainer_train, metric_name)(), object_pairs_hook=OrderedDict)
+        else:  
+            explanation = json.loads(getattr(explainer_train, metric_name)(**params), object_pairs_hook=OrderedDict)
             
             if get_ipython() == None:
                 print("")
@@ -264,12 +274,12 @@ class BiasMitigation():
             # print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
             # print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
             # print_message("After mitigation: " + getattr(explainer_train, metric_name)())
-            self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)())
+            self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)(**params))
     
     def init_new_result(self, mitigation_algorithm_name, mitigation_algorithm_params, dataset_name, classifier_name, parameters):
         self.mitigation_results = defaultdict(list)
         self.results.append(self.mitigation_results)
-        if len(parameters) > 0:
+        if len(mitigation_algorithm_params) > 0:
             self.mitigation_results["Mitigation"].append(mitigation_algorithm_name + "\n" + mitigation_algorithm_params)
         else:
             self.mitigation_results["Mitigation"].append(mitigation_algorithm_name + mitigation_algorithm_params)
@@ -524,6 +534,10 @@ class MetricTextFairMLExplainer(MetricTextExplainer):
             'privileged' if privileged else 'unprivileged',
             self.metric.balanced_accuracy(privileged=privileged))
 
+    def rich_subgroup(self, predictions, fairness_def='FP'):
+        return "Gamma disparity with respect to the fairness_def: {}".format(
+            self.metric.rich_subgroup(predictions, fairness_def))
+    
 
 class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
     '''
@@ -602,6 +616,19 @@ class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
             ("ideal", " The ideal value of this metric is 1")
         ))
         return json.dumps(response)
+    
+    def rich_subgroup(self, predictions, fairness_def='FP'):
+        outcome = super(MetricFairMLExplainer, self).rich_subgroup(predictions, fairness_def)
+        response = OrderedDict((
+            ("metric", "Rich Subgroup/Gamma Disparity"),
+            ("message", outcome),
+            ("description", "Audit dataset with respect to rich subgroups defined by linear thresholds of sensitive attributes. " +  
+                "fairness_def is 'FP' or 'FN' for rich subgroup wrt to false positive or false negative rate. " +
+                "predictions is a hashable tuple of predictions. Typically the labels attribute of a GerryFairClassifier."),
+            ("ideal", " The ideal value of this metric is 0")
+        ))
+        return json.dumps(response)
+    
 
 class FairMLMetric(ClassificationMetric):
     '''Extend the Classification Metric to Include Balanced Accuracy

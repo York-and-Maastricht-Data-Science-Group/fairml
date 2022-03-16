@@ -2,6 +2,8 @@
  */
 package fairml;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +15,8 @@ package fairml;
  * </p>
  * <ul>
  *   <li>{@link fairml.MitigationMethod#getAlgorithm <em>Algorithm</em>}</li>
+ *   <li>{@link fairml.MitigationMethod#getFitParameters <em>Fit Parameters</em>}</li>
+ *   <li>{@link fairml.MitigationMethod#getPredictParameters <em>Predict Parameters</em>}</li>
  * </ul>
  *
  * @see fairml.FairmlPackage#getMitigationMethod()
@@ -41,5 +45,29 @@ public interface MitigationMethod extends Operation {
 	 * @generated
 	 */
 	void setAlgorithm(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Fit Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fit Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getMitigationMethod_FitParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getFitParameters();
+
+	/**
+	 * Returns the value of the '<em><b>Predict Parameters</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Predict Parameters</em>' attribute list.
+	 * @see fairml.FairmlPackage#getMitigationMethod_PredictParameters()
+	 * @model
+	 * @generated
+	 */
+	EList<String> getPredictParameters();
 
 } // MitigationMethod

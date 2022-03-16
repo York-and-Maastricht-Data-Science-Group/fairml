@@ -6,11 +6,14 @@ import fairml.FairmlPackage;
 import fairml.MitigationMethod;
 
 import fairml.MitigationType;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +24,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link fairml.impl.MitigationMethodImpl#getAlgorithm <em>Algorithm</em>}</li>
+ *   <li>{@link fairml.impl.MitigationMethodImpl#getFitParameters <em>Fit Parameters</em>}</li>
+ *   <li>{@link fairml.impl.MitigationMethodImpl#getPredictParameters <em>Predict Parameters</em>}</li>
  * </ul>
  *
  * @generated
@@ -45,6 +50,26 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 	 * @ordered
 	 */
 	protected String algorithm = ALGORITHM_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getFitParameters() <em>Fit Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFitParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> fitParameters;
+
+	/**
+	 * The cached value of the '{@link #getPredictParameters() <em>Predict Parameters</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPredictParameters()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> predictParameters;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,10 +119,40 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 	 * @generated
 	 */
 	@Override
+	public EList<String> getFitParameters() {
+		if (fitParameters == null) {
+			fitParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.MITIGATION_METHOD__FIT_PARAMETERS);
+		}
+		return fitParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<String> getPredictParameters() {
+		if (predictParameters == null) {
+			predictParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.MITIGATION_METHOD__PREDICT_PARAMETERS);
+		}
+		return predictParameters;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case FairmlPackage.MITIGATION_METHOD__ALGORITHM:
 				return getAlgorithm();
+			case FairmlPackage.MITIGATION_METHOD__FIT_PARAMETERS:
+				return getFitParameters();
+			case FairmlPackage.MITIGATION_METHOD__PREDICT_PARAMETERS:
+				return getPredictParameters();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -107,11 +162,20 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case FairmlPackage.MITIGATION_METHOD__ALGORITHM:
 				setAlgorithm((String)newValue);
+				return;
+			case FairmlPackage.MITIGATION_METHOD__FIT_PARAMETERS:
+				getFitParameters().clear();
+				getFitParameters().addAll((Collection<? extends String>)newValue);
+				return;
+			case FairmlPackage.MITIGATION_METHOD__PREDICT_PARAMETERS:
+				getPredictParameters().clear();
+				getPredictParameters().addAll((Collection<? extends String>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -128,6 +192,12 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 			case FairmlPackage.MITIGATION_METHOD__ALGORITHM:
 				setAlgorithm(ALGORITHM_EDEFAULT);
 				return;
+			case FairmlPackage.MITIGATION_METHOD__FIT_PARAMETERS:
+				getFitParameters().clear();
+				return;
+			case FairmlPackage.MITIGATION_METHOD__PREDICT_PARAMETERS:
+				getPredictParameters().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -142,6 +212,10 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 		switch (featureID) {
 			case FairmlPackage.MITIGATION_METHOD__ALGORITHM:
 				return ALGORITHM_EDEFAULT == null ? algorithm != null : !ALGORITHM_EDEFAULT.equals(algorithm);
+			case FairmlPackage.MITIGATION_METHOD__FIT_PARAMETERS:
+				return fitParameters != null && !fitParameters.isEmpty();
+			case FairmlPackage.MITIGATION_METHOD__PREDICT_PARAMETERS:
+				return predictParameters != null && !predictParameters.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -158,6 +232,10 @@ public class MitigationMethodImpl extends OperationImpl implements MitigationMet
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (algorithm: ");
 		result.append(algorithm);
+		result.append(", fitParameters: ");
+		result.append(fitParameters);
+		result.append(", predictParameters: ");
+		result.append(predictParameters);
 		result.append(')');
 		return result.toString();
 	}

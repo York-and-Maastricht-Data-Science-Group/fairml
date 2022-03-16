@@ -277,13 +277,31 @@ public interface FairmlPackage extends EPackage {
 	int TRAINING_METHOD__ALGORITHM = OPERATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Fit Parameters</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRAINING_METHOD__FIT_PARAMETERS = OPERATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Predict Parameters</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRAINING_METHOD__PREDICT_PARAMETERS = OPERATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Training Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRAINING_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 1;
+	int TRAINING_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.MitigationMethodImpl <em>Mitigation Method</em>}' class.
@@ -341,13 +359,31 @@ public interface FairmlPackage extends EPackage {
 	int MITIGATION_METHOD__ALGORITHM = OPERATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Fit Parameters</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MITIGATION_METHOD__FIT_PARAMETERS = OPERATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Predict Parameters</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MITIGATION_METHOD__PREDICT_PARAMETERS = OPERATION_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Mitigation Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MITIGATION_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 1;
+	int MITIGATION_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.BiasMetricImpl <em>Bias Metric</em>}' class.
@@ -1050,6 +1086,28 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getTrainingMethod_Algorithm();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link fairml.TrainingMethod#getFitParameters <em>Fit Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Fit Parameters</em>'.
+	 * @see fairml.TrainingMethod#getFitParameters()
+	 * @see #getTrainingMethod()
+	 * @generated
+	 */
+	EAttribute getTrainingMethod_FitParameters();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link fairml.TrainingMethod#getPredictParameters <em>Predict Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Predict Parameters</em>'.
+	 * @see fairml.TrainingMethod#getPredictParameters()
+	 * @see #getTrainingMethod()
+	 * @generated
+	 */
+	EAttribute getTrainingMethod_PredictParameters();
+
+	/**
 	 * Returns the meta object for class '{@link fairml.MitigationMethod <em>Mitigation Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1069,6 +1127,28 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getMitigationMethod_Algorithm();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link fairml.MitigationMethod#getFitParameters <em>Fit Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Fit Parameters</em>'.
+	 * @see fairml.MitigationMethod#getFitParameters()
+	 * @see #getMitigationMethod()
+	 * @generated
+	 */
+	EAttribute getMitigationMethod_FitParameters();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link fairml.MitigationMethod#getPredictParameters <em>Predict Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Predict Parameters</em>'.
+	 * @see fairml.MitigationMethod#getPredictParameters()
+	 * @see #getMitigationMethod()
+	 * @generated
+	 */
+	EAttribute getMitigationMethod_PredictParameters();
 
 	/**
 	 * Returns the meta object for class '{@link fairml.BiasMetric <em>Bias Metric</em>}'.
@@ -1784,6 +1864,22 @@ public interface FairmlPackage extends EPackage {
 		EAttribute TRAINING_METHOD__ALGORITHM = eINSTANCE.getTrainingMethod_Algorithm();
 
 		/**
+		 * The meta object literal for the '<em><b>Fit Parameters</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRAINING_METHOD__FIT_PARAMETERS = eINSTANCE.getTrainingMethod_FitParameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Predict Parameters</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRAINING_METHOD__PREDICT_PARAMETERS = eINSTANCE.getTrainingMethod_PredictParameters();
+
+		/**
 		 * The meta object literal for the '{@link fairml.impl.MitigationMethodImpl <em>Mitigation Method</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1800,6 +1896,22 @@ public interface FairmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MITIGATION_METHOD__ALGORITHM = eINSTANCE.getMitigationMethod_Algorithm();
+
+		/**
+		 * The meta object literal for the '<em><b>Fit Parameters</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MITIGATION_METHOD__FIT_PARAMETERS = eINSTANCE.getMitigationMethod_FitParameters();
+
+		/**
+		 * The meta object literal for the '<em><b>Predict Parameters</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MITIGATION_METHOD__PREDICT_PARAMETERS = eINSTANCE.getMitigationMethod_PredictParameters();
 
 		/**
 		 * The meta object literal for the '{@link fairml.impl.BiasMetricImpl <em>Bias Metric</em>}' class.
