@@ -53,7 +53,7 @@ public interface Function extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getFunction_Parameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getParameters();

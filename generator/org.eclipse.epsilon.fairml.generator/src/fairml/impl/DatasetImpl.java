@@ -561,7 +561,7 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	@Override
 	public EList<String> getDatasetModuleParameters() {
 		if (datasetModuleParameters == null) {
-			datasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS);
+			datasetModuleParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.DATASET__DATASET_MODULE_PARAMETERS);
 		}
 		return datasetModuleParameters;
 	}
@@ -574,7 +574,7 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	@Override
 	public EList<String> getTrainDatasetModuleParameters() {
 		if (trainDatasetModuleParameters == null) {
-			trainDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS);
+			trainDatasetModuleParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.DATASET__TRAIN_DATASET_MODULE_PARAMETERS);
 		}
 		return trainDatasetModuleParameters;
 	}
@@ -587,7 +587,7 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	@Override
 	public EList<String> getTestDatasetModuleParameters() {
 		if (testDatasetModuleParameters == null) {
-			testDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS);
+			testDatasetModuleParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.DATASET__TEST_DATASET_MODULE_PARAMETERS);
 		}
 		return testDatasetModuleParameters;
 	}
@@ -600,7 +600,7 @@ public class DatasetImpl extends EObjectImpl implements Dataset {
 	@Override
 	public EList<String> getValidationDatasetModuleParameters() {
 		if (validationDatasetModuleParameters == null) {
-			validationDatasetModuleParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS);
+			validationDatasetModuleParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.DATASET__VALIDATION_DATASET_MODULE_PARAMETERS);
 		}
 		return validationDatasetModuleParameters;
 	}

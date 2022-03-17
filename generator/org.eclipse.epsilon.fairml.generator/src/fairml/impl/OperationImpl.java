@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -173,7 +174,7 @@ public abstract class OperationImpl extends EObjectImpl implements Operation {
 	@Override
 	public EList<String> getParameters() {
 		if (parameters == null) {
-			parameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.OPERATION__PARAMETERS);
+			parameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.OPERATION__PARAMETERS);
 		}
 		return parameters;
 	}

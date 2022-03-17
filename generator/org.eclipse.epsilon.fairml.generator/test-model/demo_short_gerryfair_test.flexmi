@@ -29,25 +29,25 @@ fairml:
     
   - mitigationMethod:
     - algorithm: GerryFairClassifier
-    - parameters: C=100, printflag=True, gamma= 0.005, predictor=LinearRegression(), max_iters=10
+    - parameters: C=100, printflag=True, gamma=1.0, predictor=LinearRegression(), max_iters=10
     - fitParameters: early_termination=True
     - predictParameters: threshold=False 
   
   - mitigationMethod:
     - algorithm: GerryFairClassifier
-    - parameters: C=100, printflag=True, gamma= 0.005, predictor=LinearSVR(), max_iters=10
+    - parameters: C=100, printflag=True, gamma=1.0, predictor=LinearSVR(), max_iters=10
     - fitParameters: early_termination=True
     - predictParameters: threshold=False 
   
   - mitigationMethod:
     - algorithm: GerryFairClassifier
-    - parameters: C=100, printflag=True, gamma= 0.005, predictor=DecisionTreeRegressor(max_depth=3), max_iters=10
+    - parameters: C=100, printflag=True, gamma=1.0, predictor=DecisionTreeRegressor(max_depth=3), max_iters=10
     - fitParameters: early_termination=True
     - predictParameters: threshold=False 
   
   - mitigationMethod:
     - algorithm: GerryFairClassifier
-    - parameters: C=100, printflag=True, gamma= 0.005, predictor=KernelRidge(alpha=1.0, gamma=1.0, kernel='rbf'), max_iters=10
+    - parameters: C=100, printflag=True, gamma=1.0, predictor=KernelRidge(alpha=1.0, gamma=1.0, kernel='rbf'), max_iters=10
     - fitParameters: early_termination=True
     - predictParameters: threshold=False 
 

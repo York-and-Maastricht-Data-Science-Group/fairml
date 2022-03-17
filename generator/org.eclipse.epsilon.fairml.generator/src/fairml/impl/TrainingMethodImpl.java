@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 /**
@@ -120,7 +121,7 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 	@Override
 	public EList<String> getFitParameters() {
 		if (fitParameters == null) {
-			fitParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.TRAINING_METHOD__FIT_PARAMETERS);
+			fitParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.TRAINING_METHOD__FIT_PARAMETERS);
 		}
 		return fitParameters;
 	}
@@ -133,7 +134,7 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 	@Override
 	public EList<String> getPredictParameters() {
 		if (predictParameters == null) {
-			predictParameters = new EDataTypeUniqueEList<String>(String.class, this, FairmlPackage.TRAINING_METHOD__PREDICT_PARAMETERS);
+			predictParameters = new EDataTypeEList<String>(String.class, this, FairmlPackage.TRAINING_METHOD__PREDICT_PARAMETERS);
 		}
 		return predictParameters;
 	}

@@ -53,7 +53,7 @@ public interface TrainingMethod extends Operation {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Fit Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getTrainingMethod_FitParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getFitParameters();
@@ -65,7 +65,7 @@ public interface TrainingMethod extends Operation {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Predict Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getTrainingMethod_PredictParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getPredictParameters();

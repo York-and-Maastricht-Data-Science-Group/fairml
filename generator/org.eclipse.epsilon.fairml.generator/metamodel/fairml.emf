@@ -28,13 +28,13 @@ class FairML {
 abstract class Operation {
     attr String packageName;
     attr String name;
-    attr String[*] parameters;
+    !unique attr String[*] parameters;
     val Function[*] functions;
 }
 
 class Function {
     attr String name;
-    attr String[*] parameters;
+    !unique attr String[*] parameters;
 }
 
 
@@ -43,8 +43,8 @@ class Function {
 */
 class TrainingMethod extends Operation  {
     attr String algorithm;
-    attr String[*] fitParameters;
-    attr String[*] predictParameters;
+    !unique attr String[*] fitParameters;
+    !unique attr String[*] predictParameters;
 }
 
 /***
@@ -52,8 +52,8 @@ class TrainingMethod extends Operation  {
 */
 class MitigationMethod extends Operation {
     attr String algorithm;
-    attr String[*] fitParameters;
-    attr String[*] predictParameters;
+    !unique attr String[*] fitParameters;
+    !unique attr String[*] predictParameters;
 }
 
 /***
@@ -88,10 +88,10 @@ class Dataset {
     attr String validationDatasetModule;    
     
     // to define the parameters of the IBMFAI360 internal datasets when called
-    attr String[*] datasetModuleParameters; 
-    attr String[*] trainDatasetModuleParameters; 
-    attr String[*] testDatasetModuleParameters; 
-    attr String[*] validationDatasetModuleParameters; 
+    !unique attr String[*] datasetModuleParameters; 
+    !unique attr String[*] trainDatasetModuleParameters; 
+    !unique attr String[*] testDatasetModuleParameters; 
+    !unique attr String[*] validationDatasetModuleParameters; 
     
     attr int priviledgedGroup;
     attr int unpriviledgedGroup;

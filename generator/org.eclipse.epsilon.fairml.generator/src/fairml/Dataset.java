@@ -185,7 +185,7 @@ public interface Dataset extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dataset Module Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getDataset_DatasetModuleParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getDatasetModuleParameters();
@@ -197,7 +197,7 @@ public interface Dataset extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Train Dataset Module Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getDataset_TrainDatasetModuleParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getTrainDatasetModuleParameters();
@@ -209,7 +209,7 @@ public interface Dataset extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Test Dataset Module Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getDataset_TestDatasetModuleParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getTestDatasetModuleParameters();
@@ -221,7 +221,7 @@ public interface Dataset extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Validation Dataset Module Parameters</em>' attribute list.
 	 * @see fairml.FairmlPackage#getDataset_ValidationDatasetModuleParameters()
-	 * @model
+	 * @model unique="false"
 	 * @generated
 	 */
 	EList<String> getValidationDatasetModuleParameters();

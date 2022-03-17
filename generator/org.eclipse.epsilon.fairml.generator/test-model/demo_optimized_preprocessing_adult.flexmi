@@ -4,12 +4,16 @@ fairml:
 - description: |-
     Detecting and mitigating racial bias in income estimation
     https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_optim_preproc_adult.ipynb
-- module: from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult,
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.distortion_functions import get_distortion_adult
+       
 
 # set the dataset
 - dataset:
   - name: Adult Dataset From Module
   - datasetModule: load_preproc_data_adult
+  - datasetModuleParameters: protected_attributes=['race']
   - protectedAttributes: race 
   - trainTestSplit: 7, 3
 
@@ -26,6 +30,8 @@ fairml:
       - "optim_options = {'distortion_fun': get_distortion_adult,'epsilon': 0.05,'clist': [0.99, 1.99, 2.99],'dlist': [.1, 0.05, 0]}"
         
   - biasMetric:
+    - datasetType: 'train'
     - name: accuracy
   - biasMetric:
-    - name: statistical_parity_difference
+    - datasetType: 'train'
+    - name: mean_difference

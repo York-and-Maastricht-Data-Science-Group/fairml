@@ -2,8 +2,6 @@
 
 - fairml:
   - name: Demo Disparate Impact Remover
-  - :var: varFairml
-  - :global: varFairml2
   - description: |-
      This notebook demonstrates the ability of the DisparateImpactRemover algorithm.
      The algorithm corrects for imbalanced selection rates between unprivileged and privileged groups at various levels of repair. 

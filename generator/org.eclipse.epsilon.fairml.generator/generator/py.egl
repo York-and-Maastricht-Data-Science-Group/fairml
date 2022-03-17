@@ -106,6 +106,7 @@ print("[%=fairml.description.replace("\n","\"+\\\n\"")%]")
 [% for (biasMitigation in fairml.biasMitigations) { %]
 [%number2 = 0; number3 = 0; number4 = 0; number5 = 0; %]
 # ## [[%=number1++%].](#Contents) Bias Mitigation: [%=biasMitigation.name%]
+np.random.seed(0)
 bm = fairml.add_bias_mitigation(BiasMitigation())
 bm.name = "[%=biasMitigation.name%]"
 
