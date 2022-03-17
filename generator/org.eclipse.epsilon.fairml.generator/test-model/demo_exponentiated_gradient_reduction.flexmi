@@ -1,0 +1,41 @@
+?nsuri: fairml
+fairml:
+- name: Demo Exponentiated Gradient Reduction
+- description: |-
+    Exponentiated gradient reduction is an in-processing technique that reduces fair classification 
+    to a sequence of cost-sensitive classification problems, returning a randomized classifier 
+    with the lowest empirical error subject to fair classification constraints.
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_exponentiated_gradient_reduction.ipynb
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 3
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Exponentiated Gradient Reduction  
+  - dataset: Adult Dataset From Module
+  
+  - trainingMethod:
+      - algorithm: LogisticRegression
+      - parameters: solver='lbfgs'
+       
+  - mitigationMethod:
+    - algorithm: ExponentiatedGradientReduction
+    - parameters: 
+       estimator=LogisticRegression(solver='lbfgs'), 
+       constraints='EqualizedOdds', 
+       drop_prot_attr=False
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: mean_difference
+  - biasMetric:
+    - name: average_odds_difference

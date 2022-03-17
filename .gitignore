@@ -23,6 +23,8 @@
 hs_err_pid*
 
 #other helper projects
+*.pyc
+*.prefs
 plugins/org.eclipse.epsilon.eol.engine
 plugins/org.eclipse.epsilon.erl.engine
 generator/org.eclipse.epsilon.fairml.generator/fairml.py
