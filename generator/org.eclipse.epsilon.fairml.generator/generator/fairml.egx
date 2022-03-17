@@ -25,16 +25,16 @@ rule IpynbGenFile transform fairml: FairML {
 /***
  * Generate Java File (*.java) that converts *.py file to *.X.ipynb file. 
 ***/
-rule XIpynbGenFile transform fairml: FairML {
-    parameters : Map {     
-        "fairml" = fairml,
-        "preprocessings" = preprocessings,
-        "inprocessings" = inprocessings,        
-        "postprocessings" = postprocessings       
-    }
-    template: "ipynb.X.egl"
-    target: genPath + "/" + fairml.name.replace(" ", "_").toLowerCase() + ".X.ipynb"
-}
+//rule XIpynbGenFile transform fairml: FairML {
+//    parameters : Map {     
+//        "fairml" = fairml,
+//        "preprocessings" = preprocessings,
+//        "inprocessings" = inprocessings,        
+//        "postprocessings" = postprocessings       
+//    }
+//    template: "ipynb.X.egl"
+//    target: genPath + "/" + fairml.name.replace(" ", "_").toLowerCase() + ".X.ipynb"
+//}
 
 /***
  * Generate Python File (*.py)

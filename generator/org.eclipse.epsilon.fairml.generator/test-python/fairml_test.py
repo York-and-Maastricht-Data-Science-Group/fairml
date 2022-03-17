@@ -347,7 +347,7 @@ class Test(unittest.TestCase):
         # min_max_scaler = MaxAbsScaler()
         # dataset_orig_train.features = min_max_scaler.fit_transform(dataset_orig_train.features)
         # dataset_orig_test.features = min_max_scaler.transform(dataset_orig_test.features)
-        np.random.seed(0)
+        # np.random.seed(0)
         accuracies, disparates, statistical_rates = [], [], []
         s_attr = 'race'
         
@@ -381,8 +381,8 @@ class Test(unittest.TestCase):
         avg_demo_accuracies = sum(accuracies) / len(accuracies) 
         avg_demo_impacts = sum(disparates) / len(disparates) 
         
-        self.assertAlmostEqual(avg_gen_accuracies, avg_demo_accuracies, places=1)
-        self.assertAlmostEqual(avg_gen_impacts, avg_demo_impacts, delta=0.3)
+        self.assertAlmostEqual(avg_gen_accuracies, avg_demo_accuracies, delta=0.1)
+        self.assertAlmostEqual(avg_gen_impacts, avg_demo_impacts, delta=0.1)
         
         ''' ------ '''
         
@@ -399,7 +399,96 @@ class Test(unittest.TestCase):
         ax2.set_ylabel('$\gamma_{sr}$', color='r', fontsize=16, fontweight='bold')
         ax2.yaxis.set_tick_params(labelsize=14)
         ax2.grid(True)
+    
+    
+    def test_demo_disparate_impact_remover(self):
+        '''
+            Test Against Demo Disparate Impact Remover
+            https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_disparate_impact_remover.ipynb
+        '''
         
+        # import from the generated python code 
+        import demo_disparate_impact_remover
+        summary = demo_disparate_impact_remover.fairml.bias_mitigations[0].summary_table
+        #----------------------------------------
+        
+        # from __future__ import absolute_import
+        # from __future__ import division
+        # from __future__ import print_function
+        # from __future__ import unicode_literals
+        
+        from matplotlib import pyplot as plt
+        
+        import sys
+        sys.path.append("../")
+        import warnings
+        
+        import numpy as np
+        np.random.seed(0)
+        from tqdm import tqdm
+        
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.svm import SVC as SVM
+        from sklearn.preprocessing import MinMaxScaler
+        
+        from aif360.algorithms.preprocessing import DisparateImpactRemover
+        from aif360.datasets import AdultDataset
+        from aif360.metrics import BinaryLabelDatasetMetric
+
+        protected = 'sex'
+        ad = AdultDataset(protected_attribute_names=[protected],
+            privileged_classes=[['Male']], categorical_features=[],
+            features_to_drop=['fnlwgt'],
+            features_to_keep=['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week'])
+        
+        scaler = MinMaxScaler(copy=False)
+        
+        test, train = ad.split([16281])
+        train.features = scaler.fit_transform(train.features)
+        test.features = scaler.fit_transform(test.features)
+        
+        index = train.feature_names.index(protected)
+        
+        DIs = []
+        for level in tqdm(np.linspace(0., 1., 11)):
+            di = DisparateImpactRemover(repair_level=level)
+            train_repd = di.fit_transform(train)
+            test_repd = di.fit_transform(test)
+            
+            X_tr = np.delete(train_repd.features, index, axis=1)
+            X_te = np.delete(test_repd.features, index, axis=1)
+
+            y_tr = train_repd.labels.ravel()
+            
+            lmod = LogisticRegression(class_weight='balanced', solver='liblinear')
+            lmod.fit(X_tr, y_tr)
+            
+            test_repd_pred = test_repd.copy()
+            test_repd_pred.labels = lmod.predict(X_te)
+        
+            p = [{protected: 1}]
+            u = [{protected: 0}]
+            cm = BinaryLabelDatasetMetric(test_repd_pred, privileged_groups=p, unprivileged_groups=u)
+            DIs.append(cm.disparate_impact())
+        
+        x = 0 
+        for val in DIs:
+            print(str(x) + ": " + str(val))
+            
+            ''' ASSERT '''
+            self.assertAlmostEqual(summary.at[x + 2, 'disparate_impact'], val, places=4)
+            ''' ------ '''
+
+            x = x + 1
+        
+        plt.plot(np.linspace(0, 1, 11), DIs, marker='o')
+        plt.plot([0, 1], [1, 1], 'g')
+        plt.plot([0, 1], [0.8, 0.8], 'r')
+        plt.ylim([0.0, 1.2])
+        plt.ylabel('Disparate Impact (DI)')
+        plt.xlabel('repair level')
+        plt.show()
+
 
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']
