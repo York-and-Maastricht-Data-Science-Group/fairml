@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link fairml.TrainingMethod#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link fairml.TrainingMethod#getFitParameters <em>Fit Parameters</em>}</li>
  *   <li>{@link fairml.TrainingMethod#getPredictParameters <em>Predict Parameters</em>}</li>
+ *   <li>{@link fairml.TrainingMethod#isWithoutWeight <em>Without Weight</em>}</li>
  * </ul>
  *
  * @see fairml.FairmlPackage#getTrainingMethod()
@@ -69,5 +70,28 @@ public interface TrainingMethod extends Operation {
 	 * @generated
 	 */
 	EList<String> getPredictParameters();
+
+	/**
+	 * Returns the value of the '<em><b>Without Weight</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Without Weight</em>' attribute.
+	 * @see #setWithoutWeight(boolean)
+	 * @see fairml.FairmlPackage#getTrainingMethod_WithoutWeight()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isWithoutWeight();
+
+	/**
+	 * Sets the value of the '{@link fairml.TrainingMethod#isWithoutWeight <em>Without Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Without Weight</em>' attribute.
+	 * @see #isWithoutWeight()
+	 * @generated
+	 */
+	void setWithoutWeight(boolean value);
 
 } // TrainingMethod

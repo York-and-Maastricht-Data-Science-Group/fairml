@@ -12,6 +12,7 @@ import tensorflow.compat.v1 as tf
 import matplotlib.pyplot as plot
 import pandas as pd
 import numpy as np
+from numpy.core._simd import baseline
 np.random.seed(0)
 
 from collections import defaultdict
@@ -141,11 +142,6 @@ class BiasMitigation():
         y_val_pred = model.predict(dataset.features)
         dataset_predicted.labels = y_val_pred
         return dataset_predicted
-    
-    def get_prediction_probability(self, model, dataset_orig, scaled_target_dataset_features):
-        fav_idx = np.where(model.classes_ == dataset_orig.favorable_label)[0][0]
-        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:, fav_idx]
-        return y_test_pred_prob
         
     def create_mitigation_method(self, mitigation_class, **params):
         self.mitigation_algorithms[mitigation_class.__name__] = mitigation_class
@@ -194,7 +190,7 @@ class BiasMitigation():
         
         return mitigation_method
     
-    def train(self, dataset_train, classifier, without_weight=True ,scaler=StandardScaler):
+    def train(self, dataset_train, classifier, without_weight=True , scaler=StandardScaler):
         self.classifiers[classifier.__class__.__name__] = classifier.__class__
         model_train = None
         if without_weight:
@@ -216,65 +212,6 @@ class BiasMitigation():
                            filled=True,
                            rounded=True);
             plot.savefig(filename)
-    
-    def measure_bias(self, metric_name, baseline_dataset=None, predicted_dataset=None,
-                     privileged_groups=None, unprivileged_groups=None, **params):
-        """Compute the number of true/false positives/negatives, optionally
-        conditioned on protected attributes.
-        
-        Args:
-            metric_name (String): The name of the metric to be called.
-            
-        Returns:
-            None
-        """
-        if not metric_name in self.metrics: 
-            self.metrics.append(metric_name)
-        
-        metric_mitigated_train = None
-        if predicted_dataset is not None:
-            metric_mitigated_train = FairMLMetric(baseline_dataset,
-                                                 predicted_dataset,
-                                                 unprivileged_groups=unprivileged_groups,
-                                                 privileged_groups=privileged_groups)
-        else:
-            metric_mitigated_train = BinaryLabelDatasetMetric(baseline_dataset,
-                                                 unprivileged_groups=unprivileged_groups,
-                                                 privileged_groups=privileged_groups)
-        
-        if metric_name == "rich_subgroup":
-            if predicted_dataset is not None:
-                params["predictions"] = array_to_tuple(predicted_dataset.labels)
-            else:
-                self.mitigation_results[metric_name].append(1.0)
-                return    
-        
-        explainer_train = MetricFairMLExplainer(metric_mitigated_train)
-        
-        if not callable(getattr(metric_mitigated_train, metric_name, None)):
-            # print_message("After mitigation " + metric_name + ": %f" % 0)
-            # print_message("After mitigation: " + str(None))
-            self.mitigation_results[metric_name].append(None)
-        else:  
-            explanation = json.loads(getattr(explainer_train, metric_name)(**params), object_pairs_hook=OrderedDict)
-            
-            if get_ipython() == None:
-                print("")
-                for key in explanation:
-                    print(key[0].upper() + key[1:] + ": " + str(explanation[key]))
-            else:
-                text = ""
-                for key in explanation:
-                    text += "**" + key[0].upper() + key[1:] + ":** " + str(explanation[key]) + "<br/>"     
-                display(Markdown(text))
-            # print_message("")        
-            # getattr(metric_mitigated_train, metric_name)()
-            # a = float(0.5) * (metric_mitigated_train.true_positive_rate() + metric_mitigated_train.true_negative_rate())
-            # print_message("After mitigation Balanced accuracy: %f" % a )
-            # print_message("After mitigation " + metric_name + ": %f" % getattr(metric_mitigated_train, metric_name)())
-            # print_message("After mitigation explainer: " + getattr(explainer_train, metric_name)())
-            # print_message("After mitigation: " + getattr(explainer_train, metric_name)())
-            self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)(**params))
     
     def init_new_result(self, mitigation_algorithm_name, mitigation_algorithm_params, dataset_name, classifier_name, parameters):
         self.mitigation_results = defaultdict(list)
@@ -384,7 +321,7 @@ class BiasMitigation():
             v_range = v_max - v_min
             data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
         
-        data.plot.bar(figsize=(16, 5), rot=0, xlabel="Bias Mitigation",
+        data.plot.bar(figsize=(16, 4), rot=0, xlabel="Bias Mitigation",
                       title="Normalised Metrics (Value 1 Indicates the Bias Mitigation is the Best Option for the Metric)")
         # plot.show(block=True)
         image = "graphics/" + self.name.replace(" ", "_").lower() + ".png"
@@ -511,8 +448,138 @@ class BiasMitigation():
                 # print(cell_formats[index])
         
         return cell_formats 
+    
+    def get_prediction_probability(self, model, dataset_orig, scaled_target_dataset_features):
+        fav_idx = np.where(model.classes_ == dataset_orig.favorable_label)[0][0]
+        y_test_pred_prob = model.predict_proba(scaled_target_dataset_features)[:, fav_idx]
+        return y_test_pred_prob
+    
+    def find_optimal_threshold_metric(self, metric_name, baseline_dataset, predicted_dataset,
+                                         unprivileged_groups=None, privileged_groups=None,
+                                         start=0.01, end=1.00, num_thresh=100, model=None
+                                         ):
+        
+        fav_idx = np.where(model.classes_ == baseline_dataset.favorable_label)[0][0]
+        predicted_dataset.scores = model.predict_proba(predicted_dataset.features)[:, fav_idx] 
+        
+        unprivileged_groups = self.unprivileged_groups if unprivileged_groups is None else unprivileged_groups 
+        privileged_groups = self.privileged_groups if privileged_groups is None else privileged_groups
+        
+        balanced_accuracy_arr = []
+        metric_val_arr = []
+        metric_obj_arr = []
+        thresh_arr = np.linspace(start, end, num_thresh)
+        for idx, class_thresh in enumerate(thresh_arr):
+            
+            fav_inds = predicted_dataset.scores > class_thresh
+            predicted_dataset.labels[fav_inds] = predicted_dataset.favorable_label
+            predicted_dataset.labels[~fav_inds] = predicted_dataset.unfavorable_label
+            
+            classified_metric_orig_valid = FairMLMetric(baseline_dataset,
+                                                     predicted_dataset,
+                                                     unprivileged_groups=unprivileged_groups,
+                                                     privileged_groups=privileged_groups)
+            
+            balanced_accuracy_arr.insert(idx, getattr(classified_metric_orig_valid, "balanced_accuracy")())
+            metric_val_arr.insert(idx, getattr(classified_metric_orig_valid, metric_name)())
+            metric_obj_arr.insert(idx, classified_metric_orig_valid)
+        
+        max_value = max(balanced_accuracy_arr)
+        best_ind = balanced_accuracy_arr.index(max_value)
+        best_thresh = thresh_arr[best_ind]
+        best_metric = metric_obj_arr[best_ind]
+        
+        return best_metric, balanced_accuracy_arr, metric_val_arr, thresh_arr, best_thresh
+    
+    def measure_bias(self, metric_name, baseline_dataset=None, predicted_dataset=None,
+         privileged_groups=None, unprivileged_groups=None, optimal_threshold=False, model=None,
+         plot_threshold=False, **params):
+        """Compute the number of true/false positives/negatives, optionally
+        conditioned on protected attributes.
+        
+        Args:
+            metric_name (String): The name of the metric to be called.
+            
+        Returns:
+            None
+        """
+        if not metric_name in self.metrics: 
+            self.metrics.append(metric_name)
+            
+        metric_mitigated_train = None
+        
+        if optimal_threshold:
+            metric_mitigated_train, balanced_accuracy_arr, metric_val_arr, thresh_arr, best_thresh = self. \
+                find_optimal_threshold_metric(metric_name, baseline_dataset=baseline_dataset,
+                predicted_dataset=predicted_dataset, unprivileged_groups=unprivileged_groups,
+                privileged_groups=privileged_groups, model=model)
+            
+            if plot_threshold:
+                fig, ax1 = plot.subplots(figsize=(16, 4))
+                ax1.plot(thresh_arr, balanced_accuracy_arr)
+                ax1.set_xlabel('classification thresholds', fontsize=16, fontweight='bold')
+                ax1.set_ylabel('balanced accuracy', color='b', fontsize=16, fontweight='bold')
+                ax1.xaxis.set_tick_params(labelsize=14)
+                ax1.yaxis.set_tick_params(labelsize=14)
+                ax1.set_title("best balanced accuracy: {:.6f}, {}: {:.6f}, best_threshold: {:.6f}". \
+                    format(metric_mitigated_train.balanced_accuracy(), metric_name.replace("_", " "),
+                        getattr(metric_mitigated_train, metric_name)(), best_thresh))
+                
+                ax2 = ax1.twinx()
+                ax2.plot(thresh_arr, metric_val_arr, color='r')
+                ax2.set_ylabel(metric_name.replace("_", " "), color='r', fontsize=16, fontweight='bold')
+                ax2.axvline(best_thresh, color='k', linestyle=':')
+                ax2.yaxis.set_tick_params(labelsize=14)
+                ax2.grid(True)
+                
+                image = "graphics/balanced_accuracy({:.3f})_vs_{}({:.3f})_{}.png". \
+                    format(metric_mitigated_train.balanced_accuracy(), metric_name,
+                        getattr(metric_mitigated_train, metric_name)(), best_thresh)
+            
+                if get_ipython() is None:  # on console app
+                    plot.savefig(image) 
+                    plot.show(block=False) 
+                else:  # on jupyter notebook
+                    plot.savefig(image)
 
+        else:
+            if predicted_dataset is not None:
+                metric_mitigated_train = FairMLMetric(baseline_dataset,
+                                                     predicted_dataset,
+                                                     unprivileged_groups=unprivileged_groups,
+                                                     privileged_groups=privileged_groups)
+            else:
+                metric_mitigated_train = BinaryLabelDatasetMetric(baseline_dataset,
+                                                     unprivileged_groups=unprivileged_groups,
+                                                     privileged_groups=privileged_groups)
+            
+        if metric_name == "rich_subgroup":
+            if predicted_dataset is not None:
+                params["predictions"] = array_to_tuple(predicted_dataset.labels)
+            else:
+                self.mitigation_results[metric_name].append(1.0)
+                return    
+        
+        explainer_train = MetricFairMLExplainer(metric_mitigated_train)
+        
+        if not callable(getattr(metric_mitigated_train, metric_name, None)):
+            self.mitigation_results[metric_name].append(None)
+        else: 
+            explanation = json.loads(getattr(explainer_train, metric_name)(**params), object_pairs_hook=OrderedDict)
+            
+            if get_ipython() == None:
+                print("")
+                for key in explanation:
+                    print(key[0].upper() + key[1:] + ": " + str(explanation[key]))
+            else:
+                text = ""
+                for key in explanation:
+                    text += "**" + key[0].upper() + key[1:] + ":** " + str(explanation[key]) + "<br/>"     
+                display(Markdown(text))
 
+            self.mitigation_results[metric_name].append(getattr(metric_mitigated_train, metric_name)(**params))
+    
+    
 class MetricTextFairMLExplainer(MetricTextExplainer):
 
     def __init__(self, metric):
@@ -622,8 +689,8 @@ class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
         response = OrderedDict((
             ("metric", "Rich Subgroup/Gamma Disparity"),
             ("message", outcome),
-            ("description", "Audit dataset with respect to rich subgroups defined by linear thresholds of sensitive attributes. " +  
-                "fairness_def is 'FP' or 'FN' for rich subgroup wrt to false positive or false negative rate. " +
+            ("description", "Audit dataset with respect to rich subgroups defined by linear thresholds of sensitive attributes. " + 
+                "fairness_def is 'FP' or 'FN' for rich subgroup wrt to false positive or false negative rate. " + 
                 "predictions is a hashable tuple of predictions. Typically the labels attribute of a GerryFairClassifier."),
             ("ideal", " The ideal value of this metric is 0")
         ))
@@ -651,6 +718,3 @@ class FairMLMetric(ClassificationMetric):
         """
         return 0.5 * (self.true_positive_rate(privileged) + self.true_negative_rate(privileged))
         
-        
-        
-    

@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *   <li>{@link fairml.impl.TrainingMethodImpl#getAlgorithm <em>Algorithm</em>}</li>
  *   <li>{@link fairml.impl.TrainingMethodImpl#getFitParameters <em>Fit Parameters</em>}</li>
  *   <li>{@link fairml.impl.TrainingMethodImpl#getPredictParameters <em>Predict Parameters</em>}</li>
+ *   <li>{@link fairml.impl.TrainingMethodImpl#isWithoutWeight <em>Without Weight</em>}</li>
  * </ul>
  *
  * @generated
@@ -70,6 +71,26 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 	 * @ordered
 	 */
 	protected EList<String> predictParameters;
+
+	/**
+	 * The default value of the '{@link #isWithoutWeight() <em>Without Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isWithoutWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean WITHOUT_WEIGHT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isWithoutWeight() <em>Without Weight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isWithoutWeight()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean withoutWeight = WITHOUT_WEIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,6 +166,29 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 	 * @generated
 	 */
 	@Override
+	public boolean isWithoutWeight() {
+		return withoutWeight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setWithoutWeight(boolean newWithoutWeight) {
+		boolean oldWithoutWeight = withoutWeight;
+		withoutWeight = newWithoutWeight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.TRAINING_METHOD__WITHOUT_WEIGHT, oldWithoutWeight, withoutWeight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case FairmlPackage.TRAINING_METHOD__ALGORITHM:
@@ -153,6 +197,8 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 				return getFitParameters();
 			case FairmlPackage.TRAINING_METHOD__PREDICT_PARAMETERS:
 				return getPredictParameters();
+			case FairmlPackage.TRAINING_METHOD__WITHOUT_WEIGHT:
+				return isWithoutWeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -177,6 +223,9 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 				getPredictParameters().clear();
 				getPredictParameters().addAll((Collection<? extends String>)newValue);
 				return;
+			case FairmlPackage.TRAINING_METHOD__WITHOUT_WEIGHT:
+				setWithoutWeight((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -198,6 +247,9 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 			case FairmlPackage.TRAINING_METHOD__PREDICT_PARAMETERS:
 				getPredictParameters().clear();
 				return;
+			case FairmlPackage.TRAINING_METHOD__WITHOUT_WEIGHT:
+				setWithoutWeight(WITHOUT_WEIGHT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -216,6 +268,8 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 				return fitParameters != null && !fitParameters.isEmpty();
 			case FairmlPackage.TRAINING_METHOD__PREDICT_PARAMETERS:
 				return predictParameters != null && !predictParameters.isEmpty();
+			case FairmlPackage.TRAINING_METHOD__WITHOUT_WEIGHT:
+				return withoutWeight != WITHOUT_WEIGHT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -236,6 +290,8 @@ public class TrainingMethodImpl extends OperationImpl implements TrainingMethod 
 		result.append(fitParameters);
 		result.append(", predictParameters: ");
 		result.append(predictParameters);
+		result.append(", withoutWeight: ");
+		result.append(withoutWeight);
 		result.append(')');
 		return result.toString();
 	}

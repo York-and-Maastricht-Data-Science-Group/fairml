@@ -1,0 +1,68 @@
+?nsuri: fairml
+fairml:
+- name: Demo Reweighing Preproc
+- description: |-
+    This notebook demonstrates the use of a reweighing pre-processing algorithm for bias mitigation.
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_reweighing_preproc.ipynb
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult,
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_german,
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_compas
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 1.5, 1.5
+
+- dataset:
+  - name: German Dataset
+  - datasetModule: load_preproc_data_german
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 1.5, 1.5
+
+- dataset:
+  - name: Compas Dataset
+  - datasetModule: load_preproc_data_compas
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 1.5, 1.5
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Reweighing Preproc  
+  - dataset: Adult Dataset #, German Dataset, Compas Dataset
+        
+  - trainingMethod:
+      - algorithm: LogisticRegression
+      - withoutWeight: false
+       
+  - mitigationMethod:
+    - algorithm: Reweighing
+        
+  - biasMetric:
+    - name: balanced_accuracy
+    - optimalThreshold: true
+  - biasMetric:
+    - datasetType: "train"
+    - name: mean_difference
+  - biasMetric:
+    - name: statistical_parity_difference
+    - optimalThreshold: true
+  - biasMetric:
+    - name: disparate_impact
+    - optimalThreshold: true
+    - plotThreshold: true
+  - biasMetric:
+    - name: average_odds_difference
+    - optimalThreshold: true
+    - plotThreshold: true
+  - biasMetric:
+    - name: equal_opportunity_difference
+    - optimalThreshold: true
+  - biasMetric:
+    - name: theil_index
+    - optimalThreshold: true
+  - biasMetric:
+    - name: accuracy
+    - optimalThreshold: true

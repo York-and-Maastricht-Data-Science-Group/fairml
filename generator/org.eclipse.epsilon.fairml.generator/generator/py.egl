@@ -93,6 +93,9 @@ from IPython import get_ipython
 [%=module%]
 [% } %]
 
+if get_ipython() is not None:
+    get_ipython().magic("matplotlib inline")
+    
 fairml = FairML()
 def get_fairml():
     return fairml
@@ -251,7 +254,7 @@ print("-------------")
 
 # Train the model from the original train data
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
-model_original_train = bm.train(bm.dataset_original_train,  classifier)
+model_original_train = bm.train(bm.dataset_original_train,  classifier, without_weight=[%=(trainingMethod.withoutWeight)?"True":"False"%])
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) Original Dataset: Bias Metrics[% // start of metrics %]
 
@@ -264,11 +267,11 @@ bm.init_new_result("Original", "", "[%=dataset.name%]", "[%=trainingMethod.algor
 [%    for (biasMetric in biasMitigation.biasMetrics) { %]
 [%      if (biasMetric.className == "FairMLMetric") { %]
 [%          if (biasMetric.datasetType == "train") { %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_train, predicted_dataset=dataset_original_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_train, predicted_dataset=dataset_original_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_original_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } else if (biasMetric.datasetType == "test") {  %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_test, predicted_dataset=dataset_original_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_test, predicted_dataset=dataset_original_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_original_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } else if (biasMetric.datasetType == "validation") {  %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_valid, predicted_dataset=dataset_original_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups)
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=bm.dataset_original_valid, predicted_dataset=dataset_original_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_original_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } %]
 [%      } %]
 [%    } %][% // end of original metrics %]
@@ -348,6 +351,7 @@ dataset_mitigated_test.features = standard_scaler.fit_transform(bm.dataset_origi
 [% } %]
 
 [% if(biasMitigation.trainingMethods.size() == 0) { %]
+[%/* if (biasMitigation.biasMetrics.exists(m | m.name == "mean_difference" or m.name == "statistical_parity_difference")) { */%]
 bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.parameters.listToLineWithoutQuote()%]", "[%=dataset.name%]", "", "")
 [%   for (biasMetric in biasMitigation.biasMetrics) { %]
 [%      if (biasMetric.datasetType == "train") { %]
@@ -375,7 +379,7 @@ classifier = bm.create_mitigation_method([%=mitigationMethod.algorithm%], [%=mit
 model_mitigated_train = classifier.fit(dataset_mitigated_train, [%=mitigationMethod.fitParameters.listToLineWithoutQuote()%])
 [% } else { %]
 classifier = [%=trainingMethod.algorithm%]([%=trainingMethod.parameters.listToLineWithoutQuote()%])
-model_mitigated_train = bm.train(dataset_mitigated_train,  classifier)
+model_mitigated_train = bm.train(dataset_mitigated_train,  classifier, without_weight=[%=(trainingMethod.withoutWeight)?"True":"False"%])
 [% } %]
 
 # ###### [[%=number1%].[%=number2%].[%=number3%].[%=number4%].[%=number5++%].](#Contents) After-mitigation: Bias Metrics
@@ -414,11 +418,11 @@ bm.init_new_result("[%=mitigationMethod.algorithm%]", "[%=mitigationMethod.param
 [%      for (biasMetric in biasMitigation.biasMetrics) { %]
 [%        if (biasMetric.className == "FairMLMetric" ) { %]
 [%          if (biasMetric.datasetType == "train") { %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_train, predicted_dataset=dataset_mitigated_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_train, predicted_dataset=dataset_mitigated_train_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_mitigated_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } else if (biasMetric.datasetType == "test") {  %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_test, predicted_dataset=dataset_mitigated_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_test, predicted_dataset=dataset_mitigated_test_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_mitigated_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } else if (biasMetric.datasetType == "validation") {  %]
-bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_valid, predicted_dataset=dataset_mitigated_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=biasMetric.parameters.listToLineWithoutQuote()%])
+bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_valid, predicted_dataset=dataset_mitigated_valid_pred, privileged_groups=bm.privileged_groups, unprivileged_groups=bm.unprivileged_groups, [%=(biasMetric.optimalThreshold)? "optimal_threshold=True, model=model_mitigated_train," : ""%] [%=(biasMetric.plotThreshold)? "plot_threshold=True," : ""%] [%=biasMetric.parameters.listToLineWithoutQuote()%])
 [%          } %]
 [%        } else { %]
 [%        } %]
@@ -440,8 +444,6 @@ table = bm.display_summary()
 table.style.set_caption("Worst = White, Best = Green, Mid = Yellow") \
     .apply(bm.highlight_fairest_values, axis=1)
 
-if get_ipython() is not None:
-    get_ipython().magic("matplotlib inline")
 bm.display_barchart()
 
 [% } %]

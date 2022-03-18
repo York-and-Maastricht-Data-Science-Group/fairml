@@ -342,6 +342,16 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getTrainingMethod_WithoutWeight() {
+		return (EAttribute)trainingMethodEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getMitigationMethod() {
 		return mitigationMethodEClass;
 	}
@@ -404,6 +414,26 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 	@Override
 	public EAttribute getBiasMetric_DatasetType() {
 		return (EAttribute)biasMetricEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getBiasMetric_OptimalThreshold() {
+		return (EAttribute)biasMetricEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getBiasMetric_PlotThreshold() {
+		return (EAttribute)biasMetricEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -927,6 +957,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		createEAttribute(trainingMethodEClass, TRAINING_METHOD__ALGORITHM);
 		createEAttribute(trainingMethodEClass, TRAINING_METHOD__FIT_PARAMETERS);
 		createEAttribute(trainingMethodEClass, TRAINING_METHOD__PREDICT_PARAMETERS);
+		createEAttribute(trainingMethodEClass, TRAINING_METHOD__WITHOUT_WEIGHT);
 
 		mitigationMethodEClass = createEClass(MITIGATION_METHOD);
 		createEAttribute(mitigationMethodEClass, MITIGATION_METHOD__ALGORITHM);
@@ -936,6 +967,8 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		biasMetricEClass = createEClass(BIAS_METRIC);
 		createEAttribute(biasMetricEClass, BIAS_METRIC__CLASS_NAME);
 		createEAttribute(biasMetricEClass, BIAS_METRIC__DATASET_TYPE);
+		createEAttribute(biasMetricEClass, BIAS_METRIC__OPTIMAL_THRESHOLD);
+		createEAttribute(biasMetricEClass, BIAS_METRIC__PLOT_THRESHOLD);
 
 		datasetEClass = createEClass(DATASET);
 		createEAttribute(datasetEClass, DATASET__NAME);
@@ -1042,6 +1075,7 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEAttribute(getTrainingMethod_Algorithm(), ecorePackage.getEString(), "algorithm", null, 0, 1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTrainingMethod_FitParameters(), ecorePackage.getEString(), "fitParameters", null, 0, -1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTrainingMethod_PredictParameters(), ecorePackage.getEString(), "predictParameters", null, 0, -1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTrainingMethod_WithoutWeight(), ecorePackage.getEBoolean(), "withoutWeight", "true", 0, 1, TrainingMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mitigationMethodEClass, MitigationMethod.class, "MitigationMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMitigationMethod_Algorithm(), ecorePackage.getEString(), "algorithm", null, 0, 1, MitigationMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1051,6 +1085,8 @@ public class FairmlPackageImpl extends EPackageImpl implements FairmlPackage {
 		initEClass(biasMetricEClass, BiasMetric.class, "BiasMetric", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBiasMetric_ClassName(), ecorePackage.getEString(), "className", "FairMLMetric", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBiasMetric_DatasetType(), ecorePackage.getEString(), "datasetType", "test", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBiasMetric_OptimalThreshold(), ecorePackage.getEBoolean(), "optimalThreshold", "false", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBiasMetric_PlotThreshold(), ecorePackage.getEBoolean(), "plotThreshold", "false", 0, 1, BiasMetric.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(datasetEClass, Dataset.class, "Dataset", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataset_Name(), ecorePackage.getEString(), "name", null, 0, 1, Dataset.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

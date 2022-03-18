@@ -45,6 +45,7 @@ class TrainingMethod extends Operation  {
     attr String algorithm;
     !unique attr String[*] fitParameters;
     !unique attr String[*] predictParameters;
+    attr boolean withoutWeight = true;
 }
 
 /***
@@ -61,7 +62,9 @@ class MitigationMethod extends Operation {
 */
 class BiasMetric extends Operation {
      attr String className = "FairMLMetric";
-     attr String datasetType = "test"; // this should be test, train, validation 
+     attr String datasetType = "test"; // this should be test, train, validation
+     attr boolean optimalThreshold = false;
+     attr boolean plotThreshold = false;
 }
 
 

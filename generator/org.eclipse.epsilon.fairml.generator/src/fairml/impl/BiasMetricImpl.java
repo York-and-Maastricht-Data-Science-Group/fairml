@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link fairml.impl.BiasMetricImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link fairml.impl.BiasMetricImpl#getDatasetType <em>Dataset Type</em>}</li>
+ *   <li>{@link fairml.impl.BiasMetricImpl#isOptimalThreshold <em>Optimal Threshold</em>}</li>
+ *   <li>{@link fairml.impl.BiasMetricImpl#isPlotThreshold <em>Plot Threshold</em>}</li>
  * </ul>
  *
  * @generated
@@ -65,6 +67,46 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 	 * @ordered
 	 */
 	protected String datasetType = DATASET_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isOptimalThreshold() <em>Optimal Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOptimalThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OPTIMAL_THRESHOLD_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isOptimalThreshold() <em>Optimal Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOptimalThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean optimalThreshold = OPTIMAL_THRESHOLD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPlotThreshold() <em>Plot Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPlotThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PLOT_THRESHOLD_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPlotThreshold() <em>Plot Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPlotThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean plotThreshold = PLOT_THRESHOLD_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -137,12 +179,62 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 	 * @generated
 	 */
 	@Override
+	public boolean isOptimalThreshold() {
+		return optimalThreshold;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOptimalThreshold(boolean newOptimalThreshold) {
+		boolean oldOptimalThreshold = optimalThreshold;
+		optimalThreshold = newOptimalThreshold;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.BIAS_METRIC__OPTIMAL_THRESHOLD, oldOptimalThreshold, optimalThreshold));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isPlotThreshold() {
+		return plotThreshold;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPlotThreshold(boolean newPlotThreshold) {
+		boolean oldPlotThreshold = plotThreshold;
+		plotThreshold = newPlotThreshold;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FairmlPackage.BIAS_METRIC__PLOT_THRESHOLD, oldPlotThreshold, plotThreshold));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case FairmlPackage.BIAS_METRIC__CLASS_NAME:
 				return getClassName();
 			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
 				return getDatasetType();
+			case FairmlPackage.BIAS_METRIC__OPTIMAL_THRESHOLD:
+				return isOptimalThreshold();
+			case FairmlPackage.BIAS_METRIC__PLOT_THRESHOLD:
+				return isPlotThreshold();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,6 +252,12 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 				return;
 			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
 				setDatasetType((String)newValue);
+				return;
+			case FairmlPackage.BIAS_METRIC__OPTIMAL_THRESHOLD:
+				setOptimalThreshold((Boolean)newValue);
+				return;
+			case FairmlPackage.BIAS_METRIC__PLOT_THRESHOLD:
+				setPlotThreshold((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -179,6 +277,12 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
 				setDatasetType(DATASET_TYPE_EDEFAULT);
 				return;
+			case FairmlPackage.BIAS_METRIC__OPTIMAL_THRESHOLD:
+				setOptimalThreshold(OPTIMAL_THRESHOLD_EDEFAULT);
+				return;
+			case FairmlPackage.BIAS_METRIC__PLOT_THRESHOLD:
+				setPlotThreshold(PLOT_THRESHOLD_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -195,6 +299,10 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case FairmlPackage.BIAS_METRIC__DATASET_TYPE:
 				return DATASET_TYPE_EDEFAULT == null ? datasetType != null : !DATASET_TYPE_EDEFAULT.equals(datasetType);
+			case FairmlPackage.BIAS_METRIC__OPTIMAL_THRESHOLD:
+				return optimalThreshold != OPTIMAL_THRESHOLD_EDEFAULT;
+			case FairmlPackage.BIAS_METRIC__PLOT_THRESHOLD:
+				return plotThreshold != PLOT_THRESHOLD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -213,6 +321,10 @@ public class BiasMetricImpl extends OperationImpl implements BiasMetric {
 		result.append(className);
 		result.append(", datasetType: ");
 		result.append(datasetType);
+		result.append(", optimalThreshold: ");
+		result.append(optimalThreshold);
+		result.append(", plotThreshold: ");
+		result.append(plotThreshold);
 		result.append(')');
 		return result.toString();
 	}

@@ -14,6 +14,8 @@ package fairml;
  * <ul>
  *   <li>{@link fairml.BiasMetric#getClassName <em>Class Name</em>}</li>
  *   <li>{@link fairml.BiasMetric#getDatasetType <em>Dataset Type</em>}</li>
+ *   <li>{@link fairml.BiasMetric#isOptimalThreshold <em>Optimal Threshold</em>}</li>
+ *   <li>{@link fairml.BiasMetric#isPlotThreshold <em>Plot Threshold</em>}</li>
  * </ul>
  *
  * @see fairml.FairmlPackage#getBiasMetric()
@@ -66,5 +68,51 @@ public interface BiasMetric extends Operation {
 	 * @generated
 	 */
 	void setDatasetType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Optimal Threshold</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Optimal Threshold</em>' attribute.
+	 * @see #setOptimalThreshold(boolean)
+	 * @see fairml.FairmlPackage#getBiasMetric_OptimalThreshold()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isOptimalThreshold();
+
+	/**
+	 * Sets the value of the '{@link fairml.BiasMetric#isOptimalThreshold <em>Optimal Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Optimal Threshold</em>' attribute.
+	 * @see #isOptimalThreshold()
+	 * @generated
+	 */
+	void setOptimalThreshold(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Plot Threshold</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Plot Threshold</em>' attribute.
+	 * @see #setPlotThreshold(boolean)
+	 * @see fairml.FairmlPackage#getBiasMetric_PlotThreshold()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isPlotThreshold();
+
+	/**
+	 * Sets the value of the '{@link fairml.BiasMetric#isPlotThreshold <em>Plot Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Plot Threshold</em>' attribute.
+	 * @see #isPlotThreshold()
+	 * @generated
+	 */
+	void setPlotThreshold(boolean value);
 
 } // BiasMetric

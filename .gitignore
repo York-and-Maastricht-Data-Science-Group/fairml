@@ -25,6 +25,8 @@ hs_err_pid*
 #other helper projects
 *.pyc
 *.prefs
+*.genmodel
+*.flexmi.xmi
 plugins/org.eclipse.epsilon.eol.engine
 plugins/org.eclipse.epsilon.erl.engine
 generator/org.eclipse.epsilon.fairml.generator/fairml.py
@@ -36,6 +38,5 @@ generator/org.eclipse.epsilon.fairml.generator/demo.flexmi
 generator/org.eclipse.epsilon.fairml.generator/demo.ipynb
 generator/org.eclipse.epsilon.fairml.generator/demo.py
 graphics
-generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints
 generator/org.eclipse.epsilon.fairml.generator/.ipynb_checkpoints
 generator/org.eclipse.epsilon.fairml.generator/test-model/__pycache__

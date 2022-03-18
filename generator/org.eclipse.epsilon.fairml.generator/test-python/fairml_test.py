@@ -640,7 +640,6 @@ class Test(unittest.TestCase):
         
         assert abs(egr_aod)<abs(lr_aod)
 
-
     
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

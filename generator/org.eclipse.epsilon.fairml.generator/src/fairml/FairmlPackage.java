@@ -295,13 +295,22 @@ public interface FairmlPackage extends EPackage {
 	int TRAINING_METHOD__PREDICT_PARAMETERS = OPERATION_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Without Weight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRAINING_METHOD__WITHOUT_WEIGHT = OPERATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Training Method</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRAINING_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 3;
+	int TRAINING_METHOD_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.MitigationMethodImpl <em>Mitigation Method</em>}' class.
@@ -450,13 +459,31 @@ public interface FairmlPackage extends EPackage {
 	int BIAS_METRIC__DATASET_TYPE = OPERATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Optimal Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIAS_METRIC__OPTIMAL_THRESHOLD = OPERATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Plot Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BIAS_METRIC__PLOT_THRESHOLD = OPERATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Bias Metric</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BIAS_METRIC_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 2;
+	int BIAS_METRIC_FEATURE_COUNT = OPERATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link fairml.impl.DatasetImpl <em>Dataset</em>}' class.
@@ -1108,6 +1135,17 @@ public interface FairmlPackage extends EPackage {
 	EAttribute getTrainingMethod_PredictParameters();
 
 	/**
+	 * Returns the meta object for the attribute '{@link fairml.TrainingMethod#isWithoutWeight <em>Without Weight</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Without Weight</em>'.
+	 * @see fairml.TrainingMethod#isWithoutWeight()
+	 * @see #getTrainingMethod()
+	 * @generated
+	 */
+	EAttribute getTrainingMethod_WithoutWeight();
+
+	/**
 	 * Returns the meta object for class '{@link fairml.MitigationMethod <em>Mitigation Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1181,6 +1219,28 @@ public interface FairmlPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBiasMetric_DatasetType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fairml.BiasMetric#isOptimalThreshold <em>Optimal Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Optimal Threshold</em>'.
+	 * @see fairml.BiasMetric#isOptimalThreshold()
+	 * @see #getBiasMetric()
+	 * @generated
+	 */
+	EAttribute getBiasMetric_OptimalThreshold();
+
+	/**
+	 * Returns the meta object for the attribute '{@link fairml.BiasMetric#isPlotThreshold <em>Plot Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Plot Threshold</em>'.
+	 * @see fairml.BiasMetric#isPlotThreshold()
+	 * @see #getBiasMetric()
+	 * @generated
+	 */
+	EAttribute getBiasMetric_PlotThreshold();
 
 	/**
 	 * Returns the meta object for class '{@link fairml.Dataset <em>Dataset</em>}'.
@@ -1880,6 +1940,14 @@ public interface FairmlPackage extends EPackage {
 		EAttribute TRAINING_METHOD__PREDICT_PARAMETERS = eINSTANCE.getTrainingMethod_PredictParameters();
 
 		/**
+		 * The meta object literal for the '<em><b>Without Weight</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRAINING_METHOD__WITHOUT_WEIGHT = eINSTANCE.getTrainingMethod_WithoutWeight();
+
+		/**
 		 * The meta object literal for the '{@link fairml.impl.MitigationMethodImpl <em>Mitigation Method</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1938,6 +2006,22 @@ public interface FairmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BIAS_METRIC__DATASET_TYPE = eINSTANCE.getBiasMetric_DatasetType();
+
+		/**
+		 * The meta object literal for the '<em><b>Optimal Threshold</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BIAS_METRIC__OPTIMAL_THRESHOLD = eINSTANCE.getBiasMetric_OptimalThreshold();
+
+		/**
+		 * The meta object literal for the '<em><b>Plot Threshold</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BIAS_METRIC__PLOT_THRESHOLD = eINSTANCE.getBiasMetric_PlotThreshold();
 
 		/**
 		 * The meta object literal for the '{@link fairml.impl.DatasetImpl <em>Dataset</em>}' class.
