@@ -36,7 +36,7 @@ The fastest way to run and test FairML is by using its docker image.
    ```
 3. Then, we use the FairML wizard to create an FairML model saved in a flexmi file by executing the command below on **Windows**. **For Linux, replace the %cd% with $PWD**. They are the environment variables for the current directory. The `-w` flag indicates to run a wizard.
    ```
-   docker run --rm -i -t -v %cd%:/fairml fairml -w demo.flexmi
+   docker run --rm -i -t -v %cd%:/fairml alfayohannisyorkacuk/fairml -w demo.flexmi
    ```
 4. **The wizard prompts us with some questions**. Just **choose all the default values, for now,**, EXCEPT for the `Measure equal fairness (default: false):` question. Please type `true` and enter. For the rest, keep selecting their default values.
    ```:
