@@ -66,7 +66,7 @@ The fastest way to run and test FairML is by using its docker image.
    ```
 6. Let's run Jupyter Notebook to execute the generated `demo.ipynb`. Remember to replace `%cd` with `$PWD` if running on Linux.
    ```
-   docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter fairml -j demo.ipynb
+   docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter alfayohannisyorkacuk/fairml -j demo.ipynb
     ```
 7. Use your browser to access [http://localhost:8888](http://localhost:8888). You will see Jupyter Notebook with your current directory as your working directory. Open the `demo.ipynb` file and run the whole notebook.
 
