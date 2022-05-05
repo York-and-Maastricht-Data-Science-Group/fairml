@@ -36,7 +36,7 @@ The fastest way to run and test FairML is by using its docker image.
    ```
 3. Then, we use the FairML wizard to create an FairML model saved in a flexmi file by executing the command below on **Windows**. **For Linux, replace the %cd% with $PWD**. They are the environment variables for the current directory. The `-w` flag indicates to run a wizard.
    ```
-   docker run --rm -i -t -v %cd%:/fairml fairml -w demo.flexmi
+   docker run --rm -i -t -v %cd%:/fairml alfayohannisyorkacuk/fairml -w demo.flexmi
    ```
 4. **The wizard prompts us with some questions**. Just **choose all the default values, for now,**, EXCEPT for the `Measure equal fairness (default: false):` question. Please type `true` and enter. For the rest, keep selecting their default values.
    ```:
@@ -66,7 +66,7 @@ The fastest way to run and test FairML is by using its docker image.
    ```
 6. Let's run Jupyter Notebook to execute the generated `demo.ipynb`. Remember to replace `%cd` with `$PWD` if running on Linux.
    ```
-   docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter fairml -j demo.ipynb
+   docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter alfayohannisyorkacuk/fairml -j demo.ipynb
     ```
 7. Use your browser to access [http://localhost:8888](http://localhost:8888). You will see Jupyter Notebook with your current directory as your working directory. Open the `demo.ipynb` file and run the whole notebook.
 
