@@ -58,6 +58,7 @@ import sys
 sys.path.append("../")
 
 import numpy as np
+
 from aif360.metrics import BinaryLabelDatasetMetric
 
 from aif360.algorithms.preprocessing.optim_preproc import OptimPreproc

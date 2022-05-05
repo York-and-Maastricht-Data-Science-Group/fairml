@@ -1,6 +1,6 @@
 ?nsuri: fairml
 fairml:
-- name: Demo Optimized Preprocessing Adult
+- name: Demo Optim Preproc Adult
 - description: |-
     Detecting and mitigating racial bias in income estimation
     https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_optim_preproc_adult.ipynb

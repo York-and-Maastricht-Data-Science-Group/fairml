@@ -89,7 +89,7 @@ unprivileged_groups = [{'age': 0}]
 # ### Step 3 Compute fairness metric on original training dataset
 # Now that we've identified the protected attribute 'age' and defined privileged and unprivileged values, we can use aif360 to detect bias in the dataset.  One simple test is to compare the percentage of favorable results for the privileged and unprivileged groups, subtracting the former percentage from the latter.   A negative value indicates less favorable outcomes for the unprivileged groups.  This is implemented in the method called mean_difference on the BinaryLabelDatasetMetric class.  The code below performs this check and displays the output, showing that the difference is -0.169905.
 
-# In[6]:
+# In[3]:
 
 
 metric_orig_train = BinaryLabelDatasetMetric(dataset_orig_train, 

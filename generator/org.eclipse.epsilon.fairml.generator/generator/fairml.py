@@ -592,7 +592,17 @@ class MetricTextFairMLExplainer(MetricTextExplainer):
             self.metric = metric
         else:
             raise TypeError("metric must be a Metric.")
-        
+    
+    def generalized_false_negative_rate_difference(self):
+        ''' Unprivileged Generated False Negative Rate (GFNR) - Privileged Generated False Negative Rate (GFNR)
+        '''
+        return "Generalized False Negative Rate (GFNR) difference: {}".format(self.metric.generalized_false_negative_rate(False) - self.metric.generalized_false_negative_rate(True))
+    
+    def generalized_false_positive_rate_difference(self):
+        ''' Unprivileged Generated False Positive Rate (GFPR) - Privileged Generated False Positive Rate (GFPR)
+        '''
+        return "Generalized False Positive Rate (GFPR) difference: {}".format(self.metric.generalized_false_positive_rate(False) - self.metric.generalized_false_positive_rate(True))  
+    
     def balanced_accuracy(self, privileged=None):
         if privileged is None:
             return "Balanced Classification accuracy (BACC): {}".format(
@@ -615,6 +625,30 @@ class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
     BinaryLabelDatasetMetric, including ClassificationMetric 
     always goes to the first condition.
     '''
+
+    def generalized_false_negative_rate_difference(self):
+        outcome = super(MetricFairMLExplainer, self).generalized_false_negative_rate_difference()
+        response = OrderedDict((
+            ("metric", "Generalized False Negative Rate (GFNR):"),
+            ("message", outcome),
+            ("generalizedFalseNegativeRateUnprivileged", self.metric.generalized_false_negative_rate(privileged=False)),
+            ("generalizedFalseNegativeRatePrivileged", self.metric.generalized_false_negative_rate(privileged=True)),
+            ("description", "Unprivileged Generated False Negative Rate (GFNR) - Privileged Generated False Negative Rate (GFNR)."),
+            ("ideal", " The ideal value of this metric is 0")
+        ))
+        return json.dumps(response)
+    
+    def generalized_false_positive_rate_difference(self):
+        outcome = super(MetricFairMLExplainer, self).generalized_false_positive_rate_difference()
+        response = OrderedDict((
+            ("metric", "Generalized False Positive Rate (GFPR):"),
+            ("message", outcome),
+            ("generalizedFalsePositiveRateUnprivileged", self.metric.generalized_false_positive_rate(privileged=False)),
+            ("generalizedFalsePositiveRatePrivileged", self.metric.generalized_false_positive_rate(privileged=True)),
+            ("description", "Unprivileged Generated False Positive Rate (GFPR) - Privileged Generated False Positive Rate (GFPR)."),
+            ("ideal", " The ideal value of this metric is 0")
+        ))
+        return json.dumps(response)
     
     def disparate_impact(self):
         outcome = super(MetricJSONExplainer, self).disparate_impact()
@@ -700,6 +734,16 @@ class MetricFairMLExplainer(MetricTextFairMLExplainer, MetricJSONExplainer):
 class FairMLMetric(ClassificationMetric):
     '''Extend the Classification Metric to Include Balanced Accuracy
     '''
+    
+    def generalized_false_negative_rate_difference(self):
+        ''' Unprivileged Generated False Negative Rate (GFNR) - Privileged Generated False Negative Rate (GFNR)
+        '''
+        return self.generalized_false_negative_rate(False) - self.generalized_false_negative_rate(True)
+    
+    def generalized_false_positive_rate_difference(self):
+        ''' Unprivileged Generated False Positive Rate (GFPR) - Privileged Generated False Positive Rate (GFPR)
+        '''
+        return self.generalized_false_positive_rate(False) - self.generalized_false_positive_rate(True)  
     
     def balanced_accuracy(self, privileged=None):
         """Return the balanced accuracy of the ratio of true positives and 

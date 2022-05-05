@@ -14,8 +14,8 @@
 
 # get_ipython().run_line_magic('matplotlib', 'inline')
 # Load all necessary packages
-# import sys
-# sys.path.append("../")
+import sys
+sys.path.append("../")
 from aif360.datasets import BinaryLabelDataset
 from aif360.datasets import AdultDataset
 from aif360.metrics import BinaryLabelDatasetMetric
@@ -33,7 +33,7 @@ from sklearn.metrics import classification_report
 from IPython.display import Markdown, display
 import matplotlib.pyplot as plt
 import numpy as np
-np.random.seed(0)
+
 from common_utils import compute_metrics
 
 
@@ -97,7 +97,7 @@ dataset_orig_train.features = scale_orig.fit_transform(dataset_orig_train.featur
 dataset_orig_test.features = scale_orig.transform(dataset_orig_test.features)
 
 
-# In[6]:
+# In[ ]:
 
 
 # Input recontruction quality - Ax
@@ -115,7 +115,7 @@ TR = LFR(unprivileged_groups=unprivileged_groups,
 TR = TR.fit(dataset_orig_train, maxiter=5000, maxfun=5000)
 
 
-# In[7]:
+# In[ ]:
 
 
 # Transform training data and align features
@@ -123,13 +123,13 @@ dataset_transf_train = TR.transform(dataset_orig_train)
 dataset_transf_test = TR.transform(dataset_orig_test)
 
 
-# In[8]:
+# In[ ]:
 
 
 print(classification_report(dataset_orig_test.labels, dataset_transf_test.labels))
 
 
-# In[9]:
+# In[ ]:
 
 
 metric_transf_train = BinaryLabelDatasetMetric(dataset_transf_train, 
@@ -144,7 +144,7 @@ display(Markdown("#### Transformed test dataset"))
 print("Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_transf_test.mean_difference())
 
 
-# In[10]:
+# In[ ]:
 
 
 from common_utils import compute_metrics
@@ -173,7 +173,7 @@ for thresh in class_thresh_arr:
     disp_imp_arr_transf.append(metric_test_aft["Disparate impact"])
 
 
-# In[11]:
+# In[ ]:
 
 
 fig, ax1 = plt.subplots(figsize=(10,7))
@@ -193,7 +193,7 @@ ax2.grid(True)
 
 # abs(1-disparate impact) must be small (close to 0) for classifier predictions to be fair.
 
-# In[12]:
+# In[ ]:
 
 
 display(Markdown("#### Individual fairness metrics"))
@@ -203,7 +203,7 @@ print("Consistency of labels in transformed test dataset= %f" %metric_transf_tes
 print("Consistency of labels in original test dataset= %f" %metric_orig_test.consistency())
 
 
-# In[13]:
+# In[ ]:
 
 
 def check_algorithm_success():

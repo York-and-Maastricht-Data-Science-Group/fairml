@@ -19,7 +19,6 @@ sys.path.append("../")
 import warnings
 
 import numpy as np
-np.random.seed(0)
 from tqdm import tqdm
 
 from sklearn.linear_model import LogisticRegression
@@ -37,7 +36,6 @@ from aif360.metrics import BinaryLabelDatasetMetric
 protected = 'sex'
 ad = AdultDataset(protected_attribute_names=[protected],
     privileged_classes=[['Male']], categorical_features=[],
-    features_to_drop=['fnlwgt'],
     features_to_keep=['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week'])
 
 
@@ -68,8 +66,6 @@ for level in tqdm(np.linspace(0., 1., 11)):
     
     X_tr = np.delete(train_repd.features, index, axis=1)
     X_te = np.delete(test_repd.features, index, axis=1)
-#     X_tr = train_repd.features
-#     X_te = test_repd.features
     y_tr = train_repd.labels.ravel()
     
     lmod = LogisticRegression(class_weight='balanced', solver='liblinear')
@@ -83,11 +79,6 @@ for level in tqdm(np.linspace(0., 1., 11)):
     cm = BinaryLabelDatasetMetric(test_repd_pred, privileged_groups=p, unprivileged_groups=u)
     DIs.append(cm.disparate_impact())
 
-x = 0
-for val in DIs:
-    print(str(x) + ": " + str(val))
-    x = x + 1
-
 
 # In[6]:
 
@@ -97,7 +88,7 @@ for val in DIs:
 plt.plot(np.linspace(0, 1, 11), DIs, marker='o')
 plt.plot([0, 1], [1, 1], 'g')
 plt.plot([0, 1], [0.8, 0.8], 'r')
-plt.ylim([0.0, 1.2])
+plt.ylim([0.4, 1.2])
 plt.ylabel('Disparate Impact (DI)')
 plt.xlabel('repair level')
 plt.show()

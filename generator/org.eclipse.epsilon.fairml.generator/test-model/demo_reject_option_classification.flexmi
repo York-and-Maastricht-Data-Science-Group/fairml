@@ -1,0 +1,72 @@
+?nsuri: fairml
+fairml:
+- name: Demo Reject Option Classification
+- description: |-
+    Reject Option Classification (ROC) post-processing algorithm for bias mitigation.
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_reject_option_classification.ipynb
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - datasetModuleParameters: protected_attributes=['sex']
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 1.5, 1.5
+  
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Reject Option Classification  
+  - dataset: Adult Dataset From Module
+  
+  - trainingMethod:
+    - algorithm: LogisticRegression
+  
+  - mitigationMethod:
+    - algorithm: RejectOptionClassification
+    - parameters: 
+        low_class_thresh=0.01,
+        high_class_thresh=0.99,
+        num_class_thresh=100,
+        num_ROC_margin=50,
+        metric_name = 'Statistical parity difference',
+        metric_ub=0.05,
+        metric_lb=-0.05 
+        
+  - biasMetric:
+    - name: accuracy
+    - type: validation
+    - optimalThreshold: true
+  - biasMetric:
+    - name: balanced_accuracy
+    - type: validation
+    - optimalThreshold: true
+    - plotThreshold: true 
+  - biasMetric:
+    - type: train
+    - name: mean_difference
+  - biasMetric:
+    - type: validation
+    - optimalThreshold: true
+    - name: statistical_parity_difference
+  - biasMetric:
+    - type: validation
+    - optimalThreshold: true
+    - name: disparate_impact
+  - biasMetric:
+    - type: validation
+    - optimalThreshold: true
+    - name: average_odds_difference
+  - biasMetric:
+    - type: validation
+    - optimalThreshold: true
+    - name: equal_opportunity_difference
+  - biasMetric:
+    - type: validation
+    - optimalThreshold: true
+    - name: theil_index
+
+    

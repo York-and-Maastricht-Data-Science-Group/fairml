@@ -1,0 +1,50 @@
+?nsuri: fairml
+fairml:
+- name: Demo Adversarial Debiasing
+- description: |-
+    Demo Adversarial Debiasing
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_adversarial_debiasing.ipynb
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 3
+  
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Adversarial Debiasing  
+  - dataset: Adult Dataset From Module
+  
+  - mitigationMethod:
+    - algorithm: AdversarialDebiasing
+    - parameters: 
+        scope_name='plain_classifier',
+        debias=False
+  
+  - mitigationMethod:
+    - algorithm: AdversarialDebiasing
+    - parameters: 
+        scope_name='debiased_classifier',
+        debias=True
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: balanced_accuracy 
+  - biasMetric:
+    - type: train
+    - name: mean_difference
+  - biasMetric:
+    - name: disparate_impact
+  - biasMetric:
+    - name: equal_opportunity_difference
+  - biasMetric:
+    - name: average_odds_difference
+  - biasMetric:
+    - name: theil_index
+
+    

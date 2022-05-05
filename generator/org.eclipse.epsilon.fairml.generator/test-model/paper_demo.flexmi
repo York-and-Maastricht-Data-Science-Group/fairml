@@ -1,0 +1,37 @@
+?nsuri: fairml
+fairml:
+- name: Paper Demo
+- description: Running Example
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+
+# set the dataset
+- dataset:
+  - name: Adult
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestValidationSplit: 7, 3
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Exponentiated Gradient Reduction  
+  - dataset: Adult
+  
+  - trainingMethod:
+      - algorithm: LogisticRegression
+      - parameters: solver='lbfgs'
+       
+  - mitigationMethod:
+    - algorithm: ExponentiatedGradientReduction
+    - parameters: 
+       estimator=LogisticRegression(solver='lbfgs'), 
+       constraints='EqualizedOdds', 
+       drop_prot_attr=False
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: mean_difference
+  - biasMetric:
+    - name: average_odds_difference

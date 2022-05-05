@@ -1,0 +1,44 @@
+?nsuri: fairml
+fairml:
+- name: Demo LFR
+- description: |-
+    Demo Learning Fair Representations
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_lfr.ipynb
+- modules: 
+    from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestSplit: 7, 3
+  
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Learning Fair Representations  
+  - dataset: Adult Dataset From Module
+  
+  - mitigationMethod:
+    - algorithm: LFR
+    - fitParameters:
+        maxiter=5000, maxfun=5000
+    - parameters: 
+         k=10, Ax=0.1, Ay=1.0, Az=2.0,
+         verbose=1
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: balanced_accuracy 
+  - biasMetric:
+    - type: train
+    - name: mean_difference
+  - biasMetric:
+    - type: test
+    - name: disparate_impact
+    - plotThreshold: true
+  - biasMetric:
+    - type: train
+    - name: consistency
+    

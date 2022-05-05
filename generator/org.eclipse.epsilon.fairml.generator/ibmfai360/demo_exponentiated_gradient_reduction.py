@@ -34,7 +34,6 @@ from IPython.display import Markdown, display
 import matplotlib.pyplot as plt
 
 import numpy as np
-np.random.seed(0)
 
 
 # #### Load dataset and set options
@@ -48,6 +47,7 @@ dataset_orig = load_preproc_data_adult()
 privileged_groups = [{'sex': 1}]
 unprivileged_groups = [{'sex': 0}]
 
+np.random.seed(0)
 dataset_orig_train, dataset_orig_test = dataset_orig.split([0.7], shuffle=True)
 
 
@@ -149,7 +149,6 @@ print(lr_aod)
 # In[8]:
 
 
-np.random.seed(0) #need for reproducibility
 estimator = LogisticRegression(solver='lbfgs')
 
 
@@ -158,7 +157,7 @@ estimator = LogisticRegression(solver='lbfgs')
 # In[9]:
 
 
-
+np.random.seed(0) #need for reproducibility
 exp_grad_red = ExponentiatedGradientReduction(estimator=estimator, 
                                               constraints="EqualizedOdds",
                                               drop_prot_attr=False)

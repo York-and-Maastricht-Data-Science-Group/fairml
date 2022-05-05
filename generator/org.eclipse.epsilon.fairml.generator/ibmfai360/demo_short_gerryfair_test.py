@@ -20,12 +20,10 @@ from aif360.metrics import BinaryLabelDatasetMetric
 from IPython.display import Image
 import pickle
 import matplotlib.pyplot as plt
-import numpy as np
-np.random.seed(0)
 
 # load data set
 data_set = load_preproc_data_adult(sub_samp=1000, balance=True)
-max_iterations = 1000
+max_iterations = 10
 C = 100
 print_flag = True
 gamma = .005
@@ -55,7 +53,8 @@ print(gamma_disparity)
 # set to 10 iterations for fast running of notebook - set >= 1000 when running real experiments
 # tests learning with different hypothesis classes
 pareto_iters = 10
-def multiple_classifiers_pareto(dataset, gamma_list=[0.002, 0.005, 0.01], save_results=False, iters=pareto_iters):
+# def multiple_classifiers_pareto(dataset, gamma_list=[0.002, 0.005, 0.01], save_results=False, iters=pareto_iters):
+def multiple_classifiers_pareto(dataset, gamma_list=[1.0], save_results=False, iters=pareto_iters):
 
     ln_predictor = linear_model.LinearRegression()
     svm_predictor = svm.LinearSVR()

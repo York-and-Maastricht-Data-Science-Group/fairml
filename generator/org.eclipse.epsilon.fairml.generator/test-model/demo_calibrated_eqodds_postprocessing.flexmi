@@ -1,0 +1,49 @@
+?nsuri: fairml
+fairml:
+- name: Demo Calibrated Eqodds Postprocessing
+- description: |-
+    Demo Calibrated Eqodds Postprocessing
+    https://github.com/Trusted-AI/AIF360/blob/master/examples/demo_calibrated_eqodds_postprocessing.ipynb
+- modules: 
+   from aif360.algorithms.preprocessing.optim_preproc_helpers.data_preproc_functions import load_preproc_data_adult
+       
+
+# set the dataset
+- dataset:
+  - name: Adult Dataset From Module
+  - datasetModule: load_preproc_data_adult
+  - protectedAttributes: sex
+  - trainTestSplit: 6, 2, 2
+  
+
+# define the bias mitigation
+- biasMitigation:
+  - name: Demo Calibrated Eqodds Postprocessing  
+  - dataset: Adult Dataset From Module
+  
+  - trainingMethod:
+    - algorithm: LogisticRegression
+  
+  - mitigationMethod:
+    - algorithm: CalibratedEqOddsPostprocessing
+    - parameters: 
+        cost_constraint='fnr', seed=0
+        
+  - biasMetric:
+    - name: accuracy
+  - biasMetric:
+    - name: balanced_accuracy
+  - biasMetric:
+    - type: train
+    - name: mean_difference
+    false_positive_rate
+  - biasMetric:
+    - name: generalized_false_positive_rate_difference
+  - biasMetric:
+    - name: generalized_false_negative_rate_difference
+  - biasMetric:
+    - name: equal_opportunity_difference
+    - optimalThreshold: true
+    - plotThreshold: true 
+
+    
