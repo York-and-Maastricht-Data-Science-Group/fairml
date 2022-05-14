@@ -36,7 +36,6 @@ fairml:
   - biasMetric:
     - type: train
     - name: mean_difference
-    false_positive_rate
   - biasMetric:
     - name: generalized_false_positive_rate_difference
   - biasMetric:

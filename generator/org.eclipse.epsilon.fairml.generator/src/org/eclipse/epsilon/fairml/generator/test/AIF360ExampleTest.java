@@ -11,6 +11,8 @@ public class AIF360ExampleTest {
 	public static List<String> results = new ArrayList<>();
 
 	String decimalFormat = "%.3f";
+//	int startMeasure = 5;
+//	int endMeasure = 14;
 	int startMeasure = 1;
 	int endMeasure = 1;
 
@@ -54,15 +56,6 @@ public class AIF360ExampleTest {
 		double total = measureGenerationTime(filename);
 		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
 		}).getClass().getEnclosingMethod().getName()), total));
-	}
-
-	@Test
-	public void testExplainer() {
-		String filename = "explainer";
-		double total = measureGenerationTime(filename);
-		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
-		}).getClass().getEnclosingMethod().getName()), total));
-
 	}
 
 	@Test
@@ -123,7 +116,7 @@ public class AIF360ExampleTest {
 		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
 		}).getClass().getEnclosingMethod().getName()), total));
 	}
-	
+
 	@Test
 	public void testDemoAdversarialDebiasing() {
 		String filename = "demo_adversarial_debiasing";
@@ -131,7 +124,7 @@ public class AIF360ExampleTest {
 		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
 		}).getClass().getEnclosingMethod().getName()), total));
 	}
-	
+
 	@Test
 	public void testDemoLFR() {
 		String filename = "demo_lfr";
@@ -147,9 +140,27 @@ public class AIF360ExampleTest {
 		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
 		}).getClass().getEnclosingMethod().getName()), total));
 	}
-	
+
+//	@Test
+//	public void testExplainer() {
+//		String filename = "explainer";
+//		double total = measureGenerationTime(filename);
+//		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
+//		}).getClass().getEnclosingMethod().getName()), total));
+//
+//	}
+
+	@Test
+	public void testPaperDemo() {
+		String filename = "paper_demo";
+		double total = measureGenerationTime(filename);
+		results.add(String.format("%s\t" + decimalFormat, breakString((new Object() {
+		}).getClass().getEnclosingMethod().getName()), total));
+	}
+
 	/***
 	 * Measure Generation Time
+	 * 
 	 * @param filename
 	 * @return
 	 */

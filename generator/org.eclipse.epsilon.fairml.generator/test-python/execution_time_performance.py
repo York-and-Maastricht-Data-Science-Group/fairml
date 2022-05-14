@@ -13,21 +13,18 @@ original_key = 'original'
 
 results = {}
 
-results["tutorial_medical_expenditure"]  = None
-results["demo_exponentiated_gradient_reduction"] = None
-results["demo_disparate_impact_remover"]  = None
-results["demo_meta_classifier"]  = None
-results["demo_optim_preproc_adult"]  = None
-results["demo_short_gerryfair_test"]  = None
-results["demo_reweighing_preproc"]  = None
-results["tutorial_credit_scoring"] = None
+# results["tutorial_medical_expenditure"]  = None
+# results["demo_exponentiated_gradient_reduction"] = None
+# results["demo_disparate_impact_remover"]  = None
+# results["demo_meta_classifier"]  = None
+# results["demo_optim_preproc_adult"]  = None
+# results["demo_short_gerryfair_test"]  = None
+# results["demo_reweighing_preproc"]  = None
+# results["tutorial_credit_scoring"] = None
 results["demo_reject_option_classification"] = None
-
-
-
-
-
-
+results["demo_adversarial_debiasing"] = None
+results["demo_calibrated_eqodds_postprocessing"] = None
+results["demo_lfr"] = None
 
 for key in results:
     results[key] = {generated_key: 0, original_key:0}
