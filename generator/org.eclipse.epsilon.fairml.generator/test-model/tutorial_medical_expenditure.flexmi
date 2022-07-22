@@ -16,30 +16,30 @@ fairml:
   - name: Panel19-Panel19
   - datasetModule: MEPSDataset19  
   - protectedAttributes: RACE
-  - trainTestSplit: 7, 2, 3
+  - trainTestSplit: 5, 2, 3
 - dataset:
   - name: Panel19-Panel20
   - datasetModule: MEPSDataset19
   - testDatasetModule: MEPSDataset20
   - protectedAttributes: RACE 
-  - trainTestSplit: 7, 2, 3
+  - trainTestSplit: 5, 2, 3
 - dataset:
   - name: Panel19-Panel21
   - datasetModule: MEPSDataset19
   - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE 
-  - trainTestSplit: 7, 2, 3
+  - trainTestSplit: 5, 2, 3
 - dataset:
   - name: Panel20-Panel20
   - datasetModule: MEPSDataset20
   - protectedAttributes: RACE
-  - trainTestSplit: 7, 2, 3
+  - trainTestSplit: 5, 2, 3
 - dataset:
   - name: Panel20-Panel21
   - datasetModule: MEPSDataset20
   - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE
-  - trainTestSplit: 7, 2, 3
+  - trainTestSplit: 5, 2, 3
     
 # define the bias mitigation 01
 - biasMitigation:
@@ -61,16 +61,27 @@ fairml:
       
   - biasMetric:
     - name: balanced_accuracy
+    - optimalThreshold: true
+  - biasMetric:
+    - name: mean_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: average_odds_difference
+    - optimalThreshold: true
+    - plotThreshold: true
   - biasMetric:
     - name: disparate_impact
+    - optimalThreshold: true
+    - plotThreshold: true
   - biasMetric:
     - name: statistical_parity_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: equal_opportunity_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: theil_index
+    - optimalThreshold: true
 
 # define the bias mitigation 02   
 - biasMitigation:
@@ -90,14 +101,25 @@ fairml:
       
   - biasMetric:
     - name: balanced_accuracy
+    - optimalThreshold: true
+  - biasMetric:
+    - name: mean_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: average_odds_difference
+    - optimalThreshold: true
+    - plotThreshold: true
   - biasMetric:
     - name: disparate_impact
+    - optimalThreshold: true
+    - plotThreshold: true
   - biasMetric:
     - name: statistical_parity_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: equal_opportunity_difference
+    - optimalThreshold: true
   - biasMetric:
     - name: theil_index
+    - optimalThreshold: true
 

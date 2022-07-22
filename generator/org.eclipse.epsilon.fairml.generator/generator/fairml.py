@@ -375,7 +375,10 @@ class BiasMitigation():
                 max_num = val
         colours = []
         for i in range(1, values.size + 1):
-            val = abs((0 if values.get(key=i) is None else values.get(key=i)) - ideal_value)
+            if ideal_value <= 0:
+                val = abs((max_num if values.get(key=i) is None else values.get(key=i)) - ideal_value)
+            else:
+                val = abs((0 if values.get(key=i) is None else values.get(key=i)) - ideal_value)
             result = 0
             if ((max_num - min_num) != 0) and not pd.isna(val):
                 # print(val, min_num, max_num)
@@ -390,7 +393,11 @@ class BiasMitigation():
         if not values.get(key=fairest_combination) is None: 
             x1 = values.get(key=fairest_combination) - ideal_value
         else:
-            x1 = x1 - ideal_value
+            if ideal_value <= 0:
+                x1 = 1
+            else:
+                x1 = x1 - ideal_value
+            
         # x1 = 0 - ideal_value;
         min_abs_val = abs(x1)
         min_val_sign = ""
@@ -404,7 +411,10 @@ class BiasMitigation():
             for value in values:
                 i = i + 1
                 if value is None:
-                    x1 = 0 - ideal_value
+                    if ideal_value <= 0:
+                        x1 = 1
+                    else:
+                        x1 = 0 - ideal_value
                 else:
                     x1 = value - ideal_value 
                 temp = abs(x1)
@@ -458,9 +468,14 @@ class BiasMitigation():
                                          unprivileged_groups=None, privileged_groups=None,
                                          start=0.01, end=1.00, num_thresh=100, model=None
                                          ):
-        
-        fav_idx = np.where(model.classes_ == baseline_dataset.favorable_label)[0][0]
-        predicted_dataset.scores = model.predict_proba(predicted_dataset.features)[:, fav_idx] 
+        try:
+            # this is for sklearn classifier
+            fav_idx = np.where(model.classes_ == baseline_dataset.favorable_label)[0][0]
+            predicted_dataset.scores = model.predict_proba(predicted_dataset.features)[:, fav_idx] 
+        except AttributeError:
+            # this is for aif360 inprocessing algorithm
+            fav_idx = 0
+            predicted_dataset.scores = model.predict(predicted_dataset).scores
         
         unprivileged_groups = self.unprivileged_groups if unprivileged_groups is None else unprivileged_groups 
         privileged_groups = self.privileged_groups if privileged_groups is None else privileged_groups

@@ -96,7 +96,7 @@ cd fairml/generator/org.eclipse.epsilon.fairml.generator
 mvn install
 ```
 
-You will find **fairml.jar** file created.
+You will find **fairml.jar** file created. Or if you are using Eclipse, right click on the project, click `Run As` and then click `Maven install`.
 
 ### Ubuntu-Running
 
