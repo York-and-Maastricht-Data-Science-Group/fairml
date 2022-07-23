@@ -8,8 +8,18 @@
   - [Abstract](#abstract)
   - [Archive Contents](#archive-contents)
   - [Step-by-step Setup/Installation Guide](#step-by-step-setupinstallation-guide)
+    - [More...](#more)
   - [Others](#others)
+    - [Videos](#videos)
+    - [Tutorials](#tutorials)
+    - [Installation](#installation)
+    - [Docker](#docker)
   - [Reproducing the Evaluation](#reproducing-the-evaluation)
+    - [Generating Python and Jupyter Notebook Files](#generating-python-and-jupyter-notebook-files)
+    - [Measuring the Generation Time](#measuring-the-generation-time)
+    - [Generated vs Original Execution Time](#generated-vs-original-execution-time)
+    - [Measuring the Correctness](#measuring-the-correctness)
+    - [Original Lines of Code (LoC) vs Model LoC  vs Generated LoC](#original-lines-of-code-loc-vs-model-loc--vs-generated-loc)
 
 ## [Authors](#contents)
 
@@ -122,6 +132,9 @@ The fastest way to run and test FairML is by using its docker image.
 
 Some other stuff to explore.
 
+### [Videos](#contents)
+FairML's video tutorials can be found here https://tinyurl.com/mrydfed9 or https://drive.google.com/drive/folders/1V1NrEN1fghbwzUmR-urEzhcZPvTdqJLC?usp=sharing.
+
 ### [Tutorials](#contents)
 
 Learn more about FairML using these tutorials.
@@ -139,7 +152,7 @@ For more detailed documentation for downloading, building, and running FairML do
 
 ## [Reproducing the Evaluation](#contents)
 
-This section contains the instructions to reproduce the evaluation results presented in the paper.
+This section contains the instructions to reproduce the evaluation results presented in the paper. You can also watch the videos here https://tinyurl.com/mrydfed9.
 
 ### [Generating Python and Jupyter Notebook Files](#contents)
 
@@ -228,3 +241,4 @@ For the model files, we execute the following command.
 ```
 cloc . --by-file --force-lang=yaml --include-ext=flexmi
 ```
+
