@@ -1,10 +1,20 @@
+# docker stop fairml-jupyter
+# docker rm fairml
+# docker rmi fairml
+# docker system prune
+
+# docker image build . -t fairml
+# docker tag fairml:latest alfayohannisyorkacuk/fairml:latest
+# docker push alfayohannisyorkacuk/fairml:latest
+
+
 # run the following command to use this docker container later after installing
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -w demo.flexmi
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml demo.flexmi
 # docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml fairml -j demo.ipynb
 # docker exec fairml bash -c "jupyter notebook list"
 # docker exec -i fairml bash -c "python3 -m notebook.auth password"
-# jupyter notebook dcatmo.ipynb --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''
+# jupyter notebook demo.ipynb --port=8888 --no-browser --ip='*' --allow-root --NotebookApp.password_required=False --NotebookApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password=''
 # FROM openjdk:11-jdk-slim-bullseye
 
 # STAGE 01: Do all the Java stuff to build only the fairml
