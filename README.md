@@ -161,7 +161,7 @@ This section contains the instructions to reproduce the evaluation results prese
 2. Download FairML source code using the command below.
    
    ```
-   https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git
+   git clone https://github.com/York-and-Maastricht-Data-Science-Group/fairml.git
    ```
 
 3. Use Eclipse, open the `org.eclipse.epsilon.fairml.generator` project located inside the `generator` directory. It is a **Maven** project. So, all dependencies will be automatically downloaded.
