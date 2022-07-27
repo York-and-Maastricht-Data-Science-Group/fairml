@@ -93,9 +93,6 @@ from IPython import get_ipython
 [%=module%]
 [% } %]
 
-if get_ipython() is not None:
-    get_ipython().magic("matplotlib inline")
-    
 fairml = FairML()
 def get_fairml():
     return fairml
@@ -544,6 +541,9 @@ bm.measure_bias("[%=biasMetric.name%]", baseline_dataset=dataset_mitigated_valid
 table = bm.display_summary()
 table.style.set_caption("Worst = White, Best = Green, Mid = Yellow") \
     .apply(bm.highlight_fairest_values, axis=1)
+
+if get_ipython() is not None:
+    get_ipython().magic("%matplotlib inline")
 
 bm.display_barchart()
 

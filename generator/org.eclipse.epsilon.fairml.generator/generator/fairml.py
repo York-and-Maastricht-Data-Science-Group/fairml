@@ -9,6 +9,7 @@ import os.path
 import json
 import numbers
 import tensorflow.compat.v1 as tf
+import matplotlib
 import matplotlib.pyplot as plot
 import pandas as pd
 import numpy as np
@@ -321,6 +322,9 @@ class BiasMitigation():
             v_range = v_max - v_min
             data[metric] = data[metric].apply(lambda x: 1 - ((x if isinstance(x, numbers.Number) else v_min) - v_min) / v_range)
         
+        if get_ipython() == None:
+            matplotlib.use("TkAgg")
+            
         data.plot.bar(figsize=(16, 4), rot=0, xlabel="Bias Mitigation",
                       title="Normalised Metrics (Value 1 Indicates the Bias Mitigation is the Best Option for the Metric)")
         # plot.show(block=True)
@@ -336,6 +340,9 @@ class BiasMitigation():
             plot.savefig(image)
             # matplotlib.use(backend)        
             # display(Image(filename=image))
+        
+        if get_ipython() == None:
+            matplotlib.use("Agg")
     
     def print_explanation(self):
         if get_ipython() == None:
