@@ -244,7 +244,7 @@ There is also bug in `C:\Anaconda3\Lib\site-packages\aif360\explainers\metric_js
 
 
 
-This evaluation compares the execution time of the generated target files vs the original files in IBM Fairness AI 360(under the `ibmfai360` directory or at https://github.com/Trusted-AI/AIF360/tree/master/examples). The perform the evaluation, run the `execution_time_performance.py` Python file under the `test-python` directory. It will take some time to finish all the examples. Every example runs 14 iterations. If you just want to get through all the examples once, comment all values under the `multiple iteration` line, and use the values under `single iteration` line.
+This evaluation compares the execution time of the generated target files vs the original files in IBM Fairness AI 360(under the `ibmfai360` directory or at https://github.com/Trusted-AI/AIF360/tree/master/examples). The perform the evaluation, run the `execution_time_performance.py` Python file under the `test-python` directory. It will take some time to finish all the examples. Every example runs 14 iterations. If you just want to get through all the examples once, comment all values under the `multiple iteration` line, and use the values under the `single iteration` line.
 
 ```Python
 ## multiple iteration

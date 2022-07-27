@@ -33,12 +33,12 @@ results["demo_adversarial_debiasing"] = None
 results["demo_calibrated_eqodds_postprocessing"] = None
 results["demo_lfr"] = None
 
-## multiple iteration
+## multiple iteration (the ideal performance measure)
 # threshold = 5 #5
 # fr = 1 #1
 # to = 14 #14
 
-## single iteration
+## single iteration (just to get through all the examples once)
 threshold = 0 #5
 fr = 1 #1
 to = 2 #14
