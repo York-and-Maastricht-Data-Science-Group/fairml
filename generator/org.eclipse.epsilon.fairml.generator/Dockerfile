@@ -52,11 +52,16 @@ COPY requirements.txt /fairml-src
 COPY --from=Stage01 /fairml-src/fairml.jar /fairml-src/
 
 RUN apt-get update -y && \
-  apt-get install -y python3-minimal nocache && \
-  apt-get install -y python3-pip nocache && \
-  python3 -m pip install -r requirements.txt --no-cache-dir && \
-  rm -rf /fairml-src/requirements.txt && \
   apt-get autoremove -y
+  
+RUN apt-get install -y python3-minimal nocache && \
+  apt-get autoremove -y
+  
+RUN apt-get install -y python3-pip nocache && \
+  apt-get autoremove -y
+  
+RUN python3 -m pip install -r requirements.txt --no-cache-dir && \
+  rm -rf /fairml-src/requirements.txt
 
 WORKDIR /fairml
 

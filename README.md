@@ -121,7 +121,7 @@ The fastest way to run and test FairML is by using its docker image.
 9. Run the following command, without the `-w` flag, to regenerate the `*.py`/`*.ipynb` files.
    
    ```
-   docker run --rm -i -t -v %cd%:/fairml fairml demo.flexmi
+   docker run --rm -i -t -v %cd%:/fairml alfayohannisyorkacuk/fairml demo.flexmi
    ```
 
 10. Refresh your Jupyter Notebook tab associated with the `demo.ipynb` file on your browser and rerun your whole notebook. You will notice that the `theil_index` metric has been added to your Jupyter notebook.
