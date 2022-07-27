@@ -9,7 +9,7 @@ fairml:
   - predictedAttribute: Income Binary
   - protectedAttributes: sex, race
   - trainTestValidationSplit: 7, 3
-  - datasetPath: ../data/load_preproc_data_adult.csv
+  - datasetPath: data/load_preproc_data_adult.csv
       
 # define the bias mitigation
 - biasMitigation:

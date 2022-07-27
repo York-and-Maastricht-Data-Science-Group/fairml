@@ -128,6 +128,11 @@ The fastest way to run and test FairML is by using its docker image.
 
 11. Feel free to check and modify the generated `*.flexmi`, `*.py`, `*.ipynb` files to learn more about FairML and modify the results.
 
+12. Don't forget to shutdown the Docker container using the following command.
+    ```
+    docker stop fairml-jupyter
+    ```
+
 ## [Others](#contents)
 
 Some other stuff to explore.
