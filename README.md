@@ -128,7 +128,7 @@ The fastest way to run and test FairML is by using its docker image.
 
 11. Feel free to check and modify the generated `*.flexmi`, `*.py`, `*.ipynb` files to learn more about FairML and modify the results.
 
-12. Don't forget to shutdown the Docker container using the following command.
+12. Don't forget to terminate the running Docker container using the following command.
     ```
     docker stop fairml-jupyter
     ```
@@ -186,7 +186,7 @@ This section contains the instructions to reproduce the evaluation results prese
 
 5. Get into the `test-model` directory. Run the following command to open the target output in Jupyter Notebook:
    
-   ```
+   ```Bat
    docker run --rm -d -i -t -v %cd%:/fairml --hostname=fairml -p 8888:8888 --name=fairml-jupyter alfayohannisyorkacuk/fairml -j paper_demo.flexmi
    ```
 
@@ -208,14 +208,14 @@ This section contains the instructions to reproduce the evaluation results prese
 
 2. Comment the following lines:
    
-   ```
+   ```Python
    int startMeasure = 1;
    int endMeasure = 1;
    ```
    
     And uncomment the following lines:
    
-   ```
+   ```Python
    //   int startMeasure = 5;
    //   int endMeasure = 14;
    ```
@@ -224,7 +224,39 @@ This section contains the instructions to reproduce the evaluation results prese
 
 ### [Generated vs Original Execution Time](#contents)
 
-This evaluation requires all the target Python/Jupyter notebook files to be generated first (check [Generating Python and Jupyter Notebook Files](#Generating-Python-and-Jupyter-Notebook-Files)). It compares the execution time of the generated target files vs the original files in IBM Fairness AI 360(under the `ibmfai360` directory or at https://github.com/Trusted-AI/AIF360/tree/master/examples). The perform the evaluation, run the `execution_time_performance.py` Python unit test file under the `test-python` directory. It will take some time to finish all the tests. Every test case runs 14 iterations.  
+This evaluation requires all the target Python/Jupyter notebook files to be generated first (check [Generating Python and Jupyter Notebook Files](#Generating-Python-and-Jupyter-Notebook-Files)). 
+
+Also, you need to download the datasets required by the IBM Fairness AI 360 library manually. Go to the installation directory of the library. In my local machines, it's located in `C:\Anaconda3\Lib\site-packages\aif360\data\raw\meps`. Therefore change the active directory in the directory:
+```
+cd C:\Anaconda3\Lib\site-packages\aif360\data\raw\meps
+```
+For more information, read the `README.md` inside the directory. You also need to install R, the statistical programming language. Then execute the following command to download the datasets:
+```
+"C:\Program Files\R\R-4.2.1\bin\x64\Rscript.exe" generate_data.R
+```
+You also need to download other datasets for every directory under:
+```
+C:\Anaconda3\Lib\site-packages\aif360\data\raw
+```
+Please visit every directory inside it and read every `README.md` to download the raw data for each directory.
+
+There is also bug in `C:\Anaconda3\Lib\site-packages\aif360\explainers\metric_json_explainer.py` which the string at line 147 should one line with the string at line 146. Please fix it manually.
+
+
+
+This evaluation compares the execution time of the generated target files vs the original files in IBM Fairness AI 360(under the `ibmfai360` directory or at https://github.com/Trusted-AI/AIF360/tree/master/examples). The perform the evaluation, run the `execution_time_performance.py` Python file under the `test-python` directory. It will take some time to finish all the examples. Every example runs 14 iterations. If you just want to get through all the examples once, comment all values under the `multiple iteration` line, and use the values under `single iteration` line.
+
+```Python
+## multiple iteration
+# threshold = 5 #5
+# fr = 1 #1
+# to = 14 #14
+
+## single iteration
+threshold = 0 #5
+fr = 1 #1
+to = 2 #14
+```
 
 ### [Measuring the Correctness](#contents)
 
