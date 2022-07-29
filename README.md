@@ -47,7 +47,7 @@ The archive contains:
 
 ## [Step-by-step Setup/Installation Guide](#contents)
 
-The fastest way to run and test FairML is by using its docker image.
+The fastest way to run and test FairML is by using its docker image. The video can be found at https://tinyurl.com/mrydfed9.
 
 1. Open your command prompt and execute the following command. First, we create a directory where we want to put your work. Let's say that we want to work under the FAIRML directory.
    
@@ -267,13 +267,13 @@ This evaluation also requires all the target Python/Jupyter notebook files to be
 This evaluation also requires all the target Python/Jupyter notebook files to be generated first (check [Generating Python and Jupyter Notebook Files](#generating-python-and-jupyter-notebook-files)). 
 
 We use [cloc](http://cloc.sourceforge.net/) for this evaluation. 
-For the original code and the generated code, we calculate the LoCs of the files in the `ibmfai360` and `test-model` directories and respectively, using the following command.
+For the **original code** and the **generated code**, we calculate the LoCs of the files in the `ibmfai360` and `test-model` directories and respectively, using the following command.
 
 ```
 cloc . --by-file --force-lang=python --include-ext=py
 ```
 
-For the model files, we execute the following command.
+For the **model code**, we execute the following command.
 
 ```
 cloc . --by-file --force-lang=yaml --include-ext=flexmi
