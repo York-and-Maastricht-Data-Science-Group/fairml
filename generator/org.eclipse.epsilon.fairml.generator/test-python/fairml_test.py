@@ -1653,6 +1653,7 @@ class Test(unittest.TestCase):
         display(Markdown("#### Original training dataset"))
         print("Difference in mean outcomes between unprivileged and privileged groups = %f" % metric_orig_train.mean_difference())
         
+        #
         self.assertAlmostEqual(summary.at[1, 'mean_difference'], metric_orig_train.mean_difference(), delta=self.tolerance)
         
         RW = Reweighing(unprivileged_groups=unprivileged_groups,
@@ -1952,12 +1953,24 @@ class Test(unittest.TestCase):
                 unprivileged_groups=unprivileged_groups,
                 privileged_groups=privileged_groups)
         explainer_orig_panel19_train = MetricTextExplainer(metric_orig_panel19_train)
-        
-        print(explainer_orig_panel19_train.disparate_impact())
-        
-        # ''' ASSERT '''
-        # self.assertAlmostEqual(summary.at[1, 'disparate_impact'], explainer_orig_panel19_train.disparate_impact(), delta=self.tolerance)
-        # ''' ------ '''
+                
+        ''' ASSERT '''
+        linenum = 1
+        baseline = metric_orig_panel19_train
+        if summary.at[linenum, 'balanced_accuracy']is not None:
+            self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], baseline.balanced_accuracy(), delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'mean_difference'], baseline.mean_difference(), delta=self.tolerance)
+        if summary.at[linenum, 'average_odds_difference']is not None:
+            self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], baseline.average_odds_difference(), delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], baseline.disparate_impact(), delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], baseline.statistical_parity_difference(), delta=self.tolerance)
+        if summary.at[linenum, 'equal_opportunity_difference']is not None:
+            self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], baseline.equal_opportunity_difference(), delta=self.tolerance)
+        if summary.at[linenum, 'theil_index']is not None:    
+            self.assertAlmostEqual(summary.at[linenum, 'theil_index'], baseline.theil_index(), delta=self.tolerance)
+        if summary.at[linenum, 'accuracy']is not None:
+            self.assertAlmostEqual(summary.at[linenum, 'accuracy'], metric_orig_panel19_train.accuracy(), delta=self.tolerance)
+        ''' ------ '''
        
         dataset = dataset_orig_panel19_train
         model = make_pipeline(StandardScaler(),
@@ -2011,6 +2024,22 @@ class Test(unittest.TestCase):
                            thresh_arr=thresh_arr)
         lr_orig_best_ind = np.argmax(val_metrics['bal_acc'])
         
+        # ''' ASSERT '''
+        # linenum = 2
+        # baseline = val_metrics
+        # if summary.at[linenum, 'balanced_accuracy'] is not None:
+        #     self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], baseline["bal_acc"], delta=self.tolerance)
+        # if summary.at[linenum, 'average_odds_difference'] is not None:
+        #     self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], baseline["avg_odds_diff"], delta=self.tolerance)
+        # if summary.at[linenum, 'disparate_impact'] is not None:
+        #     self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], baseline["disp_imp"], delta=self.tolerance)
+        # if summary.at[linenum, 'statistical_parity_difference'] is not None:
+        #     self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], baseline["stat_par_diff"], delta=self.tolerance)
+        # if summary.at[linenum, 'equal_opportunity_difference'] is not None:
+        #     self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], baseline["eq_opp_diff"], delta=self.tolerance)
+        # if summary.at[linenum, 'theil_index'] is not None:    
+        #     self.assertAlmostEqual(summary.at[linenum, 'theil_index'], baseline["theil_ind"], delta=self.tolerance)
+        # ''' ------ '''
         
         # Plot metrics with twin x-axes
         
@@ -2069,9 +2098,11 @@ class Test(unittest.TestCase):
             best_ind = np.argmax(metrics['bal_acc'])
             print("Threshold corresponding to Best balanced accuracy: {:6.4f}".format(thresh_arr[best_ind]))
             print("Best balanced accuracy: {:6.4f}".format(metrics['bal_acc'][best_ind]))
-        #     disp_imp_at_best_ind = np.abs(1 - np.array(metrics['disp_imp']))[best_ind]
-            disp_imp_at_best_ind = 1 - min(metrics['disp_imp'][best_ind], 1/metrics['disp_imp'][best_ind])
-            print("Corresponding 1-min(DI, 1/DI) value: {:6.4f}".format(disp_imp_at_best_ind))
+            # disp_imp_at_best_ind = np.abs(1 - np.array(metrics['disp_imp']))[best_ind]
+            # disp_imp_at_best_ind = 1 - min(metrics['disp_imp'][best_ind], 1/metrics['disp_imp'][best_ind])
+            disp_imp_at_best_ind = metrics['disp_imp'][best_ind]
+            # print("Corresponding 1-min(DI, 1/DI) value: {:6.4f}".format(disp_imp_at_best_ind))
+            print("Corresponding disparate impact value: {:6.4f}".format(disp_imp_at_best_ind))
             print("Corresponding average odds difference value: {:6.4f}".format(metrics['avg_odds_diff'][best_ind]))
             print("Corresponding statistical parity difference value: {:6.4f}".format(metrics['stat_par_diff'][best_ind]))
             print("Corresponding equal opportunity difference value: {:6.4f}".format(metrics['eq_opp_diff'][best_ind]))
@@ -2088,13 +2119,15 @@ class Test(unittest.TestCase):
         
         metrics, best_ind = describe_metrics(lr_orig_metrics, [thresh_arr[lr_orig_best_ind]])
         
-        ''' ASSERT '''
-        self.assertAlmostEqual(summary.at[2, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
-        self.assertAlmostEqual(summary.at[2, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
-        self.assertAlmostEqual(summary.at[2, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
-        self.assertAlmostEqual(summary.at[2, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
-        self.assertAlmostEqual(summary.at[2, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
-        self.assertAlmostEqual(summary.at[2, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        linenum = 2
+        self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
         ''' ------ '''
         
         dataset = dataset_orig_panel19_train
@@ -2137,8 +2170,18 @@ class Test(unittest.TestCase):
         # In[20]:
         
         
-        describe_metrics(val_metrics, thresh_arr)
+        metrics, best_ind = describe_metrics(val_metrics, thresh_arr)
         
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        # linenum = 3
+        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ------ '''
         
         # #### 3.3.3. Testing RF model on original data
         
@@ -2153,8 +2196,18 @@ class Test(unittest.TestCase):
         # In[22]:
         
         
-        describe_metrics(rf_orig_metrics, [thresh_arr[rf_orig_best_ind]])
+        metrics, best_ind = describe_metrics(rf_orig_metrics, [thresh_arr[rf_orig_best_ind]])
         
+        ''' ASSERT '''
+        # metrics, best_ind
+        linenum = 3
+        self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        ''' ------ '''
         
         # As in the case of the logistic regression classifier learned on the original data, the fairness metrics for the random forest classifier have values that are quite far from 0.
         # 
@@ -2235,8 +2288,18 @@ class Test(unittest.TestCase):
         # In[29]:
         
         
-        describe_metrics(val_metrics, thresh_arr)
+        metrics, best_ind = describe_metrics(val_metrics, thresh_arr)
         
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        # linenum = 4
+        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ------ '''
         
         # #### 4.2.3. Testing  LR model after reweighing
         
@@ -2251,8 +2314,18 @@ class Test(unittest.TestCase):
         # In[31]:
         
         
-        describe_metrics(lr_transf_metrics, [thresh_arr[lr_transf_best_ind]])
+        metrics, best_ind = describe_metrics(lr_transf_metrics, [thresh_arr[lr_transf_best_ind]])
         
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        # linenum = 4
+        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ------ '''
         
         # The fairness metrics for the logistic regression model learned after reweighing are well improved, and thus the model is much more fair relative to the logistic regression model learned from the original data.
         
@@ -2303,8 +2376,18 @@ class Test(unittest.TestCase):
         # In[36]:
         
         
-        describe_metrics(val_metrics, thresh_arr)
+        metrics, best_ind = describe_metrics(val_metrics, thresh_arr)
         
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        # linenum = 6
+        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ------ '''
         
         # #### 4.3.3. Testing  RF model after reweighing
         
@@ -2319,8 +2402,18 @@ class Test(unittest.TestCase):
         # In[38]:
         
         
-        describe_metrics(rf_transf_metrics, [thresh_arr[rf_transf_best_ind]])
+        metrics, best_ind = describe_metrics(rf_transf_metrics, [thresh_arr[rf_transf_best_ind]])
         
+        ''' ASSERT '''
+        # metrics, best_ind
+        linenum = 5
+        self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        ''' ------ '''
         
         # Once again, the model learned from the transformed data is fairer than that learned from the original data. However, the random forest model learned from the transformed data is still relatively unfair as compared to the logistic regression model learned from the transformed data.
         
@@ -2379,8 +2472,18 @@ class Test(unittest.TestCase):
         # In[43]:
         
         
-        describe_metrics(val_metrics, thresh_arr)
+        metrics, best_ind = describe_metrics(val_metrics, thresh_arr)
         
+        # ''' ASSERT '''
+        # # metrics, best_ind
+        # linenum = 8
+        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        # ''' ------ '''
         
         # #### 5.1.3. Testing PR model
         
@@ -2398,8 +2501,18 @@ class Test(unittest.TestCase):
         # In[45]:
         
         
-        describe_metrics(pr_orig_metrics, [thresh_arr[pr_orig_best_ind]])
+        metrics, best_ind = describe_metrics(pr_orig_metrics, [thresh_arr[pr_orig_best_ind]])
         
+        ''' ASSERT '''
+        #metrics, best_ind
+        linenum = 6
+        self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        ''' ------ '''
         
         # As in the case of reweighing, prejudice remover results in a fair model. However, it has come at the expense of relatively lower balanced accuracy.
         
@@ -2730,9 +2843,63 @@ class Test(unittest.TestCase):
         clf = pd.Series(['Logistic Regression']*6, name='Classifier')
         tr = pd.Series(['Panel19']*4 + ['Panel20']*2, name='Training set')
         te = pd.Series(['Panel19']*2 + ['Panel20', 'Panel21']*2, name='Testing set')
-        pd.concat([pd.DataFrame(m) for m in results], axis=0).set_index([debias, clf, tr, te])
+        summary2 = pd.concat([pd.DataFrame(m) for m in results], axis=0).set_index([debias, clf, tr, te])
 
+        # print(summary2.iat(0,0))
+        # print(summary2.iat(1,1))
+        # print(summary2.iat(2,2))
+        # print(summary2.iat(3,3))
+        # print(summary2.iat(4,4))
+        # print(summary2.iat(5,5))
+        
+    
+    
+    
+        ''' ASSERT '''
+        # metrics, best_ind
 
+        self.assertAlmostEqual(summary.at[2, 'balanced_accuracy'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'bal_acc'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[2, 'disparate_impact'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[2, 'average_odds_difference'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[2, 'statistical_parity_difference'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[2, 'equal_opportunity_difference'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[2, 'theil_index'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'theil_ind'], delta=self.tolerance)
+        
+        self.assertAlmostEqual(summary.at[3, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'bal_acc'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[3, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'disp_imp'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[3, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'avg_odds_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[3, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'stat_par_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[3, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[3, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'theil_ind'], delta=self.tolerance)
+        
+        self.assertAlmostEqual(summary.at[6, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'bal_acc'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[6, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'disp_imp'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[6, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[6, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[6, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[6, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'),  'theil_ind'], delta=self.tolerance)
+        
+        # self.assertAlmostEqual(summary.at[9, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'bal_acc'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[9, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'disp_imp'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[9, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[9, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[9, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[9, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'theil_ind'], delta=self.tolerance)
+        
+        # self.assertAlmostEqual(summary.at[12, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'bal_acc'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[12, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'disp_imp'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[12, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[12, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[12, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[12, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'theil_ind'], delta=self.tolerance)
+        
+        # self.assertAlmostEqual(summary.at[15, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'bal_acc'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[15, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'disp_imp'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[15, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[15, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[15, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
+        # self.assertAlmostEqual(summary.at[15, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'theil_ind'], delta=self.tolerance)
+        ''' ------ '''    
         
 if __name__ == "__main__":
     # import sys;sys.argv = ['', 'Test.testName']

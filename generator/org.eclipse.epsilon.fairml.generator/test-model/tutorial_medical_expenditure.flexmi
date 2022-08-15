@@ -16,30 +16,30 @@ fairml:
   - name: Panel19-Panel19
   - datasetModule: MEPSDataset19  
   - protectedAttributes: RACE
-  - trainTestSplit: 5, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
 - dataset:
   - name: Panel19-Panel20
   - datasetModule: MEPSDataset19
   - testDatasetModule: MEPSDataset20
   - protectedAttributes: RACE 
-  - trainTestSplit: 5, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
 - dataset:
   - name: Panel19-Panel21
   - datasetModule: MEPSDataset19
   - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE 
-  - trainTestSplit: 5, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
 - dataset:
   - name: Panel20-Panel20
   - datasetModule: MEPSDataset20
   - protectedAttributes: RACE
-  - trainTestSplit: 5, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
 - dataset:
   - name: Panel20-Panel21
   - datasetModule: MEPSDataset20
   - testDatasetModule: MEPSDataset21
   - protectedAttributes: RACE
-  - trainTestSplit: 5, 2, 3
+  - trainTestValidationSplit: 5, 2, 3
     
 # define the bias mitigation 01
 - biasMitigation:
