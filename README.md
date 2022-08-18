@@ -1,8 +1,12 @@
 # FairML: Towards Automated Fair Machine Learning
 
+## [Archival Repository](#Contents)
+FairML is permanently available at Zenodo: https://doi.org/10.5281/zenodo.7007839.
+
 ## [Contents](#Contents)
 
 - [FairML: Towards Automated Fair Machine Learning](#fairml-towards-automated-fair-machine-learning)
+  - [Archival Repository](#archival-repository)
   - [Contents](#contents)
   - [Authors](#authors)
   - [Abstract](#abstract)
@@ -27,7 +31,6 @@
 - Dimitris Kolovos (dimitris.kolovos@york.ac.uk)
 
 ## [Abstract](#contents)
-
 Models produced by machine learning are not guaranteed to be free from bias, particularly when trained and tested with data produced in discriminatory environments. The bias can be unethical, mainly when the data contains sensitive attributes, such as sex, race, age, etc. Some approaches have contributed to mitigating such biases by providing bias metrics and mitigation algorithms. The challenge is that users have to implement their code in general/statistical programming languages, which can be demanding for users with little experience in programming and fairness in machine learning.
 
 FairML is a tool that implements a model-based approach to facilitate bias measurement and mitigation in machine learning with the reduced software development effort.
