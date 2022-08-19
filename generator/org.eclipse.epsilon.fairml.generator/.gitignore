@@ -1,5 +1,3 @@
 /bin/
 /target/
 test-model/.ipynb_checkpoints
-test-model/*.ipynb
-test-model/*.py

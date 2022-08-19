@@ -49,9 +49,11 @@ fairml:
   - trainingMethod:
     - algorithm: LogisticRegression
     - parameters: solver='liblinear', random_state=1
+    - withoutWeight: false
   - trainingMethod:
     - algorithm: RandomForestClassifier
     - parameters: n_estimators=500, min_samples_leaf=25
+    - withoutWeight: false
     
   - mitigationMethod:
     - algorithm: Reweighing
@@ -95,6 +97,7 @@ fairml:
   - trainingMethod:
     - algorithm: LogisticRegression
     - parameters: solver='liblinear', random_state=1
+    - withoutWeight: false
     
   - mitigationMethod:
     - algorithm: Reweighing

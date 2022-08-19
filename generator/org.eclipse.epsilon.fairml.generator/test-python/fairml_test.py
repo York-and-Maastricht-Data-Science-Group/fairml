@@ -2316,16 +2316,16 @@ class Test(unittest.TestCase):
         
         metrics, best_ind = describe_metrics(lr_transf_metrics, [thresh_arr[lr_transf_best_ind]])
         
-        # ''' ASSERT '''
-        # # metrics, best_ind
-        # linenum = 4
-        # self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
-        # ''' ------ '''
+        ''' ASSERT '''
+        # metrics, best_ind
+        linenum = 4
+        self.assertAlmostEqual(summary.at[linenum, 'balanced_accuracy'], metrics['bal_acc'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'disparate_impact'], metrics['disp_imp'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'average_odds_difference'], metrics['avg_odds_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'statistical_parity_difference'], metrics['stat_par_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'equal_opportunity_difference'], metrics['eq_opp_diff'][best_ind], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[linenum, 'theil_index'], metrics['theil_ind'][best_ind], delta=self.tolerance)
+        ''' ------ '''
         
         # The fairness metrics for the logistic regression model learned after reweighing are well improved, and thus the model is much more fair relative to the logistic regression model learned from the original data.
         
@@ -2857,6 +2857,7 @@ class Test(unittest.TestCase):
     
         ''' ASSERT '''
         # metrics, best_ind
+        summary = tutorial_medical_expenditure.fairml.bias_mitigations[1].summary_table
 
         self.assertAlmostEqual(summary.at[2, 'balanced_accuracy'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'bal_acc'], delta=self.tolerance)
         self.assertAlmostEqual(summary.at[2, 'disparate_impact'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'disp_imp'], delta=self.tolerance)
@@ -2866,39 +2867,39 @@ class Test(unittest.TestCase):
         self.assertAlmostEqual(summary.at[2, 'theil_index'], summary2.at[('', 'Logistic Regression', 'Panel19', 'Panel19'), 'theil_ind'], delta=self.tolerance)
         
         self.assertAlmostEqual(summary.at[3, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'bal_acc'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[3, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'disp_imp'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[3, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'avg_odds_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[3, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'stat_par_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[3, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[3, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[3, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[3, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[3, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'eq_opp_diff'], delta=self.tolerance)
         self.assertAlmostEqual(summary.at[3, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel19'), 'theil_ind'], delta=self.tolerance)
         
         self.assertAlmostEqual(summary.at[6, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'bal_acc'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[6, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'disp_imp'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[6, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[6, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[6, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[6, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[6, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[6, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[6, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
         self.assertAlmostEqual(summary.at[6, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel20'),  'theil_ind'], delta=self.tolerance)
         
-        # self.assertAlmostEqual(summary.at[9, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'bal_acc'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[9, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'disp_imp'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[9, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[9, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[9, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[9, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'theil_ind'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'bal_acc'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[9, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel19', 'Panel21'), 'theil_ind'], delta=self.tolerance)
         
-        # self.assertAlmostEqual(summary.at[12, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'bal_acc'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[12, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'disp_imp'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[12, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[12, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[12, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[12, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'theil_ind'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'bal_acc'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[12, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel20'), 'theil_ind'], delta=self.tolerance)
         
-        # self.assertAlmostEqual(summary.at[15, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'bal_acc'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[15, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'disp_imp'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[15, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[15, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[15, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
-        # self.assertAlmostEqual(summary.at[15, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'theil_ind'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'balanced_accuracy'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'bal_acc'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'disparate_impact'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'disp_imp'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'average_odds_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'avg_odds_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'statistical_parity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'stat_par_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'equal_opportunity_difference'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'eq_opp_diff'], delta=self.tolerance)
+        self.assertAlmostEqual(summary.at[15, 'theil_index'], summary2.at[('Reweighing', 'Logistic Regression', 'Panel20', 'Panel21'), 'theil_ind'], delta=self.tolerance)
         ''' ------ '''    
         
 if __name__ == "__main__":
